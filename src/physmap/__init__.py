@@ -29,4 +29,33 @@ from physmap.release import (
 
 __version__ = "0.1.0"
 
-__all__ = ["__version__", "CURRENT_RELEASE_STATE", "ReleaseState", "EvidenceState"]
+
+# The CredibilityGuardrail public surface is re-exported LAZILY (PEP 562). A bare
+# `import physmap` must stay free of numpy, sklearn, scipy and joblib -- a test
+# asserts it -- while `from physmap import CredibilityGuardrail` pulls the
+# guardrail and its scientific stack, which is fair because you are about to use
+# the guard. Adding an eager import here breaks that guarantee silently.
+_GUARDRAIL_EXPORTS = frozenset({
+    "CredibilityGuardrail",
+    "Regime", "DetectorKind", "DensityMethod", "AggregatorKind", "Device",
+    "Observability", "Verdict", "Disposition",
+    "NoveltyDetectorConfig", "DistanceDetectorConfig", "GPVarianceDetectorConfig",
+    "ClosureValidityDetectorConfig", "ColumnMap", "DetectorResult", "Assessment",
+})
+
+_RELEASE_EXPORTS = frozenset({
+    "CURRENT_RELEASE_STATE", "ReleaseState", "EvidenceState",
+})
+
+__all__ = ["__version__", *sorted(_RELEASE_EXPORTS), *sorted(_GUARDRAIL_EXPORTS)]
+
+
+def __getattr__(name: str):
+    if name in _GUARDRAIL_EXPORTS:
+        import physmap.guardrail as _g
+        return getattr(_g, name)
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
+
+
+def __dir__():
+    return sorted(set(globals()) | _GUARDRAIL_EXPORTS)

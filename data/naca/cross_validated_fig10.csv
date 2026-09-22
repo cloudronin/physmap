@@ -1,0 +1,98 @@
+row,Re,Pr,x_over_D,fc_Btu_hr_ft2_F,fc_unc_visual,Nu_meas,Nu_unc_paper_pct,Nu_unc_digitization_pct,source,figure,entering_condition,note
+# Two-reader cross-validated visual reads from Fig 10 (bellmouth entrance).
+# Readers: Vishnu (independent) + Claude-main (independent). Agreed within
+# visual precision on asymptotes (exact on curves 1/2/5; within 0.5-0.8 on
+# crowded middle curves 3/4) and entrance peaks (within ~1 unit).
+#
+# Noise model (user-directed, conservative for visual precision):
+#   paper_unc_pct = 3.0  (NACA TN-1451 reproducibility, fixed)
+#   dig_unc_pct   = 5.0  (CONSERVATIVE FLOOR for visual reads; deliberately
+#                         larger than WPD precision to bias against false lift)
+# Nu = fc * D_h_ft / k_air where D_h_ft=0.14875, k_air=0.0157, factor≈9.475
+# Source tag: 'cross_validated_visual' (NOT 'wpd-csv' — visual precision,
+# but two-reader-agreed, distinct from solo-visual triage).
+1,55570,0.71,1,17.0,1.0,161.07,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance peak two-reader agreed
+2,55570,0.71,2,14.5,1.0,137.38,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+3,55570,0.71,3,12.5,0.7,118.43,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance descending
+4,55570,0.71,4,12.0,0.5,113.69,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+5,55570,0.71,5,12.0,0.5,113.69,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance/shoulder
+6,55570,0.71,6,11.5,0.5,108.96,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+7,55570,0.71,7,11.5,0.5,108.96,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+8,55570,0.71,8,11.5,0.5,108.96,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+9,55570,0.71,9,11.5,0.5,108.96,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder approaching asymptote
+10,55570,0.71,10,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote (do-no-harm cell starts)
+11,55570,0.71,11,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+12,55570,0.71,12,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+13,55570,0.71,13,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+14,55570,0.71,14,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+15,55570,0.71,15,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+16,55570,0.71,16,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+17,55570,0.71,17,11.0,0.5,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+18,50600,0.71,1,16.0,1.0,151.60,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance peak
+19,50600,0.71,2,13.0,1.0,123.18,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+20,50600,0.71,3,11.5,0.7,108.96,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+21,50600,0.71,4,10.5,0.5,99.49,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+22,50600,0.71,5,10.5,0.5,99.49,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance/shoulder
+23,50600,0.71,6,10.5,0.5,99.49,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+24,50600,0.71,7,10.5,0.5,99.49,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+25,50600,0.71,8,10.5,0.5,99.49,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+26,50600,0.71,9,10.5,0.5,99.49,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+27,50600,0.71,10,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+28,50600,0.71,11,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+29,50600,0.71,12,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+30,50600,0.71,13,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+31,50600,0.71,14,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+32,50600,0.71,15,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+33,50600,0.71,16,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+34,50600,0.71,17,10.0,0.5,94.75,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+35,41800,0.71,1,13.0,1.0,123.18,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance peak (crowded middle curves; ±0.8 unc)
+36,41800,0.71,2,11.0,1.0,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+37,41800,0.71,3,9.5,0.8,90.01,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance descending
+38,41800,0.71,4,9.0,0.6,85.27,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+39,41800,0.71,5,8.75,0.6,82.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+40,41800,0.71,6,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+41,41800,0.71,7,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+42,41800,0.71,8,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+43,41800,0.71,9,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+44,41800,0.71,10,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+45,41800,0.71,11,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+46,41800,0.71,12,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+47,41800,0.71,13,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+48,41800,0.71,14,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+49,41800,0.71,15,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+50,41800,0.71,16,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+51,41800,0.71,17,8.5,0.5,80.54,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+52,36500,0.71,1,11.0,1.0,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance peak (crowded middle curves)
+53,36500,0.71,2,9.0,1.0,85.27,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+54,36500,0.71,3,7.5,0.8,71.07,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance descending
+55,36500,0.71,4,7.0,0.6,66.32,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance
+56,36500,0.71,5,7.5,0.6,71.07,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder (slight rise)
+57,36500,0.71,6,7.5,0.6,71.07,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+58,36500,0.71,7,7.5,0.6,71.07,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+59,36500,0.71,8,7.5,0.6,71.07,0.03,0.05,cross_validated_visual,Fig10,bellmouth,shoulder
+60,36500,0.71,9,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote approach
+61,36500,0.71,10,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+62,36500,0.71,11,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+63,36500,0.71,12,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+64,36500,0.71,13,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+65,36500,0.71,14,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+66,36500,0.71,15,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+67,36500,0.71,16,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+68,36500,0.71,17,7.8,0.5,73.91,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+69,26400,0.71,1,11.0,1.0,104.22,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance peak (lowest Re still has high entrance)
+70,26400,0.71,2,8.0,1.0,75.80,0.03,0.05,cross_validated_visual,Fig10,bellmouth,entrance dropping fast
+71,26400,0.71,3,5.0,1.0,47.37,0.03,0.05,cross_validated_visual,Fig10,bellmouth,DIP — undershoots below eventual asymptote
+72,26400,0.71,4,5.0,0.8,47.37,0.03,0.05,cross_validated_visual,Fig10,bellmouth,DIP — still below asymptote
+73,26400,0.71,5,5.5,0.6,52.11,0.03,0.05,cross_validated_visual,Fig10,bellmouth,recovering from dip
+74,26400,0.71,6,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,recovered to asymptote
+75,26400,0.71,7,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote approach
+76,26400,0.71,8,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote approach
+77,26400,0.71,9,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote approach
+78,26400,0.71,10,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+79,26400,0.71,11,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+80,26400,0.71,12,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+81,26400,0.71,13,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+82,26400,0.71,14,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+83,26400,0.71,15,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+84,26400,0.71,16,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
+85,26400,0.71,17,6.0,0.5,56.85,0.03,0.05,cross_validated_visual,Fig10,bellmouth,asymptote
