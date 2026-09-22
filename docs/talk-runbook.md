@@ -72,6 +72,11 @@ committed matrix. Expect, and point at:
 > Recomputed 7 vehicles.
 > **Every cell matches the banked matrix exactly.**
 
+(On a different numpy build the second line reads *"matches within 1e-9 relative"* and
+names the float fields that differ in their last bits. Both mean pass; the command exits
+non-zero only on real drift. If someone asks, that distinction is worth a sentence — it
+is the difference between a benchmark that checks itself and one that only claims to.)
+
 That is the strongest single moment in the talk: seven vehicles across two domains,
 recomputed live from a clone anyone in the room can make, matching a matrix committed
 before the talk. Let it sit for a beat.
@@ -246,8 +251,8 @@ file carries its own redistribution determination.
 
 - [ ] `git clone` fresh, `pip install -e .`, `pytest tests/ -q -n auto` green
 - [ ] `python examples/naca_entrance_region.py` → 45 REJECT
-- [ ] `physmap benchmark run` from a FRESH clone → "Every cell matches the banked matrix
-      exactly", exit 0, and `git status` clean afterwards
+- [ ] `physmap benchmark run` from a FRESH clone → exit 0, and `git status` clean
+      afterwards ("exactly" or "within 1e-9 relative" both pass)
 - [ ] `physmap benchmark coverage` → shows `DO_NO_HARM` resting on n_train=1
 - [ ] You can state, in one sentence and without defensiveness, which five datasets ship
       without a licence and why

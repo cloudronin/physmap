@@ -16,25 +16,6 @@ import pytest
 from physmap.benchmarks.registry import VEHICLES
 
 
-def _deep_diff(a, b, path=""):
-    if isinstance(a, dict) and isinstance(b, dict):
-        out = []
-        for k in sorted(set(a) | set(b)):
-            if k not in a:
-                out.append(f"{path}.{k}: missing in fresh")
-            elif k not in b:
-                out.append(f"{path}.{k}: missing in banked")
-            else:
-                out += _deep_diff(a[k], b[k], f"{path}.{k}")
-        return out
-    if isinstance(a, list) and isinstance(b, list):
-        if len(a) != len(b):
-            return [f"{path}: length {len(a)} vs {len(b)}"]
-        return [d for i, (x, y) in enumerate(zip(a, b))
-                for d in _deep_diff(x, y, f"{path}[{i}]")]
-    return [] if a == b else [f"{path}: {a!r} vs {b!r}"]
-
-
 @pytest.fixture(scope="module")
 def fresh_matrix():
     from physmap.benchmarks.benchmark_v0_4 import run_matrix
@@ -61,20 +42,35 @@ def test_all_seven_vehicles_are_discovered():
 
 
 def test_every_cell_matches_the_banked_matrix_field_for_field(fresh_matrix, banked_matrix):
-    fresh = {c["vehicle_id"]: c for c in fresh_matrix["cells"]}
-    banked = {c["vehicle_id"]: c for c in banked_matrix["cells"]}
-    assert set(fresh) == set(banked)
+    """Counts, outcomes, verdicts and classes exactly; floats within 1e-9 relative.
 
-    diffs = []
-    for vid in sorted(banked):
-        diffs += _deep_diff(fresh[vid], banked[vid], vid)
-    assert diffs == [], "benchmark drifted from its banked matrix:\n" + "\n".join(diffs[:40])
+    Exact float equality is not portable and a clean-clone check proved it: on
+    numpy 2.5 / sklearn 1.9, dirker_water's observability_score differed from the
+    banked value by one unit in the last place. The comparator keeps the fields that
+    decide an outcome -- all of which are ints or strings -- on exact equality.
+    """
+    from physmap.benchmarks.compare import compare_matrices
+
+    cmp = compare_matrices(fresh_matrix, banked_matrix)
+    assert cmp.matches, (
+        "benchmark drifted from its banked matrix:\n" + "\n".join(cmp.drift[:40])
+    )
 
 
-def test_matrix_level_fields_match(fresh_matrix, banked_matrix):
-    for key in ("benchmark", "api", "detectors", "operating_percentiles",
-                "all_guards_passed"):
-        assert _deep_diff(fresh_matrix.get(key), banked_matrix.get(key), key) == []
+def test_outcome_bearing_fields_are_compared_exactly():
+    """The tolerance must not be able to absorb a changed count or verdict."""
+    from physmap.benchmarks.compare import compare_matrices
+
+    a = {"cells": [{"vehicle_id": "v", "n_wrong": 8, "empirical_outcome": "PHYSMAP_WINS",
+                    "observability_score": 0.5}]}
+    for mutate in ({"n_wrong": 9}, {"empirical_outcome": "DO_NO_HARM"}):
+        b = {"cells": [{**a["cells"][0], **mutate}]}
+        assert not compare_matrices(a, b).matches, mutate
+
+    # ...while a last-bit float difference is not drift
+    b = {"cells": [{**a["cells"][0], "observability_score": 0.5000000000000001}]}
+    cmp = compare_matrices(a, b)
+    assert cmp.matches and cmp.within_tolerance
 
 
 def test_observability_guards_pass(fresh_matrix):
@@ -86,10 +82,14 @@ def test_the_run_is_deterministic(fresh_matrix):
     runs cannot be evidence of anything."""
     from physmap.benchmarks.benchmark_v0_4 import run_matrix
 
+    from physmap.benchmarks.compare import compare_matrices
+
     with warnings.catch_warnings():
         warnings.simplefilter("ignore")
         second = run_matrix(write=False)
-    assert _deep_diff(fresh_matrix, second, "matrix") == []
+    cmp = compare_matrices(fresh_matrix, second)
+    # Same interpreter, same build: this one really should be bit-identical.
+    assert cmp.bit_identical, "\n".join((cmp.drift + cmp.within_tolerance)[:20])
 
 
 def test_running_does_not_overwrite_the_banked_matrix(fresh_matrix):

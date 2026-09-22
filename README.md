@@ -74,9 +74,15 @@ source data**.
 
 **`physmap benchmark run` recomputes all seven from this checkout and diffs the result
 against the committed matrix.** Every field of every cell, not just the headline outcome.
-It prints `Every cell matches the banked matrix exactly.` or names the vehicles that
-drifted, and exits non-zero if any did. It never writes the bank it is checking itself
+It exits non-zero if anything drifted, and never writes the bank it is checking itself
 against.
+
+Floats are compared within `1e-9` relative, everything else exactly — and the distinction
+is load-bearing rather than a convenience. Every field that decides an outcome is an int
+or a string (counts, verdicts, outcome labels, observability classes), so the tolerance
+cannot absorb a real change. It exists because a clean-clone check on numpy 2.5 found
+`dirker_water.observability_score` differing from the banked value by **one unit in the
+last place**. A match that needed the tolerance is reported as such, not as "identical".
 
 `physmap benchmark report` reads the bank without running anything, and says so — the
 report distinguishes a recomputed row from a banked one, and the counts are computed

@@ -132,6 +132,7 @@ def _cmd_benchmark(args) -> int:
     # banked matrix. The comparison is the point: a benchmark that runs but is never
     # checked against its own bank will drift silently.
     from physmap.benchmarks.benchmark_v0_4 import run_matrix
+    from physmap.benchmarks.compare import compare_matrices
     from physmap.benchmarks.report import load_banked_matrix
 
     rerun, banked = rerunnable_ids(), banked_only_ids()
@@ -147,19 +148,27 @@ def _cmd_benchmark(args) -> int:
     # being compared against.
     fresh = run_matrix(write=False)
     cells = {c["vehicle_id"]: c for c in fresh["cells"]}
-    bank = {c["vehicle_id"]: c for c in load_banked_matrix()["cells"]}
+    cmp = compare_matrices(fresh, load_banked_matrix())
 
-    drift = [vid for vid, c in cells.items() if bank.get(vid) != c]
     print(f"Recomputed {len(cells)} vehicles.")
-    if drift:
-        print(f"DRIFT against the banked matrix in: {', '.join(sorted(drift))}")
-    else:
+    if not cmp.matches:
+        print(f"DRIFT against the banked matrix in: {', '.join(cmp.drifting_vehicles())}")
+        for d in cmp.drift[:10]:
+            print(f"  {d}")
+    elif cmp.bit_identical:
         print("Every cell matches the banked matrix exactly.")
+    else:
+        # Floats differing in their last bits across numpy/BLAS builds. Reported
+        # rather than hidden, because "matches within tolerance" and "identical"
+        # are different claims.
+        print(f"Every cell matches the banked matrix: {cmp.summary()}.")
+        for d in cmp.within_tolerance[:5]:
+            print(f"  {d}")
 
     if args.report:
         print()
         print(render_report(rerun_results=cells))
-    return 1 if drift else 0
+    return 0 if cmp.matches else 1
 
 
 if __name__ == "__main__":
