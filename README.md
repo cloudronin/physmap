@@ -96,6 +96,8 @@ Two, because the code and the data are different things.
 - **Code** — MIT. See [LICENSE](LICENSE).
 - **Data** — CC BY 4.0. See [LICENSE-CORPUS](LICENSE-CORPUS).
 
+[NOTICE](NOTICE) states which files fall under which, in one page.
+
 The data licence is scoped, and the scope matters. It covers the curated corpus as
 authorship: the selection, structuring, regime mapping, bound assignment and provenance
 annotation. It does **not** cover numerical values digitised from third-party

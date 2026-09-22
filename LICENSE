@@ -19,18 +19,3 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
-
----------------------------------------------------------------------------
-SCOPE NOTE
-
-This MIT licence covers the SOFTWARE in this repository: everything under
-`src/`, `tests/`, `dev/`, and the documentation in `docs/` and `protocols/`.
-
-It does NOT cover the DATA. The calibration corpus, the closure index, and the
-benchmark substrate files are licensed separately under Creative Commons
-Attribution 4.0 International. See LICENSE-CORPUS.
-
-Some data files are digitised from third-party publications and carry their own
-upstream terms, recorded per file in the data manifests. Those terms govern
-those files. See LICENSE-CORPUS for the full explanation.
----------------------------------------------------------------------------

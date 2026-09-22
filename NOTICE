@@ -1,0 +1,35 @@
+PhysMAP — what each licence covers
+==================================
+
+This repository carries two licences, because the code and the data are
+different things.
+
+CODE — MIT. See LICENSE.
+    Everything under src/, tests/, dev/, examples/, docs/ and protocols/.
+
+DATA — Creative Commons Attribution 4.0 International. See LICENSE-CORPUS.
+    The curated corpus as authorship: the seed closure corpus, the closure
+    index, the provenance manifests, and the selection, structuring, regime
+    mapping and validity-bound assignment throughout.
+
+NOT COVERED BY EITHER — numerical values digitised from third-party
+publications.
+
+    This repository contains measurements read off figures and tables in
+    published papers, theses and reports. Those measurements were not made
+    here, so no copyright in them is claimed; applying a licence to them would
+    assert a right that is not ours to assert.
+
+    They are governed by their publishers' terms, by public-domain status (for
+    example NACA TN-1451, a US Government work), or they are uncopyrightable
+    facts. Every such file carries its own redistribution determination in the
+    manifest beside it: the source, the upstream terms, whether those terms
+    permit redistribution of derived numerical data, and the decision.
+
+    A citation is attribution. It is not permission.
+
+No source PDF is redistributed. Papers are cited, not copied.
+
+If you believe a file here infringes your rights, open an issue at
+https://github.com/cloudronin/physmap/issues and it will be removed pending
+review.

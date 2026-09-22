@@ -16,7 +16,7 @@ authors = [{ name = "Vishnu Vettrivel" }]
 # which also records why digitised third-party values are not covered by either.
 # Both files ship in the wheel and the sdist.
 license = "MIT"
-license-files = ["LICENSE", "LICENSE-CORPUS"]
+license-files = ["LICENSE", "LICENSE-CORPUS", "NOTICE"]
 
 classifiers = [
   "Development Status :: 3 - Alpha",
