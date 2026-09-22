@@ -173,6 +173,7 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "This reproduces the results in the abstract." | "This is a reconstruction. The best it can reach is independent corroboration." |
 | "We validated against experimental truth." | "Whether that truth is experimental or a closure-style correlation is unresolved. That is why no performance claim ships." |
 | "The seven vehicles validate the materiality screen." | "The seven vehicles are a closure-observability benchmark. They say nothing about materiality." |
+| "There's no mixed-convection vertical-pipe case in the benchmark." | "jin_sco2_buoyancy is one. It measures observability of the buoyancy parameter, not materiality." |
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
 | "Materiality was 0.04, so the mechanism doesn't matter." | Only if the status is `estimated`. If it is `insufficient_evidence`, say "we could not assess it" — those are different findings. |
 | "Out of calibration, so the prediction is untrustworthy." | "Out of calibration **and** material. Either alone is not a verdict." |
@@ -185,6 +186,22 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "The public subset shows the method working across domains." | "The public subset is thermal-fluids only, and it happens to contain only the cases where the method fires. The restraint cases are in the report, not the rerun." |
 | "The open-source release reproduces the paper." | "The open-source release contains the method and the observability benchmark. The causal numbers are historical." |
 | "PhysMAP uses an LLM to explain its verdicts." | "Explanations are deterministic templates. Same input, same bytes. No model call anywhere." |
+
+### The vehicle that will catch you out
+
+`jin_sco2_buoyancy` is a **mixed-convection vertical tube** whose failure driver is a
+buoyancy parameter. That is geometrically the closest thing in the benchmark to the
+NAFEMS causal case, and it comes back `PHYSMAP_WINS`.
+
+Someone will notice. Get there first: it measures whether the buoyancy parameter is
+**observable** to the surrogate. It computes no ablation, no counterfactual, no
+materiality, no metric. Its truth is a measured heat-transfer coefficient, not a quantity
+of interest with a mechanism removed. `physmap explain jin_sco2_buoyancy` prints exactly
+that, unprompted, in its header.
+
+Do not say "there is no mixed-convection vertical-pipe vehicle in the benchmark". There
+is. Saying otherwise is a denial a listener can check and find wrong in thirty seconds,
+which is far more damaging than the caveat it was trying to avoid.
 
 ### The one-sentence version, if you only remember one thing
 

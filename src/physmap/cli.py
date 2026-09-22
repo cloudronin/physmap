@@ -29,10 +29,10 @@ def build_parser() -> argparse.ArgumentParser:
     screen.add_argument("--qoi", help="quantity of interest (checked against the case)")
     screen.add_argument("--list", action="store_true", help="list the available cases")
 
-    explain = sub.add_parser("explain", help="deterministically explain a recorded assessment")
-    explain.add_argument("path")
-    explain.add_argument("--point", required=True)
-    explain.add_argument("--format", choices=("text", "json"), default="text")
+    explain = sub.add_parser(
+        "explain", help="deterministically explain one benchmark cell or screening case")
+    explain.add_argument("subject", nargs="?", help="a benchmark vehicle id, or a screening case id")
+    explain.add_argument("--list", action="store_true", help="list what can be explained")
 
     bench = sub.add_parser(
         "benchmark",
@@ -74,7 +74,42 @@ def main(argv: list[str] | None = None) -> int:
         return _cmd_screen(args)
     if args.command == "benchmark":
         return _cmd_benchmark(args)
+    if args.command == "explain":
+        return _cmd_explain(args)
     print(f"'{args.command}' is not implemented yet in this build.", file=sys.stderr)
+    return 2
+
+
+def _cmd_explain(args) -> int:
+    from physmap.applicability.fixtures import FIXTURE_IDS, get_fixture
+    from physmap.benchmarks.registry import VEHICLES
+    from physmap.benchmarks.report import load_banked_matrix
+    from physmap.explain.benchmark import render_cell
+    from physmap.explain.causal import render_screen
+
+    if args.list:
+        print("benchmark vehicles (closure validity + observability):")
+        for v in VEHICLES:
+            print(f"  {v.vehicle_id}")
+        print("screening cases (causal-materiality applicability, declarative):")
+        for c in FIXTURE_IDS:
+            print(f"  {c}")
+        return 0
+
+    if not args.subject:
+        print("a subject is required (or use --list)", file=sys.stderr)
+        return 2
+
+    if args.subject in FIXTURE_IDS:
+        print(render_screen(get_fixture(args.subject)))
+        return 0
+
+    cells = {c["vehicle_id"]: c for c in load_banked_matrix()["cells"]}
+    if args.subject in cells:
+        print(render_cell(cells[args.subject]))
+        return 0
+
+    print(f"unknown subject {args.subject!r}; use --list", file=sys.stderr)
     return 2
 
 
