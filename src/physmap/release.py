@@ -49,7 +49,7 @@ class ReleaseState(str, Enum):
 
 
 #: Set at release time. Changing this requires the readiness gate to pass in CI.
-CURRENT_RELEASE_STATE: ReleaseState = ReleaseState.GUARDRAIL
+CURRENT_RELEASE_STATE: ReleaseState = ReleaseState.CAUSAL_PREVIEW
 
 
 class EvidenceState(str, Enum):

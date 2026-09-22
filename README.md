@@ -35,17 +35,22 @@ one to another.
 |---|---|---|
 | **Closure validity** | Is this closure relation being applied outside the range it was calibrated on? | Shipping |
 | **Surrogate observability** | Can the surrogate's inputs even represent the variable that governs the failure? | Shipping |
-| **Causal materiality** | Is the out-of-range mechanism large enough to matter for the quantity of interest? | Not built yet |
+| **Causal materiality** | Is the out-of-range mechanism large enough to matter for the quantity of interest? | Preview — method only |
 
 ## What this release claims
 
-This build is `GUARDRAIL`. `physmap.release.CURRENT_RELEASE_STATE` says so, and the
+This build is `CAUSAL_PREVIEW`. `physmap.release.CURRENT_RELEASE_STATE` says so, and the
 command-line surface is derived from that constant rather than from which files happen to
 be on disk — so an unfinished feature is an unrecognised command, never a runtime
 data-missing error.
 
+The causal-materiality API is present: the ablation counterfactual, the applicability
+screen, the independence guard, and deterministic explanations. Its fixtures are
+**synthetic or declarative** — constructed inputs, or preconditions asserted from a case
+description. Nothing in it is an evidence-backed case yet, and every result says so.
+
 **It makes no performance claim.** No precision, recall or F1 is computed, reported or
-shipped anywhere in this package. The causal-materiality results presented in the NAFEMS
+shipped anywhere in this package. A test parses the package and fails if one appears. The causal-materiality results presented in the NAFEMS
 Multiphysics 2026 abstract are **not** reproduced here: the original study's inputs are
 gone, and the basis for its experimental truth is unresolved. A reconstruction is under
 way under a locked protocol that fixes its rules before any rebuilt number is examined.

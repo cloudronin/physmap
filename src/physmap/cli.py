@@ -24,9 +24,10 @@ def build_parser() -> argparse.ArgumentParser:
     p.add_argument("--version", action="store_true", help="print version and release state")
     sub = p.add_subparsers(dest="command")
 
-    screen = sub.add_parser("screen", help="run the cheap applicability screen for a vehicle")
-    screen.add_argument("vehicle")
-    screen.add_argument("--qoi", required=True)
+    screen = sub.add_parser("screen", help="run the cheap applicability screen for a case")
+    screen.add_argument("case", nargs="?", help="case id; omit with --list")
+    screen.add_argument("--qoi", help="quantity of interest (checked against the case)")
+    screen.add_argument("--list", action="store_true", help="list the available cases")
 
     explain = sub.add_parser("explain", help="deterministically explain a recorded assessment")
     explain.add_argument("path")
@@ -60,8 +61,41 @@ def main(argv: list[str] | None = None) -> int:
     if not args.command:
         parser.print_help()
         return 0
+    if args.command == "screen":
+        return _cmd_screen(args)
     print(f"'{args.command}' is not implemented yet in this build.", file=sys.stderr)
     return 2
+
+
+def _cmd_screen(args) -> int:
+    from physmap.applicability.fixtures import FIXTURE_IDS, get_fixture
+    from physmap.explain.causal import render_screen
+
+    if args.list:
+        for case_id in FIXTURE_IDS:
+            print(case_id)
+        return 0
+
+    if not args.case:
+        print("a case id is required (or use --list)", file=sys.stderr)
+        return 2
+
+    try:
+        result = get_fixture(args.case)
+    except KeyError as e:
+        print(str(e).strip("'"), file=sys.stderr)
+        return 2
+
+    if args.qoi and args.qoi != result.qoi:
+        print(
+            f"case {result.case_id!r} is screened for qoi {result.qoi!r}, not "
+            f"{args.qoi!r}",
+            file=sys.stderr,
+        )
+        return 2
+
+    print(render_screen(result))
+    return 0
 
 
 if __name__ == "__main__":
