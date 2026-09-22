@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "physmap"
+version = "0.1.0"
+description = "Physics-aware credibility checks for AI surrogates in multiphysics simulation: closure validity, surrogate observability, and causal materiality."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "Vishnu Vettrivel" }]
+# DECISION REQUIRED: choose a licence before first publication. See LICENSE.
+license = { text = "NOT YET LICENSED — see LICENSE" }
+
+# Core runtime. Deliberately NOT including `uofa`: the guardrail and the causal
+# path never import it. The v0.6 JSON-LD projection is the only consumer, and it
+# lives behind the optional [jsonld] extra.
+dependencies = [
+  "numpy>=1.24",
+  "scikit-learn>=1.3",
+  "scipy>=1.10",
+  "joblib>=1.3",
+  "pyyaml>=6.0",
+]
+
+[project.scripts]
+physmap = "physmap.cli:main"
+
+[project.optional-dependencies]
+jsonld = ["uofa>=0.10.0"]        # optional evidence export only
+experiment = ["matplotlib>=3.5"]  # benchmark figure only; the run works without it
+dev = ["pytest>=7.4", "pytest-xdist>=3.5"]
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["physmap*"]
+
+# Package data. Globs are relative to each package directory. Under the src/ layout
+# these resolve only because `where = ["src"]` is set above -- if that line is lost,
+# the data silently vanishes from the wheel and the closure index loads as EMPTY.
+# tests/regression/test_packaging.py asserts the index is non-empty for this reason.
+[tool.setuptools.package-data]
+physmap = [
+  "closures/data/*.json",
+  "corpus/data/*.jsonl",
+  "corpus/data/*.json",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

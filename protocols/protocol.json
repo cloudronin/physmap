@@ -1,0 +1,51 @@
+{
+  "protocol_id": "nafems-2026-mixed-convection-reconstruction",
+  "version": "0.1",
+  "status": "draft_not_locked",
+  "locked_at": null,
+  "supersedes": null,
+  "known_results_declaration": "known-results-declaration.md",
+  "case": {
+    "description": "laminar mixed convection, vertical pipe, buoyancy-assisting, constant wall heat flux",
+    "qoi": "wall_nusselt_number",
+    "mechanisms": ["forced_convection", "natural_convection"]
+  },
+  "grid": {
+    "DECISION_REQUIRED": true,
+    "points": null,
+    "selection_rule": null,
+    "evaluable_rule": null
+  },
+  "surrogate": {
+    "DECISION_REQUIRED": true,
+    "model_id": null,
+    "is_forced_convection_calculation": null
+  },
+  "label_rule": {
+    "untrustworthy_iff": "gap > tolerance AND gap > truth_uncertainty",
+    "tolerance": null,
+    "tolerance_DECISION_REQUIRED": true,
+    "uncertainty_source": null,
+    "uncertainty_DECISION_REQUIRED": true
+  },
+  "materiality": {
+    "definition": "1 - Nu_F / Nu_M",
+    "allowed_nu_f_provenance": ["matched_cfd_ablation", "geometry_matched_correlation"],
+    "refused_nu_f_provenance": ["flat_plate_correlation"],
+    "theta_precondition": null,
+    "theta_flag_rule": null,
+    "theta_DECISION_REQUIRED": true
+  },
+  "flag_rule": "outside_calibration AND materiality >= theta",
+  "baselines": ["physics_blind_input_ood", "naive_box_check"],
+  "metrics": {
+    "reported": ["precision", "recall", "f1"],
+    "computed_over": "evaluable_rows_only",
+    "threshold_sweep": true
+  },
+  "truth_independence": {
+    "allowed": ["experimental", "independent_high_fidelity"],
+    "refused": ["same_closure", "unknown"],
+    "open_issue": "prior implementation marked this substrate divergent_truth_substrate=False; unresolved"
+  }
+}
