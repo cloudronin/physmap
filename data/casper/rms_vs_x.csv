@@ -1,0 +1,184 @@
+source_figure,flow,Re_per_m_e6,M,x_m,value,unit,unc_paper_pct,unc_digitization,reader_spread,provenance,note
+Fig8,Noisy,4.6,4.9,0.208,0.02855,kPa,3,0.00018,0.00101,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.246,0.02897,kPa,3,0.00018,0.0007,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.284,0.03017,kPa,3,0.00018,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.322,0.02625,kPa,3,0.00018,0.00022,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.36,0.02832,kPa,3,0.00018,0.00027,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.398,0.03028,kPa,3,0.00018,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.452,0.03316,kPa,3,0.00018,7e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,4.6,4.9,0.49,0.03138,kPa,3,0.00018,0.00011,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.208,0.02949,kPa,3,0.00018,0.00031,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.246,0.03039,kPa,3,0.00018,0.00013,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.284,0.03219,kPa,3,0.00018,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.322,0.02792,kPa,3,0.00018,0.00029,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.36,0.03064,kPa,3,0.00018,0.00035,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.398,0.03206,kPa,3,0.00018,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.452,0.03498,kPa,3,0.00018,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,5.7,4.9,0.49,0.03543,kPa,3,0.00018,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.208,0.03665,kPa,3,0.00018,0.00034,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.246,0.03748,kPa,3,0.00018,0.00106,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.284,0.04209,kPa,3,0.00018,0.00074,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.322,0.03804,kPa,3,0.00018,0.00034,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.36,0.04148,kPa,3,0.00018,0.00071,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.398,0.04614,kPa,10,0.00018,0.00085,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.452,0.05927,kPa,10,0.00018,0.00043,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,8.4,4.9,0.49,0.06717,kPa,10,0.00018,0.00069,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,9.1,4.9,0.208,0.03831,kPa,3,0.00054,0.00021,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.246,0.03871,kPa,3,0.00054,0.00027,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.284,0.04047,kPa,3,0.00054,0.00011,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.322,0.04015,kPa,3,0.00054,0.00012,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.36,0.04407,kPa,3,0.00054,0.00057,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.398,0.05217,kPa,10,0.00054,0.00032,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.452,0.06049,kPa,10,0.00054,0.00074,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,9.1,4.9,0.49,0.06494,kPa,10,0.00054,0.00019,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig8,Noisy,10.6,4.9,0.208,0.04632,kPa,3,0.00018,9e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.246,0.04679,kPa,3,0.00018,0.0001,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.284,0.05016,kPa,3,0.00018,6e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.322,0.05079,kPa,3,0.00018,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.36,0.0597,kPa,10,0.00018,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.398,0.07221,kPa,10,0.00018,7e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.452,0.06541,kPa,10,0.00018,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,10.6,4.9,0.49,0.06541,kPa,10,0.00018,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.208,0.05077,kPa,3,0.00018,0.00103,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.246,0.05367,kPa,3,0.00018,9e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.284,0.06069,kPa,3,0.00018,0.0004,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.322,0.06676,kPa,10,0.00018,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.36,0.08037,kPa,10,0.00018,6e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.398,0.07592,kPa,10,0.00018,7e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.452,0.05439,kPa,3,0.00018,7e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,12.7,4.9,0.49,0.05502,kPa,3,0.00018,0.0004,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.208,0.05212,kPa,3,0.00018,0.00011,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.246,0.06451,kPa,10,0.00018,0.00015,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.284,0.08863,kPa,10,0.00018,0.00017,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.322,0.06346,kPa,10,0.00018,0.00014,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.36,0.05538,kPa,3,0.00018,0.00011,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.398,0.04737,kPa,3,0.00018,0.00037,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.452,0.04661,kPa,3,0.00018,0.00037,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,15.4,4.9,0.49,0.04886,kPa,3,0.00018,8e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.208,0.0655,kPa,10,0.00018,8e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.246,0.07446,kPa,10,0.00018,0.00039,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.284,0.06982,kPa,10,0.00018,7e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.322,0.04387,kPa,3,0.00018,0.00017,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.36,0.04755,kPa,3,0.00018,0.0001,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.398,0.0449,kPa,3,0.00018,0.00015,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.452,0.04524,kPa,3,0.00018,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,18.8,4.9,0.49,0.05113,kPa,3,0.00018,0.00014,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.208,0.08352,kPa,10,0.00018,0.00017,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.246,0.07322,kPa,10,0.00018,0.00011,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.284,0.06191,kPa,10,0.00018,9e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.322,0.04537,kPa,3,0.00018,0.00014,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.36,0.05039,kPa,3,0.00018,0.00019,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.398,0.04706,kPa,3,0.00018,0.00025,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.452,0.04976,kPa,3,0.00018,0.00011,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,24.2,4.9,0.49,0.05617,kPa,3,0.00018,0.0002,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.208,0.03201,kPa,3,0.00018,0.00278,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.246,0.03257,kPa,3,0.00018,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.284,0.03408,kPa,3,0.00018,,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.322,0.03071,kPa,3,0.00018,0.00028,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.36,0.03352,kPa,3,0.00018,0.00034,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.398,0.03584,kPa,3,0.00018,0.0,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.452,0.04087,kPa,10,0.00018,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig8,Noisy,6.5,4.9,0.49,0.04479,kPa,10,0.00018,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.208,0.02142,p_rms/p_e,3,6e-05,0.00073,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.246,0.0215,p_rms/p_e,3,6e-05,0.00051,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.284,0.02187,p_rms/p_e,3,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.322,0.01918,p_rms/p_e,3,6e-05,0.00016,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.36,0.02072,p_rms/p_e,3,6e-05,0.0002,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.398,0.02197,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.452,0.02398,p_rms/p_e,3,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,4.6,4.9,0.49,0.02266,p_rms/p_e,3,6e-05,8e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.208,0.01948,p_rms/p_e,3,6e-05,0.00021,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.246,0.01995,p_rms/p_e,3,6e-05,9e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.284,0.02106,p_rms/p_e,3,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.322,0.01806,p_rms/p_e,3,6e-05,0.00019,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.36,0.0198,p_rms/p_e,3,6e-05,0.00023,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.398,0.02095,p_rms/p_e,3,6e-05,0.0,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.452,0.02288,p_rms/p_e,3,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,5.7,4.9,0.49,0.02315,p_rms/p_e,3,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.208,0.01771,p_rms/p_e,3,6e-05,0.00017,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.246,0.0188,p_rms/p_e,3,6e-05,0.00052,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.284,0.02017,p_rms/p_e,3,6e-05,0.00036,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.322,0.01839,p_rms/p_e,3,6e-05,0.00017,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.36,0.02058,p_rms/p_e,3,6e-05,0.00035,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.398,0.02292,p_rms/p_e,10,6e-05,0.00041,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.452,0.02912,p_rms/p_e,10,6e-05,0.00021,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,8.4,4.9,0.49,0.03243,p_rms/p_e,10,6e-05,0.00034,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,9.1,4.9,0.208,0.01797,p_rms/p_e,3,0.00019,0.0001,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,9.1,4.9,0.246,0.01813,p_rms/p_e,3,0.00019,0.00013,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,9.1,4.9,0.284,0.01904,p_rms/p_e,3,0.00019,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,9.1,4.9,0.322,0.01888,p_rms/p_e,3,0.00019,6e-05,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,9.1,4.9,0.36,0.02052,p_rms/p_e,3,6e-05,0.00027,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,9.1,4.9,0.398,0.02476,p_rms/p_e,10,6e-05,0.00015,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,9.1,4.9,0.452,0.02888,p_rms/p_e,10,0.00019,0.00035,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,9.1,4.9,0.49,0.03072,p_rms/p_e,10,0.00019,9e-05,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,10.6,4.9,0.208,0.01806,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,10.6,4.9,0.246,0.01824,p_rms/p_e,3,0.00019,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; occluded by adjacent curve -> line-interpolated
+Fig9a,Noisy,10.6,4.9,0.284,0.01957,p_rms/p_e,3,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,10.6,4.9,0.322,0.01982,p_rms/p_e,3,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,10.6,4.9,0.36,0.02331,p_rms/p_e,10,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,10.6,4.9,0.398,0.02818,p_rms/p_e,10,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,10.6,4.9,0.452,0.02553,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,10.6,4.9,0.49,0.02554,p_rms/p_e,10,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.208,0.01744,p_rms/p_e,3,6e-05,0.00035,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.246,0.01804,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.284,0.02057,p_rms/p_e,3,6e-05,0.00014,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.322,0.02246,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.36,0.02704,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.398,0.02554,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.452,0.01829,p_rms/p_e,3,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,12.7,4.9,0.49,0.01866,p_rms/p_e,3,6e-05,0.00013,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.208,0.01711,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.246,0.02117,p_rms/p_e,10,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.284,0.0291,p_rms/p_e,10,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.322,0.02083,p_rms/p_e,10,6e-05,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.36,0.01818,p_rms/p_e,3,6e-05,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.398,0.01546,p_rms/p_e,3,6e-05,0.00012,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.452,0.01521,p_rms/p_e,3,6e-05,0.00012,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,15.4,4.9,0.49,0.0161,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.208,0.02013,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.246,0.02279,p_rms/p_e,10,6e-05,0.00012,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.284,0.02146,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.322,0.01355,p_rms/p_e,3,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.36,0.0146,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.398,0.01377,p_rms/p_e,3,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.452,0.01391,p_rms/p_e,3,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,18.8,4.9,0.49,0.01569,p_rms/p_e,3,6e-05,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.208,0.0211,p_rms/p_e,10,6e-05,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.246,0.01851,p_rms/p_e,10,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.284,0.01565,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.322,0.01145,p_rms/p_e,3,6e-05,4e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.36,0.01271,p_rms/p_e,3,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.398,0.01185,p_rms/p_e,3,6e-05,6e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.452,0.01257,p_rms/p_e,3,6e-05,3e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,24.2,4.9,0.49,0.01417,p_rms/p_e,3,6e-05,5e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.208,0.02083,p_rms/p_e,3,6e-05,0.00166,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.246,0.01951,p_rms/p_e,3,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.322,0.01822,p_rms/p_e,3,6e-05,0.00017,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.36,0.01987,p_rms/p_e,3,6e-05,0.0002,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.398,0.02146,p_rms/p_e,3,6e-05,0.0,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.452,0.02449,p_rms/p_e,10,6e-05,2e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig9a,Noisy,6.5,4.9,0.49,0.02683,p_rms/p_e,10,6e-05,1e-05,visual-estimate-rendered-pdf,noisy HWT-5; marker read
+Fig13a,Noisy,9.3,5.8,0.208,0.03176,p_rms/p_e,10,0.00015,0.01176,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.246,0.03504,p_rms/p_e,10,0.00015,0.00704,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.284,0.03944,p_rms/p_e,10,0.00015,0.00344,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.322,0.04373,p_rms/p_e,10,0.00015,0.00027,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.36,0.03753,p_rms/p_e,10,0.00015,0.00453,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.398,0.03598,p_rms/p_e,10,0.00015,0.00598,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.452,0.02493,p_rms/p_e,10,0.00015,0.00793,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Noisy,9.3,5.8,0.49,0.02769,p_rms/p_e,10,0.00015,0.00569,visual-estimate-rendered-pdf,transition (surrogate target)
+Fig13a,Quiet,9.1,6.0,0.208,0.00771,p_rms/p_e,3,0.00015,0.00121,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.246,0.0092,p_rms/p_e,3,0.00015,0.0012,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.284,0.00973,p_rms/p_e,3,0.00015,0.00123,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.322,0.00533,p_rms/p_e,3,0.00015,0.00033,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.36,0.00445,p_rms/p_e,3,0.00015,0.00025,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.398,0.00496,p_rms/p_e,3,0.00015,0.00016,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.452,0.00145,p_rms/p_e,3,0.00015,5e-05,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Quiet,9.1,6.0,0.49,0.00264,p_rms/p_e,3,0.00015,0.00036,visual-estimate-rendered-pdf,laminar over whole cone (deploy truth)
+Fig13a,Background,,,0.208,0.00269,p_rms/p_e,3,0.00015,0.00031,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.246,0.00309,p_rms/p_e,3,0.00015,0.00041,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.284,0.00418,p_rms/p_e,3,0.00015,0.00032,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.322,0.00293,p_rms/p_e,3,0.00015,7e-05,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.36,0.00253,p_rms/p_e,3,0.00015,3e-05,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.398,0.00349,p_rms/p_e,3,0.00015,1e-05,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.452,0.00258,p_rms/p_e,3,0.00015,0.00022,visual-estimate-rendered-pdf,tunnel noise floor (reference)
+Fig13a,Background,,,0.49,0.00265,p_rms/p_e,3,0.00015,0.00035,visual-estimate-rendered-pdf,tunnel noise floor (reference)

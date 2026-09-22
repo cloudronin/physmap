@@ -112,7 +112,12 @@ def _cmd_screen(args) -> int:
 
 
 def _cmd_benchmark(args) -> int:
-    from physmap.benchmarks.registry import banked_only_ids, rerunnable_ids
+    from physmap.benchmarks.registry import (
+        banked_only_ids,
+        licensed_ids,
+        rerunnable_ids,
+        unlicensed_shipped_ids,
+    )
     from physmap.benchmarks.report import coverage_note, render_report
 
     if args.action == "report":
@@ -123,23 +128,27 @@ def _cmd_benchmark(args) -> int:
         print(coverage_note())
         return 0
 
-    # `run`. The subset is fixed by the redistribution determinations, never by which
-    # files happen to be on disk -- same rule as the release state. A vehicle whose data
-    # was never cleared does not become rerunnable by someone dropping a CSV in.
+    # `run`. What ships is fixed by the redistribution determinations, never by which
+    # files happen to be on disk -- same rule as the release state. And what this run
+    # actually recomputed is reported separately from what it COULD recompute, because
+    # conflating the two is how a benchmark command starts overclaiming.
     rerun, banked = rerunnable_ids(), banked_only_ids()
-    print(f"Rerunning {len(rerun)} of 7 vehicles: {', '.join(rerun)}")
-    print(f"Not rerun ({len(banked)}): {', '.join(banked)}")
-    print("Their source data is not redistributable; see data/REDISTRIBUTION.md.")
+    print(f"Source data ships for {len(rerun)} of 7 vehicles.")
+    if banked:
+        print(f"Banked only ({len(banked)}): {', '.join(banked)}")
+        print("Their source data is not redistributable; see data/REDISTRIBUTION.md.")
     print()
-    print("THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES.")
+    print("NOTHING WAS RECOMPUTED IN THIS RUN.")
+    print("The substrate runner is not yet ported into this repository, so every number")
+    print("in the report is read from the banked matrix and labelled as such.")
     print()
-    print("The substrate runner is not yet ported into this repository, so the two "
-          "rerunnable vehicles cannot be recomputed here yet. Until it lands, every "
-          "number in the report is read from the banked matrix and labelled as such.")
+    print(f"Of the {len(rerun)} shipped datasets, {len(licensed_ids())} carry a licence.")
+    print(f"{len(unlicensed_shipped_ids())} do not. Shipping is not licensing -- see NOTICE.")
     if args.report:
         print()
         print(render_report())
     return 0
+
 
 if __name__ == "__main__":
     raise SystemExit(main())

@@ -1,0 +1,67 @@
+# Casper et al. quiet-vs-noisy hypersonic transition — AEROSPACE PHYSMAP_WINS
+# vehicle (cross-domain claim: the corpus differentiator also works outside
+# thermal-fluids). G6 pre-registration v0.2 (construction-frozen-a-priori).
+#
+# Source: Casper et al. / Casper PhD thesis (Purdue BAM6QT); digitized RMS
+# wall-pressure (p~/p_e) vs axial position on a sharp 7-deg cone in conventional
+# (HWT-5, HWT-8) and quiet (BAM6QT) hypersonic tunnels. Banked CSVs under
+# results/hypersonic_transition_g1/casper_digitization/.
+#
+# WHY PHYSMAP_WINS: the surrogate is a GP transition model on (Mach, unit
+# Reynolds, axial x) trained on the NOISY envelope (Mach spans 4.9-7.9 incl.
+# HWT-8 so the quiet M=6.0 deploy is INTERIOR — the v0.2 Mach-confound fix). The
+# failure driver is the tunnel freestream disturbance (RMS Pitot %), which is
+# OMITTED from the surrogate inputs and is a distinct flow-environment axis (NOT
+# recoverable from M/Re/x) -> UNOBSERVABLE. On the quiet deploy (~0.05%)
+# transition is delayed and the noisy-trained surrogate over-predicts; the corpus
+# Pate-Stainback freestream-noise bound (>= ~0.5%) fires while the steelman
+# baseline stays silent (deploy interior). Small-n (8 quiet pts, single Re).
+
+vehicle_id: casper_hypersonic_transition
+domain: hypersonic_transition_disturbance_driven
+
+geometry:
+  class: hypersonic_sharp_cone
+  dims:
+    half_angle_deg: 7.0
+    nosetip: sharp
+    tunnels: [HWT-5, BAM6QT, HWT-8]
+
+# matched = the freestream-noise validity anchor (geometry MATCHES:
+# hypersonic_sharp_cone). It carries the freestream_noise_rms_pitot_pct bound
+# (>= ~0.5%) that fires on the quiet deploy. NOT the surrogate-of-record (no
+# executable predictor); the loader fits a GP transition surrogate.
+matched_closure_id: pate-stainback-freestream-noise-hypersonic-1980
+reference_closure_ids: []
+
+# freestream_disturbance_bands: train where the freestream noise is conventional
+# (fs >= 0.5%, noisy), deploy where it is flight-like-quiet (fs < 0.5%). band[0]
+# carries the train/deploy split cutoff (fs_lt) read by vehicle_spec.
+cell_bands:
+  type: freestream_disturbance_bands
+  bands:
+    - { name: quiet_deploy, fs_lt: 0.5 }
+    - { name: noisy_train,  fs_lt: 1.0e+18 }
+
+data_source:
+  loader: casper_hypersonic_transition
+  path: results/hypersonic_transition_g1/casper_digitization/rms_vs_x.csv
+  options:
+    hwt8_path: results/hypersonic_transition_g1/casper_digitization/rms_vs_x_hwt8.csv
+    noisy_figures: [Fig9a, Fig13a]   # G6 v0.2 noisy training figures
+    quiet_figures: [Fig13a]          # G6 v0.2 quiet deploy figure (8 pts at M=6.0)
+    rms_unit: p_rms/p_e
+
+fluid:
+  name: air
+
+benchmark:
+  include: true
+  domain: aerospace
+  surrogate_inputs: [M, Re_per_m_e6, x_m]
+  regime: HYPERSONIC_TRANSITION_DISTURBANCE
+  failure_driver: freestream_noise_pct
+  expected_observability_class: UNOBSERVABLE
+  threshold_calibration: [10.0, 2.0]
+  architecture_axis: true
+  caveat: "unobservable freestream-noise pole; small-n (8 quiet, 1 Re)"

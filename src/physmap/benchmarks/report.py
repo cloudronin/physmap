@@ -19,10 +19,12 @@ from typing import Any
 from physmap._paths import checkout_path
 from physmap.benchmarks.registry import (
     VEHICLES,
+    DataQuality,
     Redistribution,
     banked_only_ids,
     licensed_ids,
     rerunnable_ids,
+    triage_only_ids,
     unlicensed_shipped_ids,
 )
 
@@ -71,6 +73,24 @@ def coverage_note() -> str:
         f"  observability full: {', '.join(all_ob)}",
         f"                public: {', '.join(pub_ob)}",
     ]
+    triage = set(triage_only_ids())
+    degenerate = sorted({
+        cells[i]["empirical_outcome"] for i in triage if i in cells
+    })
+    if degenerate:
+        lines.append("")
+        lines.append(
+            f"  Outcome classes whose ONLY vehicle is not benchmark-grade: "
+            f"{', '.join(degenerate)}."
+        )
+        for i in sorted(triage):
+            c = cells.get(i)
+            if c:
+                lines.append(
+                    f"    {c['empirical_outcome']} rests on {i}: "
+                    f"n_train={c.get('n_train')}, n_test={c.get('n_test')} -- "
+                    f"{c.get('rationale', c.get('caveat', ''))}"
+                )
     lost_d = [d for d in all_d if d not in pub_d]
     lost_o = [o for o in all_o if o not in pub_o]
     if lost_d or lost_o:
@@ -93,16 +113,38 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
     cells = {c["vehicle_id"]: c for c in matrix["cells"]}
     rerun_results = rerun_results or {}
 
-    out: list[str] = [
-        matrix["benchmark"],
-        "",
-        f"All seven vehicles are reported. {len(rerunnable_ids())} of 7 are recomputed "
-        f"in this checkout; {len(banked_only_ids())} are read from the banked matrix "
-        f"because their source data is not redistributable.",
-        "",
-        "THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES.",
-        "",
-    ]
+    n = len(VEHICLES)
+    ships, banked = len(rerunnable_ids()), len(banked_only_ids())
+    recomputed = len([v for v in rerun_results if v in {x.vehicle_id for x in VEHICLES}])
+
+    out: list[str] = [matrix["benchmark"], ""]
+
+    # Computed, never hardcoded. Two different facts live here and a reader needs both:
+    # how many datasets SHIP, and how many were actually RECOMPUTED in this invocation.
+    # An earlier version asserted "does not reproduce all seven" as a constant; once the
+    # last two datasets shipped that sentence became false, which is exactly how a
+    # hardcoded honesty claim decays into a lie.
+    out.append(
+        f"All {n} vehicles are reported. {ships} of {n} ship their source data"
+        + (f"; {banked} are banked only." if banked else " -- all of them.")
+    )
+    if recomputed == 0:
+        out.append("")
+        out.append(
+            f"NOTHING WAS RECOMPUTED IN THIS RUN. Every number below is read from the "
+            f"banked matrix. The substrate runner is not yet ported into this "
+            f"repository."
+        )
+    elif recomputed < n:
+        out.append("")
+        out.append(
+            f"THIS RUN RECOMPUTED {recomputed} OF {n} VEHICLES. The rest are read from "
+            f"the banked matrix."
+        )
+    else:
+        out.append("")
+        out.append(f"All {n} vehicles were recomputed in this run.")
+    out.append("")
 
     header = f"{'vehicle':34} {'domain':14} {'failure var':22} {'observability':14} {'outcome':17} source"
     out.append(header)
@@ -134,18 +176,32 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
         out.append(
             f"  {len(unlicensed)} ship WITHOUT a licence: {', '.join(unlicensed)}."
         )
+        against = [
+            v.vehicle_id for v in VEHICLES
+            if v.redistribution is Redistribution.AGAINST_PUBLISHER_TERMS
+        ]
         out.append(
-            "  Shipping is not licensing. Those three rest on the position that measured"
+            "  Shipping is not licensing. They rest on the position that measured values"
         )
+        out.append("  are facts.")
+        if against:
+            out.append(
+                f"  {len(against)} of them are published AGAINST an express publisher"
+            )
+            out.append(f"  term rather than under one: {', '.join(against)}.")
         out.append(
-            "  values are facts, and two of them are published against an express"
+            "  Only the numbers are redistributed; no paper, figure or PDF. They are"
         )
-        out.append(
-            "  publisher term rather than under one. Only the numbers are redistributed;"
-        )
-        out.append(
-            "  no paper, figure or PDF. They are removed on objection -- see NOTICE."
-        )
+        out.append("  removed on objection -- see NOTICE.")
+        out.append("")
+    triage = triage_only_ids()
+    if triage:
+        out.append("Data quality -- separate from redistribution, and not implied by it")
+        out.append("")
+        out.append(f"  Not benchmark-grade by their own account: {', '.join(triage)}.")
+        out.append("  A dataset can be perfectly legal to publish and still be unfit to")
+        out.append("  benchmark on. Their cells are reported so the weakness is")
+        out.append("  inspectable, not so it can be cited.")
         out.append("")
     out.append("Provenance and redistribution basis")
     out.append("")
@@ -157,6 +213,8 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
             f"    ships       {'yes' if v.rerunnable else 'no'} ({v.redistribution.value})"
         )
         out.append(f"    licensed    {'yes' if v.licensed else 'NO'}")
+        if v.quality is not DataQuality.BENCHMARK_GRADE:
+            out.append(f"    QUALITY     {v.quality.value.upper()} -- {v.quality_note}")
         out.append(f"    basis       {v.redistribution_reason}")
         out.append("")
 

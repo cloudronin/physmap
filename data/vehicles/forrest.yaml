@@ -1,0 +1,68 @@
+# Forrest mini-channel — D3 differentiator substrate (PhysMAP).
+#
+# Source: Forrest, Hu, Buongiorno, McKrell (2014), "Convective Heat Transfer in
+# a High Aspect Ratio Mini-Channel Heated on One Side", J. Heat Transfer 138(2):
+# 021704. Geometry confirmed against the 2012 RERTR predecessor paper. See
+# physmap.substrate.forrest.py:88-123 for the constants this file mirrors.
+#
+# This YAML replaces the hard-coded constants and the closure-function imports
+# in forrest_substrate.py once the byte-for-byte structural-equality gate
+# passes (Step 9b of the refactor).
+
+vehicle_id: forrest
+domain: convection_internal_forced
+
+geometry:
+  class: narrow_rect_channel_one_sided
+  dims:
+    gap_mm: 1.96
+    width_mm: 56.0
+    length_mm: 483.0
+    heated_length_mm: 305.0
+    heated_width_mm: 51.0
+    Dh_mm: 3.79
+    aspect_ratio_alpha_star: 0.035
+    aspect_ratio_inverse: 28.6
+    heating_pattern: one_sided
+
+# GEOMETRY-MATCHED primary closure (resolves the Sparrow-Cur trap). The
+# substrate engine's geometry-match invariant compares the registry entry's
+# geometry_class to geometry.class above — both must be
+# narrow_rect_channel_one_sided.
+matched_closure_id: modified-sparrow-cur-asym-narrow-rect-channel-2014
+
+# GEOMETRY-MISMATCHED reference closures for Table-4 cross-comparison.
+# These are circular-pipe closures applied to a narrow-rect channel — the
+# invariant does NOT fire on references; mismatch is expected.
+reference_closure_ids:
+  - gnielinski-1976
+  - dittus-boelter-1930
+  - sieder-tate-1936
+  - petukhov-1970
+
+# Cell bands per forrest_substrate.py:200-228. The thresholds come from the
+# 2014 paper (Table 4 + Eq. 18 + p.7 cell-by-cell discussion), not from data.
+cell_bands:
+  type: re_bands
+  bands:
+    - { name: sub_critical_laminar,              re_lt: 4000.0 }
+    - { name: transition_excluded_indeterminate, re_lt: 10000.0 }
+    - { name: benign_turbulent,                  re_lt: 1.0e+18 }   # catch-all
+
+data_source:
+  loader: forrest_visual_estimates
+  path: results/forrest_digitization/visual_estimates_fig5.csv
+
+fluid:
+  name: water
+  pr_range: [2.2, 5.4]
+
+benchmark:
+  include: true
+  domain: thermal-fluids
+  surrogate_inputs: [Re, Pr]
+  regime: INTERNAL_FORCED_CONVECTION_RECT_CHANNEL
+  failure_driver: Re
+  expected_observability_class: OBSERVABLE
+  architecture_axis: false
+  caveat: "obs~1 observable Re pole; baseline catches, thin n~4"

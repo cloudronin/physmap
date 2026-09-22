@@ -30,24 +30,42 @@ publications.
 
 No source PDF is redistributed. Papers are cited, not copied.
 
-THREE DATASETS SHIP WITHOUT A LICENCE
+FIVE OF THE SEVEN DATASETS SHIP WITHOUT A LICENCE
 
-    Shipping is not licensing. Two of the five published datasets carry
-    affirmative permission. Three do not:
+    Shipping is not licensing. Two of the seven published datasets carry
+    affirmative permission -- naca_tn1451 (public domain) and velazquez_sco2
+    (CC BY 4.0). The other five do not:
 
-        marineau_hypersonic_transition
-        dirker_water
-        jin_sco2_buoyancy
+        marineau_hypersonic_transition   no licence, and no prohibition
+        casper_hypersonic_transition     against AIAA terms
+        forrest                          against ASME terms
+        dirker_water                     against Elsevier terms
+        jin_sco2_buoyancy                against Elsevier terms
 
-    All three redistribute NUMBERS ONLY -- no paper, figure or PDF.
+    All five redistribute NUMBERS ONLY -- no paper, figure or PDF. That is
+    enforced by two automated audits and is the foundation the whole position
+    rests on.
 
-    Marineau has no licence and no prohibition: values transcribed from a
-    published table of measurements, in a publicly funded, publicly released,
-    government-hosted document.
+    Marineau is the only one with no prohibition attached: values transcribed
+    from a published table of measurements, in a publicly funded, publicly
+    released, government-hosted document.
 
-    Dirker and Jin are published DESPITE an express Elsevier term forbidding
-    systematic redistribution of the dataset. That is a risk this project
-    accepted, not a finding that the term does not apply.
+    The other four are published DESPITE express publisher terms. AIAA
+    prohibits using its content to develop machine-learning models. ASME and
+    Elsevier require permission to reproduce, and Elsevier's licence forbids
+    systematic redistribution of the dataset. Those are risks this project
+    accepted knowingly; none of them is a finding that the term does not apply.
+
+A SEPARATE WARNING ABOUT DATA QUALITY
+
+    forrest is published but is NOT benchmark-grade. Its own header says the
+    values are visual estimates to be used only as a resolvability triage
+    check, and its benchmark cell is degenerate -- one training row, no
+    detector fit -- so its DO_NO_HARM outcome is short-circuited rather than
+    earned. It ships so the weakness is inspectable, not so it can be cited.
+
+    Being legal to publish and being fit to benchmark on are different
+    questions. This file answers only the first.
 
     data/REDISTRIBUTION.md states the basis for each in full, including the
     arguments against.

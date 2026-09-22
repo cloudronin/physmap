@@ -69,31 +69,35 @@ physmap benchmark run        # recomputes the subset whose data can be redistrib
 physmap benchmark coverage   # what that subset does and does not cover
 ```
 
-All seven vehicles ran, and all seven outcomes are reported. **Five can be rerun from this
-checkout.** Two cannot: `forrest` and `casper_hypersonic_transition` are excluded.
+All seven vehicles ran, all seven outcomes are reported, and **all seven now ship their
+source data**.
 
-`physmap benchmark run` **does not reproduce all seven vehicles**, and says so before it
-says anything else. The banked matrix is publishable because it holds counts, verdicts and
-our own thresholds; none of anyone else's measurements are in it.
+**Shipping is not reproducing, and the report keeps them apart.** The substrate runner is
+not yet ported into this repository, so nothing is recomputed yet — every number is read
+from the banked matrix and labelled as such. The counts in that message are computed, not
+written down, so they cannot quietly go stale.
 
-**Shipping is not licensing.** Of the five datasets published here, two carry affirmative
-permission — public domain and CC BY 4.0. **Three do not**, and the report and the
-registry label them that way rather than quietly calling everything clear:
+**Shipping is also not licensing.** Two of the seven carry affirmative permission:
+`naca_tn1451` (public domain) and `velazquez_sco2` (CC BY 4.0). **Five do not**, and the
+registry and report label them rather than calling everything clear:
 
 - `marineau_hypersonic_transition` — no licence and **no prohibition**. Values transcribed
-  from a published table in a publicly funded, publicly released, government-hosted
-  document, on the position that measured values are facts.
-- `dirker_water` and `jin_sco2_buoyancy` — published **against** an express Elsevier term
-  forbidding systematic redistribution. A risk this project accepted, not a finding that
-  the term does not apply.
+  from a published table in a publicly funded, public-release, government-hosted document.
+- `forrest`, `casper_hypersonic_transition`, `dirker_water`, `jin_sco2_buoyancy` —
+  published **against** express publisher terms. AIAA prohibits using its content to
+  develop machine-learning models; ASME and Elsevier require permission to reproduce, and
+  Elsevier's licence forbids systematic redistribution. Risks accepted knowingly, not
+  findings that the terms do not apply.
 
-All three redistribute **numbers only** — no paper, figure or PDF — and all three are
-removed on objection. The full basis, including the arguments against, is in
-[data/REDISTRIBUTION.md](data/REDISTRIBUTION.md) and [NOTICE](NOTICE).
+All five redistribute **numbers only** — no paper, figure or PDF, enforced by two audits —
+and all five are removed on objection. The full basis, including the arguments against, is
+in [data/REDISTRIBUTION.md](data/REDISTRIBUTION.md) and [NOTICE](NOTICE).
 
-**The rerunnable subset still is not representative.** `DO_NO_HARM` — the case where the
-guard correctly stays quiet — has one vehicle, `forrest`, and it is excluded. `physmap
-benchmark coverage` prints that.
+**One dataset is published but not benchmark-grade.** `forrest`'s own header calls its
+values visual estimates for triage only, and its cell is degenerate — one training row, no
+detector fit — so its `DO_NO_HARM` outcome is short-circuited rather than earned. Being
+legal to publish and being fit to benchmark on are different questions; the registry tracks
+them on separate axes. `physmap benchmark coverage` prints it.
 
 ## Install
 

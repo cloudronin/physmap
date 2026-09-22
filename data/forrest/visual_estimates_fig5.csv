@@ -1,0 +1,40 @@
+row,Re,Pr,Nu_meas,Nu_unc_paper_pct,Nu_unc_digitization_abs,source,figure,note
+# VISUAL ESTIMATES from claude-pair reading the rendered Forrest 2014 Fig 5.
+# NOT digitized by WebPlotDigitizer. Use ONLY as a resolvability triage check.
+# Per-row Nu_meas was eyeballed from rendered PDF crops; calibration verified
+# against user's direct read of the paper (3 converging reads).
+#
+# v0.2 CORRECTION (this revision): the sub-critical cluster contains n=4
+# overlapping Pr=5.4 markers strictly below Re=4000, NOT n=2 as previously
+# entered. User caught the undercount and confirmed against the paper.
+# Individual per-marker Nu values within the overlap cluster are NOT
+# separately resolvable; the cluster is a tight stack at Nu~18-19. The
+# cluster is recorded as 4 REPLICATES at the SAME approximate condition
+# (Re~3800-3950, Pr=5.4) with cluster-center Nu and per-row uncertainty
+# reflecting the overlap-blur.
+#
+# Honest claim: the sub-critical evidence is Pr=5.4-SPECIFIC. The cluster
+# contains only blue Pr=5.4 diamonds. Divergence is Pr-dependent (typically
+# larger at higher Pr in turbulent extrapolations into laminar). The claim
+# this substrate carries is "closure diverges at sub-critical Re for Pr=5.4,"
+# NOT "for all Pr." Future data could broaden this to other Pr values.
+#
+# These rows MUST be replaced by actual WPD digitized rows (or author-data)
+# before the substrate banks them as truth.
+1,3800,5.4,18.0,0.10,2.5,visual-estimate-rendered-pdf-fig5,Fig5,"Sub-critical cluster replicate 1 of 4. Overlap-cluster at Re~3800-3950 Nu~17-20 (4 Pr=5.4 blue diamonds resolvable by error-bar centers; individual Nu values cluster-blurred). User-verified count via direct paper read."
+2,3850,5.4,18.5,0.10,2.5,visual-estimate-rendered-pdf-fig5,Fig5,"Sub-critical cluster replicate 2 of 4. Same overlap-cluster; individual Re/Nu cluster-blurred but center is high-confidence."
+3,3900,5.4,18.5,0.10,2.5,visual-estimate-rendered-pdf-fig5,Fig5,"Sub-critical cluster replicate 3 of 4. Same overlap-cluster."
+4,3950,5.4,19.0,0.10,2.5,visual-estimate-rendered-pdf-fig5,Fig5,"Sub-critical cluster replicate 4 of 4. Rightmost marker; STRICTLY below Re=4000 per user verification. Cluster center ~Nu=18.5, range ~17-20."
+5,4700,5.4,31.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell — Pr=5.4 cluster center."
+6,5000,5.4,34.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell."
+7,5500,5.4,38.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell."
+8,6500,5.4,46.0,0.10,4.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell."
+9,7000,5.4,55.0,0.10,4.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell — data sits AT or above Gnielinski Pr=5.4 line."
+10,7500,5.4,57.0,0.10,4.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell."
+11,8500,5.4,62.0,0.10,4.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell."
+12,9500,5.4,72.0,0.10,4.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition cell — approaching benign boundary."
+13,10000,5.4,76.0,0.10,4.0,visual-estimate-rendered-pdf-fig5,Fig5,"Boundary point Re=10000; benign cell starts here."
+14,6000,2.2,33.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition — Pr=2.2 cluster on Gnielinski Pr=2.2 line."
+15,7500,2.2,42.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition — Pr=2.2."
+16,9000,2.2,49.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition — Pr=2.2."
+17,9500,2.2,52.0,0.10,3.0,visual-estimate-rendered-pdf-fig5,Fig5,"Excluded transition — Pr=2.2."

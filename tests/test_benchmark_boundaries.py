@@ -20,11 +20,8 @@ from physmap.benchmarks.registry import (
 )
 from physmap.benchmarks.report import coverage_note, load_banked_matrix, render_report
 
-EXPECTED_RERUN = (
-    "naca_tn1451", "velazquez_sco2",
-    "marineau_hypersonic_transition", "dirker_water", "jin_sco2_buoyancy",
-)
 EXPECTED_LICENSED = ("naca_tn1451", "velazquez_sco2")
+EXPECTED_TRIAGE_ONLY = ("forrest",)
 
 
 def _cli(*args):
@@ -33,10 +30,10 @@ def _cli(*args):
     )
 
 
-def test_exactly_the_shipped_vehicles_are_rerunnable():
-    assert set(rerunnable_ids()) == set(EXPECTED_RERUN)
+def test_all_seven_ship_and_none_is_banked_only():
     assert len(VEHICLES) == 7
-    assert len(banked_only_ids()) == 2
+    assert len(rerunnable_ids()) == 7
+    assert banked_only_ids() == ()
 
 
 def test_shipping_is_kept_distinct_from_licensing():
@@ -45,7 +42,7 @@ def test_shipping_is_kept_distinct_from_licensing():
     from physmap.benchmarks.registry import licensed_ids, unlicensed_shipped_ids
 
     assert set(licensed_ids()) == set(EXPECTED_LICENSED)
-    assert set(unlicensed_shipped_ids()) == set(EXPECTED_RERUN) - set(EXPECTED_LICENSED)
+    assert len(unlicensed_shipped_ids()) == 5
     assert set(licensed_ids()) & set(unlicensed_shipped_ids()) == set()
 
 
@@ -93,12 +90,13 @@ def test_the_banked_matrix_carries_no_third_party_measurements():
         assert unknown == [], f"{cell['vehicle_id']}: unexpected fields {unknown}"
 
 
-def test_report_shows_all_seven_and_marks_the_two():
+def test_report_shows_all_seven_and_separates_shipping_from_recomputing():
     text = render_report()
     for v in VEHICLES:
         assert v.vehicle_id in text
-    assert "THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES." in text
-    assert "5 of 7" in text
+    assert "7 of 7 ship" in text
+    # shipping is not reproducing: with no runner ported, nothing was recomputed
+    assert "NOTHING WAS RECOMPUTED IN THIS RUN" in text
 
 
 def test_report_marks_recomputed_rows_differently():
@@ -106,40 +104,62 @@ def test_report_marks_recomputed_rows_differently():
         c for c in load_banked_matrix()["cells"] if c["vehicle_id"] == "naca_tn1451")}
     text = render_report(rerun_results=fake)
     assert "RECOMPUTED" in text
-    assert "banked only" in text
+    assert "THIS RUN RECOMPUTED 1 OF 7 VEHICLES" in text
+    # and the six that were not must still be distinguishable
+    assert "ships, licensed" in text
 
 
-def test_coverage_note_admits_the_subset_is_not_representative():
+def test_coverage_note_does_not_let_present_read_as_covered():
+    """Every outcome class now ships. DO_NO_HARM is still not really demonstrated,
+    because its only vehicle is triage-grade with one training row."""
     note = coverage_note()
-    assert "NOT a representative sample" in note
-    # DO_NO_HARM has one vehicle, forrest, which is excluded -- so the case where the
-    # guard correctly stays quiet still cannot be rerun.
     assert "DO_NO_HARM" in note
+    assert "not benchmark-grade" in note
 
 
 @pytest.mark.parametrize("args", [("benchmark", "run"), ("benchmark", "report")])
-def test_cli_always_states_it_does_not_reproduce_all_seven(args):
+def test_cli_never_claims_a_reproduction_that_did_not_happen(args):
+    """The runner is not ported, so nothing is recomputed. Both surfaces must say so
+    rather than letting seven shipped datasets read as seven reproduced results."""
     r = _cli(*args)
     assert r.returncode == 0, r.stderr
-    assert "DOES NOT REPRODUCE ALL SEVEN" in r.stdout
+    assert "NOTHING WAS RECOMPUTED IN THIS RUN" in r.stdout
 
 
-def test_cli_run_names_both_sets():
+def test_cli_run_states_the_licence_split():
     r = _cli("benchmark", "run")
-    assert "Rerunning 5 of 7" in r.stdout
-    for vid in banked_only_ids():
-        assert vid in r.stdout
+    assert "Source data ships for 7 of 7" in r.stdout
+    assert "Shipping is not licensing" in r.stdout
 
 
-def test_excluded_vehicle_data_does_not_ship():
-    """The determination is only real if the files are actually absent."""
+def test_data_quality_is_tracked_separately_from_redistribution():
+    """A licence clearance must not launder a data-quality problem."""
+    from physmap.benchmarks.registry import DataQuality, get, triage_only_ids
+
+    assert triage_only_ids() == EXPECTED_TRIAGE_ONLY
+    forrest = get("forrest")
+    assert forrest.rerunnable and forrest.quality is DataQuality.TRIAGE_ONLY
+    assert "triage" in forrest.quality_note.lower()
+
+
+def test_report_and_coverage_flag_the_degenerate_outcome():
+    """DO_NO_HARM is present again, but its only vehicle has one training row and no
+    detector fit. Present-but-degenerate must not read as covered."""
+    text = render_report()
+    assert "TRIAGE_ONLY" in text
+    note = coverage_note()
+    assert "not benchmark-grade" in note
+    assert "DO_NO_HARM" in note and "n_train=1" in note
+
+
+def test_no_paper_shaped_file_ships():
+    """Numbers only. The entire redistribution position rests on this being true."""
     from pathlib import Path
 
     repo = Path(__file__).resolve().parents[1]
     tracked = subprocess.run(
         ["git", "-C", str(repo), "ls-files"], capture_output=True, text=True, check=True
     ).stdout.splitlines()
-    for vid in banked_only_ids():
-        stem = vid.split("_")[0]
-        hits = [f for f in tracked if stem in f.lower() and f.endswith(".csv")]
-        assert hits == [], f"{vid} source data is tracked but not cleared: {hits}"
+    bad = [f for f in tracked
+           if f.lower().endswith((".pdf", ".docx", ".doc", ".ps", ".epub", ".tif", ".tiff"))]
+    assert bad == [], f"document-shaped files are tracked: {bad}"

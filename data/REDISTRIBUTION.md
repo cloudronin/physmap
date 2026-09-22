@@ -10,8 +10,8 @@ Status as of 2026-09-22.
 |---|---|---|---|---|
 | `naca_tn1451` | NACA TN-1451 (1947) | Two-reader visual digitisation, Fig 10 | US Government work, public domain | **CLEAR — shipped** |
 | `velazquez_sco2` | Velázquez et al. (2026), *Appl. Therm. Eng.* 285:129206 | Exact transcription from supplementary Appendix D, plus our own CoolProp-derived columns | **CC BY 4.0**, publisher-deposited, and Elsevier states the article licence extends to supplementary files | **CLEAR — ships** |
-| `forrest` | Forrest et al., *J. Heat Transfer* 138(2):021704 | Visual estimates from Fig 5 of the **version of record** | ASME holds copyright. A CC-BY accepted manuscript exists on OSTI but was not the source used | **EXCLUDED** — also fails on quality; its own header marks the values as placeholders |
-| `casper_hypersonic_transition` | Casper MS thesis (DTIC ADA504177) **and** AIAA 2009-4054 | Figure digitisation, 600-DPI segmentation, two readers | The rows carrying the result are AIAA's, and AIAA prohibits using their content to develop ML models | **EXCLUDED** |
+| `forrest` | Forrest et al., *J. Heat Transfer* 138(2):021704 | Visual estimates from Fig 5 | ASME holds copyright and requires permission. The CC BY route **does not exist** — see below | **SHIPS AGAINST PUBLISHER TERMS**, and **NOT benchmark-grade** |
+| `casper_hypersonic_transition` | Casper MS thesis (DTIC ADA504177) **and** AIAA 2009-4054 | Figure digitisation, 600-DPI segmentation, two readers | The rows carrying the result are AIAA's, and AIAA prohibits using their content to develop ML models | **SHIPS AGAINST PUBLISHER TERMS** — risk accepted |
 | `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 / SAND2014-4326C | Transcribed from Table 3 | No licence — and **no prohibition**. Public-release marked, government-funded, government-hosted | **SHIPS, NOT LICENSED** — facts basis |
 | `dirker_water` | Dirker, Meyer & Reid (2018), *Exp. Therm. Fluid Sci.* 98 | Figure digitisation from Figs 17–20 | Elsevier TDM licence **forbids** systematic redistribution | **SHIPS AGAINST PUBLISHER TERMS** — risk accepted |
 | `jin_sco2_buoyancy` | Jin et al. (2023), *Ann. Nucl. Energy* 188:109825 | Figure digitisation, two readers; Bu and Bo* recomputed | Same Elsevier terms. No open copy. Authors asked for raw data and **declined** | **SHIPS AGAINST PUBLISHER TERMS** — risk accepted |
@@ -38,10 +38,55 @@ obtained from OSTI, a government repository. The Marineau PDF's origin is not re
 neither came from ARC, the site terms are not the operative restriction and the question
 falls back to ordinary copyright in the underlying paper.
 
-## Three datasets ship without a licence. Say so plainly.
+## Forrest — the CC BY route was checked and does not exist
+
+Worth recording, because it looked available and is not.
+
+ASME's open-access policy does say *"Inclusion will be with ASME © and a CC-BY reuse
+license"* — but that sentence sits in their section on **institutional** repositories. The
+Forrest accepted manuscript is deposited on OSTI, a **funder** repository. ASME's page does
+not extend the grant there.
+
+The deposited PDF settles it. All 57 pages were downloaded and searched: **zero**
+occurrences of "creative commons", "CC-BY", "licen", "copyright" or the © symbol. There is
+no marking to rely on. Crossref deposits no licence for `10.1115/1.4031646`, and the OSTI
+record has no rights field.
+
+So Forrest ships on the same footing as the other unlicensed datasets, not on a CC BY
+grant. Anyone repeating this check will find the same absence.
+
+### Forrest also has a data problem, which is not a licensing problem
+
+Its own header:
+
+> `VISUAL ESTIMATES from claude-pair reading the rendered Forrest 2014 Fig 5.`
+> `NOT digitized by WebPlotDigitizer. Use ONLY as a resolvability triage check.`
+
+And its benchmark cell is degenerate: `n_train=1`, `n_test=4`, recorded in the matrix as
+*"baseline-sufficient by construction, no detector fit"*. The `DO_NO_HARM` outcome is
+short-circuited rather than earned — with one training row there is no detector to do
+harm with.
+
+It is published so both weaknesses are inspectable rather than hidden behind an outcome
+nobody can check. **Re-digitise Fig 5 properly with WebPlotDigitizer before treating this
+cell as evidence.** Being legal to publish and being fit to benchmark on are separate
+questions, and the registry tracks them on separate axes for that reason.
+
+## Casper — weaker than Marineau, not equal to it
+
+The OSTI copy of AIAA 2009-4054 ([record](https://www.osti.gov/biblio/1142576),
+[PDF](https://www.osti.gov/servlets/purl/1142576)) was downloaded and searched across all
+20 pages: no copyright notice, **and no public-release marking either**. Marineau carried
+"Approved for public release; distribution is unlimited" on all 24 of its pages. Casper
+carries neither marking — just silence, which establishes nothing in either direction.
+
+AIAA's prohibition on using their content to develop machine-learning models sits on top,
+and a public ML benchmark is squarely what it describes. Shipped as an accepted risk.
+
+## Five datasets ship without a licence. Say so plainly.
 
 **Shipping is not licensing**, and the repository does not pretend otherwise. Two of the
-five shipped datasets carry affirmative permission. Three do not, and they are labelled
+seven shipped datasets carry affirmative permission. Five do not, and they are labelled
 that way in the registry, in the benchmark report and here.
 
 ### What is actually being redistributed
@@ -208,11 +253,13 @@ Found while establishing provenance. All are factual errors in the current metad
 
 ## Consequence for the public benchmark
 
-**Five of the seven benchmark vehicles ship.** Two under a licence (`naca_tn1451`,
-`velazquez_sco2`) and three without one (`marineau_hypersonic_transition`, `dirker_water`,
-`jin_sco2_buoyancy`).
+**All seven benchmark vehicles ship.** Two under a licence — `naca_tn1451` (public domain)
+and `velazquez_sco2` (CC BY 4.0). Five without one: `marineau_hypersonic_transition` on a
+facts basis with no prohibition attached, and `forrest`, `casper_hypersonic_transition`,
+`dirker_water` and `jin_sco2_buoyancy` against express publisher terms.
 
-Two are excluded: `forrest` and `casper_hypersonic_transition`.
+One further caveat that is not about licensing: **`forrest` is not benchmark-grade**, by
+its own header and by the degeneracy of its cell.
 
 The full seven-vehicle result is still reported — every vehicle's outcome and provenance
 appears in the benchmark report and on the slides. What changes is what the public

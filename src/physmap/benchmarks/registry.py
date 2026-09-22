@@ -21,6 +21,8 @@ from enum import Enum
 
 __all__ = [
     "Redistribution",
+    "DataQuality",
+    "triage_only_ids",
     "licensed_ids",
     "unlicensed_shipped_ids",
     "VehicleRecord",
@@ -55,6 +57,20 @@ class Redistribution(str, Enum):
     EXCLUDED_BY_DECISION = "excluded_by_decision"
 
 
+class DataQuality(str, Enum):
+    """How good the source values are. INDEPENDENT of whether they may be redistributed.
+
+    A dataset can be perfectly legal to publish and still be unfit to benchmark on.
+    Collapsing the two would let a licence clearance launder a data-quality problem.
+    """
+
+    #: Properly digitised or transcribed, with stated uncertainty.
+    BENCHMARK_GRADE = "benchmark_grade"
+    #: The file itself says not to trust it as truth. Published so the weakness is
+    #: inspectable rather than hidden behind an outcome nobody can check.
+    TRIAGE_ONLY = "triage_only"
+
+
 @dataclass(frozen=True)
 class VehicleRecord:
     vehicle_id: str
@@ -64,6 +80,8 @@ class VehicleRecord:
     how_values_were_produced: str
     redistribution: Redistribution
     redistribution_reason: str
+    quality: DataQuality = DataQuality.BENCHMARK_GRADE
+    quality_note: str = ""
 
     SHIPS = frozenset({
         Redistribution.CLEAR,
@@ -101,18 +119,29 @@ VEHICLES: tuple[VehicleRecord, ...] = (
         "forrest", "thermal-fluids", "Re",
         "Forrest et al., J. Heat Transfer 138(2):021704",
         "Visual estimates from Fig 5 of the version of record",
-        Redistribution.EXCLUDED_BY_DECISION,
-        "ASME holds copyright in the version of record that was digitised. A CC-BY "
-        "accepted manuscript exists but was not the source used. The values are also "
-        "marked in their own header as placeholders pending redigitisation.",
+        Redistribution.AGAINST_PUBLISHER_TERMS,
+        "ASME holds copyright and requires written permission to reproduce. The CC-BY "
+        "route does not apply: ASME grants it for accepted manuscripts in INSTITUTIONAL "
+        "repositories, the OSTI deposit is a FUNDER repository, and the deposited PDF "
+        "carries no Creative Commons marking at all. Shipped anyway, as an accepted "
+        "risk. Numbers only.",
+        DataQuality.TRIAGE_ONLY,
+        "The file's own header: 'VISUAL ESTIMATES ... NOT digitized by WebPlotDigitizer. "
+        "Use ONLY as a resolvability triage check.' Its benchmark cell is also "
+        "degenerate -- 1 training row, no detector fit -- so its DO_NO_HARM outcome is "
+        "short-circuited rather than earned. Published so both weaknesses are visible; "
+        "re-digitise Fig 5 properly before treating this cell as evidence.",
     ),
     VehicleRecord(
         "casper_hypersonic_transition", "aerospace", "freestream_noise_pct",
         "Casper MS thesis (DTIC ADA504177) and AIAA 2009-4054",
         "Figure digitisation, 600-DPI segmentation, two readers",
-        Redistribution.EXCLUDED_BY_DECISION,
-        "The rows carrying the result come from the AIAA paper. AIAA prohibits using "
-        "their content to develop machine-learning models without written permission.",
+        Redistribution.AGAINST_PUBLISHER_TERMS,
+        "The rows carrying the result come from the AIAA paper, and AIAA prohibits using "
+        "their content to develop machine-learning models without written permission -- "
+        "which is what a public ML benchmark is. Shipped anyway, as an accepted risk. "
+        "Weaker than Marineau, not equal to it: the OSTI copy carries no copyright "
+        "notice AND no public-release marking, just silence. Numbers only.",
     ),
     VehicleRecord(
         "marineau_hypersonic_transition", "aerospace", "st_xsw_ratio",
@@ -181,3 +210,8 @@ def unlicensed_shipped_ids() -> tuple[str, ...]:
         v.vehicle_id for v in VEHICLES
         if v.rerunnable and not v.licensed
     )
+
+
+def triage_only_ids() -> tuple[str, ...]:
+    """Vehicles whose source values are not benchmark-grade by their own account."""
+    return tuple(v.vehicle_id for v in VEHICLES if v.quality is DataQuality.TRIAGE_ONLY)
