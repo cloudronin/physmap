@@ -69,40 +69,52 @@
     ],
     "open_issue": "prior implementation marked this substrate divergent_truth_substrate=False; unresolved"
   },
-  "reproduction_agreement": {
-    "purpose": "Fixed before any rebuilt number exists. Determines whether the reconstruction may be described as reproducing the original results, or supersedes them.",
-    "original_triple": {
-      "precision": 1.0,
-      "recall": 0.65,
-      "f1": 0.79
+  "lock_stages": {
+    "stage_1": {
+      "covers": "sections 1-8 and the result vocabulary in section 9",
+      "status": "draft_not_locked",
+      "locked_at": null,
+      "hash": null
     },
-    "interval": {
-      "method": "bootstrap_over_evaluable_points",
-      "level": 0.95,
-      "B": 10000,
-      "seed": null,
-      "seed_DECISION_REQUIRED": true
-    },
-    "preconditions": {
-      "min_evaluable_points": null,
-      "min_evaluable_points_proposed": 12,
-      "max_interval_width_abs": null,
-      "max_interval_width_abs_proposed": 0.35,
-      "DECISION_REQUIRED": true,
-      "note": "Both are set at lock time and never afterwards. The width cap prevents a wide, powerless interval from making agreement automatic."
-    },
-    "qualitative_claims": [
-      "precision advantage over both baselines, unconditional across the theta sweep",
-      "f1 advantage over both baselines, conditional",
-      "lift is structural, not threshold-tuned"
-    ],
+    "stage_2": {
+      "covers": "the corroboration criterion and its equivalence margin",
+      "precondition": "measurement inventory committed",
+      "must_be_locked_before": "any reconstruction outcome is examined",
+      "status": "blocked_on_inventory",
+      "locked_at": null,
+      "hash": null
+    }
+  },
+  "measurement_inventory": {
+    "path": "data/benchmarks/mixed_convection/measurement_inventory.md",
+    "status": "not_started",
+    "must_record": [
+      "count and sources of independently measured points",
+      "which are evaluable under section 1",
+      "class balance: trustworthy / untrustworthy / flagged",
+      "per-point uncertainty available for each",
+      "what precision and recall can and cannot distinguish at those counts"
+    ]
+  },
+  "result_vocabulary": {
+    "reproduced_means": "a close rerun of the original evaluation: same grid, same truth source, same counterfactual",
+    "reproduced_reachable": false,
+    "reproduced_unreachable_because": "the original inputs are gone; this reconstruction necessarily changes the grid, the truth source and the counterfactual",
+    "matching_result_is_called": "independent corroboration of the causal finding",
+    "rejected_test": "containment of the original value in the reconstruction's confidence interval. A value inside an interval is a failure to reject, not a demonstration of agreement; a wide enough interval contains almost anything. Equivalence requires a margin and a test against it, and the margin cannot be chosen before the measurements are known.",
+    "removed_proposals": "min evaluable points = 12 and max interval width = 0.35, both withdrawn as numbers picked in ignorance of the data",
     "outcomes": {
-      "REPRODUCED": "preconditions pass AND all three original values inside their intervals AND all three qualitative claims hold",
-      "SUPERSEDED": "preconditions pass AND at least one original value outside its interval",
-      "INCONCLUSIVE": "a precondition fails",
-      "NOT_ATTEMPTED": "reconstruction not run"
+      "REPRODUCED": "reserved; unreachable under this protocol",
+      "CORROBORATED": "independently supports the causal finding under the stage-2 criterion",
+      "NOT_CORROBORATED": "it does not",
+      "INCONCLUSIVE": "available measurements cannot support a metric claim either way",
+      "NOT_ATTEMPTED": "not run"
     },
-    "invariant": "In every outcome the numbers presented are the reconstruction's, never the original's. The original triple is never presented as a number this repository produces.",
+    "invariants": [
+      "metrics are always reported with their uncertainty, never as bare point estimates",
+      "the numbers presented are the reconstruction's; the original triple is never presented as a number this repository produces"
+    ],
+    "consistent_with": "known-results-declaration.md; neither may change without the other",
     "outcome": "NOT_ATTEMPTED"
   }
 }

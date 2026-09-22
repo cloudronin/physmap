@@ -56,3 +56,27 @@ This is a **reconstruction, not a reproduction**. It will produce its own number
 locked protocol. Those numbers are not the numbers above, and the public release does not
 present them as reproducing the abstract. Any divergence is reported as measured, not
 reconciled toward the published values.
+
+### The best outcome available to it
+
+Not reproduction. **Independent corroboration of the causal finding.**
+
+Reproduction would mean a close rerun of the original evaluation — the same grid, the same
+truth source, the same counterfactual. The list above shows why that is not available: those
+inputs are gone. The reconstruction necessarily changes all three, so however well its numbers
+land, the claim it can support is corroboration under different inputs, not recovery of the
+published values.
+
+The protocol names the same thing the same way. Its section 9 defines `REPRODUCED` and marks
+it **unreachable**, so the word keeps a fixed meaning and cannot slide onto a weaker result;
+a matching result is `CORROBORATED` instead.
+
+**These two documents must agree. Neither may be changed without the other.**
+
+### What the numbers will look like when reported
+
+Always with their uncertainty, never as bare point estimates. How much those metrics can
+establish depends on how many independent measurements exist and how they are balanced across
+trustworthy, untrustworthy and flagged. That count is not yet known, so no threshold, minimum
+sample size or agreement margin is proposed here. Establishing the available measurements
+comes first; see the measurement inventory required by the protocol.
