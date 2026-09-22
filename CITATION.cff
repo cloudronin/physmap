@@ -1,0 +1,31 @@
+cff-version: 1.2.0
+message: >-
+  If you use PhysMAP or its corpus in your work, please cite it using the
+  metadata below. The corpus is licensed CC BY 4.0, so attribution is required
+  when you redistribute or build on the data.
+type: software
+title: "PhysMAP: physics-aware credibility checks for AI surrogates"
+abstract: >-
+  PhysMAP screens machine-learned surrogates used in multiphysics simulation
+  for three distinct failure conditions, kept deliberately separate: whether a
+  closure relation is being applied outside its calibrated validity envelope,
+  whether the surrogate's inputs can even represent the variable that governs a
+  regime change (observability), and whether an out-of-envelope mechanism is
+  large enough to matter for the quantity of interest (causal materiality).
+authors:
+  - family-names: Vettrivel
+    given-names: Vishnu
+version: 0.1.0
+license:
+  - MIT
+  - CC-BY-4.0
+repository-code: "https://github.com/cloudronin/physmap"
+url: "https://github.com/cloudronin/physmap"
+keywords:
+  - surrogate models
+  - multiphysics
+  - computational fluid dynamics
+  - closure relations
+  - model validity
+  - uncertainty quantification
+  - scientific machine learning

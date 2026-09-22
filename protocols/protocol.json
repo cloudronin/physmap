@@ -8,7 +8,10 @@
   "case": {
     "description": "laminar mixed convection, vertical pipe, buoyancy-assisting, constant wall heat flux",
     "qoi": "wall_nusselt_number",
-    "mechanisms": ["forced_convection", "natural_convection"]
+    "mechanisms": [
+      "forced_convection",
+      "natural_convection"
+    ]
   },
   "grid": {
     "DECISION_REQUIRED": true,
@@ -30,22 +33,76 @@
   },
   "materiality": {
     "definition": "1 - Nu_F / Nu_M",
-    "allowed_nu_f_provenance": ["matched_cfd_ablation", "geometry_matched_correlation"],
-    "refused_nu_f_provenance": ["flat_plate_correlation"],
+    "allowed_nu_f_provenance": [
+      "matched_cfd_ablation",
+      "geometry_matched_correlation"
+    ],
+    "refused_nu_f_provenance": [
+      "flat_plate_correlation"
+    ],
     "theta_precondition": null,
     "theta_flag_rule": null,
     "theta_DECISION_REQUIRED": true
   },
   "flag_rule": "outside_calibration AND materiality >= theta",
-  "baselines": ["physics_blind_input_ood", "naive_box_check"],
+  "baselines": [
+    "physics_blind_input_ood",
+    "naive_box_check"
+  ],
   "metrics": {
-    "reported": ["precision", "recall", "f1"],
+    "reported": [
+      "precision",
+      "recall",
+      "f1"
+    ],
     "computed_over": "evaluable_rows_only",
     "threshold_sweep": true
   },
   "truth_independence": {
-    "allowed": ["experimental", "independent_high_fidelity"],
-    "refused": ["same_closure", "unknown"],
+    "allowed": [
+      "experimental",
+      "independent_high_fidelity"
+    ],
+    "refused": [
+      "same_closure",
+      "unknown"
+    ],
     "open_issue": "prior implementation marked this substrate divergent_truth_substrate=False; unresolved"
+  },
+  "reproduction_agreement": {
+    "purpose": "Fixed before any rebuilt number exists. Determines whether the reconstruction may be described as reproducing the original results, or supersedes them.",
+    "original_triple": {
+      "precision": 1.0,
+      "recall": 0.65,
+      "f1": 0.79
+    },
+    "interval": {
+      "method": "bootstrap_over_evaluable_points",
+      "level": 0.95,
+      "B": 10000,
+      "seed": null,
+      "seed_DECISION_REQUIRED": true
+    },
+    "preconditions": {
+      "min_evaluable_points": null,
+      "min_evaluable_points_proposed": 12,
+      "max_interval_width_abs": null,
+      "max_interval_width_abs_proposed": 0.35,
+      "DECISION_REQUIRED": true,
+      "note": "Both are set at lock time and never afterwards. The width cap prevents a wide, powerless interval from making agreement automatic."
+    },
+    "qualitative_claims": [
+      "precision advantage over both baselines, unconditional across the theta sweep",
+      "f1 advantage over both baselines, conditional",
+      "lift is structural, not threshold-tuned"
+    ],
+    "outcomes": {
+      "REPRODUCED": "preconditions pass AND all three original values inside their intervals AND all three qualitative claims hold",
+      "SUPERSEDED": "preconditions pass AND at least one original value outside its interval",
+      "INCONCLUSIVE": "a precondition fails",
+      "NOT_ATTEMPTED": "reconstruction not run"
+    },
+    "invariant": "In every outcome the numbers presented are the reconstruction's, never the original's. The original triple is never presented as a number this repository produces.",
+    "outcome": "NOT_ATTEMPTED"
   }
 }
