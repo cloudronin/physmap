@@ -151,19 +151,48 @@ Both are removed for the same reason: they were numbers picked in ignorance of t
 ### Prerequisite — the measurement inventory
 
 Before any criterion is fixed, produce and commit
-`data/benchmarks/mixed_convection/measurement_inventory.md`, recording:
+`data/benchmarks/mixed_convection/measurement_inventory.md`.
+
+**It records inputs only.** Everything below can be established by looking at the sources
+and the operating conditions, without running the surrogate, applying the label rule, or
+running the detector.
 
 | Item | Why it matters |
 |---|---|
-| How many independently measured points exist, and their sources | Sets the ceiling on every claim |
-| Which of them are evaluable under §1 | Metrics are computed over evaluable rows only |
-| The class balance — how many are trustworthy, untrustworthy, and flagged | Precision and recall are not symmetric; a skewed set makes one of them nearly uninformative |
-| The per-point uncertainty available for each | The label rule in §3 needs it, per point |
-| What precision and recall can and cannot distinguish at those counts | The point of the exercise |
+| The measurement sources — which publication, which table or figure, how digitised | Fixes what independent truth actually exists |
+| The available operating points, with their `(Re, Gr*)` | Sets the ceiling on every claim |
+| Which points are eligible under the §1 evaluable rule, and why each is or is not | Metrics are computed over evaluable rows only |
+| Whether each eligible point carries a stated uncertainty, and its source | The §3 label rule needs a per-point uncertainty; a point without one cannot be labelled |
+| The redistribution determination for each source | No file enters the repository without one |
 
-That last row is the deliverable. Precision and recall over a handful of badly balanced points
-may not separate the method from its baselines at all. That has to be known before it is worth
-arguing about thresholds.
+### What the inventory must NOT contain
+
+**No labels. No flags. No class balance.**
+
+Specifically: not how many points are trustworthy or untrustworthy, not how many the
+detector flags, and not any count derived from comparing predictions against truth.
+
+Those are **outcomes**, not inputs. "Trustworthy" is the §3 label rule applied to a
+surrogate prediction, a truth value and an uncertainty. "Flagged" is the §5 flag rule
+applied to a calibration check and a materiality estimate. A class balance is a summary
+of both. Reading any of them before the criterion is fixed is reading a projection of the
+result, and a criterion chosen afterwards is a criterion chosen knowing which way it
+would fall. That is precisely the freeze this protocol exists to hold.
+
+These counts are computed **after** the stage-2 lock, and reported with the result.
+
+### How stage 2 is fixed without seeing the balance
+
+There is a real tension here, and it is resolved rather than ignored: the power of
+precision and recall genuinely depends on the class balance, which is exactly what stage 2
+may not look at.
+
+**So stage 2 fixes a decision rule, not a number.** The criterion is written as a function
+of the balance — evaluated once the balance is computed, but specified before it is seen.
+For example, a minimum count of positives below which the outcome is `INCONCLUSIVE`
+is stated as a rule with its reasoning, and then applied to whatever the balance turns
+out to be. What is forbidden is choosing that threshold after seeing the number it will
+be compared against.
 
 ### Two-stage lock
 
@@ -195,10 +224,15 @@ presented as a number this repository produces.
 ## 10. Order of operations
 
 1. Lock **stage 1**: the decisions in §§1–4, and the vocabulary in §9. Record the hash.
-2. Establish the available independent measurements. Commit the inventory.
-3. Lock **stage 2**: the corroboration criterion and equivalence margin, given the counts.
-   Record the hash.
-4. Run the reconstruction.
-5. Only then examine outcomes. Report the metrics with their uncertainty, and write
-   `expected_metrics.json` — stamped with both protocol hashes, every input hash, and the
-   resulting outcome.
+2. Build the **measurement inventory** — inputs only. No labels, no flags, no class
+   balance.
+3. Lock **stage 2**: the corroboration criterion, written as a decision rule over the
+   class balance rather than a number chosen against it. Record the hash.
+4. Only now compute labels, run the detector, and derive the class balance.
+5. Run the reconstruction.
+6. Examine outcomes. Report the metrics with their uncertainty **and** the class balance
+   that was withheld at step 2, and write `expected_metrics.json` — stamped with both
+   protocol hashes, every input hash, and the resulting outcome.
+
+Steps 2 and 3 must not be reordered, and step 4 must not be pulled earlier. The whole
+value of the two-stage lock is that stage 2 is chosen without sight of step 4.

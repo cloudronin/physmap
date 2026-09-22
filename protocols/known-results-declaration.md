@@ -75,8 +75,19 @@ a matching result is `CORROBORATED` instead.
 
 ### What the numbers will look like when reported
 
-Always with their uncertainty, never as bare point estimates. How much those metrics can
-establish depends on how many independent measurements exist and how they are balanced across
-trustworthy, untrustworthy and flagged. That count is not yet known, so no threshold, minimum
-sample size or agreement margin is proposed here. Establishing the available measurements
-comes first; see the measurement inventory required by the protocol.
+Always with their uncertainty, never as bare point estimates.
+
+How much those metrics can establish depends on how many independent measurements exist,
+and on how they are balanced across trustworthy, untrustworthy and flagged. Neither is
+known yet, so no threshold, minimum sample size or agreement margin is proposed here.
+
+The two are **not** discovered at the same time, and the order is load-bearing. The
+measurement inventory establishes what exists — sources, operating points, eligibility,
+whether each point has an uncertainty — and records **no labels, no flags and no class
+balance**, because those are outcomes of applying the label rule and the flag rule, not
+properties of the data. The corroboration criterion is then fixed as a decision rule over
+the balance, before the balance is computed. Only afterwards are labels, flags and counts
+derived, and they are reported with the result.
+
+Choosing the criterion after seeing the balance would be choosing it knowing which way it
+falls. See the measurement inventory and the two-stage lock in the protocol.

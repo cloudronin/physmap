@@ -78,8 +78,9 @@
     },
     "stage_2": {
       "covers": "the corroboration criterion and its equivalence margin",
-      "precondition": "measurement inventory committed",
-      "must_be_locked_before": "any reconstruction outcome is examined",
+      "precondition": "measurement inventory committed (inputs only)",
+      "form": "a decision RULE over the class balance, not a number chosen against it. The rule is specified before the balance is seen and evaluated after.",
+      "must_be_locked_before": "labels, flags and class balance are computed",
       "status": "blocked_on_inventory",
       "locked_at": null,
       "hash": null
@@ -88,13 +89,21 @@
   "measurement_inventory": {
     "path": "data/benchmarks/mixed_convection/measurement_inventory.md",
     "status": "not_started",
+    "records_inputs_only": true,
     "must_record": [
-      "count and sources of independently measured points",
-      "which are evaluable under section 1",
-      "class balance: trustworthy / untrustworthy / flagged",
-      "per-point uncertainty available for each",
-      "what precision and recall can and cannot distinguish at those counts"
-    ]
+      "measurement sources: publication, table or figure, digitisation method",
+      "available operating points with their (Re, Gr*)",
+      "eligibility under the section 1 evaluable rule, with a reason per point",
+      "whether each eligible point carries a stated uncertainty, and its source",
+      "the redistribution determination for each source"
+    ],
+    "must_not_record": [
+      "trustworthy / untrustworthy labels or their counts",
+      "detector flags or their counts",
+      "class balance, or any count derived from comparing predictions against truth"
+    ],
+    "why": "labels and flags are OUTCOMES: the label rule applied to predictions, truth and uncertainty, and the flag rule applied to calibration and materiality. Seeing them before the stage-2 lock means choosing the criterion knowing which way it falls.",
+    "outcome_counts_computed_after": "stage_2 lock"
   },
   "result_vocabulary": {
     "reproduced_means": "a close rerun of the original evaluation: same grid, same truth source, same counterfactual",
