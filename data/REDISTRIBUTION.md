@@ -12,7 +12,7 @@ Status as of 2026-09-22.
 | `velazquez_sco2` | Velázquez et al. (2026), *Appl. Therm. Eng.* 285:129206 | Exact transcription from the supplementary tables, plus our own CoolProp-derived columns | **CC BY 4.0 on the version of record**, publisher-deposited | **CLEAR — not yet shipped** |
 | `forrest` | Forrest et al., *J. Heat Transfer* 138(2):021704 | Visual estimates from Fig 5 of the **version of record** | ASME holds copyright. VoR is free-to-read with no reuse licence. A CC-BY accepted manuscript exists on OSTI PAGES | **BLOCKED as digitised** — see decision 1 |
 | `casper_hypersonic_transition` | Casper MS thesis (DTIC ADA504177) **and** AIAA 2009-4054 | Figure digitisation, 600-DPI segmentation, two readers | Thesis: unlimited distribution. **The rows carrying the result are from the AIAA paper** | **SPLIT** — see decision 2 |
-| `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 | Transcribed from Table 3 | Unverified. Copyright line unread; source PDF not banked | **UNRESOLVED** — see decision 3 |
+| `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 / SAND2014-4326C | Transcribed from Table 3 | **No copyright notice anywhere in the document**; marked public-release-unlimited on all 24 pages; served from OSTI | **CLEAR — not yet shipped** |
 | `dirker_water` | Dirker, Meyer & Reid (2018), *Exp. Therm. Fluid Sci.* 98 | Figure digitisation from Figs 17–20 | Closed access. Crossref carries **only** the Elsevier TDM licence | **BLOCKED pending policy** — see decision 4 |
 | `jin_sco2_buoyancy` | Jin et al. (2023), *Ann. Nucl. Energy* 188:109825 | Figure digitisation, two readers; Bu and Bo* recomputed | Closed access, no open copy anywhere. TDM licence only | **BLOCKED pending policy** — see decision 4 |
 
@@ -38,6 +38,35 @@ obtained from OSTI, a government repository. The Marineau PDF's origin is not re
 neither came from ARC, the site terms are not the operative restriction and the question
 falls back to ordinary copyright in the underlying paper.
 
+## Marineau — resolved by reading the document
+
+The copy at **OSTI 1145775** ([record](https://www.osti.gov/biblio/1145775),
+[PDF](https://www.osti.gov/servlets/purl/1145775)) was downloaded and searched in full:
+77,283 characters across 24 pages.
+
+- **Zero** occurrences of "copyright", "©", "(c) 20" or "all rights reserved".
+- **"Approved for public release; distribution is unlimited"** on every one of the 24
+  pages, including page 1 above the title.
+- Crossref has no licence deposited for `10.2514/6.2014-3108`, which is consistent with
+  AIAA never having asserted one over this version.
+- Funded by the OSD TRMC HSST program, with Sandia under DOE/NNSA contract DE-AC04-94AL85000.
+
+The banked CSV columns — `ST_m`, `dST_m`, `ReinfN`, `ST_Xsw`, `ReinfST`, `ReST`,
+`RethetaST` — match Table 3 "Transition Parameters at 0-deg AoA" on page 8 exactly, and
+the values are transcribed from that table rather than read off a plot.
+
+**Why the AIAA site terms do not reach this.** AIAA's prohibition on using content to
+train or develop machine-learning models is a term of use for *their* platform, ARC. This
+copy was obtained from a US Government repository, and it asserts no copyright of its own
+while affirmatively authorising unlimited distribution on every page.
+
+The honest caveat: absence of a copyright notice does not by itself extinguish copyright,
+which has not required notice since Berne. The determination rests on the combination —
+an explicit unlimited-distribution marking, no assertion of rights in the document,
+distribution through a government repository, and factual table values rather than
+expressive content. Re-source the CSV from this OSTI PDF so the provenance chain points at
+the copy that carries the marking.
+
 ## The Elsevier exemption does not reach the digitised sets
 
 Elsevier's permissions guidance exempts "creating an original figure or table from data or
@@ -56,13 +85,16 @@ Found while establishing provenance. All are factual errors in the current metad
 - Casper ADA504177 is a **Master's thesis**, not a PhD thesis.
 - Forrest is **2015/2016** (DOI `10.1115/1.4031646`); the recorded 2014 is the SAND report
   year. No DOI is recorded in the vehicle spec.
-- Marineau's paper number **AIAA 2014-3108** is recorded nowhere, and the seed corpus
-  carries a wrong title for it.
+- Marineau's paper number **AIAA 2014-3108** (DOI `10.2514/6.2014-3108`, SAND2014-4326C)
+  is recorded nowhere, and the seed corpus carries a wrong title. The correct title is
+  *Mach 10 Boundary-Layer Transition Experiments on Sharp and Blunted Cones*; Crossref
+  appends "(Invited)". Authors: Marineau, Moraru, Lewis, Norris, Lafferty (AEDC White
+  Oak); Wagnild, Smith (Sandia).
 - Dirker records a ScienceDirect pii but not the DOI `10.1016/j.expthermflusci.2018.06.017`.
 
 ## Consequence for the public benchmark
 
-Two of the seven benchmark vehicles are currently clear: `naca_tn1451` and
-`velazquez_sco2`. A public v0.4 matrix built today would carry two cells, not seven, and
-would have to say so rather than presenting itself as the benchmark described in the
-runbook.
+Three of the seven benchmark vehicles are clear: `naca_tn1451`, `velazquez_sco2` and
+`marineau_hypersonic_transition`. A public v0.4 matrix built today would carry three
+cells, not seven, and would have to say so rather than presenting itself as the benchmark
+described in the runbook.
