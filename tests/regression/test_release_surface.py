@@ -112,3 +112,13 @@ def test_no_shipped_module_computes_precision_recall_or_f1():
     assert offenders == [], (
         "a preview build must not compute performance metrics:\n" + "\n".join(offenders)
     )
+
+
+def test_public_surface_audit_passes():
+    """The pre-publication audit runs in CI, but a local `pytest` should catch a
+    regression too -- otherwise it is only ever noticed after a push."""
+    r = subprocess.run(
+        [sys.executable, str(REPO / "dev" / "tools" / "audit_public_surface.py")],
+        capture_output=True, text=True, cwd=REPO,
+    )
+    assert r.returncode == 0, r.stdout + r.stderr

@@ -1,0 +1,122 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  # The supported path. Fixture data lives in the checkout, outside the package, so an
+  # editable install is what users and the benchmark actually run -- testing only a
+  # wheel would pass while the documented workflow was broken.
+  tests:
+    name: tests (py${{ matrix.python }})
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python: ["3.10", "3.11", "3.12", "3.13"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+      - name: Install from the checkout
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -e ".[dev]"
+      - name: Run the suite
+        run: pytest tests/ -q -n auto
+
+  # rdflib, pyshacl, uofa and the deep-learning stack are absent from this job on
+  # purpose. A guard that only passes because the forbidden package is installed but
+  # unused proves nothing; here an accidental import fails outright.
+  import-hygiene:
+    name: import hygiene (no rdflib, no uofa)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e ".[dev]"
+      - name: Nothing forbidden is even installed
+        run: |
+          python - <<'PY'
+          import importlib.util as u, sys
+          bad = [m for m in ("rdflib", "pyshacl", "uofa", "uofa_cli", "torch") if u.find_spec(m)]
+          if bad:
+              sys.exit(f"these must not be installed in this job: {bad}")
+          print("environment is clean")
+          PY
+      - run: pytest tests/test_no_heavy_imports.py -q
+
+  wheel:
+    name: wheel contents
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - name: Build
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip wheel --no-deps -w dist .
+      - name: Audit what shipped
+        run: python dev/tools/audit_wheel.py dist/physmap-*.whl
+      - name: Install the wheel somewhere with no checkout in sight
+        run: |
+          python -m venv /tmp/wheelenv
+          /tmp/wheelenv/bin/pip install --quiet dist/physmap-*.whl
+          cd /tmp
+          /tmp/wheelenv/bin/python - <<'PY'
+          from physmap.closures.index import verify_index_loaded
+          from physmap.corpus.calibration import active_tier, resolve_corpus_path
+          assert verify_index_loaded() == 201
+          assert resolve_corpus_path().name == "corpus_seed.jsonl"
+          assert active_tier() == "seed"
+          print("wheel install resolves the seed corpus and a full index")
+          PY
+
+  public-surface:
+    name: public surface
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e ".[dev]"
+      - name: Audit
+        run: python dev/tools/audit_public_surface.py
+      - name: The corpus firewall is reproducible, not hand-edited
+        run: pytest tests/regression -q
+
+  example:
+    name: worked example runs
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+      - run: python -m pip install -e .
+      - run: python examples/naca_entrance_region.py
+      - name: The screen refuses both declarative cases
+        run: |
+          physmap screen conjugate-heat-transfer --qoi peak_solid_temperature
+          physmap screen fda-blood-pump --qoi haemolysis_index
+      - name: reproduce is an unknown command in this release
+        run: |
+          if physmap reproduce nafems-2026 2>/dev/null; then
+            echo "reproduce should not exist in this release state"; exit 1
+          fi
+          physmap reproduce nafems-2026 2>&1 | grep -q "invalid choice"
+          echo "refused as an unknown command, not a data-missing error"
