@@ -21,7 +21,9 @@ from physmap.benchmarks.registry import (
     VEHICLES,
     Redistribution,
     banked_only_ids,
+    licensed_ids,
     rerunnable_ids,
+    unlicensed_shipped_ids,
 )
 
 __all__ = ["load_banked_matrix", "render_report", "coverage_note"]
@@ -29,9 +31,10 @@ __all__ = ["load_banked_matrix", "render_report", "coverage_note"]
 _MATRIX_PARTS = ("data", "benchmarks", "v0_4", "matrix_full_seven.json")
 
 _STATUS_LABEL = {
-    Redistribution.CLEAR: "rerun here",
+    Redistribution.CLEAR: "ships, licensed",
+    Redistribution.NO_LICENCE_FACTS_BASIS: "ships, NOT licensed (facts basis)",
+    Redistribution.AGAINST_PUBLISHER_TERMS: "ships, AGAINST publisher terms",
     Redistribution.EXCLUDED_BY_DECISION: "banked only - source data excluded",
-    Redistribution.BLOCKED_NO_LICENCE: "banked only - no reuse licence",
 }
 
 
@@ -120,13 +123,40 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
     out.append("")
     out.append(f"observability guards: {'all passed' if matrix['all_guards_passed'] else 'FAILED'}")
     out.append("")
+    unlicensed = unlicensed_shipped_ids()
+    if unlicensed:
+        out.append("Redistribution basis -- read this before reusing any of this data")
+        out.append("")
+        out.append(
+            f"  {len(licensed_ids())} of the {len(rerunnable_ids())} shipped datasets "
+            f"carry affirmative permission: public domain or an open licence."
+        )
+        out.append(
+            f"  {len(unlicensed)} ship WITHOUT a licence: {', '.join(unlicensed)}."
+        )
+        out.append(
+            "  Shipping is not licensing. Those three rest on the position that measured"
+        )
+        out.append(
+            "  values are facts, and two of them are published against an express"
+        )
+        out.append(
+            "  publisher term rather than under one. Only the numbers are redistributed;"
+        )
+        out.append(
+            "  no paper, figure or PDF. They are removed on objection -- see NOTICE."
+        )
+        out.append("")
     out.append("Provenance and redistribution basis")
     out.append("")
     for v in VEHICLES:
         out.append(f"  {v.vehicle_id}")
         out.append(f"    source      {v.source}")
         out.append(f"    values      {v.how_values_were_produced}")
-        out.append(f"    ships       {'yes' if v.rerunnable else 'no'} ({v.redistribution.value})")
+        out.append(
+            f"    ships       {'yes' if v.rerunnable else 'no'} ({v.redistribution.value})"
+        )
+        out.append(f"    licensed    {'yes' if v.licensed else 'NO'}")
         out.append(f"    basis       {v.redistribution_reason}")
         out.append("")
 

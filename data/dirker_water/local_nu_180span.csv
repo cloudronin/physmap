@@ -1,0 +1,130 @@
+# Dirker, Meyer & Reid (2018) -- 180-degree-span NON-UNIFORM heat flux water tube.
+# PhysMAP Stage-3 MIDDLE-axis vehicle. Source PDF banked alongside this file
+# (source_dirker_meyer_reid_2018.pdf). Smooth circular tube D=27.8 mm, L/D=72,
+# water Pr 6-7, laminar Re 650-2600. Properties: Popiel & Wojtkowiak (1998).
+#
+# CONSTRUCTION (settled with user, 2026-06-06): clean middle = buoyancy (Ri)
+# only, NO span confound and NO regime-transition confound. Span fixed at 180
+# degrees, all rows laminar. The failure variable Ri = Gr/Re^2 (paper Eq 17/18;
+# = Okafor et al. CFD-companion Eq 32) is varied at fixed Re by BOTH heat-flux
+# level (6631 vs 4421 W/m2) AND circumferential position (lower/slanted/side/
+# upper). Heat-flux variation is what makes Ri PARTIALLY observable from
+# (log10_Re, Pr) -> a genuine MIDDLE observability score. A single flux level
+# gives Ri ~ f(Re) (baseline-sufficient -> near the Forrest pole), so multiple
+# fluxes are required (the gate's clean_lift needs high-Ri and low-Ri rows at
+# the SAME Re so the Re-baseline stays quiet while the Ri-corpus fires).
+#
+# RI DIGITIZED DIRECTLY from the authors' per-point Ri plots (Figs 18/20) --
+# Phase-C path (a), NOT recomputed from properties. C4 cross-check: at fixed Re
+# the 6631-cluster Ri ~= 1.5x the 4421-cluster Ri, matching the flux ratio
+# 6631/4421 = 1.50 (Ri proportional to Gr proportional to flux). Ri carries a
+# ~18% log-read digitization uncertainty (Ri_unc_pct).
+#
+# Train (forced-collapsed) = Ri < RI_CEIL (~20); deploy (buoyancy spread) =
+# Ri >= RI_CEIL. RI_CEIL is data-driven: ~where the inter-config Nu spread
+# collapses (Re ~ 1700-1950).
+#
+# CLUSTER CAVEAT: in Figs 18/20 the lower/slanted/side cases are coincident on
+# the log Ri axis (2B/6B/4B5B at 6631; 2C/6C at 4421) and are recorded at the
+# shared cluster value; the upper-heating case (3B/3C) is distinctly lower and
+# recorded separately. Per-config Ri differences within a cluster are below
+# log-plot resolution (folded into Ri_unc_pct). Nu values ARE per-config
+# (resolvable on the linear Fig 17/19 axis).
+#
+# DIGITIZATION DISCIPLINE: per-marker reads from 500-DPI figure crops; every
+# marker preserved (no smoothing/downsampling). Nu_unc_digitization_abs is a
+# generous inter-read spread. The Nu digitization was CONFIRMED by the user
+# (B3 second reader) on 2026-06-06. 3316 W/m2 (Fig 21) deferred: Nu but NO Ri figure,
+# so it stays a computed-Ri supplement, not banked here.
+row,case,position,phi_deg,angle_span_deg,local_heat_flux_Wm2,power_W,Re,Pr,Ri,Ri_unc_pct,Nu_meas,Nu_unc_paper_pct,Nu_unc_digitization_abs,entering_condition,source,figure,note
+1,2B,lower_180,180,180,6631,600,650,6.5,235,18.0,18.8,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+2,2B,lower_180,180,180,6631,600,800,6.5,155,18.0,18.5,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+3,2B,lower_180,180,180,6631,600,920,6.5,115,18.0,18.35,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+4,2B,lower_180,180,180,6631,600,1050,6.5,85,18.0,18.25,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+5,2B,lower_180,180,180,6631,600,1175,6.5,62,18.0,18.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+6,2B,lower_180,180,180,6631,600,1300,6.5,48,18.0,18.0,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+7,2B,lower_180,180,180,6631,600,1425,6.5,40,18.0,18.0,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+8,2B,lower_180,180,180,6631,600,1550,6.5,33,18.0,17.9,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+9,2B,lower_180,180,180,6631,600,1700,6.5,28,18.0,17.9,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+10,2B,lower_180,180,180,6631,600,1825,6.5,24,18.0,17.75,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+11,2B,lower_180,180,180,6631,600,1950,6.5,21,18.0,17.65,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+12,2B,lower_180,180,180,6631,600,2275,6.5,15,18.0,17.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+13,2B,lower_180,180,180,6631,600,2600,6.5,12,18.0,17.0,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 lower_180 (phi=180); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+14,6B,slanted_180,135,180,6631,600,650,6.5,235,18.0,16.8,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+15,6B,slanted_180,135,180,6631,600,800,6.5,155,18.0,16.85,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+16,6B,slanted_180,135,180,6631,600,920,6.5,115,18.0,16.8,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+17,6B,slanted_180,135,180,6631,600,1050,6.5,85,18.0,16.95,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+18,6B,slanted_180,135,180,6631,600,1175,6.5,62,18.0,17.35,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+19,6B,slanted_180,135,180,6631,600,1300,6.5,48,18.0,17.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+20,6B,slanted_180,135,180,6631,600,1425,6.5,40,18.0,17.35,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+21,6B,slanted_180,135,180,6631,600,1550,6.5,33,18.0,17.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+22,6B,slanted_180,135,180,6631,600,1700,6.5,28,18.0,17.15,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+23,6B,slanted_180,135,180,6631,600,1825,6.5,24,18.0,17.0,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+24,6B,slanted_180,135,180,6631,600,1950,6.5,21,18.0,16.9,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+25,6B,slanted_180,135,180,6631,600,2275,6.5,15,18.0,16.5,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+26,6B,slanted_180,135,180,6631,600,2600,6.5,12,18.0,16.2,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 slanted_180 (phi=135); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+27,4B5B,side_180,90,180,6631,600,650,6.5,235,18.0,16.45,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+28,4B5B,side_180,90,180,6631,600,800,6.5,155,18.0,16.15,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+29,4B5B,side_180,90,180,6631,600,920,6.5,115,18.0,16.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+30,4B5B,side_180,90,180,6631,600,1050,6.5,85,18.0,16.2,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+31,4B5B,side_180,90,180,6631,600,1175,6.5,62,18.0,16.25,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+32,4B5B,side_180,90,180,6631,600,1300,6.5,48,18.0,16.25,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+33,4B5B,side_180,90,180,6631,600,1425,6.5,40,18.0,16.2,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+34,4B5B,side_180,90,180,6631,600,1550,6.5,33,18.0,16.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+35,4B5B,side_180,90,180,6631,600,1700,6.5,28,18.0,16.2,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+36,4B5B,side_180,90,180,6631,600,1825,6.5,24,18.0,16.35,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+37,4B5B,side_180,90,180,6631,600,1950,6.5,21,18.0,16.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+38,4B5B,side_180,90,180,6631,600,2275,6.5,15,18.0,16.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+39,4B5B,side_180,90,180,6631,600,2600,6.5,12,18.0,16.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 side_180 (phi=90); Nu per-config from Fig17; Ri from Fig18 cluster (lower/slanted/side coincident, +-18%)"
+40,3B,upper_180,0,180,6631,600,650,6.5,125,18.0,12.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+41,3B,upper_180,0,180,6631,600,800,6.5,80,18.0,13.15,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+42,3B,upper_180,0,180,6631,600,920,6.5,58,18.0,13.75,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+43,3B,upper_180,0,180,6631,600,1050,6.5,42,18.0,14.4,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+44,3B,upper_180,0,180,6631,600,1175,6.5,31,18.0,14.7,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+45,3B,upper_180,0,180,6631,600,1300,6.5,25,18.0,15.05,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+46,3B,upper_180,0,180,6631,600,1425,6.5,21,18.0,15.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+47,3B,upper_180,0,180,6631,600,1550,6.5,17,18.0,15.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+48,3B,upper_180,0,180,6631,600,1700,6.5,14,18.0,15.45,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+49,3B,upper_180,0,180,6631,600,1825,6.5,12.5,18.0,15.45,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+50,3B,upper_180,0,180,6631,600,1950,6.5,11,18.0,15.5,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+51,3B,upper_180,0,180,6631,600,2275,6.5,10,18.0,15.95,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+52,3B,upper_180,0,180,6631,600,2600,6.5,9,18.0,16.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig17+Fig18,"6631 W/m2 upper_180 (phi=0); Nu per-config from Fig17; Ri from Fig18 (upper, resolved)"
+53,2C,lower_180,180,180,4421,400,650,6.5,150,18.0,17.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+54,2C,lower_180,180,180,4421,400,800,6.5,100,18.0,16.9,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+55,2C,lower_180,180,180,4421,400,920,6.5,72,18.0,16.85,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+56,2C,lower_180,180,180,4421,400,1050,6.5,53,18.0,16.75,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+57,2C,lower_180,180,180,4421,400,1175,6.5,40,18.0,16.85,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+58,2C,lower_180,180,180,4421,400,1300,6.5,32,18.0,17.0,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+59,2C,lower_180,180,180,4421,400,1425,6.5,27,18.0,16.65,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+60,2C,lower_180,180,180,4421,400,1550,6.5,22,18.0,16.6,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+61,2C,lower_180,180,180,4421,400,1700,6.5,19,18.0,16.5,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+62,2C,lower_180,180,180,4421,400,1825,6.5,17,18.0,16.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+63,2C,lower_180,180,180,4421,400,1950,6.5,14.5,18.0,16.25,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+64,2C,lower_180,180,180,4421,400,2275,6.5,11,18.0,16.0,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+65,2C,lower_180,180,180,4421,400,2600,6.5,8.5,18.0,15.85,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 lower_180 (phi=180); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+66,6C,slanted_180,135,180,4421,400,650,6.5,150,18.0,16.85,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+67,6C,slanted_180,135,180,4421,400,800,6.5,100,18.0,16.7,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+68,6C,slanted_180,135,180,4421,400,920,6.5,72,18.0,16.65,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+69,6C,slanted_180,135,180,4421,400,1050,6.5,53,18.0,16.6,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+70,6C,slanted_180,135,180,4421,400,1175,6.5,40,18.0,16.6,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+71,6C,slanted_180,135,180,4421,400,1300,6.5,32,18.0,16.55,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+72,6C,slanted_180,135,180,4421,400,1425,6.5,27,18.0,16.45,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+73,6C,slanted_180,135,180,4421,400,1550,6.5,22,18.0,16.35,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+74,6C,slanted_180,135,180,4421,400,1700,6.5,19,18.0,16.25,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+75,6C,slanted_180,135,180,4421,400,1825,6.5,17,18.0,16.2,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+76,6C,slanted_180,135,180,4421,400,1950,6.5,14.5,18.0,16.1,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+77,6C,slanted_180,135,180,4421,400,2275,6.5,11,18.0,15.7,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+78,6C,slanted_180,135,180,4421,400,2600,6.5,8.5,18.0,15.6,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 slanted_180 (phi=135); Nu per-config from Fig19; Ri from Fig20 cluster (lower/slanted/side coincident, +-18%)"
+79,3C,upper_180,0,180,4421,400,650,6.5,58,18.0,14.4,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+80,3C,upper_180,0,180,4421,400,800,6.5,38,18.0,14.45,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+81,3C,upper_180,0,180,4421,400,920,6.5,27,18.0,14.5,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+82,3C,upper_180,0,180,4421,400,1050,6.5,20,18.0,14.95,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+83,3C,upper_180,0,180,4421,400,1175,6.5,16,18.0,15.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+84,3C,upper_180,0,180,4421,400,1300,6.5,12.5,18.0,15.4,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+85,3C,upper_180,0,180,4421,400,1425,6.5,10.5,18.0,15.2,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+86,3C,upper_180,0,180,4421,400,1550,6.5,8.8,18.0,15.3,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+87,3C,upper_180,0,180,4421,400,1700,6.5,7,18.0,15.45,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+88,3C,upper_180,0,180,4421,400,1825,6.5,6,18.0,15.55,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+89,3C,upper_180,0,180,4421,400,1950,6.5,5.2,18.0,15.65,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+90,3C,upper_180,0,180,4421,400,2275,6.5,4,18.0,15.7,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"
+91,3C,upper_180,0,180,4421,400,2600,6.5,3,18.0,15.85,3.5,0.3,developing_thermal_entry_LD72,digitized-reid-2018-fig17-20,Fig19+Fig20,"4421 W/m2 upper_180 (phi=0); Nu per-config from Fig19; Ri from Fig20 (upper, resolved)"

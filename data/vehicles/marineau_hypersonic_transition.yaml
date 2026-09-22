@@ -1,0 +1,60 @@
+# Marineau et al. (2014) bluntness hypersonic transition — AEROSPACE NEGATIVE
+# CONTROL vehicle (discrimination claim: PhysMAP declines where the baseline
+# already sees the failure, even though a citable validity bound exists).
+#
+# Source: Marineau, E.C. et al. (2014), SAND2014-4326C / AIAA, Table 3
+# 'Transition Parameters at 0-deg AoA' (Mach ~10 blunt cones). Banked CSV at
+# results/hypersonic_transition_v2_marineau/marineau_table3_transition_params.csv.
+#
+# WHY NEGATIVE CONTROL: the surrogate predicts transition momentum-thickness
+# Reynolds Re_theta,ST from (unit Reynolds, nose radius). The failure driver is
+# the entropy-layer/shock-interaction ratio S_T/X_SW (< 0.1 -> 2nd mode absent,
+# e^N regime breaks). A citable validity bound EXISTS (S_T/X_SW >= 0.1) and the
+# corpus fires on the large-bluntness deploy — BUT S_T/X_SW is a deterministic
+# function of nose radius (a surrogate input) at fixed Mach, so it is OBSERVABLE
+# (recoverable from the inputs) and the steelman baseline ALSO fires (the deploy,
+# Rn 25.4-50.8 mm, is exterior to the benign train, Rn 0.152-12.7 mm). PhysMAP
+# therefore correctly declines a clean differentiator (no clean_lift).
+
+vehicle_id: marineau_hypersonic_transition
+domain: hypersonic_transition_entropy_driven
+
+geometry:
+  class: hypersonic_blunt_cone
+  dims:
+    half_angle_deg: 7.0
+    nose_radius_mm_range: [0.152, 50.8]
+    mach_nominal: 10.0
+
+# matched = the entropy-layer/shock-interaction validity anchor (geometry
+# MATCHES: hypersonic_blunt_cone). Carries the entropy_layer_shock_ratio bound
+# (S_T/X_SW >= 0.1) that fires on the large-bluntness deploy. NOT the
+# surrogate-of-record; the loader fits a GP transition surrogate on the benign rows.
+matched_closure_id: marineau-entropy-layer-shock-interaction-2014
+reference_closure_ids: []
+
+# entropy_layer_shock_interaction_bands: train where the e^N/2nd-mode regime
+# holds (S_T/X_SW >= 0.1, benign), deploy where it breaks (S_T/X_SW < 0.1).
+# band[0] carries the train/deploy split cutoff (st_xsw_lt) read by vehicle_spec.
+cell_bands:
+  type: entropy_layer_shock_interaction_bands
+  bands:
+    - { name: failure_2ndmode_absent, st_xsw_lt: 0.1 }
+    - { name: benign_eN_valid,        st_xsw_lt: 1.0e+18 }
+
+data_source:
+  loader: marineau_hypersonic_transition
+  path: results/hypersonic_transition_v2_marineau/marineau_table3_transition_params.csv
+
+fluid:
+  name: air
+
+benchmark:
+  include: true
+  domain: aerospace
+  surrogate_inputs: [Re_per_m, Rn_mm]
+  regime: HYPERSONIC_TRANSITION_ENTROPY
+  failure_driver: st_xsw_ratio
+  expected_observability_class: OBSERVABLE
+  architecture_axis: false
+  caveat: "baseline-visible bound (S_T/X_SW recoverable from Rn); discrimination control"

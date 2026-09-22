@@ -21,6 +21,8 @@ from enum import Enum
 
 __all__ = [
     "Redistribution",
+    "licensed_ids",
+    "unlicensed_shipped_ids",
     "VehicleRecord",
     "VEHICLES",
     "rerunnable_ids",
@@ -29,12 +31,28 @@ __all__ = [
 
 
 class Redistribution(str, Enum):
-    #: Source data ships. The vehicle can be recomputed from this checkout.
+    """Why each vehicle's source data does or does not ship.
+
+    Three of these mean "it ships", and they are kept apart on purpose. A reader
+    deciding whether to reuse this data needs to know whether it rests on a licence,
+    on the absence of a prohibition, or on a risk the project chose to carry. Folding
+    them into one CLEAR would hide exactly the distinction that matters.
+    """
+
+    #: Affirmative permission exists: public domain, or an explicit open licence.
     CLEAR = "clear"
-    #: Cleared-status undetermined or negative by project decision.
+
+    #: No permission and no prohibition. Shipped on the position that measured values
+    #: are facts. Defensible, and not backed by a grant.
+    NO_LICENCE_FACTS_BASIS = "no_licence_facts_basis"
+
+    #: Shipped DESPITE an express publisher term forbidding redistribution. A risk the
+    #: project accepted with its eyes open, not a determination that the term does not
+    #: apply. Removed on objection.
+    AGAINST_PUBLISHER_TERMS = "against_publisher_terms"
+
+    #: Does not ship, by project decision.
     EXCLUDED_BY_DECISION = "excluded_by_decision"
-    #: No reuse licence exists. Not a decision -- a finding.
-    BLOCKED_NO_LICENCE = "blocked_no_licence"
 
 
 @dataclass(frozen=True)
@@ -47,8 +65,19 @@ class VehicleRecord:
     redistribution: Redistribution
     redistribution_reason: str
 
+    SHIPS = frozenset({
+        Redistribution.CLEAR,
+        Redistribution.NO_LICENCE_FACTS_BASIS,
+        Redistribution.AGAINST_PUBLISHER_TERMS,
+    })
+
     @property
     def rerunnable(self) -> bool:
+        return self.redistribution in VehicleRecord.SHIPS
+
+    @property
+    def licensed(self) -> bool:
+        """True only where affirmative permission exists. Shipping is not licensing."""
         return self.redistribution is Redistribution.CLEAR
 
 
@@ -89,27 +118,34 @@ VEHICLES: tuple[VehicleRecord, ...] = (
         "marineau_hypersonic_transition", "aerospace", "st_xsw_ratio",
         "Marineau et al., AIAA 2014-3108 / SAND2014-4326C",
         "Transcribed from Table 3",
-        Redistribution.BLOCKED_NO_LICENCE,
-        "No reuse licence exists. The OSTI copy carries no copyright notice and is marked "
-        "public-release-unlimited, but that is a security determination, not a licence; "
-        "OSTI expressly disclaims granting one.",
+        Redistribution.NO_LICENCE_FACTS_BASIS,
+        "No reuse licence exists, and no prohibition either. The OSTI copy carries no "
+        "copyright notice and is marked public-release-unlimited by the controlling "
+        "office -- a security determination, not a licence, and OSTI expressly disclaims "
+        "granting one. Ships on the position that measured values transcribed from a "
+        "published table are facts. Government-funded, government-hosted, transcribed "
+        "rather than digitised: the cleanest of the unlicensed three.",
     ),
     VehicleRecord(
         "dirker_water", "thermal-fluids", "Ri",
         "Dirker, Meyer & Reid (2018), Exp. Therm. Fluid Sci. 98",
         "Figure digitisation from Figs 17-20",
-        Redistribution.EXCLUDED_BY_DECISION,
-        "Closed access under the Elsevier TDM licence, which forbids systematic "
-        "redistribution. The one permissions exemption is drafted to exclude data that "
-        "was previously in figure format.",
+        Redistribution.AGAINST_PUBLISHER_TERMS,
+        "Elsevier's TDM licence forbids substantially or systematically redistributing "
+        "the dataset, and the one permissions exemption is drafted to exclude data that "
+        "was previously in figure format -- which this was. Shipped anyway, as an "
+        "accepted risk. Values are numbers only; no figure, text or PDF is "
+        "redistributed. Weakest of the three: read off plots rather than transcribed.",
     ),
     VehicleRecord(
         "jin_sco2_buoyancy", "thermal-fluids", "Bu",
         "Jin et al. (2023), Ann. Nucl. Energy 188:109825",
         "Figure digitisation, two readers; Bu and Bo* recomputed",
-        Redistribution.EXCLUDED_BY_DECISION,
-        "Closed access with no open copy anywhere, same Elsevier terms as Dirker. The "
-        "authors were asked for raw data and declined.",
+        Redistribution.AGAINST_PUBLISHER_TERMS,
+        "Same Elsevier terms as Dirker, with no open copy anywhere, and the authors were "
+        "asked for raw data and declined. Shipped anyway, as an accepted risk. Bu and "
+        "Bo* are recomputed from the paper's own equations, so part of this file is "
+        "derived work rather than extraction.",
     ),
 )
 
@@ -132,3 +168,16 @@ def rerunnable_ids() -> tuple[str, ...]:
 
 def banked_only_ids() -> tuple[str, ...]:
     return tuple(v.vehicle_id for v in VEHICLES if not v.rerunnable)
+
+
+def licensed_ids() -> tuple[str, ...]:
+    """Vehicles whose data ships under affirmative permission."""
+    return tuple(v.vehicle_id for v in VEHICLES if v.licensed)
+
+
+def unlicensed_shipped_ids() -> tuple[str, ...]:
+    """Vehicles that ship WITHOUT a licence. Removed on objection; see NOTICE."""
+    return tuple(
+        v.vehicle_id for v in VEHICLES
+        if v.rerunnable and not v.licensed
+    )

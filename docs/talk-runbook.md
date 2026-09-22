@@ -68,36 +68,42 @@ physmap benchmark run --report
 
 The command prints, before anything else:
 
-> Rerunning 2 of 7 vehicles: naca_tn1451, velazquez_sco2
+> Rerunning 5 of 7 vehicles
 > **THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES.**
 
-Then the full seven-vehicle table, with every row marked either `RECOMPUTED` or
-`banked only` and the reason. Say the two counts out loud as they appear. Two recomputed,
-five from the bank.
+Then the full seven-vehicle table, with every row marked and the reason. Say the counts
+out loud as they appear. Five recomputed, two from the bank.
 
-Five vehicles cannot ship their source data. Forrest, Casper, Dirker and Jin are excluded
-by decision; Marineau is blocked because no reuse licence exists for it. The banked matrix
-itself is publishable because it holds only counts, verdicts and our own thresholds — none
-of anyone else's measurements.
+`forrest` and `casper_hypersonic_transition` cannot ship their source data. The banked
+matrix itself is publishable because it holds only counts, verdicts and our own
+thresholds — none of anyone else's measurements.
 
-### Say this about the subset, before anyone asks
+### Two things to volunteer, before anyone asks
+
+**One. The subset still is not complete.**
 
 ```bash
 physmap benchmark coverage
 ```
 
-**The public subset is not a representative sample, and it is flattering.** It keeps
-`PHYSMAP_WINS` and `PARTIAL`. It loses the entire **aerospace** domain, and — this is the
-part to volunteer rather than defend — it loses both outcome classes where PhysMAP shows
-*restraint*:
+Both domains and all three observability classes survive. What does not is `DO_NO_HARM` —
+the case where the guard correctly stays *quiet*. Its only vehicle is Forrest, which is
+excluded. So the live run still cannot show the method declining to fire. Say it before
+someone notices that every live case is one where you win.
 
-- `DO_NO_HARM` — the guard correctly stays quiet. Only vehicle: Forrest. Excluded.
-- `BASELINE_VISIBLE` — the guard correctly declines to claim credit the baseline already
-  earns. Only vehicle: Marineau. Blocked.
+**Two. Three of the five datasets ship without a licence.**
 
-So the two cases that prove the method knows when **not** to fire are exactly the two the
-audience cannot rerun. Say so from the stage. If you do not, someone will notice that
-every live case is one where you win, and then it is an accusation instead of a caveat.
+This is the one to get right, because heat-transfer researchers are in that room and two
+of these papers are theirs.
+
+- `marineau` — no licence, and no prohibition. Transcribed from a published table in a
+  publicly funded, government-hosted, public-release document. Facts.
+- `dirker_water` and `jin_sco2_buoyancy` — published **against** an express Elsevier term.
+  A risk taken deliberately, not a claim the term does not apply.
+
+Numbers only: no paper, no figure, no PDF. Removed on objection, no argument made. If
+asked, say exactly that — do not defend it as though it were a licence. The repository
+already says so in `NOTICE` and `data/REDISTRIBUTION.md`, which is the answer to give.
 
 ---
 
@@ -160,7 +166,9 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
 | "Materiality was 0.04, so the mechanism doesn't matter." | Only if the status is `estimated`. If it is `insufficient_evidence`, say "we could not assess it" — those are different findings. |
 | "Out of calibration, so the prediction is untrustworthy." | "Out of calibration **and** material. Either alone is not a verdict." |
-| "`physmap benchmark run` reproduces the seven-vehicle benchmark." | "It reruns two of the seven. The other five are reported from the bank, because their source data cannot be redistributed." |
+| "`physmap benchmark run` reproduces the seven-vehicle benchmark." | "It reruns five of the seven. The other two are reported from the bank." |
+| "All the benchmark data is openly licensed." | "Two of the five are. Three ship without a licence, and two of those against an express publisher term. It is in NOTICE." |
+| "Elsevier's terms don't apply because facts aren't copyrightable." | "The term is a contract, not a copyright claim. We took the risk knowingly and we remove the data if they object." |
 | "All seven vehicles reproduce from a clean clone." | "All seven **ran**. Two **rerun** publicly." |
 | "The public subset shows the method working across domains." | "The public subset is thermal-fluids only, and it happens to contain only the cases where the method fires. The restraint cases are in the report, not the rerun." |
 | "The open-source release reproduces the paper." | "The open-source release contains the method and the observability benchmark. The causal numbers are historical." |
@@ -196,20 +204,25 @@ class balance, not a number chosen against it. The class balance is not even com
 after that lock. The known-results declaration records what was already known going in,
 because the original results were already public and pretending otherwise would be false.
 
-**"Why can I only rerun two of the seven?"**
-Five of the seven source datasets cannot be redistributed. Four are excluded by decision
-— two Elsevier papers whose licence forbids it, an ASME paper digitised from the
-copyrighted version, and an AIAA paper whose publisher prohibits using their content to
-develop machine-learning models. The fifth, Marineau, simply has no reuse licence: the
-copy on OSTI carries no copyright notice and is marked approved for public release, but
-that is a security determination and OSTI expressly says it grants no reuse rights. All
-seven results are still reported; what you cannot do is recompute five of them.
+**"Where did you get Dirker's and Jin's data, and did you have permission?"**
+Digitised from the published figures, and no. Elsevier's licence forbids systematic
+redistribution of the dataset. We published the numbers anyway — numbers only, no paper or
+figure — and we say so in NOTICE and in the redistribution manifest rather than implying a
+licence we do not have. If the publisher or the authors object, the files come out and we
+will not argue. That is a risk we took deliberately, not an oversight.
+
+**"Why can I only rerun five of the seven?"**
+Two are excluded. Forrest was digitised from the copyrighted version of record when a
+CC-BY manuscript existed, and its own values are marked as placeholders pending
+redigitisation. Casper's result rows come from an AIAA paper, and AIAA prohibits using
+their content to develop machine-learning models. All seven results are still reported;
+what you cannot do is recompute those two.
 
 **"Isn't the public subset cherry-picked?"**
-It is not chosen, but it is skewed, and in our favour. The two vehicles that survive are
-both cases where the method fires. The two where it correctly stays quiet are the ones
-excluded. `physmap benchmark coverage` prints exactly that, and the report says the subset
-is not representative.
+It is not chosen, but it is still incomplete in one direction that matters: `DO_NO_HARM`,
+where the guard correctly stays quiet, has a single vehicle and that one is excluded.
+`physmap benchmark coverage` prints exactly that, and the report says the subset is not
+representative.
 
 **"Why is the corpus not fully open?"**
 The library is open, the calibration corpus is the commercial moat. Fifteen closures ship
@@ -227,9 +240,10 @@ file carries its own redistribution determination.
 
 - [ ] `git clone` fresh, `pip install -e .`, `pytest tests/ -q -n auto` green
 - [ ] `python examples/naca_entrance_region.py` → 45 REJECT
-- [ ] `physmap benchmark run --report` → prints "2 of 7" and the do-not-reproduce line
-- [ ] `physmap benchmark coverage` → names aerospace, `DO_NO_HARM` and `BASELINE_VISIBLE`
-      as absent from the rerun
+- [ ] `physmap benchmark run --report` → prints "5 of 7" and the do-not-reproduce line
+- [ ] `physmap benchmark coverage` → names `DO_NO_HARM` as absent from the rerun
+- [ ] You can state, in one sentence and without defensiveness, which three datasets ship
+      without a licence and why
 - [ ] Both `physmap screen` refusals print `declarative`
 - [ ] `physmap reproduce nafems-2026` → *invalid choice*. If this ever prints a
       data-missing error instead, the release state and the shipped data disagree

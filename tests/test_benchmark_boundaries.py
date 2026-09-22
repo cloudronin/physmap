@@ -20,7 +20,11 @@ from physmap.benchmarks.registry import (
 )
 from physmap.benchmarks.report import coverage_note, load_banked_matrix, render_report
 
-EXPECTED_RERUN = ("naca_tn1451", "velazquez_sco2")
+EXPECTED_RERUN = (
+    "naca_tn1451", "velazquez_sco2",
+    "marineau_hypersonic_transition", "dirker_water", "jin_sco2_buoyancy",
+)
+EXPECTED_LICENSED = ("naca_tn1451", "velazquez_sco2")
 
 
 def _cli(*args):
@@ -29,10 +33,20 @@ def _cli(*args):
     )
 
 
-def test_exactly_the_cleared_vehicles_are_rerunnable():
-    assert rerunnable_ids() == EXPECTED_RERUN
+def test_exactly_the_shipped_vehicles_are_rerunnable():
+    assert set(rerunnable_ids()) == set(EXPECTED_RERUN)
     assert len(VEHICLES) == 7
-    assert len(banked_only_ids()) == 5
+    assert len(banked_only_ids()) == 2
+
+
+def test_shipping_is_kept_distinct_from_licensing():
+    """Three datasets ship without a licence. Folding them into CLEAR would hide the
+    one thing a downstream reuser most needs to know."""
+    from physmap.benchmarks.registry import licensed_ids, unlicensed_shipped_ids
+
+    assert set(licensed_ids()) == set(EXPECTED_LICENSED)
+    assert set(unlicensed_shipped_ids()) == set(EXPECTED_RERUN) - set(EXPECTED_LICENSED)
+    assert set(licensed_ids()) & set(unlicensed_shipped_ids()) == set()
 
 
 def test_every_vehicle_states_a_redistribution_basis():
@@ -41,12 +55,24 @@ def test_every_vehicle_states_a_redistribution_basis():
         assert v.source.strip() and v.how_values_were_produced.strip(), v.vehicle_id
 
 
-def test_marineau_is_blocked_not_merely_excluded():
-    """It is a finding, not a decision: no reuse licence exists. Collapsing it into
-    'excluded by decision' would hide that the two are different things."""
+def test_the_three_unlicensed_datasets_carry_the_right_basis():
+    """Marineau has no prohibition; Dirker and Jin are published against one. Those are
+    different risks and the registry must not blur them."""
     from physmap.benchmarks.registry import get
 
-    assert get("marineau_hypersonic_transition").redistribution is Redistribution.BLOCKED_NO_LICENCE
+    assert get("marineau_hypersonic_transition").redistribution is (
+        Redistribution.NO_LICENCE_FACTS_BASIS)
+    for vid in ("dirker_water", "jin_sco2_buoyancy"):
+        assert get(vid).redistribution is Redistribution.AGAINST_PUBLISHER_TERMS
+        assert not get(vid).licensed
+
+
+def test_report_warns_that_shipping_is_not_licensing():
+    text = render_report()
+    assert "Shipping is not licensing" in text
+    assert "ships, NOT licensed" in text
+    assert "ships, AGAINST publisher terms" in text
+    assert "removed on objection" in text.lower()
 
 
 def test_the_banked_matrix_carries_no_third_party_measurements():
@@ -72,7 +98,7 @@ def test_report_shows_all_seven_and_marks_the_two():
     for v in VEHICLES:
         assert v.vehicle_id in text
     assert "THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES." in text
-    assert "2 of 7" in text
+    assert "5 of 7" in text
 
 
 def test_report_marks_recomputed_rows_differently():
@@ -86,9 +112,9 @@ def test_report_marks_recomputed_rows_differently():
 def test_coverage_note_admits_the_subset_is_not_representative():
     note = coverage_note()
     assert "NOT a representative sample" in note
-    assert "aerospace" in note
-    # the two restraint outcomes are exactly what the public subset loses
-    assert "DO_NO_HARM" in note and "BASELINE_VISIBLE" in note
+    # DO_NO_HARM has one vehicle, forrest, which is excluded -- so the case where the
+    # guard correctly stays quiet still cannot be rerun.
+    assert "DO_NO_HARM" in note
 
 
 @pytest.mark.parametrize("args", [("benchmark", "run"), ("benchmark", "report")])
@@ -100,7 +126,7 @@ def test_cli_always_states_it_does_not_reproduce_all_seven(args):
 
 def test_cli_run_names_both_sets():
     r = _cli("benchmark", "run")
-    assert "Rerunning 2 of 7" in r.stdout
+    assert "Rerunning 5 of 7" in r.stdout
     for vid in banked_only_ids():
         assert vid in r.stdout
 

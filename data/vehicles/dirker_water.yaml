@@ -1,0 +1,83 @@
+# Dirker, Meyer & Reid (2018) water non-uniform-flux tube — D3 MIDDLE-axis
+# vehicle (PhysMAP Stage-3 observability axis, between NACA ~0 and Forrest ~1).
+#
+# Source: Dirker, J., Meyer, J.P. & Reid, W.J. (2018), "Experimental
+# investigation of circumferentially non-uniform heat flux on the heat transfer
+# coefficient in a smooth horizontal tube with buoyancy driven secondary flow",
+# Exp. Thermal & Fluid Sci. (ScienceDirect pii S0894177718302528). Open-access
+# accepted manuscript: U. Pretoria repository. Banked PDF + digitized CSV under
+# results/dirker_water_digitization/.
+#
+# WHY MIDDLE: the surrogate is a buoyancy/position/flux-BLIND forced-convection
+# fit on the low-Ri rows (loader: dirker_water_richardson_bands, Path A). The
+# failure variable Ri = Gr/Re^2 (digitized DIRECTLY from the authors' per-point
+# Figs 18/20) is OMITTED from the (log10_Re, Pr) surrogate inputs. Ri is only
+# PARTIALLY observable from (Re, Pr) -> a MIDDLE observability score by
+# construction. The span is fixed at 180 deg and every row is laminar (Re
+# 650-2600), so the failure is attributable to buoyancy (Ri) ALONE -- NO span
+# confound, NO regime-transition confound.
+#
+# WHY MULTI-FLUX: a single heat-flux level gives Ri ~ f(Re) (collinear with the
+# baseline input -> baseline-sufficient -> near the Forrest pole, no clean_lift).
+# Pooling 6631 + 4421 W/m2 supplies Ri variation at FIXED Re so high-Ri (deploy)
+# and low-Ri (train) rows coexist at the same Re (interleaving band Re~1175-1950)
+# -> the Re-baseline stays quiet while the Ri-corpus fires. This is the user's
+# original "train low-flux/low-Ri, deploy high-flux/high-Ri" construction.
+
+vehicle_id: dirker_water
+domain: convection_mixed
+
+geometry:
+  class: circular_pipe
+  dims:
+    tube_id_mm: 27.8              # smooth horizontal tube, L/D = 72
+    orientation: horizontal
+    wall_condition: nonuniform_heat_flux_180deg_span
+
+# Mixed-convection matched closure (geometry MATCHES: circular pipe). aung-worku
+# is the CORPUS/VALIDITY anchor — it carries the richardson_number bound (Ri in
+# [0.1, 10]) that fires on the buoyancy-affected deploy rows, and is main's
+# MIXED_CONVECTION_HORIZONTAL_TUBE regime closure. It is NOT the
+# surrogate-of-record (no executable predictor here); the loader fits a
+# data-driven buoyancy-blind surrogate on the low-Ri rows (Path A) instead.
+# (The Ri bound is deliberately NOT on the shared gnielinski, which is the
+# forced entrance-region/NACA closure — that would pollute NACA's validity.)
+matched_closure_id: aung-worku-mixed-convection-1986
+
+reference_closure_ids:
+  - dittus-boelter-1930
+  - petukhov-1970
+
+# Richardson-number cells. band[0].ri_lt is the train/deploy split (ri_forced_cut
+# read by vehicle_spec): Ri < 20 = forced-collapsed (train), Ri >= 20 = buoyancy
+# spread (deploy). RI_CEIL ~ 20 is data-driven: where the inter-config Nu spread
+# collapses (Re ~ 1700-1950). NOTE: this is the SPLIT cutoff, distinct from the
+# corpus richardson_number validity ceiling (0.1, the literature forced-dominated
+# criterion) which fires on every deploy row.
+cell_bands:
+  type: richardson_bands
+  bands:
+    - { name: forced_collapsed, ri_lt: 20.0 }       # train (low-Ri)
+    - { name: buoyancy_spread,  ri_lt: 1.0e+18 }     # deploy (high-Ri) catch-all
+
+data_source:
+  loader: dirker_water_richardson_bands
+  # Per-point digitized Nu (Figs 17/19) + Ri (Figs 18/20) for the 180-deg-span
+  # cases at 6631 + 4421 W/m2 (2B/3B/4B5B/6B + 2C/3C/6C). Schema per
+  # substrate.loaders._DIRKER_WATER_EXPECTED_CSV_COLUMNS.
+  path: results/dirker_water_digitization/local_nu_180span.csv
+
+fluid:
+  name: water
+  pr_range: [6.0, 7.0]   # paper: average Pr 6-7 (water, ~20C inlet)
+
+benchmark:
+  include: true
+  domain: thermal-fluids
+  surrogate_inputs: [Re, Pr]
+  regime: MIXED_CONVECTION_HORIZONTAL_TUBE
+  failure_driver: Ri
+  expected_observability_class: PARTIAL
+  threshold_calibration: [3.5, 2.5]
+  architecture_axis: false
+  caveat: "obs 0.49 provisional middle (Ri); sampling-sensitive"

@@ -1,0 +1,58 @@
+# Jin et al. 2023 — supercritical CO2 VERTICAL tube (buoyancy differentiator vehicle, 7th cell).
+# Source / provenance: physmap/results/jin_sco2_buoyancy/ (BUILT_DIFFERENTIATOR, G1-G7;
+#   GATES_DRY_RUN.md, DATA_STATUS.md, PROVENANCE.md).
+# The surrogate is a CONSTANT-PROPERTY, direction-OMITTING Dittus-Boelter Nu(Re,Pr) closure; the
+# failure driver is the Liu buoyancy parameter Bu (omitted), which exceeds its validity threshold in
+# the upward heat-transfer-deterioration (HTD) region. Geometry MATCHES (circular pipe); the mismatch
+# is PHYSICS (omitted buoyancy/direction), so no expect_mismatch override. The matched up/down pair
+# holds the property field fixed (identical Bo*) and flips only buoyancy — the confound isolation the
+# Velazquez sCO2 middle could not make (the role Bae & Kim 2010 was backlog-listed for).
+vehicle_id: jin_sco2_buoyancy
+domain: convection_internal_mixed_buoyancy_supercritical
+
+geometry:
+  class: circular_pipe
+  dims:
+    Di_mm: 7.74
+    heated_length_mm: 1050.0
+    total_length_mm: 1850.0          # 400 + 1050 + 400 (adiabatic developing sections)
+    orientation: vertical
+    wall_material: stainless_steel_316L
+
+# matched = a REGIME-SPECIFIC constant-property Dittus-Boelter (same D-B Nu formula as
+# dittus-boelter-1930 -> identical surrogate prediction) whose corpus validated_range carries the Liu
+# buoyancy-parameter (Bu) validity bound. Regime-specific, NOT the shared dittus-boelter-1930, so the
+# Bu bound stays off the other vehicles (the dirker/velazquez lesson).
+matched_closure_id: dittus-boelter-buoyancy-sco2
+reference_closure_ids:
+  - dittus-boelter-1930
+
+cell_bands:
+  # buoyancy_parameter_bands: benign = downward / high-G / low-q (NHT, Bu small); deploy = upward HTD
+  # (Bu >> threshold). The split is the physical regime label `split_role` precomputed in the substrate
+  # CSV (the A6(ii) flow-direction toggle + family roles), NOT a Bu threshold (downward q=43.9 has
+  # Bu>1.3e-5 from buoyancy ENHANCEMENT yet is benign NHT). Bands here are documentary.
+  type: buoyancy_parameter_bands
+  bands:
+    - { name: benign_nht,  split_role: benign }
+    - { name: deploy_htd,  split_role: deploy }
+
+data_source:
+  loader: jin_sco2_buoyancy_lfs
+  path: results/jin_sco2_buoyancy/jin_sco2_benchmark_substrate.csv
+
+fluid:
+  name: supercritical_CO2
+  pr_range: [2.5, 16.0]
+
+benchmark:
+  include: true
+  domain: thermal-fluids
+  surrogate_inputs: [Re, Pr]
+  regime: MIXED_CONVECTION_VERTICAL_TUBE
+  failure_driver: Bu
+  expected_observability_class: UNOBSERVABLE   # MEASURED: Bu (and bulk-only Bo*) cv_r2_knn~0 from (Re,Pr)
+                                               # over the deploy region -> orthogonal to bulk inputs
+                                               # (Casper-structured DIRECTION toggle), not the partial band.
+  architecture_axis: true
+  caveat: "Liu buoyancy parameter Bu (wall-aware); UNOBSERVABLE pole (cv_r2~0, Casper-structured direction toggle) — a 2nd thermal-fluids PHYSMAP_WINS + the buoyancy/property-variation confound-isolation case (up/down holds property field fixed). Digitization-tier; evidence Claim bound-only/claimed."

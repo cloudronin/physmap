@@ -10,11 +10,11 @@ Status as of 2026-09-22.
 |---|---|---|---|---|
 | `naca_tn1451` | NACA TN-1451 (1947) | Two-reader visual digitisation, Fig 10 | US Government work, public domain | **CLEAR — shipped** |
 | `velazquez_sco2` | Velázquez et al. (2026), *Appl. Therm. Eng.* 285:129206 | Exact transcription from supplementary Appendix D, plus our own CoolProp-derived columns | **CC BY 4.0**, publisher-deposited, and Elsevier states the article licence extends to supplementary files | **CLEAR — ships** |
-| `forrest` | Forrest et al., *J. Heat Transfer* 138(2):021704 | Visual estimates from Fig 5 of the **version of record** | ASME holds copyright. VoR is free-to-read with no reuse licence. A CC-BY accepted manuscript exists on OSTI PAGES | **BLOCKED as digitised** — see decision 1 |
-| `casper_hypersonic_transition` | Casper MS thesis (DTIC ADA504177) **and** AIAA 2009-4054 | Figure digitisation, 600-DPI segmentation, two readers | Thesis: unlimited distribution. **The rows carrying the result are from the AIAA paper** | **SPLIT** — see decision 2 |
-| `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 / SAND2014-4326C | Transcribed from Table 3 | No reuse licence. OSTI expressly disclaims granting one | **BLOCKED — excluded from this release** |
-| `dirker_water` | Dirker, Meyer & Reid (2018), *Exp. Therm. Fluid Sci.* 98 | Figure digitisation from Figs 17–20 | Closed access. Crossref carries **only** the Elsevier TDM licence | **BLOCKED pending policy** — see decision 4 |
-| `jin_sco2_buoyancy` | Jin et al. (2023), *Ann. Nucl. Energy* 188:109825 | Figure digitisation, two readers; Bu and Bo* recomputed | Closed access, no open copy anywhere. TDM licence only | **BLOCKED pending policy** — see decision 4 |
+| `forrest` | Forrest et al., *J. Heat Transfer* 138(2):021704 | Visual estimates from Fig 5 of the **version of record** | ASME holds copyright. A CC-BY accepted manuscript exists on OSTI but was not the source used | **EXCLUDED** — also fails on quality; its own header marks the values as placeholders |
+| `casper_hypersonic_transition` | Casper MS thesis (DTIC ADA504177) **and** AIAA 2009-4054 | Figure digitisation, 600-DPI segmentation, two readers | The rows carrying the result are AIAA's, and AIAA prohibits using their content to develop ML models | **EXCLUDED** |
+| `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 / SAND2014-4326C | Transcribed from Table 3 | No licence — and **no prohibition**. Public-release marked, government-funded, government-hosted | **SHIPS, NOT LICENSED** — facts basis |
+| `dirker_water` | Dirker, Meyer & Reid (2018), *Exp. Therm. Fluid Sci.* 98 | Figure digitisation from Figs 17–20 | Elsevier TDM licence **forbids** systematic redistribution | **SHIPS AGAINST PUBLISHER TERMS** — risk accepted |
+| `jin_sco2_buoyancy` | Jin et al. (2023), *Ann. Nucl. Energy* 188:109825 | Figure digitisation, two readers; Bu and Bo* recomputed | Same Elsevier terms. No open copy. Authors asked for raw data and **declined** | **SHIPS AGAINST PUBLISHER TERMS** — risk accepted |
 
 ## What was verified directly
 
@@ -37,6 +37,60 @@ separating out: **it is a site term, and it binds users of ARC.** The Casper pap
 obtained from OSTI, a government repository. The Marineau PDF's origin is not recorded. If
 neither came from ARC, the site terms are not the operative restriction and the question
 falls back to ordinary copyright in the underlying paper.
+
+## Three datasets ship without a licence. Say so plainly.
+
+**Shipping is not licensing**, and the repository does not pretend otherwise. Two of the
+five shipped datasets carry affirmative permission. Three do not, and they are labelled
+that way in the registry, in the benchmark report and here.
+
+### What is actually being redistributed
+
+**Numbers only.** No paper, no figure, no table image, no PDF. Two audits enforce it — one
+on the built wheel, one on the checkout — and no document-shaped file is tracked anywhere
+in this repository. Copyright bites hardest on expression, and none of the expression
+moves.
+
+### Marineau — no permission, and no prohibition
+
+These are measured values transcribed from a published table. Facts are not copyrightable;
+nobody owns the fact that transition began at a given station. The document carries no
+copyright notice, is marked approved for public release by the controlling office, was
+publicly funded, and is hosted on a government server. No term anywhere forbids this.
+
+Ships on the facts basis. The cleanest of the three by a distance.
+
+### Dirker and Jin — shipped against an express term
+
+This is a risk the project accepted, not a determination that the term does not apply. The
+distinction matters and is recorded rather than blurred.
+
+Elsevier's TDM licence forbids substantially or systematically reproducing or
+redistributing the dataset. That is a **contract** term, so copyrightability is the wrong
+axis for it: whether measured values are facts does not release anyone from an agreement
+made to obtain access. The clause says "substantially or systematically" precisely to
+catch the argument that each extracted number is individually free. Separately, the EU
+database right protects substantial extraction from a database built with real investment
+— which exists *because* facts are not copyrightable, and which an experimental campaign
+is the paradigm case for.
+
+Two further facts, recorded because they are uncomfortable rather than despite it:
+
+- The provenance files describe 500-DPI crops, two independent readers, per-marker reads
+  and ±18% read uncertainty. That is documented systematic extraction. It would be
+  inconsistent to publish provenance that precise and characterise the same act as casual
+  recall.
+- Jin's authors were asked for the raw data and declined.
+
+Mitigations that are real but partial: only numbers are redistributed; for Jin, `Bu` and
+`Bo*` are recomputed from the paper's own equations, so part of that file is derived work
+rather than extraction; and both are removed on objection.
+
+### Removal on objection
+
+Any rights holder who objects gets the data removed. Open an issue at
+<https://github.com/cloudronin/physmap/issues>; see NOTICE. This is a genuine commitment
+and it is also, honestly, the fallback the decision rests on.
 
 ## Velázquez — the supplementary file is covered
 
@@ -154,10 +208,11 @@ Found while establishing provenance. All are factual errors in the current metad
 
 ## Consequence for the public benchmark
 
-**Two of the seven benchmark vehicles ship: `naca_tn1451` and `velazquez_sco2`.**
+**Five of the seven benchmark vehicles ship.** Two under a licence (`naca_tn1451`,
+`velazquez_sco2`) and three without one (`marineau_hypersonic_transition`, `dirker_water`,
+`jin_sco2_buoyancy`).
 
-The other five are excluded from this release: Forrest, Casper, Dirker and Jin by
-decision, Marineau because no reuse licence exists for it.
+Two are excluded: `forrest` and `casper_hypersonic_transition`.
 
 The full seven-vehicle result is still reported — every vehicle's outcome and provenance
 appears in the benchmark report and on the slides. What changes is what the public

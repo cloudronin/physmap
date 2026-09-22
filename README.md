@@ -69,19 +69,31 @@ physmap benchmark run        # recomputes the subset whose data can be redistrib
 physmap benchmark coverage   # what that subset does and does not cover
 ```
 
-All seven vehicles ran, and all seven outcomes are reported. **Two of them can be rerun
-from this checkout.** Five cannot, because their source measurements are not
-redistributable — see [data/REDISTRIBUTION.md](data/REDISTRIBUTION.md) for the
-determination on each, with the evidence.
+All seven vehicles ran, and all seven outcomes are reported. **Five can be rerun from this
+checkout.** Two cannot: `forrest` and `casper_hypersonic_transition` are excluded.
 
 `physmap benchmark run` **does not reproduce all seven vehicles**, and says so before it
 says anything else. The banked matrix is publishable because it holds counts, verdicts and
 our own thresholds; none of anyone else's measurements are in it.
 
-**The rerunnable subset is not representative, and it flatters the method.** It keeps the
-two cases where PhysMAP fires and loses both where it correctly holds back — `DO_NO_HARM`
-and `BASELINE_VISIBLE` — along with the entire aerospace domain. `physmap benchmark
-coverage` prints exactly that.
+**Shipping is not licensing.** Of the five datasets published here, two carry affirmative
+permission — public domain and CC BY 4.0. **Three do not**, and the report and the
+registry label them that way rather than quietly calling everything clear:
+
+- `marineau_hypersonic_transition` — no licence and **no prohibition**. Values transcribed
+  from a published table in a publicly funded, publicly released, government-hosted
+  document, on the position that measured values are facts.
+- `dirker_water` and `jin_sco2_buoyancy` — published **against** an express Elsevier term
+  forbidding systematic redistribution. A risk this project accepted, not a finding that
+  the term does not apply.
+
+All three redistribute **numbers only** — no paper, figure or PDF — and all three are
+removed on objection. The full basis, including the arguments against, is in
+[data/REDISTRIBUTION.md](data/REDISTRIBUTION.md) and [NOTICE](NOTICE).
+
+**The rerunnable subset still is not representative.** `DO_NO_HARM` — the case where the
+guard correctly stays quiet — has one vehicle, `forrest`, and it is excluded. `physmap
+benchmark coverage` prints that.
 
 ## Install
 

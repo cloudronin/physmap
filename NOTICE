@@ -30,6 +30,30 @@ publications.
 
 No source PDF is redistributed. Papers are cited, not copied.
 
-If you believe a file here infringes your rights, open an issue at
-https://github.com/cloudronin/physmap/issues and it will be removed pending
-review.
+THREE DATASETS SHIP WITHOUT A LICENCE
+
+    Shipping is not licensing. Two of the five published datasets carry
+    affirmative permission. Three do not:
+
+        marineau_hypersonic_transition
+        dirker_water
+        jin_sco2_buoyancy
+
+    All three redistribute NUMBERS ONLY -- no paper, figure or PDF.
+
+    Marineau has no licence and no prohibition: values transcribed from a
+    published table of measurements, in a publicly funded, publicly released,
+    government-hosted document.
+
+    Dirker and Jin are published DESPITE an express Elsevier term forbidding
+    systematic redistribution of the dataset. That is a risk this project
+    accepted, not a finding that the term does not apply.
+
+    data/REDISTRIBUTION.md states the basis for each in full, including the
+    arguments against.
+
+REMOVAL ON OBJECTION
+
+    Any rights holder who objects gets the data removed. Open an issue at
+    https://github.com/cloudronin/physmap/issues, or contact the maintainer.
+    No argument will be made; the files come out.
