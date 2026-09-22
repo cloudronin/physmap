@@ -28,13 +28,25 @@ def test_regime_observability_mapping_matches_its_generator():
 
 def test_evidence_seed_matches_a_fresh_split_when_premium_is_available():
     """The firewalled evidence corpus is derived, not hand-edited. Its generator has a
-    --check mode; run it when the premium source is reachable, skip when it is not
-    (which is the normal case for a public clone)."""
+    --check mode; run it when the premium source is reachable, skip when it is not --
+    which is the normal case, and the only case in CI.
+
+    The premium location comes from $PHYSMAP_PREMIUM_EVIDENCE_DIR and is never written
+    down here. An earlier version hardcoded a path into the private monorepo, which the
+    public-surface audit correctly rejected: a public test has no business naming a
+    private repository, even in a path it expects to be absent.
+    """
+    import os
+    from pathlib import Path
+
     import pytest
 
-    src = repo_root().parent / "uofa-lab" / "physmap" / "physmap" / "results" / "evidence_corpus"
+    env = os.environ.get("PHYSMAP_PREMIUM_EVIDENCE_DIR")
+    if not env:
+        pytest.skip("set PHYSMAP_PREMIUM_EVIDENCE_DIR to check the evidence firewall")
+    src = Path(env).expanduser()
     if not src.is_dir():
-        pytest.skip("premium evidence corpus not present (normal for a public clone)")
+        pytest.skip(f"PHYSMAP_PREMIUM_EVIDENCE_DIR does not exist: {src}")
 
     r = subprocess.run(
         [sys.executable, "dev/tools/split_evidence_corpus.py",

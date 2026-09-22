@@ -38,10 +38,20 @@ BANNED_IDENTIFIERS = {
 
 
 def _tracked() -> list[str]:
-    out = subprocess.run(
-        ["git", "-C", str(REPO), "ls-files"], capture_output=True, text=True, check=True
-    )
-    return out.stdout.splitlines()
+    """Files that would be published: tracked, PLUS untracked-but-not-ignored.
+
+    Tracked-only was the obvious choice and it has a hole, which bit once: a file
+    created and audited before it was staged is invisible, so the audit reports clean
+    and CI rejects the same tree minutes later. Anything `git add -A` would pick up is
+    about to be published, so it is audited now.
+    """
+    def _git(*args: str) -> list[str]:
+        out = subprocess.run(
+            ["git", "-C", str(REPO), *args], capture_output=True, text=True, check=True
+        )
+        return out.stdout.splitlines()
+
+    return sorted(set(_git("ls-files")) | set(_git("ls-files", "--others", "--exclude-standard")))
 
 
 def check_no_pdfs(problems: list[str]) -> None:
