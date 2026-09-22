@@ -57,12 +57,47 @@ Do not debug live. Say "the recorded run is on the next slide" and move on — h
 terminal capture ready. The demo is evidence, not theatre; a broken demo costs nothing
 compared to a live fix that eats four minutes.
 
-### Pending
+### The benchmark: run the subset, then show all seven
 
-The seven-vehicle v0.4 benchmark is the stronger live demo and is **not yet in the public
-repo**: six of its seven substrate CSVs are awaiting redistribution determinations. If
-they clear in time, `physmap benchmark run --report` joins Part 1. If they do not, Part 1
-is the entrance case alone, which stands on its own.
+Order matters here. Run the public subset first, then show the full report — never the
+other way round, and never the full report alone.
+
+```bash
+physmap benchmark run --report
+```
+
+The command prints, before anything else:
+
+> Rerunning 2 of 7 vehicles: naca_tn1451, velazquez_sco2
+> **THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES.**
+
+Then the full seven-vehicle table, with every row marked either `RECOMPUTED` or
+`banked only` and the reason. Say the two counts out loud as they appear. Two recomputed,
+five from the bank.
+
+Five vehicles cannot ship their source data. Forrest, Casper, Dirker and Jin are excluded
+by decision; Marineau is blocked because no reuse licence exists for it. The banked matrix
+itself is publishable because it holds only counts, verdicts and our own thresholds — none
+of anyone else's measurements.
+
+### Say this about the subset, before anyone asks
+
+```bash
+physmap benchmark coverage
+```
+
+**The public subset is not a representative sample, and it is flattering.** It keeps
+`PHYSMAP_WINS` and `PARTIAL`. It loses the entire **aerospace** domain, and — this is the
+part to volunteer rather than defend — it loses both outcome classes where PhysMAP shows
+*restraint*:
+
+- `DO_NO_HARM` — the guard correctly stays quiet. Only vehicle: Forrest. Excluded.
+- `BASELINE_VISIBLE` — the guard correctly declines to claim credit the baseline already
+  earns. Only vehicle: Marineau. Blocked.
+
+So the two cases that prove the method knows when **not** to fire are exactly the two the
+audience cannot rerun. Say so from the stage. If you do not, someone will notice that
+every live case is one where you win, and then it is an accusation instead of a caveat.
 
 ---
 
@@ -125,6 +160,9 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
 | "Materiality was 0.04, so the mechanism doesn't matter." | Only if the status is `estimated`. If it is `insufficient_evidence`, say "we could not assess it" — those are different findings. |
 | "Out of calibration, so the prediction is untrustworthy." | "Out of calibration **and** material. Either alone is not a verdict." |
+| "`physmap benchmark run` reproduces the seven-vehicle benchmark." | "It reruns two of the seven. The other five are reported from the bank, because their source data cannot be redistributed." |
+| "All seven vehicles reproduce from a clean clone." | "All seven **ran**. Two **rerun** publicly." |
+| "The public subset shows the method working across domains." | "The public subset is thermal-fluids only, and it happens to contain only the cases where the method fires. The restraint cases are in the report, not the rerun." |
 | "The open-source release reproduces the paper." | "The open-source release contains the method and the observability benchmark. The causal numbers are historical." |
 | "PhysMAP uses an LLM to explain its verdicts." | "Explanations are deterministic templates. Same input, same bytes. No model call anywhere." |
 
@@ -158,6 +196,21 @@ class balance, not a number chosen against it. The class balance is not even com
 after that lock. The known-results declaration records what was already known going in,
 because the original results were already public and pretending otherwise would be false.
 
+**"Why can I only rerun two of the seven?"**
+Five of the seven source datasets cannot be redistributed. Four are excluded by decision
+— two Elsevier papers whose licence forbids it, an ASME paper digitised from the
+copyrighted version, and an AIAA paper whose publisher prohibits using their content to
+develop machine-learning models. The fifth, Marineau, simply has no reuse licence: the
+copy on OSTI carries no copyright notice and is marked approved for public release, but
+that is a security determination and OSTI expressly says it grants no reuse rights. All
+seven results are still reported; what you cannot do is recompute five of them.
+
+**"Isn't the public subset cherry-picked?"**
+It is not chosen, but it is skewed, and in our favour. The two vehicles that survive are
+both cases where the method fires. The two where it correctly stays quiet are the ones
+excluded. `physmap benchmark coverage` prints exactly that, and the report says the subset
+is not representative.
+
 **"Why is the corpus not fully open?"**
 The library is open, the calibration corpus is the commercial moat. Fifteen closures ship
 with their bounds, and a verdict-free index of 201 closures ships alongside. The seed is an
@@ -174,6 +227,9 @@ file carries its own redistribution determination.
 
 - [ ] `git clone` fresh, `pip install -e .`, `pytest tests/ -q -n auto` green
 - [ ] `python examples/naca_entrance_region.py` → 45 REJECT
+- [ ] `physmap benchmark run --report` → prints "2 of 7" and the do-not-reproduce line
+- [ ] `physmap benchmark coverage` → names aerospace, `DO_NO_HARM` and `BASELINE_VISIBLE`
+      as absent from the rerun
 - [ ] Both `physmap screen` refusals print `declarative`
 - [ ] `physmap reproduce nafems-2026` → *invalid choice*. If this ever prints a
       data-missing error instead, the release state and the shipped data disagree

@@ -9,10 +9,10 @@ Status as of 2026-09-22.
 | Dataset | Source | How values were produced | Terms | Determination |
 |---|---|---|---|---|
 | `naca_tn1451` | NACA TN-1451 (1947) | Two-reader visual digitisation, Fig 10 | US Government work, public domain | **CLEAR — shipped** |
-| `velazquez_sco2` | Velázquez et al. (2026), *Appl. Therm. Eng.* 285:129206 | Exact transcription from the supplementary tables, plus our own CoolProp-derived columns | **CC BY 4.0 on the version of record**, publisher-deposited | **CLEAR — not yet shipped** |
+| `velazquez_sco2` | Velázquez et al. (2026), *Appl. Therm. Eng.* 285:129206 | Exact transcription from supplementary Appendix D, plus our own CoolProp-derived columns | **CC BY 4.0**, publisher-deposited, and Elsevier states the article licence extends to supplementary files | **CLEAR — ships** |
 | `forrest` | Forrest et al., *J. Heat Transfer* 138(2):021704 | Visual estimates from Fig 5 of the **version of record** | ASME holds copyright. VoR is free-to-read with no reuse licence. A CC-BY accepted manuscript exists on OSTI PAGES | **BLOCKED as digitised** — see decision 1 |
 | `casper_hypersonic_transition` | Casper MS thesis (DTIC ADA504177) **and** AIAA 2009-4054 | Figure digitisation, 600-DPI segmentation, two readers | Thesis: unlimited distribution. **The rows carrying the result are from the AIAA paper** | **SPLIT** — see decision 2 |
-| `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 / SAND2014-4326C | Transcribed from Table 3 | **No copyright notice anywhere in the document**; marked public-release-unlimited on all 24 pages; served from OSTI | **CLEAR — not yet shipped** |
+| `marineau_hypersonic_transition` | Marineau et al., AIAA 2014-3108 / SAND2014-4326C | Transcribed from Table 3 | No reuse licence. OSTI expressly disclaims granting one | **BLOCKED — excluded from this release** |
 | `dirker_water` | Dirker, Meyer & Reid (2018), *Exp. Therm. Fluid Sci.* 98 | Figure digitisation from Figs 17–20 | Closed access. Crossref carries **only** the Elsevier TDM licence | **BLOCKED pending policy** — see decision 4 |
 | `jin_sco2_buoyancy` | Jin et al. (2023), *Ann. Nucl. Energy* 188:109825 | Figure digitisation, two readers; Bu and Bo* recomputed | Closed access, no open copy anywhere. TDM licence only | **BLOCKED pending policy** — see decision 4 |
 
@@ -38,7 +38,74 @@ obtained from OSTI, a government repository. The Marineau PDF's origin is not re
 neither came from ARC, the site terms are not the operative restriction and the question
 falls back to ordinary copyright in the underlying paper.
 
-## Marineau — resolved by reading the document
+## Velázquez — the supplementary file is covered
+
+The question was whether the article's CC BY grant reaches the supplementary file the
+values were taken from, rather than only the article text. It does, and Elsevier says so
+in terms:
+
+> "If you provide your data as supplementary files to your paper and the paper is Open
+> Access, the data will follow the same license as you choose for the article."
+> — [Elsevier support](https://www.elsevier.support/publishing/answer/which-license-should-i-select-when-posting-my-research-data)
+
+Supporting facts:
+
+- Crossref deposits `creativecommons.org/licenses/by/4.0` at `content-version=vor` for
+  `10.1016/j.applthermaleng.2025.129206`, delay 0.
+- `mmc1.docx` carries the article's own title and author list, and is served from
+  Elsevier's CDN under the article's pii — it is a component of the published article,
+  not a separate work.
+- The values are transcribed verbatim from Appendix D, Tables D1–D28: 28 tests × 20
+  stations = 560 points, the authors' own reduced data with their stated per-point
+  uncertainties. Nothing was read off a plot.
+- The file itself carries no licence marking, which is why the determination rests on the
+  publisher's stated scope rather than on the file.
+
+**CLEAR under CC BY 4.0.** Ships with attribution and a CC BY notice.
+
+## Marineau — CORRECTED to blocked
+
+**An earlier version of this file recorded Marineau as CLEAR. That was wrong, and the
+reasoning behind it was wrong in a way worth naming.**
+
+It rested on the document carrying no copyright notice and being stamped "Approved for
+public release; distribution is unlimited" on all 24 pages. Those facts are true — 77,283
+characters were searched and there are zero copyright assertions. But they do not do the
+work that was asked of them.
+
+**A public-release marking is a security and export determination, not a copyright
+licence.** It says the controlling office does not object to the document being seen. It
+says nothing about who may copy it. And since Berne, copyright has not required notice, so
+the absence of one establishes nothing either.
+
+OSTI states the position directly:
+
+> "public access does not connote that the materials on this or other DOE websites are in
+> the public domain"
+
+and provides access "under the authority of the government's retained license to
+distribute publications" — a distribution right held by OSTI, not a licence granted to
+readers — while users remain "solely responsible for complying with applicable copyright
+law restrictions, including seeking the permission of the copyright owners."
+([OSTI disclaimer](https://www.osti.gov/disclaim))
+
+The remaining routes were checked and all close:
+
+- **17 USC §105 (US Government work).** Does not apply. Sandia was operated by a wholly
+  owned Lockheed Martin subsidiary under DOE contract `AC04-94AL85000`, and several AEDC
+  authors are Aerospace Testing Alliance, a contractor. Contractor-authored works are not
+  government works.
+- **An explicit marking.** OSTI honours a "U.S. Government Work" designation where one
+  exists. This document does not carry one, and the OSTI record has no rights or licence
+  field at all.
+- **Facts are not copyrightable.** Available in principle, but this is the same position
+  rejected for Dirker and Jin. Using it here and not there would not be a determination;
+  it would be a preference dressed as one.
+
+**BLOCKED.** Excluded from this release. The route to clearing it is written permission
+from Sandia and AEDC, which is not a four-week task.
+
+## The Elsevier exemption does not reach the digitised sets
 
 The copy at **OSTI 1145775** ([record](https://www.osti.gov/biblio/1145775),
 [PDF](https://www.osti.gov/servlets/purl/1145775)) was downloaded and searched in full:
@@ -59,13 +126,6 @@ the values are transcribed from that table rather than read off a plot.
 train or develop machine-learning models is a term of use for *their* platform, ARC. This
 copy was obtained from a US Government repository, and it asserts no copyright of its own
 while affirmatively authorising unlimited distribution on every page.
-
-The honest caveat: absence of a copyright notice does not by itself extinguish copyright,
-which has not required notice since Berne. The determination rests on the combination —
-an explicit unlimited-distribution marking, no assertion of rights in the document,
-distribution through a government repository, and factual table values rather than
-expressive content. Re-source the CSV from this OSTI PDF so the provenance chain points at
-the copy that carries the marking.
 
 ## The Elsevier exemption does not reach the digitised sets
 
@@ -94,7 +154,12 @@ Found while establishing provenance. All are factual errors in the current metad
 
 ## Consequence for the public benchmark
 
-Three of the seven benchmark vehicles are clear: `naca_tn1451`, `velazquez_sco2` and
-`marineau_hypersonic_transition`. A public v0.4 matrix built today would carry three
-cells, not seven, and would have to say so rather than presenting itself as the benchmark
-described in the runbook.
+**Two of the seven benchmark vehicles ship: `naca_tn1451` and `velazquez_sco2`.**
+
+The other five are excluded from this release: Forrest, Casper, Dirker and Jin by
+decision, Marineau because no reuse licence exists for it.
+
+The full seven-vehicle result is still reported — every vehicle's outcome and provenance
+appears in the benchmark report and on the slides. What changes is what the public
+checkout can *rerun*. The report names the two it reruns and the five it does not, and the
+command must never be presented as reproducing all seven.

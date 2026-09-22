@@ -61,6 +61,28 @@ not reproduction of the published numbers. The protocol defines `REPRODUCED` and
 unreachable, so the word cannot drift onto a weaker result. See
 [`protocols/`](protocols/).
 
+## The benchmark: seven vehicles, two of them rerunnable
+
+```bash
+physmap benchmark report     # all seven outcomes, each marked recomputed or banked
+physmap benchmark run        # recomputes the subset whose data can be redistributed
+physmap benchmark coverage   # what that subset does and does not cover
+```
+
+All seven vehicles ran, and all seven outcomes are reported. **Two of them can be rerun
+from this checkout.** Five cannot, because their source measurements are not
+redistributable — see [data/REDISTRIBUTION.md](data/REDISTRIBUTION.md) for the
+determination on each, with the evidence.
+
+`physmap benchmark run` **does not reproduce all seven vehicles**, and says so before it
+says anything else. The banked matrix is publishable because it holds counts, verdicts and
+our own thresholds; none of anyone else's measurements are in it.
+
+**The rerunnable subset is not representative, and it flatters the method.** It keeps the
+two cases where PhysMAP fires and loses both where it correctly holds back — `DO_NO_HARM`
+and `BASELINE_VISIBLE` — along with the entire aerospace domain. `physmap benchmark
+coverage` prints exactly that.
+
 ## Install
 
 ```bash

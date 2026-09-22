@@ -1,0 +1,55 @@
+# Velazquez et al. 2026 — supercritical CO2 microtube (property-variation middle vehicle).
+# Source / provenance: physmap/results/velazquez_sco2_digitization/PROVENANCE.md
+# The surrogate is a CONSTANT-PROPERTY (Re, Pr) closure (Gnielinski); the failure
+# driver is the wall/bulk viscosity ratio mu_w/mu_b (omitted), which blows up near the
+# pseudo-critical point. Geometry MATCHES (circular pipe); the mismatch is PHYSICS
+# (omitted property variation), like Testi-Grassi's omitted buoyancy — so no
+# expect_mismatch override. Buoyancy confound isolated by pressure (>=15 MPa clean,
+# per Velazquez Fig. 11).
+vehicle_id: velazquez_sco2
+domain: convection_internal_forced_property_variation
+
+geometry:
+  class: circular_pipe
+  dims:
+    Di_mm: 0.88
+    heated_length_mm: 1600.0
+    total_length_mm: 1700.0
+    orientation: horizontal
+    wall_material: stainless_steel_316L
+
+# matched = a REGIME-SPECIFIC constant-property closure (same Gnielinski Nu formula
+# as gnielinski-1976 -> identical surrogate prediction) whose corpus validated_range
+# carries the wall/bulk viscosity-ratio (property-variation) bound. Regime-specific,
+# NOT the shared gnielinski-1976, per the dirker lesson (don't contaminate NACA/Forrest).
+matched_closure_id: gnielinski-constprop-sco2
+reference_closure_ids:
+  - gnielinski-1976
+  - dittus-boelter-1930
+
+cell_bands:
+  # property_variation_bands: train far from pseudo-critical (benign property
+  # variation), deploy near it (constant-property closure fails); both restricted
+  # to p >= p_min_mpa where buoyancy is negligible (paper Fig. 11).
+  type: property_variation_bands
+  bands:
+    - { name: pseudocritical_failure, p_min_mpa: 15.0, abs_dt_pc_lt: 10.0 }
+    - { name: forced_benign,          p_min_mpa: 15.0 }
+
+data_source:
+  loader: velazquez_sco2_lfs
+  path: results/velazquez_sco2_digitization/velazquez_sco2_local_alpha_with_properties.csv
+
+fluid:
+  name: supercritical_CO2
+  pr_range: [1.2, 4.5]
+
+benchmark:
+  include: true
+  domain: thermal-fluids
+  surrogate_inputs: [Re, Pr]
+  regime: INTERNAL_FORCED_CONVECTION_PROPERTY_VARIATION
+  failure_driver: ratio_mu_w_b
+  expected_observability_class: PARTIAL
+  architecture_axis: true
+  caveat: "obs 0.575 confirmed middle (mu_w/mu_b); thin/strict-percentile"

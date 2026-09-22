@@ -1,0 +1,82 @@
+# NACA TN-1451 entrance-region — D3 entrance-region vehicle (PhysMAP).
+#
+# Source: Boelter, L. M. K., Young, G. & Iversen, H. W. (1948). "An
+# investigation of aircraft heaters XXVII — distribution of heat-transfer
+# rate in the entrance section of a circular tube." NACA TN-1451 (July
+# 1948). UC Berkeley. NTRS ID 19930082084. Public domain.
+#
+# Geometry: highly polished seamless steel tube, ID 1.785", steam-jacketed
+# (uniform wall temperature). Air at Pr ≈ 0.71. Entrance region developing
+# heat-transfer coefficient.
+#
+# INTENTIONAL geometry mismatch (v0.3 framing): the matched closure is
+# Gnielinski (geometry_class=circular_pipe), applied here to an
+# entrance-region (circular_pipe_entrance_region). This is the documented
+# practitioner habit — aggregate heat-exchanger surrogates use bare
+# circular-pipe Nu correlations and OMIT x/D from inputs. PhysMAP's
+# corpus signal catches the x/D < 10 invalidity that this practice
+# misses; the geometry-match invariant fires unless expect_mismatch
+# is set.
+
+vehicle_id: naca_tn1451
+domain: convection_internal_forced_entrance_region
+
+geometry:
+  class: circular_pipe_entrance_region
+  dims:
+    tube_id_inch: 1.785
+    tube_id_mm: 45.339          # 1.785 * 25.4
+    wall_condition: uniform_wall_temperature  # steam-jacketed
+    surface_finish: polished_seamless
+
+matched_closure_id: gnielinski-1976
+expect_mismatch: true
+mismatch_rationale: |
+  v0.3 framing per PhysMAP_D3_NACA_EntranceRegion_Findings_v0_1.md:
+  Gnielinski is the canonical aggregate heat-exchanger surrogate;
+  practitioners apply it to entrance-region flows by OMITTING x/D
+  from the input space. The geometry mismatch
+  (circular_pipe_entrance_region ≠ circular_pipe) reflects this
+  practice. The corpus encodes x/D ≥ 10 as the Gnielinski validity
+  boundary; the corpus signal fires on entrance-region test points
+  where surrogate inputs (Re, Pr only) look in-distribution to the
+  baseline detectors. Three figures (10 bellmouth, 15 sharp-edge,
+  19 long calming) confirm PARETO_LIFT_misaligned across entrance
+  geometries.
+
+reference_closure_ids:
+  - dittus-boelter-1930
+  - sieder-tate-1936
+  - petukhov-1970
+
+cell_bands:
+  type: x_over_d_bands
+  bands:
+    - { name: developing,      x_over_d_lt: 5.0 }
+    - { name: shoulder,        x_over_d_lt: 10.0 }
+    - { name: fully_developed, x_over_d_lt: 1.0e+18 }
+
+data_source:
+  loader: naca_wpd
+  # WPD-precision banked CSV (Fig 10 bellmouth, 76 data rows). The
+  # cross-validated visual-precision CSVs for Figs 10/15/19 live in
+  # results/naca_digitization/cross_validated_fig{10,15,19}.csv; pass
+  # the path via VehicleConfig override to run them through the engine.
+  path: results/naca_digitization/wpd_fig10.csv
+
+fluid:
+  name: air
+  pr_range: [0.71, 0.71]   # weakly T-dependent; the NACA dataset treats it as constant
+
+# Benchmark registry block (PhysMAP_Benchmark_YAMLDriven_Repeatable_Runner_Spec_v0_1):
+# declarative classification only; the cell OUTCOME is computed from raw signals, never declared.
+benchmark:
+  include: true
+  domain: thermal-fluids
+  surrogate_inputs: [Re, Pr]
+  regime: ENTRANCE_REGION_PIPE
+  failure_driver: x_over_D
+  expected_observability_class: UNOBSERVABLE
+  threshold_calibration: [3.0, 5.0]
+  architecture_axis: true
+  caveat: "obs~0 unobservable x/D pole; load-bearing win"

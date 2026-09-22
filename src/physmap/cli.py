@@ -34,11 +34,20 @@ def build_parser() -> argparse.ArgumentParser:
     explain.add_argument("--point", required=True)
     explain.add_argument("--format", choices=("text", "json"), default="text")
 
-    bench = sub.add_parser("benchmark", help="run / report the closure-observability benchmark")
+    bench = sub.add_parser(
+        "benchmark",
+        help="report the seven-vehicle closure-observability benchmark, and rerun the "
+             "subset whose source data is redistributable",
+    )
     bench_sub = bench.add_subparsers(dest="action", required=True)
-    bench_run = bench_sub.add_parser("run")
-    bench_run.add_argument("--report", action="store_true")
-    bench_sub.add_parser("report")
+    bench_run = bench_sub.add_parser(
+        "run", help="recompute the rerunnable vehicles (a SUBSET of the seven)")
+    bench_run.add_argument("--report", action="store_true",
+                           help="print the full seven-vehicle report afterwards")
+    bench_sub.add_parser(
+        "report", help="print all seven outcomes, marking which are recomputed here")
+    bench_sub.add_parser(
+        "coverage", help="print what the rerunnable subset does and does not cover")
 
     # `reproduce` is added only in a release whose benchmark has cleared the readiness
     # gate. In a preview build the command does not exist -- `physmap reproduce` is an
@@ -63,6 +72,8 @@ def main(argv: list[str] | None = None) -> int:
         return 0
     if args.command == "screen":
         return _cmd_screen(args)
+    if args.command == "benchmark":
+        return _cmd_benchmark(args)
     print(f"'{args.command}' is not implemented yet in this build.", file=sys.stderr)
     return 2
 
@@ -97,6 +108,38 @@ def _cmd_screen(args) -> int:
     print(render_screen(result))
     return 0
 
+
+
+
+def _cmd_benchmark(args) -> int:
+    from physmap.benchmarks.registry import banked_only_ids, rerunnable_ids
+    from physmap.benchmarks.report import coverage_note, render_report
+
+    if args.action == "report":
+        print(render_report())
+        return 0
+
+    if args.action == "coverage":
+        print(coverage_note())
+        return 0
+
+    # `run`. The subset is fixed by the redistribution determinations, never by which
+    # files happen to be on disk -- same rule as the release state. A vehicle whose data
+    # was never cleared does not become rerunnable by someone dropping a CSV in.
+    rerun, banked = rerunnable_ids(), banked_only_ids()
+    print(f"Rerunning {len(rerun)} of 7 vehicles: {', '.join(rerun)}")
+    print(f"Not rerun ({len(banked)}): {', '.join(banked)}")
+    print("Their source data is not redistributable; see data/REDISTRIBUTION.md.")
+    print()
+    print("THIS COMMAND DOES NOT REPRODUCE ALL SEVEN VEHICLES.")
+    print()
+    print("The substrate runner is not yet ported into this repository, so the two "
+          "rerunnable vehicles cannot be recomputed here yet. Until it lands, every "
+          "number in the report is read from the banked matrix and labelled as such.")
+    if args.report:
+        print()
+        print(render_report())
+    return 0
 
 if __name__ == "__main__":
     raise SystemExit(main())

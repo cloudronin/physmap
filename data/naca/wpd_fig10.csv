@@ -1,0 +1,77 @@
+row,Re,Pr,x_over_D,fc_Btu_hr_ft2_F,fc_unc_wpd,Nu_meas,Nu_unc_paper_pct,Nu_unc_digitization_abs,source,figure,entering_condition,note
+1,55570,0.71,1.417,17.18,0.1,162.74,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1531 cy=570; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+2,50600,0.71,1.402,15.96,0.1,151.23,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1529 cy=710; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+3,41800,0.71,1.396,14.75,0.1,139.76,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1528 cy=849; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+4,36500,0.71,1.384,13.51,0.1,128.02,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1527 cy=992; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+5,26400,0.71,1.360,11.10,0.1,105.13,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1525 cy=1270; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+6,55570,0.71,1.601,11.09,0.1,105.07,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1551 cy=1271; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+7,50600,0.71,2.226,9.84,0.1,93.22,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1618 cy=1415; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+8,41800,0.71,2.448,7.41,0.1,70.16,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1642 cy=1695; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+9,36500,0.71,1.611,4.24,0.1,40.15,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1552 cy=2060; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+10,26400,0.71,1.680,3.68,0.1,34.89,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1559 cy=2124; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+11,55570,0.71,2.752,17.16,0.1,162.59,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1675 cy=571; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+12,50600,0.71,2.736,15.94,0.1,151.06,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1673 cy=712; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+13,41800,0.71,2.740,14.73,0.1,139.53,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1674 cy=852; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+14,36500,0.71,2.705,13.50,0.1,127.90,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1670 cy=993; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+15,26400,0.71,2.691,12.29,0.1,116.44,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1668 cy=1132; ENTRANCE_OVERLAP: Re assignment by fc rank may be wrong at x/D<=3 where curves cross
+16,55570,0.71,4.038,12.29,0.1,116.44,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1814 cy=1132
+17,50600,0.71,3.995,11.08,0.1,104.99,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1809 cy=1272
+18,41800,0.71,3.978,9.84,0.1,93.19,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1807 cy=1415
+19,36500,0.71,3.969,8.62,0.1,81.64,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1806 cy=1555
+20,26400,0.71,3.584,6.81,0.1,64.50,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1765 cy=1764
+21,55570,0.71,5.295,12.28,0.1,116.30,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1950 cy=1134
+22,50600,0.71,5.296,11.07,0.1,104.89,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1950 cy=1273
+23,41800,0.71,5.284,10.69,0.1,101.29,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1949 cy=1317
+24,36500,0.71,5.266,9.80,0.1,92.89,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1947 cy=1419
+25,26400,0.71,5.262,8.61,0.1,81.53,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1946 cy=1557
+26,55570,0.71,6.248,12.28,0.1,116.31,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2053 cy=1134
+27,50600,0.71,5.779,11.06,0.1,104.74,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2002 cy=1275
+28,41800,0.71,5.681,7.64,0.1,72.41,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1991 cy=1667
+29,36500,0.71,5.743,7.34,0.1,69.58,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1998 cy=1702
+30,26400,0.71,5.702,5.23,0.1,49.54,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=1994 cy=1945
+31,55570,0.71,7.093,12.26,0.1,116.18,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2144 cy=1136
+32,50600,0.71,6.602,11.06,0.1,104.81,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2091 cy=1274
+33,41800,0.71,6.580,10.46,0.1,99.15,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2089 cy=1343
+34,36500,0.71,6.567,9.80,0.1,92.89,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2087 cy=1419
+35,26400,0.71,6.820,7.51,0.1,71.12,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2115 cy=1683
+36,55570,0.71,7.954,12.25,0.1,116.05,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2237 cy=1137
+37,50600,0.71,7.894,11.38,0.1,107.83,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2231 cy=1237
+38,41800,0.71,7.907,11.05,0.1,104.68,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2232 cy=1275
+39,36500,0.71,7.884,9.79,0.1,92.80,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2229 cy=1420
+40,26400,0.71,7.877,8.57,0.1,81.19,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2229 cy=1561
+41,55570,0.71,9.233,12.30,0.1,116.55,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2375 cy=1131
+42,50600,0.71,9.226,12.08,0.1,114.45,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2375 cy=1157
+43,41800,0.71,9.222,11.06,0.1,104.75,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2374 cy=1274
+44,36500,0.71,9.214,9.79,0.1,92.76,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2373 cy=1420
+45,26400,0.71,9.192,8.60,0.1,81.50,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2371 cy=1557
+46,55570,0.71,9.569,12.24,0.1,116.01,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2412 cy=1138
+47,50600,0.71,10.207,9.78,0.1,92.65,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2481 cy=1422
+48,41800,0.71,9.765,6.30,0.1,59.71,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2433 cy=1822
+49,36500,0.71,10.442,4.93,0.1,46.67,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2506 cy=1980
+50,26400,0.71,10.425,3.74,0.1,35.42,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2504 cy=2117
+51,55570,0.71,10.730,11.05,0.1,104.66,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2537 cy=1276
+52,50600,0.71,11.203,6.20,0.1,58.78,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2588 cy=1833
+53,41800,0.71,10.656,4.94,0.1,46.82,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2529 cy=1979
+54,55570,0.71,11.834,11.03,0.1,104.53,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2656 cy=1277
+55,50600,0.71,11.827,10.80,0.1,102.36,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2656 cy=1304
+56,41800,0.71,11.813,9.78,0.1,92.67,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2654 cy=1421
+57,36500,0.71,11.807,8.59,0.1,81.41,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2653 cy=1558
+58,26400,0.71,11.768,6.13,0.1,58.09,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2649 cy=1841
+59,55570,0.71,13.209,17.11,0.1,162.13,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2805 cy=577
+60,50600,0.71,13.260,15.90,0.1,150.61,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2810 cy=717
+61,41800,0.71,13.159,14.72,0.1,139.46,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2799 cy=853
+62,36500,0.71,12.910,13.46,0.1,127.53,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2773 cy=998
+63,26400,0.71,12.801,12.22,0.1,115.80,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2761 cy=1140
+64,55570,0.71,14.441,13.64,0.1,129.22,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2938 cy=977
+65,50600,0.71,13.724,12.50,0.1,118.45,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2860 cy=1108
+66,41800,0.71,13.768,11.92,0.1,112.94,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2865 cy=1175
+67,36500,0.71,13.755,11.33,0.1,107.36,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2864 cy=1243
+68,26400,0.71,13.751,10.70,0.1,101.42,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=2863 cy=1315
+69,55570,0.71,15.395,10.67,0.1,101.10,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3041 cy=1319
+70,50600,0.71,15.399,10.07,0.1,95.37,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3042 cy=1388
+71,55570,0.71,15.778,14.02,0.1,132.80,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3083 cy=934
+72,50600,0.71,15.749,11.28,0.1,106.87,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3079 cy=1249
+73,41800,0.71,16.141,10.67,0.1,101.07,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3122 cy=1319
+74,36500,0.71,15.723,8.42,0.1,79.77,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3077 cy=1578
+75,26400,0.71,15.697,7.33,0.1,69.49,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3074 cy=1703
+76,55570,0.71,16.924,1.16,0.1,11.02,0.03,0.95,wpd-csv,Fig10,bellmouth,algorithmic WPD-equivalent; cx=3206 cy=2414

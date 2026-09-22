@@ -1,0 +1,747 @@
+{
+  "benchmark": "PhysMAP Benchmark v0.4 (cross-domain, real-API, registry-driven)",
+  "api": "physmap.guardrail.CredibilityGuardrail (fit/assess, observability-weighted)",
+  "detectors": "baseline=(distance, gp_variance); corpus=closure_validity (raw signals read)",
+  "operating_percentiles": [
+    50,
+    75,
+    90,
+    95,
+    99,
+    100
+  ],
+  "cells": [
+    {
+      "vehicle_id": "casper_hypersonic_transition",
+      "domain": "aerospace",
+      "regime": "hypersonic_transition_disturbance",
+      "failure_var": "freestream_noise_pct",
+      "failure_observability": "unobservable",
+      "expected_observability_class": "UNOBSERVABLE",
+      "observability_guard_passed": true,
+      "observability_score": 0.0,
+      "observability_source": "measured",
+      "caveat": "unobservable freestream-noise pole; small-n (8 quiet, 1 Re)",
+      "surrogate_inputs": [
+        "M",
+        "Re_per_m_e6",
+        "x_m"
+      ],
+      "n_train": 159,
+      "n_test": 8,
+      "calib": {
+        "lift_threshold_pct": 30.594117081556707,
+        "accuracy_threshold_pct": 20.396078054371138
+      },
+      "clean_lift_max": 8,
+      "misaligned_min": 0,
+      "n_wrong_max": 8,
+      "min_baseline_fired_over_sweep": 0,
+      "ref_pct": 99.0,
+      "ref_n_baseline_fired": 4,
+      "ref_n_distance_fired": 4,
+      "ref_n_gp_var_fired": 0,
+      "ref_n_corpus_fired": 8,
+      "ref_verdicts": {
+        "reject": 8
+      },
+      "empirical_outcome": "PHYSMAP_WINS",
+      "per_pct": {
+        "50": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 8,
+          "n_baseline_fired": 8,
+          "n_distance_fired": 8,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 8,
+          "n_test": 8,
+          "verdicts": {
+            "reject": 8
+          }
+        },
+        "75": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 8,
+          "n_baseline_fired": 8,
+          "n_distance_fired": 8,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 8,
+          "n_test": 8,
+          "verdicts": {
+            "reject": 8
+          }
+        },
+        "90": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 8,
+          "n_baseline_fired": 8,
+          "n_distance_fired": 8,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 8,
+          "n_test": 8,
+          "verdicts": {
+            "reject": 8
+          }
+        },
+        "95": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 8,
+          "n_baseline_fired": 8,
+          "n_distance_fired": 8,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 8,
+          "n_test": 8,
+          "verdicts": {
+            "reject": 8
+          }
+        },
+        "99": {
+          "clean_lift": 4,
+          "misaligned": 0,
+          "n_wrong": 8,
+          "n_baseline_fired": 4,
+          "n_distance_fired": 4,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 8,
+          "n_test": 8,
+          "verdicts": {
+            "reject": 8
+          }
+        },
+        "100": {
+          "clean_lift": 8,
+          "misaligned": 0,
+          "n_wrong": 8,
+          "n_baseline_fired": 0,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 8,
+          "n_test": 8,
+          "verdicts": {
+            "reject": 8
+          }
+        }
+      }
+    },
+    {
+      "vehicle_id": "dirker_water",
+      "domain": "thermal-fluids",
+      "regime": "mixed_convection_horizontal_tube",
+      "failure_var": "Ri",
+      "failure_observability": "partial",
+      "expected_observability_class": "PARTIAL",
+      "observability_guard_passed": true,
+      "observability_score": 0.49120441330885667,
+      "observability_source": "measured",
+      "caveat": "obs 0.49 provisional middle (Ri); sampling-sensitive",
+      "surrogate_inputs": [
+        "Re",
+        "Pr"
+      ],
+      "n_train": 31,
+      "n_test": 60,
+      "calib": {
+        "lift_threshold_pct": 12.90348790056394,
+        "accuracy_threshold_pct": 8.602325267042627
+      },
+      "clean_lift_max": 3,
+      "misaligned_min": 6,
+      "n_wrong_max": 11,
+      "min_baseline_fired_over_sweep": 28,
+      "ref_pct": 99.0,
+      "ref_n_baseline_fired": 34,
+      "ref_n_distance_fired": 34,
+      "ref_n_gp_var_fired": 0,
+      "ref_n_corpus_fired": 60,
+      "ref_verdicts": {
+        "uncertain": 60
+      },
+      "empirical_outcome": "PARTIAL",
+      "per_pct": {
+        "50": {
+          "clean_lift": 0,
+          "misaligned": 6,
+          "n_wrong": 11,
+          "n_baseline_fired": 51,
+          "n_distance_fired": 51,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 60,
+          "n_test": 60,
+          "verdicts": {
+            "uncertain": 60
+          }
+        },
+        "75": {
+          "clean_lift": 0,
+          "misaligned": 6,
+          "n_wrong": 11,
+          "n_baseline_fired": 51,
+          "n_distance_fired": 51,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 60,
+          "n_test": 60,
+          "verdicts": {
+            "uncertain": 60
+          }
+        },
+        "90": {
+          "clean_lift": 0,
+          "misaligned": 9,
+          "n_wrong": 11,
+          "n_baseline_fired": 46,
+          "n_distance_fired": 46,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 60,
+          "n_test": 60,
+          "verdicts": {
+            "uncertain": 60
+          }
+        },
+        "95": {
+          "clean_lift": 1,
+          "misaligned": 13,
+          "n_wrong": 11,
+          "n_baseline_fired": 40,
+          "n_distance_fired": 40,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 60,
+          "n_test": 60,
+          "verdicts": {
+            "uncertain": 60
+          }
+        },
+        "99": {
+          "clean_lift": 2,
+          "misaligned": 16,
+          "n_wrong": 11,
+          "n_baseline_fired": 34,
+          "n_distance_fired": 34,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 60,
+          "n_test": 60,
+          "verdicts": {
+            "uncertain": 60
+          }
+        },
+        "100": {
+          "clean_lift": 3,
+          "misaligned": 19,
+          "n_wrong": 11,
+          "n_baseline_fired": 28,
+          "n_distance_fired": 28,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 60,
+          "n_test": 60,
+          "verdicts": {
+            "uncertain": 60
+          }
+        }
+      }
+    },
+    {
+      "vehicle_id": "forrest",
+      "domain": "thermal-fluids",
+      "regime": "internal_forced_convection_rect_channel",
+      "failure_var": "Re",
+      "failure_observability": "observable",
+      "expected_observability_class": "OBSERVABLE",
+      "observability_guard_passed": true,
+      "observability_score": 1.0,
+      "observability_source": "measured",
+      "caveat": "obs~1 observable Re pole; baseline catches, thin n~4",
+      "surrogate_inputs": [
+        "Re",
+        "Pr"
+      ],
+      "n_train": 1,
+      "n_test": 4,
+      "calib": {
+        "lift_threshold_pct": 12.727922061357855,
+        "accuracy_threshold_pct": 8.48528137423857
+      },
+      "empirical_outcome": "DO_NO_HARM",
+      "clean_lift_max": 0,
+      "rationale": "observable degenerate pole; only 1 train rows (thin) \u2014 baseline-sufficient by construction, no detector fit (matches degenerate_short_circuit)"
+    },
+    {
+      "vehicle_id": "jin_sco2_buoyancy",
+      "domain": "thermal-fluids",
+      "regime": "mixed_convection_vertical_tube",
+      "failure_var": "Bu",
+      "failure_observability": "unobservable",
+      "expected_observability_class": "UNOBSERVABLE",
+      "observability_guard_passed": true,
+      "observability_score": 0.0,
+      "observability_source": "measured",
+      "caveat": "Liu buoyancy parameter Bu (wall-aware); UNOBSERVABLE pole (cv_r2~0, Casper-structured direction toggle) \u2014 a 2nd thermal-fluids PHYSMAP_WINS + the buoyancy/property-variation confound-isolation case (up/down holds property field fixed). Digitization-tier; evidence Claim bound-only/claimed.",
+      "surrogate_inputs": [
+        "Re",
+        "Pr"
+      ],
+      "n_train": 17,
+      "n_test": 27,
+      "calib": {
+        "lift_threshold_pct": 12.727922061357855,
+        "accuracy_threshold_pct": 8.48528137423857
+      },
+      "clean_lift_max": 16,
+      "misaligned_min": 0,
+      "n_wrong_max": 26,
+      "min_baseline_fired_over_sweep": 9,
+      "ref_pct": 99.0,
+      "ref_n_baseline_fired": 10,
+      "ref_n_distance_fired": 10,
+      "ref_n_gp_var_fired": 2,
+      "ref_n_corpus_fired": 25,
+      "ref_verdicts": {
+        "trustworthy": 1,
+        "reject": 25,
+        "warn": 1
+      },
+      "empirical_outcome": "PHYSMAP_WINS",
+      "per_pct": {
+        "50": {
+          "clean_lift": 3,
+          "misaligned": 0,
+          "n_wrong": 26,
+          "n_baseline_fired": 24,
+          "n_distance_fired": 20,
+          "n_gp_var_fired": 15,
+          "n_corpus_fired": 25,
+          "n_test": 27,
+          "verdicts": {
+            "warn": 2,
+            "reject": 25
+          }
+        },
+        "75": {
+          "clean_lift": 9,
+          "misaligned": 0,
+          "n_wrong": 26,
+          "n_baseline_fired": 18,
+          "n_distance_fired": 16,
+          "n_gp_var_fired": 9,
+          "n_corpus_fired": 25,
+          "n_test": 27,
+          "verdicts": {
+            "warn": 2,
+            "reject": 25
+          }
+        },
+        "90": {
+          "clean_lift": 11,
+          "misaligned": 0,
+          "n_wrong": 26,
+          "n_baseline_fired": 14,
+          "n_distance_fired": 14,
+          "n_gp_var_fired": 3,
+          "n_corpus_fired": 25,
+          "n_test": 27,
+          "verdicts": {
+            "trustworthy": 1,
+            "reject": 25,
+            "warn": 1
+          }
+        },
+        "95": {
+          "clean_lift": 13,
+          "misaligned": 0,
+          "n_wrong": 26,
+          "n_baseline_fired": 12,
+          "n_distance_fired": 12,
+          "n_gp_var_fired": 2,
+          "n_corpus_fired": 25,
+          "n_test": 27,
+          "verdicts": {
+            "trustworthy": 1,
+            "reject": 25,
+            "warn": 1
+          }
+        },
+        "99": {
+          "clean_lift": 15,
+          "misaligned": 0,
+          "n_wrong": 26,
+          "n_baseline_fired": 10,
+          "n_distance_fired": 10,
+          "n_gp_var_fired": 2,
+          "n_corpus_fired": 25,
+          "n_test": 27,
+          "verdicts": {
+            "trustworthy": 1,
+            "reject": 25,
+            "warn": 1
+          }
+        },
+        "100": {
+          "clean_lift": 16,
+          "misaligned": 0,
+          "n_wrong": 26,
+          "n_baseline_fired": 9,
+          "n_distance_fired": 9,
+          "n_gp_var_fired": 2,
+          "n_corpus_fired": 25,
+          "n_test": 27,
+          "verdicts": {
+            "trustworthy": 1,
+            "reject": 25,
+            "warn": 1
+          }
+        }
+      }
+    },
+    {
+      "vehicle_id": "marineau_hypersonic_transition",
+      "domain": "aerospace",
+      "regime": "hypersonic_transition_entropy",
+      "failure_var": "st_xsw_ratio",
+      "failure_observability": "observable",
+      "expected_observability_class": "OBSERVABLE",
+      "observability_guard_passed": true,
+      "observability_score": 1.0,
+      "observability_source": "structural_pole",
+      "caveat": "baseline-visible bound (S_T/X_SW recoverable from Rn); discrimination control",
+      "surrogate_inputs": [
+        "Re_per_m",
+        "Rn_mm"
+      ],
+      "n_train": 9,
+      "n_test": 6,
+      "calib": {
+        "lift_threshold_pct": 12.727922061357855,
+        "accuracy_threshold_pct": 8.48528137423857
+      },
+      "clean_lift_max": 0,
+      "misaligned_min": 0,
+      "n_wrong_max": 6,
+      "min_baseline_fired_over_sweep": 6,
+      "ref_pct": 99.0,
+      "ref_n_baseline_fired": 6,
+      "ref_n_distance_fired": 6,
+      "ref_n_gp_var_fired": 6,
+      "ref_n_corpus_fired": 6,
+      "ref_verdicts": {
+        "warn": 6
+      },
+      "empirical_outcome": "BASELINE_VISIBLE",
+      "per_pct": {
+        "50": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 6,
+          "n_baseline_fired": 6,
+          "n_distance_fired": 6,
+          "n_gp_var_fired": 6,
+          "n_corpus_fired": 6,
+          "n_test": 6,
+          "verdicts": {
+            "warn": 6
+          }
+        },
+        "75": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 6,
+          "n_baseline_fired": 6,
+          "n_distance_fired": 6,
+          "n_gp_var_fired": 6,
+          "n_corpus_fired": 6,
+          "n_test": 6,
+          "verdicts": {
+            "warn": 6
+          }
+        },
+        "90": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 6,
+          "n_baseline_fired": 6,
+          "n_distance_fired": 6,
+          "n_gp_var_fired": 6,
+          "n_corpus_fired": 6,
+          "n_test": 6,
+          "verdicts": {
+            "warn": 6
+          }
+        },
+        "95": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 6,
+          "n_baseline_fired": 6,
+          "n_distance_fired": 6,
+          "n_gp_var_fired": 6,
+          "n_corpus_fired": 6,
+          "n_test": 6,
+          "verdicts": {
+            "warn": 6
+          }
+        },
+        "99": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 6,
+          "n_baseline_fired": 6,
+          "n_distance_fired": 6,
+          "n_gp_var_fired": 6,
+          "n_corpus_fired": 6,
+          "n_test": 6,
+          "verdicts": {
+            "warn": 6
+          }
+        },
+        "100": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 6,
+          "n_baseline_fired": 6,
+          "n_distance_fired": 6,
+          "n_gp_var_fired": 6,
+          "n_corpus_fired": 6,
+          "n_test": 6,
+          "verdicts": {
+            "warn": 6
+          }
+        }
+      }
+    },
+    {
+      "vehicle_id": "naca_tn1451",
+      "domain": "thermal-fluids",
+      "regime": "entrance_region_pipe",
+      "failure_var": "x_over_D",
+      "failure_observability": "unobservable",
+      "expected_observability_class": "UNOBSERVABLE",
+      "observability_guard_passed": true,
+      "observability_score": 0.0,
+      "observability_source": "measured",
+      "caveat": "obs~0 unobservable x/D pole; load-bearing win",
+      "surrogate_inputs": [
+        "Re",
+        "Pr"
+      ],
+      "n_train": 29,
+      "n_test": 47,
+      "calib": {
+        "lift_threshold_pct": 17.492855684535904,
+        "accuracy_threshold_pct": 11.661903789690601
+      },
+      "clean_lift_max": 20,
+      "misaligned_min": 17,
+      "n_wrong_max": 20,
+      "min_baseline_fired_over_sweep": 0,
+      "ref_pct": 99.0,
+      "ref_n_baseline_fired": 0,
+      "ref_n_distance_fired": 0,
+      "ref_n_gp_var_fired": 0,
+      "ref_n_corpus_fired": 47,
+      "ref_verdicts": {
+        "reject": 47
+      },
+      "empirical_outcome": "PHYSMAP_WINS",
+      "per_pct": {
+        "50": {
+          "clean_lift": 9,
+          "misaligned": 17,
+          "n_wrong": 20,
+          "n_baseline_fired": 18,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 18,
+          "n_corpus_fired": 47,
+          "n_test": 47,
+          "verdicts": {
+            "reject": 47
+          }
+        },
+        "75": {
+          "clean_lift": 13,
+          "misaligned": 22,
+          "n_wrong": 20,
+          "n_baseline_fired": 9,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 9,
+          "n_corpus_fired": 47,
+          "n_test": 47,
+          "verdicts": {
+            "reject": 47
+          }
+        },
+        "90": {
+          "clean_lift": 20,
+          "misaligned": 24,
+          "n_wrong": 20,
+          "n_baseline_fired": 0,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 47,
+          "n_test": 47,
+          "verdicts": {
+            "reject": 47
+          }
+        },
+        "95": {
+          "clean_lift": 20,
+          "misaligned": 24,
+          "n_wrong": 20,
+          "n_baseline_fired": 0,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 47,
+          "n_test": 47,
+          "verdicts": {
+            "reject": 47
+          }
+        },
+        "99": {
+          "clean_lift": 20,
+          "misaligned": 24,
+          "n_wrong": 20,
+          "n_baseline_fired": 0,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 47,
+          "n_test": 47,
+          "verdicts": {
+            "reject": 47
+          }
+        },
+        "100": {
+          "clean_lift": 20,
+          "misaligned": 24,
+          "n_wrong": 20,
+          "n_baseline_fired": 0,
+          "n_distance_fired": 0,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 47,
+          "n_test": 47,
+          "verdicts": {
+            "reject": 47
+          }
+        }
+      }
+    },
+    {
+      "vehicle_id": "velazquez_sco2",
+      "domain": "thermal-fluids",
+      "regime": "internal_forced_convection_property_variation",
+      "failure_var": "ratio_mu_w_b",
+      "failure_observability": "partial",
+      "expected_observability_class": "PARTIAL",
+      "observability_guard_passed": true,
+      "observability_score": 0.5747926416426064,
+      "observability_source": "measured",
+      "caveat": "obs 0.575 confirmed middle (mu_w/mu_b); thin/strict-percentile",
+      "surrogate_inputs": [
+        "Re",
+        "Pr"
+      ],
+      "n_train": 393,
+      "n_test": 67,
+      "calib": {
+        "lift_threshold_pct": 12.727922061357855,
+        "accuracy_threshold_pct": 8.48528137423857
+      },
+      "clean_lift_max": 34,
+      "misaligned_min": 0,
+      "n_wrong_max": 67,
+      "min_baseline_fired_over_sweep": 28,
+      "ref_pct": 99.0,
+      "ref_n_baseline_fired": 47,
+      "ref_n_distance_fired": 47,
+      "ref_n_gp_var_fired": 1,
+      "ref_n_corpus_fired": 48,
+      "ref_verdicts": {
+        "warn": 65,
+        "trustworthy": 2
+      },
+      "empirical_outcome": "PARTIAL",
+      "per_pct": {
+        "50": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 67,
+          "n_baseline_fired": 67,
+          "n_distance_fired": 67,
+          "n_gp_var_fired": 48,
+          "n_corpus_fired": 48,
+          "n_test": 67,
+          "verdicts": {
+            "warn": 67
+          }
+        },
+        "75": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 67,
+          "n_baseline_fired": 67,
+          "n_distance_fired": 67,
+          "n_gp_var_fired": 28,
+          "n_corpus_fired": 48,
+          "n_test": 67,
+          "verdicts": {
+            "warn": 67
+          }
+        },
+        "90": {
+          "clean_lift": 0,
+          "misaligned": 0,
+          "n_wrong": 67,
+          "n_baseline_fired": 67,
+          "n_distance_fired": 67,
+          "n_gp_var_fired": 4,
+          "n_corpus_fired": 48,
+          "n_test": 67,
+          "verdicts": {
+            "warn": 67
+          }
+        },
+        "95": {
+          "clean_lift": 2,
+          "misaligned": 0,
+          "n_wrong": 67,
+          "n_baseline_fired": 65,
+          "n_distance_fired": 65,
+          "n_gp_var_fired": 4,
+          "n_corpus_fired": 48,
+          "n_test": 67,
+          "verdicts": {
+            "warn": 67
+          }
+        },
+        "99": {
+          "clean_lift": 18,
+          "misaligned": 0,
+          "n_wrong": 67,
+          "n_baseline_fired": 47,
+          "n_distance_fired": 47,
+          "n_gp_var_fired": 1,
+          "n_corpus_fired": 48,
+          "n_test": 67,
+          "verdicts": {
+            "warn": 65,
+            "trustworthy": 2
+          }
+        },
+        "100": {
+          "clean_lift": 34,
+          "misaligned": 0,
+          "n_wrong": 67,
+          "n_baseline_fired": 28,
+          "n_distance_fired": 28,
+          "n_gp_var_fired": 0,
+          "n_corpus_fired": 48,
+          "n_test": 67,
+          "verdicts": {
+            "warn": 62,
+            "trustworthy": 5
+          }
+        }
+      }
+    }
+  ],
+  "all_guards_passed": true
+}
