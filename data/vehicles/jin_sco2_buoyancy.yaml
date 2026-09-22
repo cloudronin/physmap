@@ -39,7 +39,7 @@ cell_bands:
 
 data_source:
   loader: jin_sco2_buoyancy_lfs
-  path: results/jin_sco2_buoyancy/jin_sco2_benchmark_substrate.csv
+  path: data/jin_sco2/jin_sco2_benchmark_substrate.csv
 
 fluid:
   name: supercritical_CO2

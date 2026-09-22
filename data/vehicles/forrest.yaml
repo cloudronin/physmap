@@ -51,7 +51,7 @@ cell_bands:
 
 data_source:
   loader: forrest_visual_estimates
-  path: results/forrest_digitization/visual_estimates_fig5.csv
+  path: data/forrest/visual_estimates_fig5.csv
 
 fluid:
   name: water

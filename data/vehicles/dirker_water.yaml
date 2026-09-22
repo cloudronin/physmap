@@ -65,7 +65,7 @@ data_source:
   # Per-point digitized Nu (Figs 17/19) + Ri (Figs 18/20) for the 180-deg-span
   # cases at 6631 + 4421 W/m2 (2B/3B/4B5B/6B + 2C/3C/6C). Schema per
   # substrate.loaders._DIRKER_WATER_EXPECTED_CSV_COLUMNS.
-  path: results/dirker_water_digitization/local_nu_180span.csv
+  path: data/dirker_water/local_nu_180span.csv
 
 fluid:
   name: water

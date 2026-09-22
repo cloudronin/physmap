@@ -66,14 +66,19 @@ other way round, and never the full report alone.
 physmap benchmark run --report
 ```
 
-The command prints, before anything else:
+It recomputes all seven vehicles from the clone and diffs every field against the
+committed matrix. Expect, and point at:
 
-> Source data ships for 7 of 7 vehicles.
-> **NOTHING WAS RECOMPUTED IN THIS RUN.**
+> Recomputed 7 vehicles.
+> **Every cell matches the banked matrix exactly.**
 
-Read that second line out. All seven datasets are published; the substrate runner is not
-yet ported, so today every number comes from the banked matrix. Shipping the data and
-reproducing the result are different claims and the demo must not blur them.
+That is the strongest single moment in the talk: seven vehicles across two domains,
+recomputed live from a clone anyone in the room can make, matching a matrix committed
+before the talk. Let it sit for a beat.
+
+Takes two to three minutes. Start it, talk over it, come back to it — do not stand in
+silence. If you would rather not wait, `physmap benchmark report` shows the same table
+instantly from the bank, and says plainly that nothing was recomputed.
 
 ### Two things to volunteer, before anyone asks
 
@@ -166,7 +171,7 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
 | "Materiality was 0.04, so the mechanism doesn't matter." | Only if the status is `estimated`. If it is `insufficient_evidence`, say "we could not assess it" — those are different findings. |
 | "Out of calibration, so the prediction is untrustworthy." | "Out of calibration **and** material. Either alone is not a verdict." |
-| "`physmap benchmark run` reproduces the seven-vehicle benchmark." | "All seven datasets ship. Nothing is recomputed yet — the runner is not ported. Every number is from the bank." |
+| "`physmap benchmark report` reproduces the benchmark." | "`report` reads the bank. `run` is the one that recomputes and diffs." |
 | "All seven vehicles are covered, including do-no-harm." | "Do-no-harm has one vehicle with one training row and no detector fit. It is present, not earned." |
 | "All the benchmark data is openly licensed." | "Two of the seven are. Five ship without a licence, four of those against express publisher terms. It is in NOTICE." |
 | "Elsevier's terms don't apply because facts aren't copyrightable." | "The term is a contract, not a copyright claim. We took the risk knowingly and we remove the data if they object." |
@@ -214,9 +219,10 @@ licence we do not have. If the publisher or the authors object, the files come o
 will not argue. That is a risk we took deliberately, not an oversight.
 
 **"Can I rerun all seven?"**
-The data for all seven is published, so eventually yes. Not today: the substrate runner is
-not yet ported into the public repository, so every number in the report currently comes
-from the banked matrix, and the command says so before it says anything else.
+Yes. Clone it, `pip install -e .`, `physmap benchmark run`. It recomputes all seven and
+diffs every field against the committed matrix, and exits non-zero if anything drifted.
+CI does the same on every push. Note it needs the checkout, not a wheel — the substrate
+CSVs live in the repository, outside the package, on purpose.
 
 **"Isn't the benchmark cherry-picked?"**
 All seven vehicles ship, so nothing is withheld. The honest weakness is elsewhere:
@@ -240,7 +246,8 @@ file carries its own redistribution determination.
 
 - [ ] `git clone` fresh, `pip install -e .`, `pytest tests/ -q -n auto` green
 - [ ] `python examples/naca_entrance_region.py` → 45 REJECT
-- [ ] `physmap benchmark run --report` → prints "7 of 7 ship" and "NOTHING WAS RECOMPUTED"
+- [ ] `physmap benchmark run` from a FRESH clone → "Every cell matches the banked matrix
+      exactly", exit 0, and `git status` clean afterwards
 - [ ] `physmap benchmark coverage` → shows `DO_NO_HARM` resting on n_train=1
 - [ ] You can state, in one sentence and without defensiveness, which five datasets ship
       without a licence and why

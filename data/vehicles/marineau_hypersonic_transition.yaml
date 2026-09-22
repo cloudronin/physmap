@@ -4,7 +4,7 @@
 #
 # Source: Marineau, E.C. et al. (2014), SAND2014-4326C / AIAA, Table 3
 # 'Transition Parameters at 0-deg AoA' (Mach ~10 blunt cones). Banked CSV at
-# results/hypersonic_transition_v2_marineau/marineau_table3_transition_params.csv.
+# data/marineau/marineau_table3_transition_params.csv.
 #
 # WHY NEGATIVE CONTROL: the surrogate predicts transition momentum-thickness
 # Reynolds Re_theta,ST from (unit Reynolds, nose radius). The failure driver is
@@ -44,7 +44,7 @@ cell_bands:
 
 data_source:
   loader: marineau_hypersonic_transition
-  path: results/hypersonic_transition_v2_marineau/marineau_table3_transition_params.csv
+  path: data/marineau/marineau_table3_transition_params.csv
 
 fluid:
   name: air

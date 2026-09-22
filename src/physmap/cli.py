@@ -128,26 +128,38 @@ def _cmd_benchmark(args) -> int:
         print(coverage_note())
         return 0
 
-    # `run`. What ships is fixed by the redistribution determinations, never by which
-    # files happen to be on disk -- same rule as the release state. And what this run
-    # actually recomputed is reported separately from what it COULD recompute, because
-    # conflating the two is how a benchmark command starts overclaiming.
+    # `run`. Recompute every vehicle from the checkout, then compare against the
+    # banked matrix. The comparison is the point: a benchmark that runs but is never
+    # checked against its own bank will drift silently.
+    from physmap.benchmarks.benchmark_v0_4 import run_matrix
+    from physmap.benchmarks.report import load_banked_matrix
+
     rerun, banked = rerunnable_ids(), banked_only_ids()
-    print(f"Source data ships for {len(rerun)} of 7 vehicles.")
+    print(f"Source data ships for {len(rerun)} of {len(rerun) + len(banked)} vehicles.")
     if banked:
         print(f"Banked only ({len(banked)}): {', '.join(banked)}")
-        print("Their source data is not redistributable; see data/REDISTRIBUTION.md.")
+    print(f"Of those shipped, {len(licensed_ids())} carry a licence and "
+          f"{len(unlicensed_shipped_ids())} do not. Shipping is not licensing -- see NOTICE.")
     print()
-    print("NOTHING WAS RECOMPUTED IN THIS RUN.")
-    print("The substrate runner is not yet ported into this repository, so every number")
-    print("in the report is read from the banked matrix and labelled as such.")
-    print()
-    print(f"Of the {len(rerun)} shipped datasets, {len(licensed_ids())} carry a licence.")
-    print(f"{len(unlicensed_shipped_ids())} do not. Shipping is not licensing -- see NOTICE.")
+    print("Recomputing from this checkout ...")
+
+    # write=False on purpose: `run` must never overwrite the committed bank it is
+    # being compared against.
+    fresh = run_matrix(write=False)
+    cells = {c["vehicle_id"]: c for c in fresh["cells"]}
+    bank = {c["vehicle_id"]: c for c in load_banked_matrix()["cells"]}
+
+    drift = [vid for vid, c in cells.items() if bank.get(vid) != c]
+    print(f"Recomputed {len(cells)} vehicles.")
+    if drift:
+        print(f"DRIFT against the banked matrix in: {', '.join(sorted(drift))}")
+    else:
+        print("Every cell matches the banked matrix exactly.")
+
     if args.report:
         print()
-        print(render_report())
-    return 0
+        print(render_report(rerun_results=cells))
+    return 1 if drift else 0
 
 
 if __name__ == "__main__":

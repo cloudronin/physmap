@@ -45,9 +45,9 @@ cell_bands:
 
 data_source:
   loader: casper_hypersonic_transition
-  path: results/hypersonic_transition_g1/casper_digitization/rms_vs_x.csv
+  path: data/casper/rms_vs_x.csv
   options:
-    hwt8_path: results/hypersonic_transition_g1/casper_digitization/rms_vs_x_hwt8.csv
+    hwt8_path: data/casper/rms_vs_x_hwt8.csv
     noisy_figures: [Fig9a, Fig13a]   # G6 v0.2 noisy training figures
     quiet_figures: [Fig13a]          # G6 v0.2 quiet deploy figure (8 pts at M=6.0)
     rms_unit: p_rms/p_e

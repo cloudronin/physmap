@@ -117,15 +117,24 @@ def test_coverage_note_does_not_let_present_read_as_covered():
     assert "not benchmark-grade" in note
 
 
-@pytest.mark.parametrize("args", [("benchmark", "run"), ("benchmark", "report")])
-def test_cli_never_claims_a_reproduction_that_did_not_happen(args):
-    """The runner is not ported, so nothing is recomputed. Both surfaces must say so
-    rather than letting seven shipped datasets read as seven reproduced results."""
-    r = _cli(*args)
+def test_report_alone_does_not_claim_a_reproduction():
+    """`report` reads the bank; it runs nothing. It must not let seven shipped
+    datasets read as seven reproduced results."""
+    r = _cli("benchmark", "report")
     assert r.returncode == 0, r.stderr
     assert "NOTHING WAS RECOMPUTED IN THIS RUN" in r.stdout
 
 
+@pytest.mark.slow
+def test_cli_run_recomputes_and_checks_itself_against_the_bank():
+    r = _cli("benchmark", "run")
+    assert r.returncode == 0, r.stderr
+    assert "Recomputed 7 vehicles." in r.stdout
+    assert "Every cell matches the banked matrix exactly." in r.stdout
+    assert "DRIFT" not in r.stdout
+
+
+@pytest.mark.slow
 def test_cli_run_states_the_licence_split():
     r = _cli("benchmark", "run")
     assert "Source data ships for 7 of 7" in r.stdout

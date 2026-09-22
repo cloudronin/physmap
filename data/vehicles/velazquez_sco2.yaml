@@ -38,7 +38,7 @@ cell_bands:
 
 data_source:
   loader: velazquez_sco2_lfs
-  path: results/velazquez_sco2_digitization/velazquez_sco2_local_alpha_with_properties.csv
+  path: data/velazquez_sco2/velazquez_sco2_local_alpha_with_properties.csv
 
 fluid:
   name: supercritical_CO2

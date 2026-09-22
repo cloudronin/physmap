@@ -72,10 +72,15 @@ physmap benchmark coverage   # what that subset does and does not cover
 All seven vehicles ran, all seven outcomes are reported, and **all seven now ship their
 source data**.
 
-**Shipping is not reproducing, and the report keeps them apart.** The substrate runner is
-not yet ported into this repository, so nothing is recomputed yet — every number is read
-from the banked matrix and labelled as such. The counts in that message are computed, not
-written down, so they cannot quietly go stale.
+**`physmap benchmark run` recomputes all seven from this checkout and diffs the result
+against the committed matrix.** Every field of every cell, not just the headline outcome.
+It prints `Every cell matches the banked matrix exactly.` or names the vehicles that
+drifted, and exits non-zero if any did. It never writes the bank it is checking itself
+against.
+
+`physmap benchmark report` reads the bank without running anything, and says so — the
+report distinguishes a recomputed row from a banked one, and the counts are computed
+rather than written down, so they cannot quietly go stale.
 
 **Shipping is also not licensing.** Two of the seven carry affirmative permission:
 `naca_tn1451` (public domain) and `velazquez_sco2` (CC BY 4.0). **Five do not**, and the

@@ -62,7 +62,7 @@ data_source:
   # cross-validated visual-precision CSVs for Figs 10/15/19 live in
   # results/naca_digitization/cross_validated_fig{10,15,19}.csv; pass
   # the path via VehicleConfig override to run them through the engine.
-  path: results/naca_digitization/wpd_fig10.csv
+  path: data/naca/wpd_fig10.csv
 
 fluid:
   name: air
