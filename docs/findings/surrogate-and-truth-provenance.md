@@ -490,58 +490,113 @@ many runs Figure 16 plots, and at which `L/D`, is **not determined**. Entrance l
 therefore **unknown per point**, which is one of the five fields the evaluable-point rule
 requires.
 
-## The correlations as printed do not describe the data as plotted
+## The Figure 16 discrepancy — corrected, and narrowed
 
-This is the finding that matters most, and it was only visible once the points were
-calibrated.
+**An earlier version of this section inferred that the CFD may have evaluated Eq 13 at the
+wrong argument, and that its agreement could be coincidental. That inference is WITHDRAWN.
+It was not supported.**
 
-Fitting the paper's own plotted **fitted lines**, read off Figure 16 on Figure 16's axis:
+### What the nomenclature settles
 
-| Series | Line read from the figure | Paper's printed correlation |
-|---|---|---|
-| Upward (stars) | `Nu = 7.65 (Ra/Re)^0.00737` | `Nu = 3.7151 (Ra/Re)^0.11868` (Eq 13) |
-| Downward (diamonds) | `Nu = 7.73 (Ra/Re)^0.00233` | `Nu = 3.6254 (Ra/Re)^0.08697` (Eq 14) |
+The paper defines `Ra = Gr × Pr`, and the overbar means *average*. Eq 13 and Figure 16
+both label their input as averaged `Ra/Re`. With the paper's own envelope:
 
-And the extracted star markers themselves fit `Nu = 7.64 (Ra/Re)^0.00471`.
+```
+Ra  = Gr·Pr  = 1.1e5..7.4e6 × 0.7   = 7.7e4 .. 5.18e6
+Ra/Re        = 7.7e4/1600 .. 5.18e6/400 = 48 .. 12,950
+```
 
-**The plotted upward line rises 3.5% across the figure's two decades. Eq 13 would rise
-75%.** That is not reading noise; it is a factor-of-twenty difference in exponent.
+**So the physically available `Ra/Re` is roughly 50–13,000.** At `Ra/Re = 1750`, Eq 13
+gives `Nu ≈ 9.0`, squarely in the plotted upward band of 7.8–9.2.
 
-Evaluated on the figure's own axis, Eq 13 gives `Nu = 19.1` at `Ra/Re = 1e6` and `33.1` at
-`1e8`. **The plotted data sit at 7.8–9.2 across exactly that range.**
+### The CFD arguments are physically plausible
 
-Running it backwards: Eq 13 returns the plotted `Nu` values at `Ra/Re ≈ 5×10²–2×10³`. And
-the project's own CFD validation used `Eq13 = 8.47` and `10.11`, which correspond to
-arguments of **1037** and **4608** — about `10³`, three decades below where Figure 16 plots
-the data those equations were fitted to.
+The project's validation used `Eq13 = 8.47` and `10.11`, implying arguments of **1037** and
+**4608**. Both fall **inside** the 50–13,000 range. The earlier objection — that ~10³ was
+"three decades below the figure" — compared against the *figure's printed axis*, not
+against the physics, and the figure's axis is itself the thing in question.
 
-### What this does not settle
+Going further, since `Ra/Re = Ri·Re·Pr`:
 
-Three readings are consistent with the evidence and **this document does not choose between
-them**:
+| Case | `Ri` | `Eq13 Nu` | implied `Ra/Re` | ⇒ `Re` | ⇒ `Gr` | Inside the paper's envelope? |
+|---|---|---|---|---|---|---|
+| Step 2 | 1.8 | 8.47 | 1037 | **823** | 1.22e6 | **Yes** (Re 400–1600, Gr 1.1e5–7.4e6) |
+| Step 3 | 13 | 10.11 | 4608 | **506** | 3.33e6 | **Yes** |
 
-1. **The figure's x-axis is a different quantity from the equations' argument.** The axis
-   is printed with overbars — `Log (R̄a / R̄e)` — which may denote averaged or otherwise
-   modified quantities.
-2. **The printed coefficients or exponents are in error**, in the paper or in the
-   transcription into this project.
-3. **`Ra` or `Re` are defined differently** in the two places, for instance with a
-   length-ratio factor folded in.
+**The CFD's own `Re`, `Gr` and `Pr` do not survive** — only `Ri` was recorded — so these
+are *derived by inversion*, not recomputed from recorded inputs. With that caveat, both
+validation points map to operating conditions inside the experimental envelope.
 
-The paper separately notes that `Gr·Pr·D/L` for this work "ranges from 5,922 to 119,850" —
-a fourth quantity, in a fourth range, neither `10³` nor `10⁶–10⁸`.
+**None of this proves Eq 13 or the CFD is correct.** It establishes only that the plot
+mismatch does not show the CFD used a wrong argument, and does not show the agreement was
+coincidental.
 
-### Why it matters here
+### What remains genuinely unresolved
 
-**The CFD acceptance rests on this.** The `−3.7%` and `−9.3%` agreements that accepted the
-rebuilt CFD compare against Eq 13 evaluated at `Ra/Re ≈ 10³`. If the argument is wrong, the
-agreement is coincidental and the acceptance is unsupported. If the argument is right, then
-Figure 16's axis is not the equations' `Ra/Re` and the extracted points cannot be joined to
-the equations without resolving which variable is which.
+The plotted data still do not match Eq 13 as printed, and **rescaling the axis cannot fix
+it**, because rescaling shifts `x` without changing the slope:
 
-Either way, **the extracted points cannot yet be mapped to `(Re, Gr)` operating
-conditions**, which is what an evaluation would need. That mapping is the blocker now — not
-access, not calibration, and not counting.
+| | Implied exponent |
+|---|---|
+| Fitted upward line, on the printed axis (2.053 decades) | 0.00737 |
+| Same line, on the physical range 50–13,000 (2.415 decades) | 0.00627 |
+| All star markers, on the physical range | 0.0299 |
+| **Eq 13 as printed** | **0.11868** |
+
+Two separate things are off, and neither is explained:
+
+1. **The x-values.** Figure 16's axis reads `10⁶–10⁸`; the physically available `Ra/Re` is
+   `50–13,000`.
+2. **The slope.** The plotted upward line rises ~3.5% across the figure; Eq 13 would rise
+   ~75% across the same number of decades.
+
+**Recorded as unresolved: the figure's axis, the plotted-data mapping, or the presentation
+of the correlation.** At least one of the three is inconsistent with the others. No
+explanation is chosen here, because the evidence does not select one — and a constant
+rescaling, the obvious candidate, is ruled out by the slope.
+
+## The extracted marker count is indeterminate
+
+**63 was the wrong number to report**, and a visual check shows why.
+
+| Method | Count |
+|---|---|
+| Filled star paths in the data region | 81 |
+| Clustered at 0.5 pt | 63 |
+| Clustered at 2.0 pt | 50 |
+| Clustered at 4.2 pt (a full marker width) | 39 |
+| **Visual count from the rendered figure** | **~23** |
+
+The path count **overcounts**: markers are drawn more than once, and no clustering
+threshold reconciles it — even merging everything within a full marker width leaves 39.
+The visual count **undercounts**: heavily overlapped stars read as one blob, which is
+exactly why the vector route looked attractive.
+
+**So the number of distinct plotted upward measurements cannot be determined from the
+figure.** It lies somewhere between roughly 23 and 81. Recorded as indeterminate.
+
+### And a distinct count is still not a usable case
+
+Even a correct marker count would not give evaluable cases:
+
+- Figure 16's x-coordinate is a **ratio**. Even a correctly calibrated `Ra/Re` does not
+  determine `Re`, `Gr` and entrance length separately — many `(Re, Gr)` pairs share one
+  ratio.
+- `L/D` is not recoverable per point; the figure aggregates four entrance lengths.
+- Without `(Re, Gr, L/D)` a point cannot be matched to a CFD condition.
+
+**The 63 markers are not 63 evaluable cases, and nor are 23 or 81.** The usable count is
+currently **zero**, and will stay zero until operating conditions can be attached to points.
+
+## The standing scientific limitation
+
+Separate from every measurement question above, and unchanged by any of it:
+
+> **The CFD was compared with a fitted correlation, not with measured points.**
+
+Eq 13 is a fit through the data, and the comparison used the fit. That remains true
+whatever the figure's axis turns out to mean, and it is the limitation to carry into the
+protocol.
 
 ## Dependency trace: were these measurements already used?
 

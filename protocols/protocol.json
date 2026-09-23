@@ -216,7 +216,26 @@
       },
       "earlier_extraction_was_wrong": "a first pass reported 40 markers in two classes of 20 and guessed they were upward and downward. They were the Sieder & Tate triangles and Brown & Gauvin circles. The present-work markers sit in a second coordinate space at 4.1677x scale that the first pass discarded.",
       "recorded_ambiguity": "the paper states 88 runs over 4 entrance lengths and both directions (~44 upward). 63 distinct upward markers does not reconcile with 44, and the caption calls the figure 'a sample one of these correlations'. Entrance length per point is UNKNOWN.",
-      "redistribution_determination": "NOT MADE; extraction held outside the repository"
+      "redistribution_determination": "NOT MADE; extraction held outside the repository",
+      "marker_count": {
+        "status": "INDETERMINATE",
+        "filled_star_paths_in_data_region": 81,
+        "clustered_0p5pt": 63,
+        "clustered_2pt": 50,
+        "clustered_4p2pt_full_marker_width": 39,
+        "visual_count_from_render": "~23",
+        "why": "the path count overcounts (markers drawn more than once; no threshold reconciles it) and the visual count undercounts (overlapped stars read as one blob). Distinct plotted measurements lie somewhere between ~23 and 81.",
+        "EARLIER_FIGURE_WITHDRAWN": "63 was reported as the count; it is one clustering threshold's answer, not the count"
+      },
+      "evaluable_cases": {
+        "count": 0,
+        "why": [
+          "Figure 16's x is a RATIO: a correct Ra/Re does not determine Re and Gr separately -- many (Re, Gr) pairs share one ratio",
+          "entrance length L/D is not recoverable per point; the figure aggregates four",
+          "without (Re, Gr, L/D) a point cannot be matched to a CFD condition"
+        ],
+        "note": "a marker count, however accurate, is not a case count"
+      }
     },
     "dependency_on_cfd": {
       "independent_of_the_cfd": false,
@@ -226,21 +245,39 @@
       "precision_note": "the step-3 Nusselt-extraction change is recorded as fixing a physical breakdown under outlet recirculation, not as a response to disagreement with Eq 13; which drove it is not separately recorded"
     },
     "correlation_discrepancy": {
-      "status": "UNRESOLVED -- blocks mapping extracted points to (Re, Gr)",
-      "plotted_upward_line": "Nu = 7.65 (Ra/Re)^0.00737",
-      "plotted_downward_line": "Nu = 7.73 (Ra/Re)^0.00233",
-      "extracted_star_fit": "Nu = 7.64 (Ra/Re)^0.00471",
-      "printed_eq13": "Nu = 3.7151 (Ra/Re)^0.11868",
-      "printed_eq14": "Nu = 3.6254 (Ra/Re)^0.08697",
-      "magnitude": "the plotted upward line rises 3.5% across the figure's two decades; Eq 13 would rise 75%. Factor ~20 in exponent, not reading noise.",
-      "eq13_on_the_figure_axis": "Nu = 19.1 at Ra/Re 1e6 and 33.1 at 1e8, where the plotted data sit at 7.8-9.2",
-      "eq13_argument_for_the_project_values": "Eq13 = 8.47 -> argument 1037; Eq13 = 10.11 -> argument 4608; i.e. ~1e3, three decades below where Figure 16 plots the data the equations were fitted to",
-      "readings_not_chosen_between": [
-        "the figure's x-axis (printed with overbars) is a different quantity from the equations' argument",
-        "the printed coefficients or exponents are in error, in the paper or in the transcription into this project",
-        "Ra or Re are defined differently in the two places"
-      ],
-      "consequence_for_cfd_acceptance": "the -3.7% and -9.3% agreements that accepted the CFD compare against Eq 13 evaluated at Ra/Re ~ 1e3. If that argument is wrong the agreement is coincidental and the acceptance is unsupported; if it is right then the figure's axis is not the equations' Ra/Re and the extracted points cannot be joined to the equations."
-    }
+      "status": "UNRESOLVED -- the figure's axis, the plotted-data mapping, or the presentation of the correlation. At least one is inconsistent with the others. NO explanation is chosen; evidence does not select one.",
+      "WITHDRAWN_INFERENCE": "an earlier entry inferred the CFD may have used a wrong Eq-13 argument and that its agreement could be coincidental. WITHDRAWN -- not supported. It compared against the figure's printed axis rather than against the physics, and the axis is itself the thing in question.",
+      "cfd_arguments_are_plausible": {
+        "step2": {
+          "Ri": 1.8,
+          "eq13_Nu": 8.47,
+          "implied_Ra_over_Re": 1037,
+          "implied_Re": 823,
+          "implied_Gr": 1220000.0,
+          "inside_envelope": true
+        },
+        "step3": {
+          "Ri": 13.0,
+          "eq13_Nu": 10.11,
+          "implied_Ra_over_Re": 4608,
+          "implied_Re": 506,
+          "implied_Gr": 3330000.0,
+          "inside_envelope": true
+        },
+        "derivation": "Ra/Re = Ri*Re*Pr; the CFD's own Re, Gr and Pr do NOT survive, only Ri, so these are derived by inversion, not recomputed from inputs",
+        "caveat": "this does NOT prove Eq 13 or the CFD is correct; it only removes the wrong-argument inference"
+      },
+      "what_remains_unresolved": {
+        "x_values": "figure axis reads 1e6-1e8; physically available Ra/Re is 50-13,000",
+        "slope": "plotted upward line rises ~3.5% across the figure; Eq 13 would rise ~75%",
+        "rescaling_ruled_out": "a constant axis rescaling shifts x without changing slope. Implied exponent is 0.0063 on the physical range versus Eq 13's 0.11868"
+      }
+    },
+    "nomenclature": {
+      "Ra": "Gr * Pr",
+      "overbar": "average",
+      "Ra_over_Re_physical_range": "~50 .. ~13,000, from Gr 1.1e5-7.4e6, Re 400-1600, Pr~0.7"
+    },
+    "standing_limitation": "the CFD was compared with a FITTED CORRELATION, not with measured points. Unchanged by any measurement question above."
   }
 }
