@@ -194,16 +194,25 @@ is stated as a rule with its reasoning, and then applied to whatever the balance
 out to be. What is forbidden is choosing that threshold after seeing the number it will
 be compared against.
 
-### Two-stage lock
+### The locks, and why the ordering changed
 
-- **Stage 1 — now.** Everything in §§1–8, plus the vocabulary in this section.
-- **Stage 2 — after the inventory, before any outcome is examined.** The corroboration
-  criterion and its equivalence margin, chosen in light of the counts.
+**Revised.** An earlier version put the grid (§1) and the surrogate (§2) in the first lock,
+to be fixed *before* the measurement inventory. That ordering was wrong: both depend on
+knowing which measured conditions exist, and fixing a grid before that is fixing it in
+ignorance. It has been corrected.
 
-Splitting the lock is not a loosening. Stage 2 is still fixed before any outcome is seen. It
-is fixed *after* the shape of the data is known, because a power criterion written in
-ignorance of the sample size is arbitrary, and an arbitrary criterion is one that gets argued
-with later.
+**The invariant is not "lock early". It is: lock every scoring choice before any label,
+flag or performance number is examined.** Everything else follows from that, and nothing
+more is required by it.
+
+| | What it fixes | When |
+|---|---|---|
+| **Lock A** | The things that do not depend on what data exists: the result vocabulary (§9), the materiality definition and its refused provenances (§4), the flag rule (§5), the truth-independence requirements (§8), and the baselines (§6) | **Now.** Nothing blocks it |
+| *(no lock)* | **Source discovery and the input-only inventory.** These produce inputs, not scoring choices, so they need no freeze — only the discipline that they record inputs and not outcomes | Now, in parallel |
+| **Lock B** | Every scoring choice: the grid and evaluable rule (§1), the surrogate (§2), the label rule and tolerance (§3), `θ` (§4), the metric definitions (§7), and the corroboration criterion | **After** the inventory, **before** any label, flag or metric is computed |
+
+This is not a loosening. Lock B still precedes every outcome. It simply stops the protocol
+demanding a grid before anyone knows which conditions were measured.
 
 ### Outcomes
 
@@ -223,16 +232,28 @@ presented as a number this repository produces.
 
 ## 10. Order of operations
 
-1. Lock **stage 1**: the decisions in §§1–4, and the vocabulary in §9. Record the hash.
-2. Build the **measurement inventory** — inputs only. No labels, no flags, no class
-   balance.
-3. Lock **stage 2**: the corroboration criterion, written as a decision rule over the
-   class balance rather than a number chosen against it. Record the hash.
-4. Only now compute labels, run the detector, and derive the class balance.
-5. Run the reconstruction.
-6. Examine outcomes. Report the metrics with their uncertainty **and** the class balance
-   that was withheld at step 2, and write `expected_metrics.json` — stamped with both
-   protocol hashes, every input hash, and the resulting outcome.
+1. **Lock A.** The data-independent decisions above. Record the hash.
+2. **Source discovery and the input-only inventory**, in parallel with the rebuild. Record
+   per candidate source: flow direction, `Re`, `Gr` or `Ra`, geometry and entrance length,
+   measured `Nu`, and uncertainty. Inputs only — no labels, no flags, no class balance.
+3. **The rebuilt CFD and its matched gravity-off runs**, with numerical checks recorded.
+   Acceptance rests on the CFD's own criteria — grid convergence, residuals, energy
+   balance, sensitivity of the Nusselt extraction. **Eq 13 is a reported correlation check,
+   not the acceptance test.**
+4. **Surrogate fitting and verification**, with the fit residual `ε` recorded on both
+   fitted and **held-out** conditions.
+5. **Lock B.** Every scoring choice, given what the inventory found. Record the hash.
+6. **Only now** compute labels, run the detector, and derive the class balance.
+7. Examine outcomes. Report metrics with their uncertainty, and say what they are
+   referenced against — measured points or a correlation.
 
-Steps 2 and 3 must not be reordered, and step 4 must not be pulled earlier. The whole
-value of the two-stage lock is that stage 2 is chosen without sight of step 4.
+Steps 2, 3 and 4 may run in any order or together; none of them is a scoring choice.
+**Step 5 must precede step 6.** That single ordering is what the freeze protects, and it
+is the only ordering constraint that matters.
+
+### If no evaluable truth set is found
+
+Steps 3 and 4 still produce something worth having: a rebuilt CFD with recorded numerical
+checks, matched ablation runs, and a surrogate with a measured generalisation residual.
+That is a **reproducible demonstration of the method**, and it is reported as such — with
+no performance metrics attached, because none would be supportable.

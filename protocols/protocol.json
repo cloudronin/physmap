@@ -70,20 +70,21 @@
     "open_issue": "prior implementation marked this substrate divergent_truth_substrate=False; unresolved"
   },
   "lock_stages": {
-    "stage_1": {
-      "covers": "sections 1-8 and the result vocabulary in section 9",
-      "status": "draft_not_locked",
-      "locked_at": null,
-      "hash": null
+    "REVISED": "an earlier ordering put the grid and surrogate in the first lock, to be fixed BEFORE the measurement inventory. Both depend on knowing which measured conditions exist, so that ordering fixed them in ignorance.",
+    "invariant": "lock every SCORING choice before any label, flag or performance number is examined. Nothing more is required.",
+    "lock_A": {
+      "covers": "result vocabulary, materiality definition and refused provenances, flag rule, truth-independence requirements, baselines",
+      "depends_on_data": false,
+      "status": "ready to lock now"
     },
-    "stage_2": {
-      "covers": "the corroboration criterion and its equivalence margin",
-      "precondition": "measurement inventory committed (inputs only)",
-      "form": "a decision RULE over the class balance, not a number chosen against it. The rule is specified before the balance is seen and evaluated after.",
-      "must_be_locked_before": "labels, flags and class balance are computed",
-      "status": "blocked_on_inventory",
-      "locked_at": null,
-      "hash": null
+    "unlocked_work": {
+      "covers": "source discovery, input-only inventory, rebuilt CFD, matched gravity-off runs, surrogate fitting and verification",
+      "note": "these produce inputs, not scoring choices, so they need no freeze -- only the discipline of recording inputs not outcomes"
+    },
+    "lock_B": {
+      "covers": "grid and evaluable rule, surrogate, label rule and tolerance, theta, metric definitions, corroboration criterion",
+      "when": "after the inventory, before any label, flag or metric is computed",
+      "status": "blocked on the inventory"
     }
   },
   "measurement_inventory": {
@@ -278,6 +279,13 @@
       "overbar": "average",
       "Ra_over_Re_physical_range": "~50 .. ~13,000, from Gr 1.1e5-7.4e6, Re 400-1600, Pr~0.7"
     },
-    "standing_limitation": "the CFD was compared with a FITTED CORRELATION, not with measured points. Unchanged by any measurement question above."
-  }
+    "standing_limitation": "the CFD was compared with a FITTED CORRELATION, not with measured points. Unchanged by any measurement question above.",
+    "figure_16_closed_as_a_route": "Figure 16 is a correlation plot, not a pointwise benchmark. Its x is a ratio so Re and Gr cannot be separated; entrance length is not recoverable per point across four aggregated L/D; the distinct-marker count is indeterminate between ~23 and 81. Marker recovery abandoned."
+  },
+  "cfd_acceptance": {
+    "criteria": "grid convergence, residuals, energy balance, sensitivity of the Nusselt extraction -- the CFD's own terms",
+    "eq13_role": "a REPORTED correlation check, not the acceptance test",
+    "rationale": "the original acceptance was agreement with Eq 13 within the correlation's own scatter band, which makes the measured points that Eq 13 is fitted through non-independent of the CFD"
+  },
+  "if_no_evaluable_truth_set": "report a reproducible demonstration of the method -- rebuilt CFD with recorded numerical checks, matched ablation runs, and a surrogate with a measured generalisation residual -- with NO performance metrics attached"
 }

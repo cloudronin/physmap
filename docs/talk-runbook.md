@@ -173,12 +173,25 @@ about. There is also a third quantity — the error in recovering values off the
 plots — which is not yet measured and could be larger than either. Do not assert which of
 the three governs until it is.
 
+### What Part 2 is, until an evaluable truth set exists
+
+**Present the causal method as a reproducible demonstration, not as a validated result.**
+
+That is not a hedge; it is what the work currently supports. The method runs, its refusals
+fire, its explanations are deterministic, and — once the rebuild lands — its CFD carries
+recorded numerical checks and its surrogate a measured generalisation residual. All of
+that is demonstrable and none of it needs a performance number.
+
+**New metrics appear only if a properly evaluable truth set supports them.** Evaluable
+means per-run `Re`, `Gr`, geometry, entrance length, measured `Nu` and uncertainty —
+enough to identify each case. No such set is in hand.
+
 ### The label that goes on the slide
 
 **Right now, and for the talk as scheduled:**
 
-> Historical, **correlation-referenced** results of the original study, scored against an
-> experimental correlation rather than pointwise measurements, and possibly strongly
+> **Historical results of the original study, scored against an experimental
+> correlation** — not validated against individual measurements — and possibly strongly
 > favoured by the test construction. The public release does not reproduce them. A
 > reconstruction is under way under a locked protocol.
 
@@ -217,6 +230,8 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "The benchmark you just saw demonstrates the causal method." | "What you just saw is observability. The causal method is a different claim, and it is on the next slide." |
 | "This reproduces the results in the abstract." | "This is a reconstruction. The best it can reach is independent corroboration." |
 | "We validated against experimental truth." | "The truth was their experimental correlation, evaluated densely. No pointwise measurement was used. It is correlation-referenced." |
+| "These numbers were validated against measurements." | "They were scored against a fitted correlation. No individual measurement entered the comparison." |
+| "The causal method is validated." | "The causal method is demonstrated. Validation needs an evaluable truth set and we do not have one." |
 | "Recall 0.65 is unaffected by the coupling, so it's the solid number." | "It is unaffected by that coupling and still correlation-referenced. Two different defects; the second applies to every cell." |
 | "The naive baseline's 0.73 is real performance." | "It is a correlation-referenced number too. The comparison is less compromised than the absolute figure; the figure is not independent evidence." |
 | "If the rebuild gets 1.00 again, that confirms it." | "It would suggest the coupling survived. That is why we are not aiming at the old numbers." |
