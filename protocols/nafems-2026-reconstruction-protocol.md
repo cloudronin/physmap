@@ -248,6 +248,45 @@ Development conditions are **discarded from the evaluation entirely** — they a
 out, they are spent. A condition whose residual was examined while choosing the functional
 form cannot afterwards serve as an unbiased test of that form.
 
+#### Applied to Lewis (recorded 2026-09-23)
+
+**Runs 13A, 16A and 35A are spent.** Every station of all three has been inspected against
+agreement — against Lewis's measurement, against his own Figure 7.4 laminar prediction
+curves, and across a constant-property basis sweep. They may be used to build and debug the
+solver and to argue about mechanisms. They may not contribute to any precision, recall, F1
+or materiality figure, and no eligibility rule may be tuned on them.
+
+**One boundary in particular must not be reused.** The 13A laminar cutoff near x/d ≈ 102 was
+located *by looking at where measurement and prediction diverge*. As a diagnostic that is
+exactly right — it is how the constant-property defect was found. As a scoring boundary it is
+circular: a line drawn where agreement fails selects for agreement inside it, so any metric
+computed within it is biased upward by construction. The cutoff is a finding about the
+experiment. It is not an eligibility rule and cannot become one.
+
+**Before any remaining run or region is scored**, the eligibility and QoI rules are fixed and
+committed first. While fixing them, these may be consulted:
+
+- source-reported operating conditions — `Re`, `Pr`, `Gr_q`, wall boundary condition, geometry;
+- source-reported energy balance and heat loss;
+- the absolute bulk-temperature error expressed against the wall-to-bulk difference;
+- source-reported instrument accuracies;
+- a transition criterion from an **independent** source, used **inside** its stated validity
+  range;
+- Lewis's Table 7.1 predicted-reversal list, carrying its known limitation that a laminar
+  code cannot predict transition at all.
+
+These may **not**:
+
+- measurement-versus-prediction agreement for the candidate run;
+- any PhysMAP flag, materiality value or detector outcome;
+- any CFD result for the candidate run;
+- class balance, or how many runs a proposed rule would admit.
+
+**The flow-eligibility rule cannot currently be closed.** No independent transition criterion
+qualifies: Hallman's was tested and rejected because Lewis's stations lie 1.5× to 24× outside
+its stated validity range. Until one exists, there is no eligible evaluation set, and metrics
+stay closed.
+
 ### Outcomes
 
 | Outcome | Meaning |

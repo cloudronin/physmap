@@ -391,7 +391,8 @@
       "stated_uncertainty": "+/-16% at 95% coverage generally, rising to +/-28% near the entrance",
       "caveats": "Temporal steadiness is MEASURED; laminarity is argued from Re <= ~1000 plus an assumed Ra_q ~ 6e5 stability limit. Runs FC and FD sit at Ra_q ~ 5e6, about 8x above it, with Nu rising downstream.",
       "verified": "read directly -- title, institution and the steadiness criterion checked",
-      "status": "closest complete package; the open question is whether horizontal cross-flow buoyancy tests the same thing. That is the owner's call."
+      "status": "closest complete package; the open question is whether horizontal cross-flow buoyancy tests the same thing. That is the owner's call.",
+      "ruling": "NOT a substitute for the vertical aiding-flow case. Horizontal geometry puts buoyancy across the flow, driving secondary circulation instead of aiding acceleration -- a different mechanism. Retained as a SEPARATE GENERALIZATION VEHICLE, not as NAFEMS truth."
     },
     "barozzi_dumas_collins_1984": {
       "citation": "Barozzi, G. S., Dumas, A. & Collins, M. W. (1984). Sharp entry and transition effects for laminar combined convection of water in vertical tubes. Int. J. Heat and Fluid Flow 5(4):235-241.",
@@ -400,7 +401,8 @@
       "why_it_is_the_highest_value_item": "Vertical tube, water, aiding flow -- the target geometry -- and its abstract reports a TRANSITION CRITERION DERIVED FROM MEASURED LOCAL Nu. That is precisely the screen missing everywhere else: Lewis's criterion is from a laminar-only code, and Hallman's does not transfer.",
       "note": "This is the correct citation for what earlier notes called 'Barozzi, Dumas & Stieglitz (1984)'.",
       "verified": "NOT verified -- citation from a literature sweep",
-      "status": "obtain before settling for a horizontal-geometry compromise"
+      "status": "obtain before settling for a horizontal-geometry compromise",
+      "ruling": "No interlibrary request. Remains unobtained."
     }
   },
   "lewis_case_choices": {
@@ -437,5 +439,53 @@
     "reason": "No source yet supplies individually identified conditions, measured heat transfer AND positive evidence of steady laminar flow. Lewis supplies the first two; its well-measured runs are the transitional ones and its laminar run has the weakest buoyancy.",
     "what_would_open_it": "An eligible set of INDEPENDENT CASES -- distinct operating runs, not axial stations of one run -- each with measured truth, a stated uncertainty, and evidence the flow was steady and laminar where measured.",
     "lewis_disposition": "RETAINED as a documented limitation, not deleted."
+  },
+  "development_vs_evaluation_split": {
+    "ruling_date": "2026-09-23",
+    "the_error_being_corrected": "The 13A laminar cutoff near x/d 102 was located by looking at WHERE MEASUREMENT AND PREDICTION DIVERGE. That is a legitimate diagnostic and it is how the constant-property defect was found. It cannot afterwards define a scoring region: a boundary drawn where agreement fails selects for agreement inside it, so any metric computed there is biased upward by construction.",
+    "burned_as_development_evidence": [
+      "13A",
+      "16A",
+      "35A"
+    ],
+    "what_burned_means": "These three runs, every station of them, and the Figure 7.4 prediction curves have all been inspected against agreement. They may be used to build and debug the solver, and to argue about mechanisms. They may NOT contribute to any precision, recall, F1 or materiality figure, and no eligibility rule may be tuned on them.",
+    "rules_for_the_evaluation_set": {
+      "order": "Eligibility and QoI rules are fixed and committed FIRST. Only then is agreement computed, and only on runs not in the burned list.",
+      "forbidden_inputs_when_fixing_the_rules": [
+        "measurement-versus-prediction agreement for the candidate run",
+        "any PhysMAP flag, materiality value or detector outcome",
+        "any CFD result for the candidate run",
+        "class balance, or how many runs a proposed rule would admit"
+      ],
+      "permitted_inputs_when_fixing_the_rules": [
+        "source-reported operating conditions (Re, Pr, Gr_q, wall BC, geometry)",
+        "source-reported energy balance and heat loss",
+        "the absolute bulk-temperature error expressed against wall-to-bulk difference",
+        "source-reported instrument accuracies",
+        "a transition criterion from an INDEPENDENT source, used inside its stated validity range",
+        "Lewis's Table 7.1 predicted-reversal list, with its known limitation that a laminar code cannot predict transition"
+      ],
+      "note_on_the_last_two": "No independent transition criterion currently qualifies. Hallman's was tested and rejected: Lewis's stations lie 1.5x to 24x outside its stated validity range. Until one exists, the flow-eligibility rule cannot be closed, and therefore neither can the evaluation set."
+    },
+    "metrics_state": "CLOSED, and this ruling does not move that.",
+    "no_outreach": "Standing. No author contact, no interlibrary request."
+  },
+  "cfd_model_requirements": {
+    "ruling": "The constant-property Boussinesq case is retired as the model of record for Lewis. A property basis may NOT be selected because it matches the measurements best.",
+    "required": "Variable-property solver using Lewis's OWN Appendix B polynomials, which is what his numerical code used. This removes the basis choice rather than making it.",
+    "retained_unchanged": [
+      "2.5-diameter unheated entry",
+      "geometry: d = 0.0119 m, heated L = 1.900 m, L/d = 159.66",
+      "uniform wall heat flux over the heated length, adiabatic over the entry",
+      "Lewis's property definitions (Appendix B equations B.2, B.4, B.5, B.6)",
+      "Nu reduced on Lewis's linear energy-balance bulk temperature and inlet-bulk k = 0.5922"
+    ],
+    "diagnosed_against": [
+      "Lewis's Figure 7.4 laminar prediction curves",
+      "13A",
+      "16A",
+      "35A"
+    ],
+    "diagnosis_is_not_scoring": "These are the burned development runs. Agreement with them is a debugging signal, not a result."
   }
 }
