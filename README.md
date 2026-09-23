@@ -4,7 +4,7 @@ Physics-aware credibility checks for AI surrogates in multiphysics simulation.
 
 A surrogate trained on `(Re, Pr)` over the fully-developed region of a heated pipe is
 blind to `x/D`, the variable that actually governs the entrance region. So it fails
-there, confidently. And so does an input-space novelty detector, because it sees the
+there, confidently. And so does an input-based OOD detector, because it sees the
 same two columns the surrogate does — and in those two columns the entrance points look
 perfectly ordinary.
 
@@ -16,8 +16,8 @@ at fit time whether that variable is structurally observable to the surrogate at
 verdicts: {'REJECT': 45}
 rationale: Prediction relies on gnielinski-1976 beyond its validated x_over_D bound
            (x_over_D >= 10); x_over_D is not a surrogate input (unobservable to
-           statistical detectors), and the literature (Tam & Ghajar 1998) reports
-           divergence up to -63% past this bound. Statistical baselines are silent
+           input-based OOD detectors), and the literature (Tam & Ghajar 1998) reports
+           divergence up to -63% past this bound. Input-based OOD detectors are silent
            because they cannot observe x_over_D.
 ```
 

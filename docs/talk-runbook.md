@@ -19,7 +19,7 @@ weakness in the talk — it is the talk.
 ### What it shows
 
 A surrogate trained on `(Re, Pr)` in a heated pipe's fully-developed region, asked about
-the entrance region. It never saw `x/D`. Neither did the statistical novelty detector.
+the entrance region. It never saw `x/D`. Neither did the input-based OOD detector.
 PhysMAP reads `x/D` from the test coordinates, checks it against the closure's validated
 range, and refuses with a reason.
 
@@ -36,9 +36,18 @@ Expected, and verified: **45 entrance points, every one `REJECT`, every one firi
 `gp_variance fired=False`. The rationale names `gnielinski-1976`, the bound `x_over_D ≥ 10`,
 and Tam & Ghajar's reported divergence of up to −63%.
 
-The line to land on is the last one: **the statistical baseline is silent, and it is silent
+The line to land on is the last one: **the input-based OOD detector is silent, and it is silent
 for a structural reason, not a tuning reason.** It cannot see the variable that broke the
 surrogate. No threshold change would fix it.
+
+**What "input-based OOD detector" means, precisely.** It is the talk's one name for the
+detectors that judge a prediction only by where its *inputs* sit relative to the training
+data. In this demo that is the guardrail's default pair — novelty density and GP variance —
+and the demo prints both, plus a count over all 45 points, so the silence is on screen rather
+than asserted. In the seven-vehicle benchmark and the Lewis head-to-head it is the benchmark's
+pair, distance-to-training and GP variance. Do not call it "the statistical baseline" or "the
+novelty detector": the first is vague and the second is wrong for the benchmark, which
+excludes novelty density.
 
 Then the refusals, which take a tenth of a second each:
 
@@ -217,6 +226,41 @@ it drifting onto a weaker result.
 **In every outcome the slide shows the reconstruction's numbers, never the original
 triple.** Even under corroboration.
 
+### The Lewis head-to-head — one worked example, one run
+
+**What it is.** Lewis (1992) Test 35A, a real vertical-tube mixed-convection experiment. A
+forced-convection surrogate fitted to gravity-off CFD, judged by the benchmark's own
+input-based OOD detector and by PhysMAP, at each of Lewis's thermocouple stations. **One run.
+A development example.** Its stations are not independent cases, so no precision, recall or
+F1 — and none should be implied by the slide's layout. Full record:
+`docs/findings/lewis-ood-head-to-head.md`.
+
+**The slide is the control, not the scorecard.** Same surrogate, same detector, same inputs —
+once against gravity-off CFD, where the surrogate is right to 0.25 %, and once against
+Lewis's measurement, where it is off by up to 18 %:
+
+| | surrogate error | input-based OOD detector | PhysMAP |
+|---|---|---|---|
+| 35A, gravity off (control) | ≤ 0.25 % | fires at every station | quiet |
+| 35A, the experiment | up to −18 % | fires at every station — **identically** | flags x/D ≥ 67.55, where the error is 17–18 % |
+
+**The line to land:** *"The input-based OOD detector gives the same answer whether buoyancy is
+on or off, because gravity isn't one of its inputs. PhysMAP is the one whose answer changes."*
+
+**Volunteer these three before anyone asks.** They are true, and a sharp questioner will find
+them:
+
+1. **The OOD detector was not quiet on Lewis — it fired everywhere.** It fired because 35A's
+   operating point sits between the training runs'. That is correct and has nothing to do with
+   buoyancy; its output does not change when buoyancy is switched off. Contrast NACA, where it
+   was silent: there the entrance points shared the training operating point. Silent in one,
+   firing in the other, informative about the mechanism in neither.
+2. **PhysMAP missed two real errors, by design.** At x/D 2.45 and 16.32 the surrogate is off by
+   +10 % and −13 %, mostly because the base CFD model differs from the experiment there — not
+   because of buoyancy. PhysMAP checks one mechanism and does not claim to see the others.
+3. **The threshold is not locked.** At θ = 0.10 it flags three comparable stations. Buoyancy is
+   worth 6–9 % at two more; whether those flag is the open θ decision.
+
 ---
 
 ## Sentences not to say
@@ -237,6 +281,12 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "If the rebuild gets 1.00 again, that confirms it." | "It would suggest the coupling survived. That is why we are not aiming at the old numbers." |
 | "The seven vehicles validate the materiality screen." | "The seven vehicles are a closure-observability benchmark. They say nothing about materiality." |
 | "There's no mixed-convection vertical-pipe case in the benchmark." | "jin_sco2_buoyancy is one. It measures observability of the buoyancy parameter, not materiality." |
+| "The statistical baseline / novelty detector is silent." | "The input-based OOD detector is silent." |
+| "NVIDIA PhysicsNeMo fails here." / "PhysicsNeMo's guardrail would miss this." | "An input-based OOD detector misses this. PhysicsNeMo's out-of-distribution check and its physics checks are separate things; we have not run its guardrail, so we make no claim about it." |
+| "The OOD detector was starved of inputs." | "It got every input the surrogate gets, position included. The contract is recorded in the head-to-head output." |
+| "The OOD detector missed the buoyancy error on Lewis." | "It fired everywhere on Lewis, with the same answer whether buoyancy was on or off. It fired because the operating point was between the training runs, not because of buoyancy." |
+| "PhysMAP caught what the OOD detector missed." (of Lewis) | "Both fired downstream. Only PhysMAP's answer changes when buoyancy is switched off." |
+| "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
 | "Materiality was 0.04, so the mechanism doesn't matter." | Only if the status is `estimated`. If it is `insufficient_evidence`, say "we could not assess it" — those are different findings. |
 | "Out of calibration, so the prediction is untrustworthy." | "Out of calibration **and** material. Either alone is not a verdict." |

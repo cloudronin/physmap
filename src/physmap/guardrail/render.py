@@ -18,9 +18,9 @@ from physmap.pipeline.validity_signal import PerBoundMargin
 
 
 _OBS_PHRASE = {
-    Observability.UNOBSERVABLE: "is not a surrogate input (unobservable to statistical detectors)",
+    Observability.UNOBSERVABLE: "is not a surrogate input (unobservable to input-based OOD detectors)",
     Observability.PARTIAL: "is not a surrogate input but is correlated with one (only partially observable)",
-    Observability.OBSERVABLE: "is a surrogate input (observable to statistical detectors)",
+    Observability.OBSERVABLE: "is a surrogate input (observable to input-based OOD detectors)",
 }
 
 
@@ -84,9 +84,9 @@ def render_unobservable(
     prov = _provenance_phrase(_pick_provenance(claims_for_closure, var), sources_index)
     bound_txt = _fmt_interval(*bound_interval)
     baseline_txt = (
-        "A statistical baseline also fired."
+        "An input-based OOD detector also fired."
         if baseline_fired
-        else f"Statistical baselines are silent because they cannot observe {var}."
+        else f"Input-based OOD detectors are silent because they cannot observe {var}."
     )
     return (
         f"Prediction relies on {closure_id} beyond its validated {var} bound "
@@ -107,7 +107,7 @@ def render_partial(
     return (
         f"Prediction relies on {closure_id} beyond its validated {var} bound "
         f"({var} {bound_txt}); {var} {_OBS_PHRASE[Observability.PARTIAL]}. Set "
-        f"membership cannot yet weight this axis against the baselines, so the "
+        f"membership cannot yet weight this axis against the input-based OOD detectors, so the "
         f"verdict is deferred for review rather than over-fired."
     )
 
@@ -132,13 +132,13 @@ def render_partial_graded(
         tail = (
             f"its calibrated observability (degree={degree:g}, from {by}) places it "
             f"mid-axis, so the corpus fire is a calibrated soft-flag (corpus weight "
-            f"{1.0 - degree:g}) raised for review, scaled against the baselines rather "
+            f"{1.0 - degree:g}) raised for review, scaled against the input-based OOD detectors rather "
             f"than over-fired."
         )
     else:
         tail = (
             f"its calibrated observability (degree={degree:g}, from {by}) places it near "
-            f"the unobservable pole, so the corpus fire is trusted — the baselines are "
+            f"the unobservable pole, so the corpus fire is trusted — the input-based OOD detectors are "
             f"largely blind on this axis here."
         )
     return (
@@ -151,9 +151,9 @@ def render_baseline(*, baseline_fired_names: Sequence[str], all_quiet: bool) -> 
     """OBSERVABLE / corpus-quiet narrative: the verdict defers to the statistical
     baselines (the corpus is redundant on observable axes — never double-counted)."""
     if all_quiet:
-        return ("All statistical baselines are quiet and no physics bound is "
+        return ("All input-based OOD detectors are quiet and no physics bound is "
                 "violated on an unobservable axis; prediction is trustworthy.")
     fired = ", ".join(sorted(baseline_fired_names)) or "(none)"
-    return (f"Statistical baseline(s) fired ({fired}); the physics signal is "
-            f"redundant here (observable axis) and is deferred to the baselines, "
+    return (f"Input-based OOD detector(s) fired ({fired}); the physics signal is "
+            f"redundant here (observable axis) and is deferred to those detectors, "
             f"not double-counted.")

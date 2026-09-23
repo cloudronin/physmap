@@ -75,7 +75,9 @@ def inlet_properties() -> dict:
 
 
 def build(out: pathlib.Path, nr: int, ny: int, iters: int, entry_d: float = 2.5,
-          exit_d: float = 0.0, gravity: bool = True) -> dict:
+          exit_d: float = 0.0, gravity: bool = True,
+          gamg_max_iter: int | None = None, T_in_C: float | None = None,
+          vdot_L_min: float | None = None, q_w: float | None = None) -> dict:
     """exit_d: unheated tube length appended AFTER the heated section, in diameters.
 
     A NUMERICAL device, not a claim about the rig. With the outlet sitting flush against the
@@ -89,6 +91,13 @@ def build(out: pathlib.Path, nr: int, ny: int, iters: int, entry_d: float = 2.5,
     """
     if out.exists():
         shutil.rmtree(out)
+    global T_IN_C, T_IN, V_DOT, Q_W
+    if T_in_C is not None:
+        T_IN_C, T_IN = T_in_C, T_in_C + 273.15
+    if vdot_L_min is not None:
+        V_DOT = vdot_L_min / 60000.0
+    if q_w is not None:
+        Q_W = q_w
     d = inlet_properties()
     U = d["U_inlet"]
     entry_len = entry_d * D_TUBE
@@ -139,18 +148,23 @@ laplacianSchemes { default Gauss linear corrected; }
 interpolationSchemes { default linear; }
 snGradSchemes { default corrected; }""")
 
-    w(out / "system/fvSolution", "dictionary", "fvSolution", """solvers
-{
-    p_rgh { solver GAMG; tolerance 1e-9; relTol 0.01; smoother GaussSeidel; }
-    "(U|h|e|k|epsilon)" { solver PBiCGStab; preconditioner DILU; tolerance 1e-10; relTol 0.1; }
-}
+    # With gravity off, GAMG stalls at a residual floor near 3e-7 (the absolute pressure
+    # level is 1e5 Pa, so relative round-off bites) and burns its 1000-sweep default every
+    # outer iteration. Capping the sweeps changes the cost, not the converged answer --
+    # SIMPLE's outer loop drives convergence -- and that claim is TESTED, not assumed.
+    gamg_cap = f" maxIter {gamg_max_iter};" if gamg_max_iter else ""
+    w(out / "system/fvSolution", "dictionary", "fvSolution", f"""solvers
+{{
+    p_rgh {{ solver GAMG; tolerance 1e-9; relTol 0.01; smoother GaussSeidel;{gamg_cap} }}
+    "(U|h|e|k|epsilon)" {{ solver PBiCGStab; preconditioner DILU; tolerance 1e-10; relTol 0.1; }}
+}}
 SIMPLE
-{
+{{
     nNonOrthogonalCorrectors 0;
     pRefCell 0; pRefValue 101325;
-    residualControl { p_rgh 1e-5; U 1e-5; h 1e-5; }
-}
-relaxationFactors { fields { rho 1.0; p_rgh 0.7; } equations { U 0.3; h 0.3; } }""")
+    residualControl {{ p_rgh 1e-5; U 1e-5; h 1e-5; }}
+}}
+relaxationFactors {{ fields {{ rho 1.0; p_rgh 0.7; }} equations {{ U 0.3; h 0.3; }} }}""")
 
     # The ablation is ONLY this line. Mesh, properties, boundary conditions, schemes,
     # solver settings, iteration count and the Nu extraction are byte-identical between the
@@ -243,6 +257,8 @@ boundaryField
             "solver": "buoyantSimpleFoam", "properties": "Lewis Appendix B, B.2/B.4/B.5/B.6",
             "property_model": "icoPolynomial + polynomial transport + hPolynomial",
             "beta_is_an_input": False, "gravity_on": gravity,
+            "gamg_max_iter": gamg_max_iter,
+            "operating_point": {"T_in_C": T_IN_C, "V_dot_L_min": V_DOT * 60000.0, "q_w_W_m2": Q_W},
             "buoyancy": "rho(T)*g -- no Boussinesq approximation, no beta choice",
             "geometry": {"d_m": D_TUBE, "L_heated_m": L_TUBE, "L_over_D": L_TUBE / D_TUBE},
             "unheated_entry_diameters": entry_d, "ny_entry": ny_entry, "ny_heated": ny,
@@ -264,6 +280,13 @@ def main() -> int:
     ap.add_argument("--ny", type=int, default=400)
     ap.add_argument("--iters", type=int, default=25000)
     ap.add_argument("--entry-diameters", type=float, default=2.5, dest="entry_d")
+    ap.add_argument("--gamg-max-iter", type=int, default=None, dest="gamg_max_iter")
+    ap.add_argument("--T-in", type=float, default=None, dest="T_in_C",
+                    help="inlet bulk temperature, degC (default: 35A's 13.06)")
+    ap.add_argument("--vdot", type=float, default=None, dest="vdot",
+                    help="volume flow rate, L/min (default: 35A's 0.7679)")
+    ap.add_argument("--qw", type=float, default=None, dest="q_w",
+                    help="wall heat flux, W/m2 (default: 35A's 12749.6)")
     ap.add_argument("--gravity", choices=["on","off"], default="on",
                     help="off is the matched ablation: identical in every other respect")
     ap.add_argument("--exit-diameters", type=float, default=0.0, dest="exit_d",
@@ -271,7 +294,8 @@ def main() -> int:
                          "boundary away from the measured region (numerical, not physical)")
     a = ap.parse_args()
     m = build(a.out, a.nr, a.ny, a.iters, entry_d=a.entry_d, exit_d=a.exit_d,
-              gravity=(a.gravity == 'on'))
+              gravity=(a.gravity == 'on'), gamg_max_iter=a.gamg_max_iter,
+              T_in_C=a.T_in_C, vdot_L_min=a.vdot, q_w=a.q_w)
     v = m["inlet_bulk_values"]
     print(f"  wrote {a.out}")
     print(f"  properties  VARIABLE (Lewis Appendix B); beta is not an input")

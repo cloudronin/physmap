@@ -1,0 +1,653 @@
+{
+  "status": "DEVELOPMENT DEMONSTRATION. 35A is spent. Stations are not cases. No precision, recall or F1.",
+  "input_contract": {
+    "surrogate_inputs": [
+      "Re",
+      "Pr",
+      "x_over_D"
+    ],
+    "ood_detector_features": [
+      "log10_Re",
+      "Pr",
+      "x_over_D"
+    ],
+    "mapping": "the guardrail's own input_to_feature: Re -> log10_Re; Pr and x_over_D pass through. Identical to the surrogate's inputs; position included.",
+    "NOT_an_input_to_either": [
+      "Gr_q",
+      "Ri",
+      "wall heat flux",
+      "gravity",
+      "flow direction"
+    ],
+    "deploy_inputs_35A": {
+      "Re": 1143.4,
+      "Pr": 8.46,
+      "source": "Lewis Appendix D-2, inlet-bulk basis"
+    }
+  },
+  "ood_detector": {
+    "object": "physmap.benchmarks.benchmark_v0_4._DETECTORS, imported unchanged",
+    "baselines": "distance_to_training (Mahalanobis, k=3) OR gp_variance (Matern-5/2, posterior std / |mean|, threshold floored at 0.05)",
+    "threshold": "percentile of the training rows' own scores",
+    "operating_percentiles": [
+      50,
+      75,
+      90,
+      95,
+      99,
+      100
+    ],
+    "reference_pct": 99.0,
+    "regime_for_the_run": "UNLISTED -- statistical layer only; see side check"
+  },
+  "surrogate": {
+    "recipe": "GP on (log10 Re, Pr, log10 x/D) -> log Nu, fitted to GRAVITY-OFF variable-property CFD (Lewis Appendix B properties), Nu reduced by Lewis's own definition with each run's own inlet-bulk k",
+    "kernel_fitted": "63.4**2 * Matern(length_scale=[354, 6.89e+03, 7.08], nu=2.5) + WhiteKernel(noise_level=1e-05)",
+    "training_runs": [
+      "doe_Re1350_T12p0",
+      "doe_Re1350_T14p5",
+      "doe_Re1550_T12p0",
+      "doe_Re1550_T14p5",
+      "doe_Re750_T12p0",
+      "doe_Re750_T14p5",
+      "doe_Re950_T12p0",
+      "doe_Re950_T14p5"
+    ],
+    "training_rows": 320,
+    "doe": "Re {750, 950, 1350, 1550} x inlet {12.0, 14.5} degC, q_w fixed at 35A's 12749.6 W/m2; 35A (Re 1143, 13.06 degC) is interior, not a node",
+    "leave_one_run_out": {
+      "doe_Re1350_T12p0": {
+        "max_abs_pct": 0.2,
+        "mean_abs_pct": 0.04
+      },
+      "doe_Re1350_T14p5": {
+        "max_abs_pct": 0.24,
+        "mean_abs_pct": 0.06
+      },
+      "doe_Re1550_T12p0": {
+        "max_abs_pct": 0.26,
+        "mean_abs_pct": 0.08
+      },
+      "doe_Re1550_T14p5": {
+        "max_abs_pct": 0.19,
+        "mean_abs_pct": 0.06
+      },
+      "doe_Re750_T12p0": {
+        "max_abs_pct": 0.25,
+        "mean_abs_pct": 0.06
+      },
+      "doe_Re750_T14p5": {
+        "max_abs_pct": 0.58,
+        "mean_abs_pct": 0.12
+      },
+      "doe_Re950_T12p0": {
+        "max_abs_pct": 0.48,
+        "mean_abs_pct": 0.07
+      },
+      "doe_Re950_T14p5": {
+        "max_abs_pct": 0.23,
+        "mean_abs_pct": 0.05
+      }
+    },
+    "fidelity_at_35A": "surrogate versus gravity-off CFD at 35A's exact conditions, per station, in stations[].surrogate_vs_gravity_off_cfd_pct"
+  },
+  "physmap": {
+    "applicability": {
+      "verdict": "applicable",
+      "reason_code": "satisfied",
+      "rationale": "quantity of interest decomposes, mechanisms are separable, a calibration window is recorded, and a matched ablation is obtainable"
+    },
+    "mechanism_window": "0 <= richardson_number <= 0",
+    "why_that_window": "every training run had g = 0; the surrogate has never seen buoyancy, so its calibrated range for Ri is exactly zero",
+    "operating_Ri": 0.2866,
+    "theta_note": "theta is DECISION_REQUIRED in the protocol. Flags are shown at 0.10 (the NAFEMS abstract's value) and 0.20 as illustrations only."
+  },
+  "side_check_closure_validity_under_turbulent_regime": {
+    "regime": "ENTRANCE_REGION_PIPE (gnielinski-1976, turbulent)",
+    "fired_per_station_at_ref": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "input_detectors_identical_to_UNLISTED_run": true
+  },
+  "stations": [
+    {
+      "x_over_D": 0.31,
+      "comparable": false,
+      "why_not_comparable": "axial wall conduction (Lewis Sec 7.1.1)",
+      "surrogate_prediction": 54.938,
+      "experimental_Nu": 33.72,
+      "prediction_error_pct": 62.92,
+      "experimental_bulk_error_unc_pct": 0.01,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0809242038467983,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.08 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": false,
+          "score": 0.0009499836924940167,
+          "threshold": 0.05,
+          "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00095 <= threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.0014,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 55.051,
+      "nu_gravity_off_cfd": 54.974,
+      "surrogate_vs_gravity_off_cfd_pct": -0.07
+    },
+    {
+      "x_over_D": 0.85,
+      "comparable": false,
+      "why_not_comparable": "axial wall conduction (Lewis Sec 7.1.1)",
+      "surrogate_prediction": 36.513,
+      "experimental_Nu": 32.69,
+      "prediction_error_pct": 11.69,
+      "experimental_bulk_error_unc_pct": 0.02,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0809269993831423,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.08 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": false,
+          "score": 0.002037550691833011,
+          "threshold": 0.05,
+          "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00204 <= threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.0026,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 36.648,
+      "nu_gravity_off_cfd": 36.553,
+      "surrogate_vs_gravity_off_cfd_pct": -0.11
+    },
+    {
+      "x_over_D": 2.45,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 24.348,
+      "experimental_Nu": 22.15,
+      "prediction_error_pct": 9.93,
+      "experimental_bulk_error_unc_pct": 0.06,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.080952802131585,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.08 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": false,
+          "score": 0.005174824559534152,
+          "threshold": 0.05,
+          "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00517 <= threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.0059,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 24.504,
+      "nu_gravity_off_cfd": 24.359,
+      "surrogate_vs_gravity_off_cfd_pct": -0.04
+    },
+    {
+      "x_over_D": 5.65,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 17.842,
+      "experimental_Nu": 19.07,
+      "prediction_error_pct": -6.44,
+      "experimental_bulk_error_unc_pct": 0.13,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0810803194290914,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.08 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 0.18057981183960142,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=0.181 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.0121,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 18.076,
+      "nu_gravity_off_cfd": 17.857,
+      "surrogate_vs_gravity_off_cfd_pct": -0.08
+    },
+    {
+      "x_over_D": 9.92,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 14.524,
+      "experimental_Nu": 14.92,
+      "prediction_error_pct": -2.65,
+      "experimental_bulk_error_unc_pct": 0.22,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0815389006595009,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.08 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 0.6127929561662993,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=0.613 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.0202,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 14.834,
+      "nu_gravity_off_cfd": 14.534,
+      "surrogate_vs_gravity_off_cfd_pct": -0.07
+    },
+    {
+      "x_over_D": 16.32,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 12.168,
+      "experimental_Nu": 13.95,
+      "prediction_error_pct": -12.77,
+      "experimental_bulk_error_unc_pct": 0.37,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0824393847929479,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.08 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 0.9138634054367132,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=0.914 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.032,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 12.578,
+      "nu_gravity_off_cfd": 12.176,
+      "surrogate_vs_gravity_off_cfd_pct": -0.06
+    },
+    {
+      "x_over_D": 33.39,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 9.578,
+      "experimental_Nu": 10.76,
+      "prediction_error_pct": -10.98,
+      "experimental_bulk_error_unc_pct": 0.75,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0864619992332993,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.09 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 1.569495720724949,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=1.57 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.061,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 10.203,
+      "nu_gravity_off_cfd": 9.581,
+      "surrogate_vs_gravity_off_cfd_pct": -0.03
+    },
+    {
+      "x_over_D": 50.47,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 8.444,
+      "experimental_Nu": 9.38,
+      "prediction_error_pct": -9.98,
+      "experimental_bulk_error_unc_pct": 1.14,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.0950803263318634,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.1 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 1.6639612810280406,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=1.66 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.0868,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": false,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 9.247,
+      "nu_gravity_off_cfd": 8.444,
+      "surrogate_vs_gravity_off_cfd_pct": -0.01
+    },
+    {
+      "x_over_D": 67.55,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 7.777,
+      "experimental_Nu": 9.37,
+      "prediction_error_pct": -17.0,
+      "experimental_bulk_error_unc_pct": 1.52,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.1005379000965798,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.1 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 1.4138125651565618,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=1.41 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.1109,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": true,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 8.747,
+      "nu_gravity_off_cfd": 7.777,
+      "surrogate_vs_gravity_off_cfd_pct": 0.0
+    },
+    {
+      "x_over_D": 101.69,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 7.002,
+      "experimental_Nu": 8.41,
+      "prediction_error_pct": -16.74,
+      "experimental_bulk_error_unc_pct": 2.29,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.1136088786798866,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.11 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 1.4363665010717224,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=1.44 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.1543,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": true,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 8.279,
+      "nu_gravity_off_cfd": 7.001,
+      "surrogate_vs_gravity_off_cfd_pct": 0.02
+    },
+    {
+      "x_over_D": 135.84,
+      "comparable": true,
+      "why_not_comparable": null,
+      "surrogate_prediction": 6.553,
+      "experimental_Nu": 7.99,
+      "prediction_error_pct": -17.99,
+      "experimental_bulk_error_unc_pct": 3.06,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.1308951920399213,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.13 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 0.2289604511894134,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=0.229 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.1948,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": true,
+        "flag_theta_0p20": false
+      },
+      "nu_gravity_on_cfd": 8.133,
+      "nu_gravity_off_cfd": 6.549,
+      "surrogate_vs_gravity_off_cfd_pct": 0.06
+    },
+    {
+      "x_over_D": 159.33,
+      "comparable": false,
+      "why_not_comparable": "'suspect' -- flange heat loss (Lewis Sec 7.1.1)",
+      "surrogate_prediction": 6.343,
+      "experimental_Nu": 8.82,
+      "prediction_error_pct": -28.08,
+      "experimental_bulk_error_unc_pct": 3.59,
+      "ood_at_ref_pct": {
+        "distance": {
+          "fired": true,
+          "score": 1.1428896832476854,
+          "threshold": 0.4522667187204416,
+          "rationale": "distance: FIRED (Mahalanobis k=3 mean k-NN distance=1.14 > threshold=0.452)"
+        },
+        "gp_variance": {
+          "fired": true,
+          "score": 0.7880890933235112,
+          "threshold": 0.05,
+          "rationale": "gp_variance: FIRED (GP posterior std / |mean|=0.788 > threshold=0.05)"
+        },
+        "either_fired": true
+      },
+      "ood_fired_at_any_pct": true,
+      "ood_fired_by_pct": {
+        "50": true,
+        "75": true,
+        "90": true,
+        "95": true,
+        "99": true,
+        "100": true
+      },
+      "physmap": {
+        "applicability": "applicable",
+        "mechanism_outside_calibration": true,
+        "materiality": 0.2211,
+        "materiality_status": "estimated",
+        "flag_theta_0p10": true,
+        "flag_theta_0p20": true
+      },
+      "nu_gravity_on_cfd": 8.123,
+      "nu_gravity_off_cfd": 6.327,
+      "surrogate_vs_gravity_off_cfd_pct": 0.27
+    }
+  ]
+}

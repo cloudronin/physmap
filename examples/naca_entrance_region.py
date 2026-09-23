@@ -3,7 +3,7 @@
 A surrogate is trained on (Re, Pr) over the fully-developed region of a heated
 pipe, then asked about the entrance region. It has never seen x/D -- the
 variable that actually governs the entrance -- so it cannot represent what
-changed. Neither can an input-space novelty detector: it sees the same two
+changed. Neither can an input-based OOD detector: it sees the same two
 columns the surrogate does, and in those two columns the new points look
 perfectly ordinary.
 
@@ -85,9 +85,15 @@ def main() -> None:
     print(f"  verdict          {a.verdict.name}")
     print(f"  observability    {a.observability.name}")
     print(f"  closure_validity fired={a.signals[DetectorKind.CLOSURE_VALIDITY].fired}")
-    print(f"  gp_variance      fired={a.signals[DetectorKind.GP_VARIANCE].fired}  <- the statistical baseline sees nothing")
+    # Both input-based OOD detectors in the default set, so the silence is shown, not claimed.
+    print(f"  novelty_density  fired={a.signals[DetectorKind.NOVELTY_DENSITY].fired}  <- input-based OOD detector")
+    print(f"  gp_variance      fired={a.signals[DetectorKind.GP_VARIANCE].fired}  <- input-based OOD detector")
     print(f"  rationale        {a.rationale}")
 
+    ood = sum(1 for x in results
+              if x.signals[DetectorKind.NOVELTY_DENSITY].fired or x.signals[DetectorKind.GP_VARIANCE].fired)
+    print(f"  input-based OOD detectors fired on {ood} of {len(results)} entrance points")
+    assert ood == 0, "an input-based OOD detector fired -- the demo's claim no longer holds"
     assert all(x.verdict is Verdict.REJECT for x in results)
     assert all(x.observability is Observability.UNOBSERVABLE for x in results)
 
