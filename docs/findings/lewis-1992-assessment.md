@@ -473,9 +473,185 @@ anti-correlation found in the screens reappears at the level of the measurement 
 13A is a **second case**. It is not a test set, and it does not touch the model-adequacy
 problem.
 
-## Not yet done
+## Closing the assessment
 
-- A redistribution determination. The thesis is open access; the licence is **not stated**
+### 16A was dropped on a bad screen, and the screen was mine
+
+16A was listed among the five flow-cleared runs and then left out of the next-step decision
+because its energy balance is 9.32 %. That was the wrong test.
+
+**The energy-balance error is a percentage of the bulk temperature rise. What corrupts a
+reduced Nusselt number is the absolute bulk error measured against the wall-to-bulk
+difference that `Nu` divides by.** Those are not the same quantity, and for a low-power run
+they differ by an order of magnitude.
+
+| Test | Ri | EB % | rise (K) | bulk error (K) | `Nu` uncertainty, mid | at exit |
+|---|---|---|---|---|---|---|
+| 16A | 0.065 | −9.32 | 4.25 | ±0.40 | **2.5 %** | **6.9 %** |
+| 35A | 0.287 | −3.96 | 16.93 | ±0.67 | 1.2 % | 3.6 % |
+| 13A | 0.622 | −0.14 | 37.97 | ±0.05 | 0.1 % | 0.2 % |
+| 18A | 0.264 | −12.52 | 8.05 | ±1.01 | 5.6 % | 20.1 % |
+| 21A | 0.694 | −8.87 | 8.89 | ±0.79 | 7.4 % | **92.6 %** |
+
+16A's 9.32 % costs 0.4 % in `Nu` at x/d 16 and 6.9 % at the exit. **21A, whose energy
+balance looks only slightly worse, is destroyed**: its wall-to-bulk difference at the exit is
+0.85 K against a 0.79 K bulk error. Ranking runs by percent energy balance gets the order
+wrong, and it is the ranking I used.
+
+**16A's measured curve is the most laminar in the thesis.** In Figure 7.4 its markers track
+the lowest prediction curve over the whole plotted range including the final stations — the
+only one of the three runs there with no visible departure. That is what `Ri = 0.065`, the
+lowest of all thirty runs, predicts.
+
+**But that is also what disqualifies it.** At `Ri = 0.065` buoyancy is a small perturbation
+and 16A is close to a forced-convection case. Whether buoyancy is *material* to `Nu` there is
+a question for a matched ablation, not for a screen, and it is not yet answered.
+
+### A laminar-validity window does exist, and Lewis supplies it
+
+The three numerical-prediction curves of Figure 7.4 were traced from the page image — thin
+ink followed column by column, seeded mid-plot where the curves separate. Axis fit residuals
+0.0020 dex in `x*` and 0.0029 dex (0.68 %) in `Nu`. Banked in
+`data/lewis1992/fig74_prediction_curves.json`.
+
+This matters because it gives a laminar reference that is **entirely Lewis's**. Comparing his
+measurement against his own laminar code separates *"the flow stopped being laminar"* from
+*"our CFD is built wrong"* — a distinction our CFD alone cannot make.
+
+**Test 35A, measurement against Lewis's own laminar prediction:**
+
+| x/d | 50.47 | 67.55 | 101.69 | 135.84 | 159.33 |
+|---|---|---|---|---|---|
+| measured − predicted | −3.0 % | +2.5 % | −3.9 % | −7.7 % | +2.4 % |
+
+**No departure from laminar is detectable for 35A anywhere in the traced range.** His steady
+laminar code reproduces his own measurement to within 8 % across the entire downstream half
+of the tube.
+
+**Test 13A:** −1.9 % to −9.6 % over x/d 33 to 102, then **+33.7 % at x/d 135.84**. The
+departure sits between x/d 102 and 136, and Figures 6.13 and 7.4 show the same jump
+independently.
+
+So the source-based window is:
+
+- **lower bound x/d > 1**, on Lewis's authority — he attributes the entrance over-prediction
+  to axial wall conduction and writes of *"the deviations seen in this work for x/d < 1.0"*;
+- **upper bound, 13A: x/d ≈ 102**;
+- **upper bound, 35A: none found** within the traced range.
+
+**"No predicted reversal" is not part of this argument, and must not be.** Lewis's marching
+code assumes steady laminar flow, so it cannot predict transition at all; its silence is
+structural, not evidence. Every departure above is located by the *measurement* leaving the
+prediction.
+
+### The correction this forces: the 35A gap is our model, not transition
+
+Earlier this document argued that the 6.5–22.9 % gap between our CFD and Lewis's 35A
+measurement was the expected consequence of transition. **That was wrong.**
+
+| x/d | Lewis measured | Lewis predicted | our CFD | ours vs *his prediction* |
+|---|---|---|---|---|
+| 50.47 | 9.38 | 9.67 | 7.87 | **−18.7 %** |
+| 67.55 | 9.37 | 9.14 | 7.25 | **−20.7 %** |
+| 101.69 | 8.41 | 8.75 | 6.56 | **−25.1 %** |
+| 135.84 | 7.99 | 8.66 | 6.16 | **−28.8 %** |
+| 159.33 | 8.82 | 8.61 | 6.23 | **−27.7 %** |
+
+Our CFD sits a fifth to a quarter below **another steady laminar prediction of the same run,
+at the same stations, where that prediction matches the measurement to within 8 %.** Two
+laminar codes disagreeing by a quarter is a model defect, not a physics limit. Transition is
+real in 13A beyond x/d ≈ 102 and in the high-`Gr` runs Lewis names, but it does not explain
+35A, and attributing the gap to it was an error that would have hidden a fixable fault.
+
+**Cause one, found and fixed: the missing unheated entry.** Lewis runs 2.5 diameters of
+adiabatic tube before x = 0 and his code models it; our case began heating on a plug profile.
+Adding it (`--entry-diameters 2.5`):
+
+| x/d | 0.31 | 0.85 | 2.45 | 5.65 |
+|---|---|---|---|---|
+| without entry | +198.0 % | +21.4 % | +10.6 % | −9.5 % |
+| with entry | +73.9 % | **−0.5 %** | **+2.1 %** | −12.7 % |
+
+x/d 0.85 and 2.45 go from tens of percent out to under 2 %. **Downstream of x/d 16 nothing
+moves** — so the entry was a real defect, and it is not the downstream one.
+
+**Cause two, confirmed by measurement: constant properties.** Lewis's code carries
+polynomial property variation with temperature *"for all properties"*. Ours is Boussinesq
+with properties frozen at the inlet bulk. Water's viscosity falls by a factor of **2.1**
+between 13.06 °C and the 48.36 °C mean wall.
+
+Three solver property bases were run at a matched 20×300 mesh, all with the unheated entry,
+with **`beta` held fixed at 2.23e-4** so the test isolates viscosity and conductivity.
+`Nu` is reduced on inlet-bulk `k` throughout, matching Lewis.
+
+| x/d | measured | inlet bulk | mean film | mean wall | wall vs measured |
+|---|---|---|---|---|---|
+| 9.92 | 14.92 | 13.88 | 14.89 | 15.59 | +4.5 % |
+| 16.32 | 13.95 | 11.61 | 12.43 | 13.01 | −6.7 % |
+| 33.39 | 10.76 | 9.18 | 9.82 | 10.31 | −4.2 % |
+| 50.47 | 9.38 | 8.15 | 8.75 | 9.18 | −2.1 % |
+| 67.55 | 9.37 | 7.56 | 8.13 | 8.56 | −8.7 % |
+| 101.69 | 8.41 | 6.86 | 7.48 | 7.90 | −6.1 % |
+| 135.84 | 7.99 | 6.60 | 7.87 | 8.35 | +4.6 % |
+
+**The property assumption alone moves `Nu` by 12–27 %** — the same size and the same sign as
+the 19–29 % gap against Lewis's laminar prediction. Frozen at the mean wall the case lands
+within ±9 % of the measurement where inlet-bulk properties were 16–23 % low.
+
+That settles the attribution. **It does not license picking `mean_wall`.** Choosing the basis
+that agrees best would be tuning the model to the measurement it is about to be tested
+against — precisely the failure this project exists to detect. The defensible fix is a
+variable-property solver, which removes the choice rather than making it well. Banked with
+its caveats in `results/lewis35A/property_sensitivity.json`; because `beta` was pinned, none
+of the three is a self-consistent property set and their absolute agreement is not the point.
+
+### An external transition criterion exists, and it does not transfer
+
+Hallman (NASA TN D-1104, 1961) measured the same geometry — vertical tube, water, uniform
+heat flux, aiding flow — and separated his steady runs from his fluctuating ones, giving a
+transition correlation:
+
+> `Ra_D = 9470 · [Re·Pr / (2x/D)]^1.83`, stated valid for `1 < Re·Pr/(2x/D) < 20`
+
+Applied to Lewis, **every station returns "steady laminar" — and the result should be
+discarded.** Lewis's stations sit at `Re·Pr/(2x/D)` between **30 and 488**, from 1.5 to 24
+times outside the range Hallman validated. The extrapolation runs in the permissive
+direction, so it would return "laminar" almost regardless, and it contradicts the direct
+observation that 13A's measured `Nu` jumps 34 % above laminar prediction at x/d 135.84.
+
+This is worth stating plainly because it is this project's own method turned on its own
+working: a correlation used outside its calibrated range, producing a confident answer that
+the data contradicts. The criterion is not evidence about Lewis.
+
+## Redistribution — the licence was there all along
+
+The record page states no licence, which is why this was left open. **The PDF itself carries
+the City Research Online policy on its cover sheet**, and Lewis and Barozzi carry the same
+text:
+
+> Copyright and Moral Rights remain with the author(s) and/or copyright holders. Copies of
+> full items can be used for personal research or study, educational, or not-for-profit
+> purposes without prior permission or charge, unless otherwise indicated, provided that the
+> authors, title and full bibliographic details are credited, a hyperlink and/or URL is given
+> for the original metadata page and the content is not changed in any way.
+
+Two things follow, and they point in different directions.
+
+**It covers the thesis, which we do not redistribute.** The terms govern *copies of full
+items*. This repository holds transcribed numerical values — operating conditions, energy
+balances, reduced Nusselt numbers — and no part of the document. `*.pdf` is gitignored and no
+PDF has ever been tracked.
+
+**The scope is narrower than this repository's own licence.** The policy permits
+*not-for-profit* use; the corpus here ships CC BY 4.0, which permits commercial use. Anyone
+relying on these numbers downstream should know that the underlying document's terms are the
+narrower of the two. The numbers themselves are measurements rather than expression, which is
+the same basis on which the other benchmark vehicles were cleared, and the owner has ruled
+that the numbers publish and the paper stays out.
+
+Recorded so the determination is on the record as *made*, not as *outstanding*.
+
+## Not yet done The thesis is open access; the licence is **not stated**
   on the record page, so it is not yet established what may be republished here.
 
 ## Kept separate

@@ -1,0 +1,123 @@
+{
+  "what": "Closing checks on the Lewis assessment: 16A, the bulk-temperature error expressed as a Nusselt uncertainty, and the laminar-validity window taken from Lewis's OWN prediction curves rather than from our CFD.",
+  "why_percent_energy_balance_is_the_wrong_screen": "The energy-balance error is a PERCENTAGE of the bulk temperature rise. What corrupts a reduced Nusselt number is the ABSOLUTE bulk error measured against the wall-to-bulk difference that Nu divides by. A low-power run can carry a large percentage error and a small Nu error; a run with a small wall-to-bulk difference can carry a small percentage error and a ruinous Nu error. Ranking runs by percent energy balance gets the order wrong.",
+  "bulk_error_as_Nu_uncertainty": [
+    {
+      "test": "16A",
+      "Ri": 0.065,
+      "energy_bal_error_pct": -9.32,
+      "bulk_rise_K": 4.25,
+      "Nu_uncertainty_pct_at_exit": 6.9,
+      "Nu_uncertainty_pct_at_mid": 2.5
+    },
+    {
+      "test": "35A",
+      "Ri": 0.287,
+      "energy_bal_error_pct": -3.96,
+      "bulk_rise_K": 16.93,
+      "Nu_uncertainty_pct_at_exit": 3.6,
+      "Nu_uncertainty_pct_at_mid": 1.2
+    },
+    {
+      "test": "13A",
+      "Ri": 0.622,
+      "energy_bal_error_pct": -0.14,
+      "bulk_rise_K": 37.97,
+      "Nu_uncertainty_pct_at_exit": 0.2,
+      "Nu_uncertainty_pct_at_mid": 0.1
+    },
+    {
+      "test": "21A",
+      "Ri": 0.694,
+      "energy_bal_error_pct": -8.87,
+      "bulk_rise_K": 8.89,
+      "Nu_uncertainty_pct_at_exit": 92.6,
+      "Nu_uncertainty_pct_at_mid": 7.4
+    },
+    {
+      "test": "18A",
+      "Ri": 0.264,
+      "energy_bal_error_pct": -12.52,
+      "bulk_rise_K": 8.05,
+      "Nu_uncertainty_pct_at_exit": 20.1,
+      "Nu_uncertainty_pct_at_mid": 5.6
+    }
+  ],
+  "the_ordering_inverts_twice": "By measurement quality the order is 13A, 35A, 16A, 18A, 21A. By laminar behaviour it is the reverse: 16A (Ri 0.065) shows no departure, 35A (0.287) is mild, 13A (0.622) departs sharply. 21A is disqualified outright -- its wall-to-bulk difference at the exit is 0.85 K against a 0.79 K bulk error, so the reduced Nu there is 93% uncertain.",
+  "test_16A": {
+    "why_it_was_wrongly_dropped": "It was listed among the flow-cleared runs and then omitted from the next-step decision on the strength of a 9.32% energy balance.",
+    "Re": 1098,
+    "Gr_q": 77800.0,
+    "Gr_q_over_Re": 70.9,
+    "Ri": 0.065,
+    "energy_bal_error_pct": -9.32,
+    "bulk_rise_K": 4.25,
+    "absolute_bulk_error_K": 0.4,
+    "Nu_uncertainty_pct": {
+      "at_exit": 6.9,
+      "at_mid_tube": 2.5,
+      "at_x_over_d_16": 0.4
+    },
+    "measured_curve": "In Figure 7.4 the 16A markers track the lowest prediction curve over the whole plotted range, including the final stations. It is the only one of the three runs in that figure with no visible departure.",
+    "verdict": "The 9.32% figure overstates the damage by an order of magnitude upstream. 16A is the most laminar-behaved run in the thesis. Its disqualifying feature is the OPPOSITE one: Ri = 0.065 is the lowest of all 30 runs, so buoyancy is a small perturbation and 16A is close to a forced-convection case. Whether buoyancy is material there is a question for a matched ablation, not for a screen."
+  },
+  "laminar_validity_from_lewis_own_predictions": {
+    "method": "The three numerical-prediction curves of Figure 7.4 were traced from the 600-dpi page image by following thin ink (<=14 px) column by column, seeded mid-plot where the curves are separated. Axis fit residuals: 0.0020 dex in x*, 0.0029 dex (0.68%) in Nu.",
+    "why_this_matters": "It supplies a laminar reference that is entirely Lewis's. Comparing his measurement to his own laminar code separates 'the flow stopped being laminar' from 'our CFD is built wrong', which our CFD alone cannot do.",
+    "test_35A": {
+      "stations": [
+        {
+          "x_over_d": 50.47,
+          "measured": 9.38,
+          "lewis_predicted": 9.67,
+          "measured_minus_predicted_pct": -3.0
+        },
+        {
+          "x_over_d": 67.55,
+          "measured": 9.37,
+          "lewis_predicted": 9.14,
+          "measured_minus_predicted_pct": 2.5
+        },
+        {
+          "x_over_d": 101.69,
+          "measured": 8.41,
+          "lewis_predicted": 8.75,
+          "measured_minus_predicted_pct": -3.9
+        },
+        {
+          "x_over_d": 135.84,
+          "measured": 7.99,
+          "lewis_predicted": 8.66,
+          "measured_minus_predicted_pct": -7.7
+        },
+        {
+          "x_over_d": 159.33,
+          "measured": 8.82,
+          "lewis_predicted": 8.61,
+          "measured_minus_predicted_pct": 2.4
+        }
+      ],
+      "finding": "-7.7% to +2.5% across x/d 50 to 159. NO departure from laminar is detectable for 35A within the traced range. Lewis's steady laminar code reproduces his own measurement to within 8% over the whole downstream half of the tube."
+    },
+    "test_13A": {
+      "finding": "-1.9% to -9.6% over x/d 33 to 102, then +33.7% at x/d 135.84. The departure is located between x/d 102 and 136, and both Figure 6.13 and Figure 7.4 show the same jump independently.",
+      "laminar_window": "x/d 33.39 to 101.69 within the traced range"
+    }
+  },
+  "the_correction_this_forces": {
+    "what_was_claimed": "That the 6.5-22.9% gap between our CFD and Lewis's 35A measurement was the expected consequence of transition, which a steady laminar solver cannot represent.",
+    "what_the_curves_show": "Our CFD sits 18.7% to 28.8% BELOW Lewis's own steady laminar prediction of the same run, at the same stations, where his prediction matches his measurement to within 8%. Two laminar codes disagree by a quarter.",
+    "conclusion": "The 35A gap is NOT transition. It is our model. Transition is real in 13A beyond x/d ~102 and it is real in the high-Gr runs Lewis names, but it does not explain 35A, and attributing the gap to it was wrong.",
+    "leading_suspect": "Constant properties. Lewis's code carries polynomial property variation with temperature for all properties; ours is Boussinesq with properties frozen at the inlet bulk. Water's viscosity falls by a factor of 2.1 from 13.06 degC to the 48.36 degC mean wall, which thins the near-wall layer and raises Nu. This is a bounded, testable claim and is being tested.",
+    "second_suspect": "Lewis runs a 2.5-diameter unheated starting length before x = 0; our case began heating on a plug profile. Also being tested."
+  },
+  "answer_to_the_upstream_region_question": {
+    "is_there_one": "YES, and Lewis supplies it -- but it does not rescue our current CFD.",
+    "lower_bound": "x/d > 1. Lewis attributes the entrance over-prediction to axial wall conduction and writes of 'the deviations seen in this work for x/d < 1.0'. Stations 0.31 and 0.85 are excluded on his authority.",
+    "upper_bound_35A": "None detected. His laminar prediction tracks his measurement to within 8% out to x/d 159.",
+    "upper_bound_13A": "x/d ~102. Beyond it the measurement leaves the laminar prediction by 34%.",
+    "but": "These windows are defensible for A steady laminar model. They are NOT defensible for OURS as currently built, which is a quarter low against Lewis's laminar curve inside the very same window. The model-adequacy failure is ours to fix, and it is separate from the transition limit.",
+    "not_claimed": "No predicted reversal is NOT evidence of laminar flow. Lewis's marching code assumes steady laminar flow, so it cannot predict transition at all; its silence on the matter is structural. The departure evidence above comes from the MEASUREMENT leaving the prediction, not from the prediction itself."
+  },
+  "still_not_counted": "Axial stations are measurements of one condition, not independent cases. 16A, 35A and 13A are three runs, hence three cases at most, and 16A's buoyancy materiality is unestablished."
+}

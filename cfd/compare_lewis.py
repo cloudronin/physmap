@@ -25,13 +25,27 @@ T_IN_C = 13.06
 def compare(case: pathlib.Path, time: str, nr: int, ny: int) -> dict:
     T = foamread.read_internal(case / time / "T")
     U = foamread.read_internal(case / time / "U")
+    # Two conductivities are in play and confusing them silently corrupts every Nu.
+    #   solver k  -- what the case actually ran with; sets the imposed wall gradient q/k,
+    #                so the wall-temperature reconstruction must use it.
+    #   Lewis's k -- inlet bulk, 0.5922; his reduction uses it for EVERY run regardless of
+    #                the property basis, so Nu must be formed with it to compare like for like.
+    meta = json.loads((case / "case.json").read_text()) if (case / "case.json").exists() else {}
+    k_solver = float(meta.get("solver_k_W_mK", K_TH))
+    ny_entry = int(meta.get("ny_entry", 0))
+    if ny_entry:
+        # Cells upstream of x = 0 are the unheated starting length; drop them and let the
+        # axial coordinate start at the beginning of heating, which is what x/d means.
+        nr_ = nr
+        T = T[ny_entry * nr_:]
+        U = U[ny_entry * nr_:]
     # The wall carries a fixedGradient BC, so no `value` is written. Reconstruct the
     # wall temperature from the adjacent cell and the imposed gradient over the
     # half-cell distance: T_wall = T_cell + (q/k) * (dr/2). First order, and the
     # error it carries shrinks with radial refinement -- which is why the radial
     # count is part of the grid study, not just the axial one.
     dr_half = (D_TUBE / 2) / nr / 2.0
-    grad = Q_W / K_TH
+    grad = Q_W / k_solver          # the gradient the solver actually imposed
     Tw = [T[(k + 1) * nr - 1] + grad * dr_half for k in range(ny)]
     aw = foamread.radial_weights(nr, D_TUBE / 2)
     dy = L_TUBE / ny
@@ -83,6 +97,9 @@ def compare(case: pathlib.Path, time: str, nr: int, ny: int) -> dict:
     outlet_only = bool(rev_rows) and all(
         r["x_over_d"] >= rows[-1]["x_over_d"] - 1e-9 for r in rev_rows)
     return {"points": out, "n_stations": ny,
+            "solver_k_W_mK": k_solver, "reduction_k_W_mK": K_TH,
+            "property_basis_used": meta.get("property_basis_used", "inlet_bulk"),
+            "unheated_entry_cells_dropped": ny_entry,
             "reversal_stations": len(rev_rows),
             "first_reversal_x_over_d": first,
             "min_axial_velocity_m_s": round(worst["min_axial_velocity"], 6),

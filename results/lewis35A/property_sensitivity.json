@@ -1,0 +1,105 @@
+{
+  "what": "Constant-property sensitivity for Lewis Test 35A. Three solver property bases at a matched 20x300 mesh, 20000 iterations, each WITH the 2.5-diameter unheated entry.",
+  "controlled": "beta was held at 2.23e-4 for all three, so this isolates the effect of VISCOSITY and CONDUCTIVITY alone. None of the three is therefore a self-consistent property set, and none is directly comparable with the earlier runs, which used beta = 1.27e-4. The comparison BETWEEN the three is valid; their absolute agreement with Lewis is not the point and must not be read as one.",
+  "solver_properties": {
+    "inlet_bulk": {
+      "mu": 0.001197,
+      "k": 0.5922,
+      "beta": 0.000223
+    },
+    "mean_film": {
+      "mu": 0.0007645,
+      "k": 0.6235999999999999,
+      "beta": 0.000223
+    },
+    "mean_wall": {
+      "mu": 0.000563,
+      "k": 0.6414,
+      "beta": 0.000223
+    }
+  },
+  "nu_reduced_on": "inlet-bulk k = 0.5922, matching Lewis, for every basis",
+  "stations": [
+    {
+      "x_over_d": 9.92,
+      "measured": 14.92,
+      "lewis_predicted": null,
+      "cfd_inlet_bulk": 13.88,
+      "cfd_inlet_bulk_vs_measured_pct": -7.0,
+      "cfd_mean_film": 14.89,
+      "cfd_mean_film_vs_measured_pct": -0.2,
+      "cfd_mean_wall": 15.59,
+      "cfd_mean_wall_vs_measured_pct": 4.5
+    },
+    {
+      "x_over_d": 16.32,
+      "measured": 13.95,
+      "lewis_predicted": null,
+      "cfd_inlet_bulk": 11.61,
+      "cfd_inlet_bulk_vs_measured_pct": -16.8,
+      "cfd_mean_film": 12.43,
+      "cfd_mean_film_vs_measured_pct": -10.9,
+      "cfd_mean_wall": 13.01,
+      "cfd_mean_wall_vs_measured_pct": -6.7
+    },
+    {
+      "x_over_d": 33.39,
+      "measured": 10.76,
+      "lewis_predicted": null,
+      "cfd_inlet_bulk": 9.18,
+      "cfd_inlet_bulk_vs_measured_pct": -14.7,
+      "cfd_mean_film": 9.82,
+      "cfd_mean_film_vs_measured_pct": -8.7,
+      "cfd_mean_wall": 10.31,
+      "cfd_mean_wall_vs_measured_pct": -4.2
+    },
+    {
+      "x_over_d": 50.47,
+      "measured": 9.38,
+      "lewis_predicted": 9.67,
+      "cfd_inlet_bulk": 8.15,
+      "cfd_inlet_bulk_vs_measured_pct": -13.1,
+      "cfd_mean_film": 8.75,
+      "cfd_mean_film_vs_measured_pct": -6.7,
+      "cfd_mean_wall": 9.18,
+      "cfd_mean_wall_vs_measured_pct": -2.1
+    },
+    {
+      "x_over_d": 67.55,
+      "measured": 9.37,
+      "lewis_predicted": 9.14,
+      "cfd_inlet_bulk": 7.56,
+      "cfd_inlet_bulk_vs_measured_pct": -19.3,
+      "cfd_mean_film": 8.13,
+      "cfd_mean_film_vs_measured_pct": -13.2,
+      "cfd_mean_wall": 8.56,
+      "cfd_mean_wall_vs_measured_pct": -8.7
+    },
+    {
+      "x_over_d": 101.69,
+      "measured": 8.41,
+      "lewis_predicted": 8.75,
+      "cfd_inlet_bulk": 6.86,
+      "cfd_inlet_bulk_vs_measured_pct": -18.4,
+      "cfd_mean_film": 7.48,
+      "cfd_mean_film_vs_measured_pct": -11.0,
+      "cfd_mean_wall": 7.9,
+      "cfd_mean_wall_vs_measured_pct": -6.1
+    },
+    {
+      "x_over_d": 135.84,
+      "measured": 7.99,
+      "lewis_predicted": 8.66,
+      "cfd_inlet_bulk": 6.6,
+      "cfd_inlet_bulk_vs_measured_pct": -17.4,
+      "cfd_mean_film": 7.87,
+      "cfd_mean_film_vs_measured_pct": -1.5,
+      "cfd_mean_wall": 8.35,
+      "cfd_mean_wall_vs_measured_pct": 4.6
+    }
+  ],
+  "finding": "Moving the property basis from inlet bulk to mean wall raises Nu by 12-27% over x/d 10-136, and mean film lands between. The spread produced by the property assumption ALONE is of the same size as, and the same sign as, the 19-29% gap between our inlet-bulk case and Lewis's own laminar prediction.",
+  "conclusion": "The 35A downstream gap is attributable to the constant-property assumption, not to transition. Lewis's code carries polynomial property variation for all properties; water's viscosity falls by a factor of 2.1 from inlet bulk to mean wall.",
+  "what_this_does_NOT_license": "Selecting mean_wall because it agrees best. That would be tuning the model to the measurement it is about to be tested against -- the exact failure this project exists to detect. The defensible fix is a variable-property solver, which removes the choice, not a better guess at which constant to freeze.",
+  "next_step": "Re-run with a temperature-dependent transport model (polynomial mu(T), k(T)) and a self-consistent beta, then re-test against Lewis's prediction curve."
+}

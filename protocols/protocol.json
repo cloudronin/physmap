@@ -327,7 +327,7 @@
       "citation": "Lewis, J. S. (1992). Combined free and forced convection heat transfer to water in a vertical tube. PhD thesis, City University London.",
       "record": "https://openaccess.city.ac.uk/id/eprint/28530/",
       "access": "open access; LICENCE NOT STATED on the record page",
-      "redistribution_determination": "NOT MADE. Numbers transcribed to data/lewis1992/ pending it.",
+      "redistribution_determination": "MADE. The record page states no licence, but the PDF cover sheet carries the City Research Online policy: full items usable for personal research, educational or NOT-FOR-PROFIT purposes with attribution and a link, content unchanged. We redistribute transcribed NUMBERS, not the document; *.pdf is gitignored and none has ever been tracked. Note the policy is narrower than this repo's CC BY 4.0, which permits commercial use.",
       "direction": "upward, buoyancy-aiding -- correct direction",
       "wall_boundary_condition": "uniform heat flux -- MATCHES the NAFEMS case's BC",
       "working_fluid": "water (the NAFEMS case is air; this is a different fluid)",
@@ -366,6 +366,41 @@
         "a fixed per-point uncertainty rule",
         "more than one operating condition"
       ]
+    },
+    "hallman_1961": {
+      "citation": "Hallman, T. M. (1961). Experimental Study of Combined Forced and Free Laminar Convection in a Vertical Tube. NASA TN D-1104.",
+      "url": "https://ntrs.nasa.gov/citations/19980235517",
+      "access": "open; US Government work",
+      "geometry": "vertical circular tube, water, uniform wall heat flux, aiding AND opposing",
+      "why_it_matters": "It does what Lewis does not: separates its steady runs from its unsteady ones. 'The data which are believed to be fully developed and which were steady (nonfluctuating) are shown in figure 9.'",
+      "stated_uncertainty": "Nu = 6.12 +/- 0.25, about 4%, from a detailed error analysis on run U50",
+      "blocker": "No run table. Conditions are in Hallman's 1958 Purdue thesis, not reachable. Per-run Re and Pr would have to be digitised from figure abscissae.",
+      "transition_correlation": "Ra_D = 9470 * [Re*Pr/(2x/D)]^1.83, stated valid 1 < Re*Pr/(2x/D) < 20",
+      "correlation_does_not_transfer_to_lewis": "Lewis's stations sit at Re*Pr/(2x/D) = 30 to 488, from 1.5x to 24x outside the validated range. The extrapolation is permissive and contradicts the direct observation that 13A's measured Nu exceeds laminar prediction by 34% at x/d 135.84. Applying it would be using a correlation outside its calibration -- the failure this project detects. NOT USED.",
+      "verified": "read directly",
+      "status": "candidate; geometry is the best match found"
+    },
+    "barozzi_1993": {
+      "citation": "Barozzi, G. S. (1993). Combined convection and other effects in heat transfer in horizontal flows. PhD thesis, City University London.",
+      "url": "https://openaccess.city.ac.uk/id/eprint/16971/",
+      "access": "open; same City Research Online policy as Lewis",
+      "geometry": "HORIZONTAL circular duct, water, uniform peripheral heating -- buoyancy acts ACROSS the flow, driving secondary circulation rather than aiding acceleration. A different mechanism from the NAFEMS case.",
+      "runs": "10 named (PA-PE, FA-FE) with entry and exit Re, Pr, Ra_q, Gr_q tabulated",
+      "measured": "local Nu at 12 axial stations, reduction rule stated",
+      "steadiness_evidence": "QUANTIFIED, and the strongest found: four measurement cycles at 2-5 minute intervals agreeing within 0.1 degC, maximum deviation from their average within 0.03 degC, and wall temperature variations randomly signed. An accepted sequence is reproduced.",
+      "stated_uncertainty": "+/-16% at 95% coverage generally, rising to +/-28% near the entrance",
+      "caveats": "Temporal steadiness is MEASURED; laminarity is argued from Re <= ~1000 plus an assumed Ra_q ~ 6e5 stability limit. Runs FC and FD sit at Ra_q ~ 5e6, about 8x above it, with Nu rising downstream.",
+      "verified": "read directly -- title, institution and the steadiness criterion checked",
+      "status": "closest complete package; the open question is whether horizontal cross-flow buoyancy tests the same thing. That is the owner's call."
+    },
+    "barozzi_dumas_collins_1984": {
+      "citation": "Barozzi, G. S., Dumas, A. & Collins, M. W. (1984). Sharp entry and transition effects for laminar combined convection of water in vertical tubes. Int. J. Heat and Fluid Flow 5(4):235-241.",
+      "doi": "10.1016/0142-727X(84)90060-2",
+      "access": "paywalled; not retrieved",
+      "why_it_is_the_highest_value_item": "Vertical tube, water, aiding flow -- the target geometry -- and its abstract reports a TRANSITION CRITERION DERIVED FROM MEASURED LOCAL Nu. That is precisely the screen missing everywhere else: Lewis's criterion is from a laminar-only code, and Hallman's does not transfer.",
+      "note": "This is the correct citation for what earlier notes called 'Barozzi, Dumas & Stieglitz (1984)'.",
+      "verified": "NOT verified -- citation from a literature sweep",
+      "status": "obtain before settling for a horizontal-geometry compromise"
     }
   },
   "lewis_case_choices": {
@@ -396,5 +431,11 @@
       "grid_convergence_criterion_pct": 0.7,
       "banked": "results/lewis35A/grid_pair.json"
     }
+  },
+  "metrics_position": {
+    "state": "CLOSED",
+    "reason": "No source yet supplies individually identified conditions, measured heat transfer AND positive evidence of steady laminar flow. Lewis supplies the first two; its well-measured runs are the transitional ones and its laminar run has the weakest buoyancy.",
+    "what_would_open_it": "An eligible set of INDEPENDENT CASES -- distinct operating runs, not axial stations of one run -- each with measured truth, a stated uncertainty, and evidence the flow was steady and laminar where measured.",
+    "lewis_disposition": "RETAINED as a documented limitation, not deleted."
   }
 }
