@@ -1,0 +1,236 @@
+{
+  "dev_Re800_gON": {
+    "Re": 800.0,
+    "q_w": 200.0,
+    "gravity_on": true,
+    "Ri": 1.31,
+    "Gr_star": 838393.5670745542,
+    "mesh": {
+      "nr": 30,
+      "ny": 300,
+      "cells": 9000
+    },
+    "iterations": 20000,
+    "Nu_flux_weighted": 7.4242,
+    "Nu_area_weighted": 8.56163,
+    "Nu_extraction_sensitivity_rel": 0.15321,
+    "energy_closure_rel": 0.05588,
+    "final_residuals": {
+      "Ux": 0.069970212,
+      "Uy": 0.0075210251,
+      "h": 0.00058997202,
+      "p_rgh": 0.0026455879,
+      "continuity_cumulative": 0.45464544
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 639.9
+  },
+  "gc_15x150": {
+    "Re": 800.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 0.3275,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 15,
+      "ny": 150,
+      "cells": 2250
+    },
+    "iterations": 8000,
+    "Nu_flux_weighted": 6.80648,
+    "Nu_area_weighted": 8.25856,
+    "Nu_extraction_sensitivity_rel": 0.21334,
+    "energy_closure_rel": 0.00074,
+    "final_residuals": {
+      "Ux": 0.0003332441,
+      "Uy": 2.4866295e-06,
+      "h": 1.558894e-05,
+      "p_rgh": 1.0351039e-05,
+      "continuity_cumulative": -0.010278845
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 29.8
+  },
+  "gc_20x200": {
+    "Re": 800.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 0.3275,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 20,
+      "ny": 200,
+      "cells": 4000
+    },
+    "iterations": 8000,
+    "Nu_flux_weighted": 6.79413,
+    "Nu_area_weighted": 8.258,
+    "Nu_extraction_sensitivity_rel": 0.21546,
+    "energy_closure_rel": 0.00073,
+    "final_residuals": {
+      "Ux": 4.8181605e-05,
+      "Uy": 4.4265037e-07,
+      "h": 6.4323448e-06,
+      "p_rgh": 2.6776619e-06,
+      "continuity_cumulative": -0.056758523
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 49.5
+  },
+  "gc_30x300": {
+    "Re": 800.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 0.3275,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 30,
+      "ny": 300,
+      "cells": 9000
+    },
+    "iterations": 8000,
+    "Nu_flux_weighted": 6.7914,
+    "Nu_area_weighted": 8.26284,
+    "Nu_extraction_sensitivity_rel": 0.21666,
+    "energy_closure_rel": 0.0434,
+    "final_residuals": {
+      "Ux": 0.0087594381,
+      "Uy": 0.00047091129,
+      "h": 0.00011811505,
+      "p_rgh": 0.00049966637,
+      "continuity_cumulative": -0.028325746
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 116.0
+  },
+  "gc_40x400": {
+    "Re": 800.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 0.3275,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 40,
+      "ny": 400,
+      "cells": 16000
+    },
+    "iterations": 8000,
+    "Nu_flux_weighted": 6.79071,
+    "Nu_area_weighted": 8.26522,
+    "Nu_extraction_sensitivity_rel": 0.21714,
+    "energy_closure_rel": 0.11953,
+    "final_residuals": {
+      "Ux": 0.013517478,
+      "Uy": 0.00089064981,
+      "h": 0.00027192012,
+      "p_rgh": 0.0014278197,
+      "continuity_cumulative": 0.13360507
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 208.1
+  },
+  "m_Re400_gon": {
+    "Re": 400.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 1.31,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 20,
+      "ny": 200,
+      "cells": 4000
+    },
+    "iterations": 8000,
+    "Nu_flux_weighted": 6.29032,
+    "Nu_area_weighted": 7.54429,
+    "Nu_extraction_sensitivity_rel": 0.19935,
+    "energy_closure_rel": 0.08287,
+    "final_residuals": {
+      "Ux": 0.075527328,
+      "Uy": 0.0055647036,
+      "h": 0.00052697356,
+      "p_rgh": 0.0024527414,
+      "continuity_cumulative": 0.76238096
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 51.7
+  },
+  "scr_Re1600_q200": {
+    "Re": 1600.0,
+    "q_w": 200.0,
+    "gravity_on": true,
+    "Ri": 0.3275,
+    "Gr_star": 838393.5670745542,
+    "mesh": {
+      "nr": 20,
+      "ny": 200,
+      "cells": 4000
+    },
+    "iterations": 6000,
+    "Nu_flux_weighted": 8.43397,
+    "Nu_area_weighted": 9.85022,
+    "Nu_extraction_sensitivity_rel": 0.16792,
+    "energy_closure_rel": 0.07385,
+    "final_residuals": {
+      "Ux": 0.0017347038,
+      "Uy": 2.061355e-05,
+      "h": 2.1827915e-05,
+      "p_rgh": 9.0401175e-05,
+      "continuity_cumulative": 0.015883914
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 60.7
+  },
+  "scr_Re1600_q50": {
+    "Re": 1600.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 0.0819,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 20,
+      "ny": 200,
+      "cells": 4000
+    },
+    "iterations": 6000,
+    "Nu_flux_weighted": 8.22327,
+    "Nu_area_weighted": 9.75279,
+    "Nu_extraction_sensitivity_rel": 0.186,
+    "energy_closure_rel": 0.03712,
+    "final_residuals": {
+      "Ux": 0.0024274535,
+      "Uy": 1.7728648e-05,
+      "h": 6.444241e-05,
+      "p_rgh": 6.2735497e-05,
+      "continuity_cumulative": 0.15093513
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 38.6
+  },
+  "scr_Re800_q50": {
+    "Re": 800.0,
+    "q_w": 50.0,
+    "gravity_on": true,
+    "Ri": 0.3275,
+    "Gr_star": 209598.39176863854,
+    "mesh": {
+      "nr": 20,
+      "ny": 200,
+      "cells": 4000
+    },
+    "iterations": 6000,
+    "Nu_flux_weighted": 6.79413,
+    "Nu_area_weighted": 8.258,
+    "Nu_extraction_sensitivity_rel": 0.21546,
+    "energy_closure_rel": 0.03703,
+    "final_residuals": {
+      "Ux": 4.8186538e-05,
+      "Uy": 4.4331303e-07,
+      "h": 6.4323486e-06,
+      "p_rgh": 2.6779267e-06,
+      "continuity_cumulative": -0.056758554
+    },
+    "converged_by_residual_control": false,
+    "wall_clock_s": 37.6
+  }
+}
