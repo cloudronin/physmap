@@ -428,75 +428,120 @@ evaluation inputs before the protocol is locked.
 
 ## Extraction: the upward-flow input inventory
 
-*Marker coordinates pulled from the PDF content stream with a CTM-tracking path parser.
-**Raw and uncalibrated.** No labels, flags or metrics derived from them.*
+*Figure 16 rendered (pymupdf, 600 dpi), legend and axes read, markers pulled from the PDF
+content stream with a CTM-tracking path parser. **Raw values only** — no labels, flags or
+metrics derived from them.*
 
-### Figure 16 — clean extraction, two blockers
+### First, a correction to my own earlier extraction
 
-Figure 16 (PDF page 21, printed page 20) is the average-Nusselt plot the correlations were
-fitted through, `Log Nu` against `Log Ra/Re`, `Re 400–1600`, `Gr 1.1e5–7.4e6`.
+An earlier pass reported "40 markers in two classes of 20" and guessed they might be the
+upward and downward series. **That was wrong**, and rendering the figure showed why:
+
+- The two classes I found were **triangles (Sieder & Tate)** and **circles (Brown &
+  Gauvin)** — the two *literature* comparison series.
+- The present-work markers live in a **second coordinate space** at 4.1677× scale that my
+  first pass discarded as out-of-frame. The upward stars were never in that extraction.
+- A circle drawn as four Béziers yields 5 retained points, which is why it was
+  indistinguishable from a diamond by vertex count alone.
+
+### The legend, read
+
+| Marker | Series |
+|---|---|
+| ★ filled star | **The present work, vertical upward flow** ← the target |
+| ◇ open diamond | The present work, vertical downward flow |
+| ● filled circle + line | Brown & Gauvin [25] |
+| ▲ filled triangle + line | Sieder & Tate [26], forced convection |
+
+### Axis calibration
+
+Both axes are logarithmic. Tick positions came from the vector content; tick *values* were
+read from the rendered image.
+
+| Axis | Fit | Decade | Max residual |
+|---|---|---|---|
+| x, `Ra/Re` | `log10(x) = 0.01224365·dev_x + 3.010111` | 81.675 pt | 0.000577 dec = **0.133%** |
+| y, `Nu` | `log10(Nu) = 0.00529993·dev_y − 1.956247` | 188.682 pt | 0.000216 dec = **0.050%** |
+
+Independent check: the fit puts the frame bottom at `Nu = 2.999` and the top at
+`Nu = 40.055`, against printed axis limits of 3 and 40.
+
+**This is the plot-extraction error, and it is now quantified — for the calibration
+component.** At 0.05% in Nu it is well below the paper's ±1.27% measurement uncertainty.
+Marker-centroid offset and the operator's choice of marker set are *not* included in that
+figure and remain unquantified.
+
+### The count
 
 | | |
 |---|---|
-| Plot frame, page space | `x ∈ [226.0, 432.1]`, `y ∈ [459.1, 671.5]` pt |
-| Filled marker paths inside the frame | **40** |
-| Marker class A | 4 vertices, ~4.14 pt — **20 markers**, device `y ∈ [493.2, 513.5]` |
-| Marker class B | 5 vertices, ~3.2 pt — **20 markers**, device `y ∈ [549.7, 599.7]` |
-| Fitted lines | Two 19-vertex polylines, one through each band |
-| Extraction method | Content-stream parse: `q`/`Q`/`cm` CTM tracking, `m`/`l`/`c`/`re` path construction, painted on `f`/`f*`. Curve control points discarded, endpoints kept — safe at 3–4 pt marker size |
+| Filled star paths inside the frame | 83 |
+| Legend entries (`Nu > 12`, outside the data band) | 2 |
+| In the data region | 81 |
+| **Distinct plotted points after clustering at 0.5 pt** | **63** |
+| Of which drawn more than once | 18 |
+| `Nu` range | 7.814 – 9.228 |
+| `Ra/Re` range (as plotted) | 8.863e5 – 1.001e8 |
 
-**Overlap resolved, and this is the real gain.** Nine marker pairs sit closer than 2.5 pt
-while the markers themselves are 3–4 pt across — five in class A, four in class B, all at
-the high-`x` end where the series crowd. **Visually these overlap and could not be counted
-by eye.** Extraction separates them individually. That is a reproducibility gain, not an
-accuracy gain.
+**Recorded ambiguity.** The paper states **88 test runs** across four entrance lengths and
+both flow directions — about 44 upward. **63 distinct upward markers does not reconcile
+with 44**, and the figure caption calls itself "a sample one of these correlations". How
+many runs Figure 16 plots, and at which `L/D`, is **not determined**. Entrance length is
+therefore **unknown per point**, which is one of the five fields the evaluable-point rule
+requires.
 
-### Two blockers, both needing the page rendered
+## The correlations as printed do not describe the data as plotted
 
-**1. Axis calibration is not available from the file.** The tick labels are **vector glyph
-outlines, not text** — 21 filled paths left of the frame at `x ≈ 224.4`, 55 below it at
-`y ≈ 457.4`, with no corresponding text runs. `extract_text` returns only body text. So
-marker positions are exact in page space and **cannot be converted to `(Ra/Re, Nu)`
-without reading the tick labels visually.**
+This is the finding that matters most, and it was only visible once the points were
+calibrated.
 
-**2. Series attribution is not available either.** The legend is vector art too, so which
-class is upward, which is downward, and which if any are the literature comparisons
-(Brown & Gauvin, Sieder & Tate) cannot be read from the file.
+Fitting the paper's own plotted **fitted lines**, read off Figure 16 on Figure 16's axis:
 
-The obvious check fails: the device slopes are 0.1245 (class A) and 0.3059 (class B), a
-ratio of **2.46**. If the two classes were this work's upward and downward series their
-exponent ratio would be `0.11868/0.08697 = 1.37`, or `0.73` the other way round. **Neither
-matches**, so at least one of the two classes is probably a literature series rather than
-this work's data. Attributing them by slope alone would be a guess.
-
-**Until both are resolved, the usable upward-flow point count is not 20. It is unknown,
-and bounded above by 40.**
-
-### Figures 9 and 14 — not cleanly separable
-
-Figure 14 (local Nusselt, flow situations) and Figure 9 (surface temperature, flow
-situations) also carry upward data. Their frames and markers could not be separated from
-vector glyph outlines by the same automated filter — Figure 9 returned 147 candidate paths
-across 36 shape classes, most of which are lettering. These need the same rendering step.
-
-### The three error quantities, kept separate
-
-| Quantity | Value | What it is |
+| Series | Line read from the figure | Paper's printed correlation |
 |---|---|---|
-| **Measurement uncertainty** | **±1.27%** on Nu | The paper's reported global maximum, Moffat's method. A property of the experiment |
-| **Correlation-fit scatter** | **±8%** | The paper's stated accuracy of the data about the fitted correlation. A property of the fit |
-| **Plot extraction error** | **not yet quantified** | Axis calibration residual, marker-centroid versus plotted-value offset, and log-axis reading. A property of *our* recovery |
+| Upward (stars) | `Nu = 7.65 (Ra/Re)^0.00737` | `Nu = 3.7151 (Ra/Re)^0.11868` (Eq 13) |
+| Downward (diamonds) | `Nu = 7.73 (Ra/Re)^0.00233` | `Nu = 3.6254 (Ra/Re)^0.08697` (Eq 14) |
 
-These are three different things and none substitutes for another. **Vector coordinates
-make the extraction reproducible; they do not make the experimental values exact**, and
-they say nothing about the first two rows.
+And the extracted star markers themselves fit `Nu = 7.64 (Ra/Re)^0.00471`.
 
-### Redistribution status of the extracted data
+**The plotted upward line rises 3.5% across the figure's two decades. Eq 13 would rise
+75%.** That is not reading noise; it is a factor-of-twenty difference in exponent.
 
-**Not determined, and the extraction is therefore not committed to this repository.** The
-source is Taylor & Francis, closed access, no licence deposited. The raw uncalibrated
-coordinates live outside the repo pending a determination of the same kind made for the
-other sources in `data/REDISTRIBUTION.md`.
+Evaluated on the figure's own axis, Eq 13 gives `Nu = 19.1` at `Ra/Re = 1e6` and `33.1` at
+`1e8`. **The plotted data sit at 7.8–9.2 across exactly that range.**
+
+Running it backwards: Eq 13 returns the plotted `Nu` values at `Ra/Re ≈ 5×10²–2×10³`. And
+the project's own CFD validation used `Eq13 = 8.47` and `10.11`, which correspond to
+arguments of **1037** and **4608** — about `10³`, three decades below where Figure 16 plots
+the data those equations were fitted to.
+
+### What this does not settle
+
+Three readings are consistent with the evidence and **this document does not choose between
+them**:
+
+1. **The figure's x-axis is a different quantity from the equations' argument.** The axis
+   is printed with overbars — `Log (R̄a / R̄e)` — which may denote averaged or otherwise
+   modified quantities.
+2. **The printed coefficients or exponents are in error**, in the paper or in the
+   transcription into this project.
+3. **`Ra` or `Re` are defined differently** in the two places, for instance with a
+   length-ratio factor folded in.
+
+The paper separately notes that `Gr·Pr·D/L` for this work "ranges from 5,922 to 119,850" —
+a fourth quantity, in a fourth range, neither `10³` nor `10⁶–10⁸`.
+
+### Why it matters here
+
+**The CFD acceptance rests on this.** The `−3.7%` and `−9.3%` agreements that accepted the
+rebuilt CFD compare against Eq 13 evaluated at `Ra/Re ≈ 10³`. If the argument is wrong, the
+agreement is coincidental and the acceptance is unsupported. If the argument is right, then
+Figure 16's axis is not the equations' `Ra/Re` and the extracted points cannot be joined to
+the equations without resolving which variable is which.
+
+Either way, **the extracted points cannot yet be mapped to `(Re, Gr)` operating
+conditions**, which is what an evaluation would need. That mapping is the blocker now — not
+access, not calibration, and not counting.
 
 ## Dependency trace: were these measurements already used?
 

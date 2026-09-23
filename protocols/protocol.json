@@ -184,18 +184,38 @@
     "extraction": {
       "figure": 16,
       "page_pdf": 21,
-      "page_printed": 20,
-      "method": "content-stream path parse with CTM tracking; markers are filled paths inside the axes frame",
-      "markers_found": 40,
-      "marker_classes": {
-        "A_4vertex_4.1pt": 20,
-        "B_5vertex_3.2pt": 20
+      "rendered": true,
+      "renderer": "pymupdf 600dpi",
+      "legend_read": {
+        "star": "present work, vertical UPWARD flow",
+        "open_diamond": "present work, vertical downward flow",
+        "filled_circle": "Brown & Gauvin [25]",
+        "filled_triangle": "Sieder & Tate [26] forced convection"
       },
-      "overlapping_pairs_resolved": 9,
-      "calibrated": false,
-      "blocker_axis_calibration": "tick labels are VECTOR GLYPH OUTLINES, not text; calibration needs the page rendered",
-      "blocker_series_attribution": "legend is vector art; device-slope ratio 2.46 matches neither 0.11868/0.08697 nor its inverse, so at least one class is probably a literature series",
-      "usable_upward_point_count": "UNKNOWN; bounded above by 40",
+      "axis_calibration": {
+        "x": "log10(Ra/Re) = 0.01224365*dev_x + 3.010111; decade 81.675pt; max resid 0.133%",
+        "y": "log10(Nu) = 0.00529993*dev_y - 1.956247; decade 188.682pt; max resid 0.050%",
+        "independent_check": "frame bottom -> Nu 2.999 (printed 3), top -> 40.055 (printed 40)"
+      },
+      "upward_star_markers": {
+        "raw_paths_in_frame": 83,
+        "legend": 2,
+        "in_data_region": 81,
+        "distinct_after_0p5pt_clustering": 63,
+        "drawn_more_than_once": 18
+      },
+      "ranges": {
+        "Nu": [
+          7.814,
+          9.228
+        ],
+        "Ra_over_Re_as_plotted": [
+          886300.0,
+          100100000.0
+        ]
+      },
+      "earlier_extraction_was_wrong": "a first pass reported 40 markers in two classes of 20 and guessed they were upward and downward. They were the Sieder & Tate triangles and Brown & Gauvin circles. The present-work markers sit in a second coordinate space at 4.1677x scale that the first pass discarded.",
+      "recorded_ambiguity": "the paper states 88 runs over 4 entrance lengths and both directions (~44 upward). 63 distinct upward markers does not reconcile with 44, and the caption calls the figure 'a sample one of these correlations'. Entrance length per point is UNKNOWN.",
       "redistribution_determination": "NOT MADE; extraction held outside the repository"
     },
     "dependency_on_cfd": {
@@ -204,6 +224,23 @@
       "acceptance_criterion": "agreement with Eq 13, to within the correlation's own +/-8% band",
       "consequence": "scoring that surrogate against these points is a CONSISTENCY CHECK, not an independent validation, unless the acceptance criterion is changed to one that does not reference Eq 13",
       "precision_note": "the step-3 Nusselt-extraction change is recorded as fixing a physical breakdown under outlet recirculation, not as a response to disagreement with Eq 13; which drove it is not separately recorded"
+    },
+    "correlation_discrepancy": {
+      "status": "UNRESOLVED -- blocks mapping extracted points to (Re, Gr)",
+      "plotted_upward_line": "Nu = 7.65 (Ra/Re)^0.00737",
+      "plotted_downward_line": "Nu = 7.73 (Ra/Re)^0.00233",
+      "extracted_star_fit": "Nu = 7.64 (Ra/Re)^0.00471",
+      "printed_eq13": "Nu = 3.7151 (Ra/Re)^0.11868",
+      "printed_eq14": "Nu = 3.6254 (Ra/Re)^0.08697",
+      "magnitude": "the plotted upward line rises 3.5% across the figure's two decades; Eq 13 would rise 75%. Factor ~20 in exponent, not reading noise.",
+      "eq13_on_the_figure_axis": "Nu = 19.1 at Ra/Re 1e6 and 33.1 at 1e8, where the plotted data sit at 7.8-9.2",
+      "eq13_argument_for_the_project_values": "Eq13 = 8.47 -> argument 1037; Eq13 = 10.11 -> argument 4608; i.e. ~1e3, three decades below where Figure 16 plots the data the equations were fitted to",
+      "readings_not_chosen_between": [
+        "the figure's x-axis (printed with overbars) is a different quantity from the equations' argument",
+        "the printed coefficients or exponents are in error, in the paper or in the transcription into this project",
+        "Ra or Re are defined differently in the two places"
+      ],
+      "consequence_for_cfd_acceptance": "the -3.7% and -9.3% agreements that accepted the CFD compare against Eq 13 evaluated at Ra/Re ~ 1e3. If that argument is wrong the agreement is coincidental and the acceptance is unsupported; if it is right then the figure's axis is not the equations' Ra/Re and the extracted points cannot be joined to the equations."
     }
   }
 }
