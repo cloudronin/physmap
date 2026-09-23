@@ -70,6 +70,45 @@ Energy closure at that mesh: **0.073%**.
    degrades with refinement (0.07% → 4.3% → 12.0%) while `Nu` barely moves. The thermal
    field at the outlet develops more slowly than the near-inlet region that sets `Nu`.
 
+## First matched ablation pair, and a materiality from it
+
+`Re = 400`, `q_w = 50 W/m²`, `Ri = 1.310`, 20 × 200 mesh. The two runs differ **only** in
+the gravity vector.
+
+| | `Nu` | Energy closure |
+|---|---|---|
+| Buoyancy on (`Nu_M`) | 6.2903 | 8.29% |
+| Gravity off (`Nu_F`) | 5.4979 | **0.011%** |
+
+```
+materiality = 1 − 5.49787/6.29032 = 0.126    provenance: matched_ablation
+```
+
+Put through the shipped estimator, not computed by hand, so it carries
+`provenance = matched_ablation` — the allowed kind — and `evidence_state = measured`,
+its first use on real CFD rather than a fixture. The causal flag **fires**: buoyancy is
+outside its window (`Ri` 1.31 against `[0, 0.1]`) **and** `0.126 ≥ θ = 0.10`. Both halves,
+as designed.
+
+**What this number is worth.** The buoyancy-on run of the pair closes energy to only
+8.29% and does not meet residual control, so the materiality inherits that. It is a real
+measurement from a real matched ablation, and it is not yet a well-converged one.
+
+**Not compared to anything.** No precision, recall or F1 — there is no evaluable truth
+set. And the value was not steered: nothing in the setup was chosen by reference to a
+previously reported materiality.
+
+## Gravity-off costs 12× more per iteration
+
+Measured, and worth knowing before planning a sweep. With `g = 0` the GAMG pressure solve
+needs 20–26 sweeps against 4–6 with buoyancy. At 4,000 cells that is ~75 ms/iteration
+against ~6.3 ms.
+
+It also *converges* much faster physically — `Ux` residual reached 4e-3 by iteration 30,
+where the buoyancy-on run was still at 1.8e-2 after 3,000. So the gravity-off pair wants
+**fewer** iterations, not more: 2,000 gives 0.011% energy closure. An 8,000-iteration
+gravity-off run is ten minutes of mostly wasted pressure sweeps.
+
 ## One error found in this work, recorded
 
 The energy balance first read the bulk temperature from the **last cell centre**, giving a

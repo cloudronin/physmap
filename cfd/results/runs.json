@@ -4,7 +4,6 @@
     "q_w": 200.0,
     "gravity_on": true,
     "Ri": 1.31,
-    "Gr_star": 838393.5670745542,
     "mesh": {
       "nr": 30,
       "ny": 300,
@@ -22,7 +21,6 @@
       "p_rgh": 0.0026455879,
       "continuity_cumulative": 0.45464544
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 639.9
   },
   "gc_15x150": {
@@ -30,7 +28,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 0.3275,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 15,
       "ny": 150,
@@ -48,7 +45,6 @@
       "p_rgh": 1.0351039e-05,
       "continuity_cumulative": -0.010278845
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 29.8
   },
   "gc_20x200": {
@@ -56,7 +52,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 0.3275,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 20,
       "ny": 200,
@@ -74,7 +69,6 @@
       "p_rgh": 2.6776619e-06,
       "continuity_cumulative": -0.056758523
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 49.5
   },
   "gc_30x300": {
@@ -82,7 +76,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 0.3275,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 30,
       "ny": 300,
@@ -100,7 +93,6 @@
       "p_rgh": 0.00049966637,
       "continuity_cumulative": -0.028325746
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 116.0
   },
   "gc_40x400": {
@@ -108,7 +100,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 0.3275,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 40,
       "ny": 400,
@@ -126,7 +117,6 @@
       "p_rgh": 0.0014278197,
       "continuity_cumulative": 0.13360507
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 208.1
   },
   "m_Re400_gon": {
@@ -134,7 +124,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 1.31,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 20,
       "ny": 200,
@@ -152,7 +141,6 @@
       "p_rgh": 0.0024527414,
       "continuity_cumulative": 0.76238096
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 51.7
   },
   "scr_Re1600_q200": {
@@ -160,7 +148,6 @@
     "q_w": 200.0,
     "gravity_on": true,
     "Ri": 0.3275,
-    "Gr_star": 838393.5670745542,
     "mesh": {
       "nr": 20,
       "ny": 200,
@@ -178,7 +165,6 @@
       "p_rgh": 9.0401175e-05,
       "continuity_cumulative": 0.015883914
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 60.7
   },
   "scr_Re1600_q50": {
@@ -186,7 +172,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 0.0819,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 20,
       "ny": 200,
@@ -204,7 +189,6 @@
       "p_rgh": 6.2735497e-05,
       "continuity_cumulative": 0.15093513
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 38.6
   },
   "scr_Re800_q50": {
@@ -212,7 +196,6 @@
     "q_w": 50.0,
     "gravity_on": true,
     "Ri": 0.3275,
-    "Gr_star": 209598.39176863854,
     "mesh": {
       "nr": 20,
       "ny": 200,
@@ -230,7 +213,30 @@
       "p_rgh": 2.6779267e-06,
       "continuity_cumulative": -0.056758554
     },
-    "converged_by_residual_control": false,
     "wall_clock_s": 37.6
+  },
+  "m_Re400_goff": {
+    "Re": 400.0,
+    "q_w": 50.0,
+    "gravity_on": false,
+    "Ri": 1.31,
+    "mesh": {
+      "nr": 20,
+      "ny": 200,
+      "cells": 4000
+    },
+    "iterations": 2000,
+    "Nu_flux_weighted": 5.49787,
+    "Nu_area_weighted": 7.09361,
+    "Nu_extraction_sensitivity_rel": 0.29025,
+    "energy_closure_rel": 0.00011,
+    "final_residuals": {
+      "Ux": 3.1966566e-07,
+      "Uy": 2.1955504e-08,
+      "h": 1.9130126e-10,
+      "p_rgh": 7.3624857e-07,
+      "continuity_cumulative": 0.00041097109
+    },
+    "wall_clock_s": 353.0
   }
 }

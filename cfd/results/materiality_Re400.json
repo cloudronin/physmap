@@ -1,0 +1,12 @@
+{
+  "Re": 400.0,
+  "q_w": 50.0,
+  "Ri": 1.309989948553991,
+  "Nu_M": 6.290315248088063,
+  "Nu_F": 5.497873803189036,
+  "materiality": 0.125978017578672,
+  "provenance": "matched_ablation",
+  "status": "estimated",
+  "energy_closure_on": 0.08287024695775971,
+  "energy_closure_off": 0.00010707871599978975
+}
