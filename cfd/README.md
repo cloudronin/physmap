@@ -70,33 +70,69 @@ Energy closure at that mesh: **0.073%**.
    degrades with refinement (0.07% → 4.3% → 12.0%) while `Nu` barely moves. The thermal
    field at the outlet develops more slowly than the near-inlet region that sets `Nu`.
 
-## First matched ablation pair, and a materiality from it
+## First matched ablation pair — a WORKFLOW result, not an evaluated one
 
 `Re = 400`, `q_w = 50 W/m²`, `Ri = 1.310`, 20 × 200 mesh. The two runs differ **only** in
-the gravity vector.
+the gravity vector; the runner asserts that before computing anything.
 
-| | `Nu` | Energy closure |
-|---|---|---|
-| Buoyancy on (`Nu_M`) | 6.2903 | 8.29% |
-| Gravity off (`Nu_F`) | 5.4979 | **0.011%** |
+| | `Nu` | Energy closure | Residual control |
+|---|---|---|---|
+| Buoyancy on (`Nu_M`) | 6.2903 | **8.29%** | not met |
+| Gravity off (`Nu_F`) | 5.4979 | 0.011% | not met |
 
 ```
 materiality = 1 − 5.49787/6.29032 = 0.126    provenance: matched_ablation
 ```
 
-Put through the shipped estimator, not computed by hand, so it carries
-`provenance = matched_ablation` — the allowed kind — and `evidence_state = measured`,
-its first use on real CFD rather than a fixture. The causal flag **fires**: buoyancy is
-outside its window (`Ri` 1.31 against `[0, 0.1]`) **and** `0.126 ≥ θ = 0.10`. Both halves,
-as designed.
+**This is not usable as an evaluated result, and is not reported as one.** It shows the
+workflow runs end to end — matched pair, allowed provenance, estimator, flag — and that is
+all it shows.
 
-**What this number is worth.** The buoyancy-on run of the pair closes energy to only
-8.29% and does not meet residual control, so the materiality inherits that. It is a real
-measurement from a real matched ablation, and it is not yet a well-converged one.
+Three reasons, any one of which is sufficient:
 
-**Not compared to anything.** No precision, recall or F1 — there is no evaluable truth
-set. And the value was not steered: nothing in the setup was chosen by reference to a
-previously reported materiality.
+1. **The buoyancy-on run closes energy to only 8.29%** and does not meet residual control.
+   The materiality is built from that run's `Nu`.
+2. **The flag fired by a margin of 0.026** (0.126 against `θ = 0.10`). That margin is
+   smaller than the numerical uncertainty above it by roughly an order of magnitude.
+3. The pair sits at `Ri = 1.31`, where the steady solver limit-cycles.
+
+**Convergence and a single QoI extraction definition come before any surrogate fit or
+evaluation.**
+
+### `matched_ablation` is kept, but it does not mean measured
+
+The provenance stays `matched_ablation` — it is a genuine matched ablation, same mesh,
+same boundary conditions, only gravity changed. But `Nu_M` and `Nu_F` are both
+**CFD-computed**, not experimental measurements. `evidence_state = measured` in the
+estimator means "from recorded data with stated provenance", not "from an experiment". No
+experimental value enters this pair at any point.
+
+### Nu 6.79 versus 6.29 — different conditions, not a discrepancy
+
+| | `Re` | `q_w` | `Ri` | `Nu` |
+|---|---|---|---|---|
+| Grid study | **800** | 50 | 0.328 | 6.79 |
+| The pair | **400** | 50 | 1.310 | 6.29 |
+
+Same heat flux, half the Reynolds number, so four times the Richardson number. Both are
+correct for their own condition. The grid study has not been repeated at `Re = 400`.
+
+## The QoI is one definition, and my earlier framing of it was wrong
+
+The QoI is the **flux-weighted (mixing-cup) Nusselt number**. That is what `h = q/(T_w −
+T_b)` means for internal flow, and it is what the original study settled on.
+
+An earlier version reported the gap between flux-weighted and area-weighted bulk
+temperature as a **"Nusselt-extraction sensitivity" of 20–29%**. That was a mistake in
+framing: the two are different physical quantities, not two readings of one. The velocity
+profile weights the core more than the wall region, so a gap of that size is expected and
+says nothing about how well the QoI is determined. Calling it a sensitivity made a
+well-defined quantity look uncertain.
+
+The area-weighted value is still computed and reported, now as a **profile-shape
+diagnostic**, labelled as such. **A genuine extraction sensitivity** — cell-centre versus
+face-interpolated wall temperature, radial integration weighting, near-axis treatment — is
+a separate study and has not been done.
 
 ## Gravity-off costs 12× more per iteration
 

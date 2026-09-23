@@ -101,7 +101,7 @@ def run(out: pathlib.Path, workdir: pathlib.Path, Re: float, q_w: float, gravity
             "converged_by_residual_control": converged,
             "final_residuals": res,
             "energy_balance": eb,
-            "Nu_extraction_sensitivity_rel": nu["Nu_extraction_sensitivity_rel"],
+            "profile_shape_diagnostic_rel": nu["profile_shape_diagnostic_rel"],
             "stations_with_non_positive_net_flux": nu["stations_with_non_positive_net_flux"],
             "checkMesh_failed_checks": len(re.findall(r"\*\*\*", log_cm)),
             "wall_clock_s": round(wall, 1),
@@ -129,5 +129,5 @@ if __name__ == "__main__":
     print(f"{a.name}: Nu={res['Nu_avg_flux_weighted']:.4f}  "
           f"converged={n['converged_by_residual_control']}  "
           f"energy closure={n['energy_balance']['closure_rel_error']:.3%}  "
-          f"Nu sens={n['Nu_extraction_sensitivity_rel']:.3%}  "
+          f"profile diag={n['profile_shape_diagnostic_rel']:.3%}  "
           f"{n['wall_clock_s']}s")

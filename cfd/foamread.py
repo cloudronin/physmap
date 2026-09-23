@@ -4,10 +4,26 @@ The mesh is a structured wedge of `nr` radial by `ny` axial cells, and blockMesh
 cells with the radial index fastest. So cells `[k*nr : (k+1)*nr]` are the radial profile
 at axial station `k`, which makes the cross-sectional integrals direct.
 
-The bulk temperature is computed TWO ways on purpose -- flux-weighted (mixing cup) and
-area-weighted. Their difference is the Nusselt-extraction sensitivity, and it is reported
-rather than chosen between, because the flux-weighted form is the physically correct one
-and also the one that misbehaves where the flux changes sign.
+THE QoI IS ONE DEFINITION, NOT TWO
+----------------------------------
+The quantity of interest is the **flux-weighted (mixing-cup) Nusselt number**:
+
+    Nu = q_w D / (k (T_wall - T_bulk)),   T_bulk = integral(rho u T dA) / integral(rho u dA)
+
+That is what `h = q/(T_w - T_b)` means for internal flow, and it is the definition the
+original study settled on ("a reversal-aware mixing-cup bulk temperature").
+
+An earlier version of this module also computed an **area-weighted** bulk temperature and
+reported the gap as a "Nusselt-extraction sensitivity". **That framing was wrong.** The
+two are different physical quantities, not two readings of one; the velocity profile
+weights the core more heavily than the wall region, so a 20-30% gap is expected and says
+nothing about how well the QoI is determined. Presenting it as an ambiguity in the QoI
+made a well-defined quantity look uncertain.
+
+The area-weighted value is still computed, and still reported -- as a **profile-shape
+diagnostic**, labelled as such. A genuine extraction sensitivity (cell-centre versus
+face-interpolated wall temperature, radial integration weighting, near-axis treatment)
+is a separate study and has not been done.
 """
 from __future__ import annotations
 import math, pathlib, re
@@ -114,9 +130,13 @@ def nusselt(case: pathlib.Path, time: str, nr: int, ny: int, R: float, k_th: flo
     reversal = sum(1 for r in local if r["net_axial_flux"] <= 0)
     nu_f, nu_a = avg("Nu_flux"), avg("Nu_area")
     return {
+        # THE QoI. One definition.
+        "Nu": nu_f,
         "Nu_avg_flux_weighted": nu_f,
-        "Nu_avg_area_weighted": nu_a,
-        "Nu_extraction_sensitivity_rel": abs(nu_f - nu_a) / nu_f if nu_f == nu_f else None,
+        # A profile-shape diagnostic, NOT a competing definition of the QoI and NOT an
+        # extraction sensitivity. See the module docstring.
+        "Nu_area_weighted_diagnostic": nu_a,
+        "profile_shape_diagnostic_rel": abs(nu_f - nu_a) / nu_f if nu_f == nu_f else None,
         "stations_with_non_positive_net_flux": reversal,
         "T_wall_outlet": local[-1]["T_wall"],
         "Tb_flux_outlet": local[-1]["Tb_flux"],
