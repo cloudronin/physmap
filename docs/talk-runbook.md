@@ -169,8 +169,9 @@ accuracy of the **data about the fitted correlation**. A property of the fit, no
 measurement. Six times larger, and a different quantity.
 
 Worth knowing because it is the kind of number a heat-transfer audience will have opinions
-about, and because it decides whether the label rule's uncertainty condition does anything
-at all: at 1.27% against a 10% tolerance, it almost never binds.
+about. There is also a third quantity — the error in recovering values off the published
+plots — which is not yet measured and could be larger than either. Do not assert which of
+the three governs until it is.
 
 ### The label that goes on the slide
 

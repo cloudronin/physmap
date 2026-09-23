@@ -180,6 +180,30 @@
       "recovery_method": "exact extraction of marker coordinates from the PDF content stream; axis calibration is the only error source. NOT visual digitisation.",
       "extracted_yet": false
     },
-    "label_rule_entanglement": "truth choice and label rule are coupled: measured truth gives 1.27% uncertainty, which against tol=0.10 almost never binds so the two-condition rule collapses to the single-condition one; correlation truth gives an 8% band comparable to the tolerance, which binds often and changes labels"
+    "label_rule_entanglement": "truth choice determines which uncertainty enters the label rule: 1.27% for a measured value, 8% for a correlation. A THIRD term, plot-extraction error, is not yet quantified and could dominate. NO claim is made about whether the second condition binds.",
+    "extraction": {
+      "figure": 16,
+      "page_pdf": 21,
+      "page_printed": 20,
+      "method": "content-stream path parse with CTM tracking; markers are filled paths inside the axes frame",
+      "markers_found": 40,
+      "marker_classes": {
+        "A_4vertex_4.1pt": 20,
+        "B_5vertex_3.2pt": 20
+      },
+      "overlapping_pairs_resolved": 9,
+      "calibrated": false,
+      "blocker_axis_calibration": "tick labels are VECTOR GLYPH OUTLINES, not text; calibration needs the page rendered",
+      "blocker_series_attribution": "legend is vector art; device-slope ratio 2.46 matches neither 0.11868/0.08697 nor its inverse, so at least one class is probably a literature series",
+      "usable_upward_point_count": "UNKNOWN; bounded above by 40",
+      "redistribution_determination": "NOT MADE; extraction held outside the repository"
+    },
+    "dependency_on_cfd": {
+      "independent_of_the_cfd": false,
+      "chain": "measured points -> Eq 13 -> CFD accepted (and revised) against Eq 13 -> g-off CFD = Nu_F -> surrogate fitted to Nu_F",
+      "acceptance_criterion": "agreement with Eq 13, to within the correlation's own +/-8% band",
+      "consequence": "scoring that surrogate against these points is a CONSISTENCY CHECK, not an independent validation, unless the acceptance criterion is changed to one that does not reference Eq 13",
+      "precision_note": "the step-3 Nusselt-extraction change is recorded as fixing a physical breakdown under outlet recirculation, not as a response to disagreement with Eq 13; which drove it is not separately recorded"
+    }
   }
 }

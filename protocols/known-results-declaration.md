@@ -63,11 +63,11 @@ paper's stated *"overall accuracy of heat transfer data in these correlations"* 
 scatter of the data about the fit, a property of the correlation, not of the measurement.
 
 **This entangles the truth choice with the label rule.** The abstract's rule needs the gap
-to exceed both the tolerance and the truth's own uncertainty. Against `tol = 0.10`, a
-measured truth carries ±1.27%, which almost never binds — so the two-condition rule
-collapses to the single-condition one. A correlation truth carries ±8%, comparable to the
-tolerance, so the second condition binds often and changes labels. They are not
-independent decisions.
+to exceed both the tolerance and the truth's own uncertainty, so which uncertainty enters
+depends on what the truth is: ±1.27% for a measured value, ±8% for a correlation. A third
+term — the error in recovering values from the published plots — is **not yet quantified**
+and could be the largest of the three. **No claim is made about whether the second
+condition binds**; that needs the extraction error measured first.
 
 **Individual values are recoverable but not yet recovered.** No data tables exist: 88 test
 runs across four entrance lengths and both flow directions, all reported in 16 figures.

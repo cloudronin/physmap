@@ -426,78 +426,214 @@ evaluation inputs before the protocol is locked.
 - **The ±8% figure should be removed** wherever this project uses it as measurement
   uncertainty.
 
-## A proposed evaluation against independent measured points
+## Extraction: the upward-flow input inventory
 
-Offered as a design, not a decision. It is written to break the coupling, not to recover
-the old numbers.
+*Marker coordinates pulled from the PDF content stream with a CTM-tracking path parser.
+**Raw and uncalibrated.** No labels, flags or metrics derived from them.*
 
-### The inversion to keep in view
+### Figure 16 — clean extraction, two blockers
 
-Given the mechanism derived above, **reproducing precision ≈ 1.00 would now be a warning
-sign rather than a success.** It would be consistent with the coupling having survived the
-rebuild. A design that targets the old triple is therefore targeting the wrong thing, and
-this proposal deliberately does not.
+Figure 16 (PDF page 21, printed page 20) is the average-Nusselt plot the correlations were
+fitted through, `Log Nu` against `Log Ra/Re`, `Re 400–1600`, `Gr 1.1e5–7.4e6`.
 
-### 1. The evaluable set is the measured conditions, and only those
+| | |
+|---|---|
+| Plot frame, page space | `x ∈ [226.0, 432.1]`, `y ∈ [459.1, 671.5]` pt |
+| Filled marker paths inside the frame | **40** |
+| Marker class A | 4 vertices, ~4.14 pt — **20 markers**, device `y ∈ [493.2, 513.5]` |
+| Marker class B | 5 vertices, ~3.2 pt — **20 markers**, device `y ∈ [549.7, 599.7]` |
+| Fitted lines | Two 19-vertex polylines, one through each band |
+| Extraction method | Content-stream parse: `q`/`Q`/`cm` CTM tracking, `m`/`l`/`c`/`re` path construction, painted on `f`/`f*`. Curve control points discarded, endpoints kept — safe at 3–4 pt marker size |
 
-Truth comes from Mohammed & Salman's reported values at the conditions they actually ran.
-Grid points with no measurement are **not evaluable**, however comfortably they sit inside
-the `(Re, Gr)` envelope. Envelope membership is not coverage.
+**Overlap resolved, and this is the real gain.** Nine marker pairs sit closer than 2.5 pt
+while the markers themselves are 3–4 pt across — five in class A, four in class B, all at
+the high-`x` end where the series crowd. **Visually these overlap and could not be counted
+by eye.** Extraction separates them individually. That is a reproducibility gain, not an
+accuracy gain.
 
-This is likely to be a small set. That is a fact about the available evidence, and the
-measurement inventory exists to establish it before any criterion is fixed.
+### Two blockers, both needing the page rendered
 
-### 2. The surrogate is fitted on data disjoint from its evaluation points
+**1. Axis calibration is not available from the file.** The tick labels are **vector glyph
+outlines, not text** — 21 filled paths left of the frame at `x ≈ 224.4`, 55 below it at
+`y ≈ 457.4`, with no corresponding text runs. `extract_text` returns only body text. So
+marker positions are exact in page space and **cannot be converted to `(Ra/Re, Nu)`
+without reading the tick labels visually.**
 
-This is the change that attacks `ε ≈ 0`.
+**2. Series attribution is not available either.** The legend is vector art too, so which
+class is upward, which is downward, and which if any are the literature comparisons
+(Brown & Gauvin, Sieder & Tate) cannot be read from the file.
 
-- Fit `Nu_forced(Re)` on gravity-off CFD at a set of `Re` values, and **evaluate only at
-  `Re` values held out of that fit**.
-- At an evaluation point the surrogate is then interpolating or extrapolating, so `ε` is a
-  genuine generalisation error rather than a residual against the very value that also
-  forms the materiality numerator.
-- **Record `ε` on both the fitted and the held-out conditions.** This is precisely the
-  number that was never recorded, and it decides how much of the coupling survives.
+The obvious check fails: the device slopes are 0.1245 (class A) and 0.3059 (class B), a
+ratio of **2.46**. If the two classes were this work's upward and downward series their
+exponent ratio would be `0.11868/0.08697 = 1.37`, or `0.73` the other way round. **Neither
+matches**, so at least one of the two classes is probably a literature series rather than
+this work's data. Attributing them by slope alone would be a guess.
 
-The split is by operating condition, not by row, so that no evaluation point's `Nu_F`
-appears in the fit.
+**Until both are resolved, the usable upward-flow point count is not 20. It is unknown,
+and bounded above by 40.**
 
-### 3. Truth is measured, so `d` is replaced by something unsigned
+### Figures 9 and 14 — not cleanly separable
 
-With measured truth, the `d` term becomes an experiment-versus-CFD difference carrying the
-experiment's own uncertainty, with no structural reason to share a sign with the
-materiality. That is the cleanest break in the chain, and the one that most changes what
-the metrics mean.
+Figure 14 (local Nusselt, flow situations) and Figure 9 (surface temperature, flow
+situations) also carry upward data. Their frames and markers could not be separated from
+vector glyph outlines by the same automated filter — Figure 9 returned 147 candidate paths
+across 36 shape classes, most of which are lettering. These need the same rendering step.
 
-### 4. Pre-specify what Step 4 left undefined
+### The three error quantities, kept separate
 
-- **The error scale.** Write it down. Step 4's `scale` was an undefined symbol and that is
-  why A2 is still an assumption.
-- **The label rule.** Single-condition or two-condition, decided explicitly; the
-  two-condition form needs per-point uncertainty, which may not exist.
-- **`θ` and `tol` separately**, with the sweep reported, since aligning them is part of
-  what produces the coupling.
+| Quantity | Value | What it is |
+|---|---|---|
+| **Measurement uncertainty** | **±1.27%** on Nu | The paper's reported global maximum, Moffat's method. A property of the experiment |
+| **Correlation-fit scatter** | **±8%** | The paper's stated accuracy of the data about the fitted correlation. A property of the fit |
+| **Plot extraction error** | **not yet quantified** | Axis calibration residual, marker-centroid versus plotted-value offset, and log-axis reading. A property of *our* recovery |
 
-### 5. Report accordingly
+These are three different things and none substitutes for another. **Vector coordinates
+make the extraction reproducible; they do not make the experimental values exact**, and
+they say nothing about the first two rows.
 
-- Metrics with their uncertainty, never as bare point estimates.
-- **Measurement-referenced** only where measured truth was used; **correlation-referenced**
-  everywhere else, in those words.
-- `ε` reported alongside, on fitted and held-out conditions.
-- If the evaluable set is too small to separate the method from its baselines, the outcome
-  is `INCONCLUSIVE` and that is a result.
+### Redistribution status of the extracted data
 
-### What this cannot fix
+**Not determined, and the extraction is therefore not committed to this repository.** The
+source is Taylor & Francis, closed access, no licence deposited. The raw uncalibrated
+coordinates live outside the repo pending a determination of the same kind made for the
+other sources in `data/REDISTRIBUTION.md`.
 
-The paper reports **no per-point uncertainty** — only a global maximum of ±1.27% on Nu. So
-a two-condition label rule still has no per-condition term to operate on. It can use the
-global figure, which is defensible and is a better position than the ±8% this project was
-carrying, but it is not the per-point uncertainty the abstract's rule implies.
+## Dependency trace: were these measurements already used?
 
-Note the consequence, because it cuts against the reconstruction rather than for it: at
-±1.27% against `tol = 0.10`, **the uncertainty condition almost never binds**, so the
-two-condition rule collapses to the single-condition rule in practice. Choosing measured
-truth does not rescue the second condition; it removes the need for it.
+**Yes — and not as an independent check.**
+
+The surviving writeup records the chain:
+
+> **Step 2.** …**Validated** the laminar CFD against Eq 13: Nu **8.155** vs **8.47**
+> (−3.7%, **within ±8%**) at Ri≈1.8. Wired the experimental anchor as
+> `truth_source="experimental"`; independence accepted…
+
+> **Step 3.** …**hardened the Nu extraction** to a reversal-aware mixing-cup bulk
+> temperature (the 1-D formula broke under outlet recirculation at high Ri). NB validates
+> at Ri=13 (Nu **9.17** vs Eq 13 **10.11**, −9.3%).
+
+So:
+
+1. **The CFD's acceptance criterion was agreement with Eq 13**, and the acceptance
+   threshold was **±8%** — the correlation's own scatter band.
+2. **Eq 13 is fitted through the Figure 16 points.**
+3. When the Nusselt extraction method failed, it was **changed and re-validated against
+   Eq 13**.
+
+The chain is therefore:
+
+```
+measured points  →  Eq 13  →  CFD accepted (and revised) against Eq 13
+                                    ↓
+                          g-off CFD  =  Nu_F
+                                    ↓
+                          surrogate fitted to Nu_F
+```
+
+**The measured points sit at the head of the chain that produced both the truth and,
+through the CFD, the surrogate.** Scoring that surrogate against those same points is
+therefore **not** an independent evaluation, and must not be described as one.
+
+**One thing to state precisely rather than overstate.** The Step-3 extraction change is
+recorded as fixing a known physical breakdown — the 1-D formula failing under outlet
+recirculation — not as a response to disagreement with Eq 13. Whether the disagreement or
+the physics drove the change is **not separately recorded**. What *is* recorded is that
+acceptance was judged against Eq 13 both before and after.
+
+## Proposed evaluable-point rule and error normalization
+
+*A proposal, not a decision, and deliberately not built to recover the old triple.*
+
+### It cannot be called independent, so it is not
+
+The dependency trace rules that out. Any evaluation using these points against a surrogate
+descended from a CFD that was accepted by comparison with Eq 13 is a **consistency check**,
+not an independent validation, and should carry that word.
+
+**Unless the dependency is broken first.** Which is the first proposal.
+
+### 1. Break the acceptance dependency, or declare it
+
+The CFD was accepted because it agreed with Eq 13 to within the correlation's own scatter
+band. To use the underlying points as truth, that has to change:
+
+- **Accept or reject the rebuilt CFD on criteria that do not reference Eq 13** — grid
+  convergence, residual behaviour, energy balance closure, sensitivity to the Nusselt
+  extraction method. Record the acceptance decision *before* comparing with any
+  correlation or measurement.
+- Then compare with Eq 13 and with the extracted points as a **reported outcome**, not as
+  a gate.
+
+If that is not done, the evaluation is still worth running, but it is a consistency check
+and the write-up says so.
+
+### 2. The evaluable-point rule
+
+A point is evaluable only if **all** of the following hold. Each is checkable before any
+label exists:
+
+1. It is an **upward/assisting** measurement — attribution confirmed from the rendered
+   legend, not inferred from slope.
+2. Its `(Ra/Re, Nu)` values are **calibrated** against tick labels read from the rendered
+   axes, with the calibration residual recorded.
+3. It is **not one of the nine overlapping pairs** unless the pair is separately confirmed
+   as two distinct runs rather than one marker drawn twice.
+4. Its operating condition is **inside the rebuilt CFD's own validity envelope**, judged on
+   the CFD's terms.
+5. The entrance length `L/D` at that point is **known**, since the paper spans four of them
+   and the NAFEMS case is one configuration.
+
+Points failing any criterion are recorded with the reason and excluded. **The count after
+this rule is the usable inventory**, and it is not yet known — it is bounded above by 40,
+and by 20 if only one marker class turns out to be this work's upward series.
+
+### 3. Error normalization
+
+The label rule needs a normalizer that does not depend on the quantity under test. Three
+quantities stay separate throughout, and are never merged into one band:
+
+| Term | Source | Applies to |
+|---|---|---|
+| `u_meas` | ±1.27%, paper's global maximum | The measured value |
+| `u_corr` | ±8%, correlation-fit scatter | Only when a correlation is the reference |
+| `u_extract` | To be quantified | Our recovery of the plotted value |
+
+Proposed form, to be locked before any outcome is examined:
+
+```
+gap_i      = |Nu_surrogate(x_i) − Nu_measured(x_i)|
+normalized = gap_i / Nu_measured(x_i)          # per-point, on the measured value
+u_total_i  = sqrt(u_meas² + u_extract²)        # u_corr enters ONLY for correlation-referenced runs
+```
+
+Report **both** the raw gap and the normalized gap. Normalising on the measured value
+rather than on a model output keeps the denominator outside the chain being tested.
+
+**What is not claimed here.** Whether the two-condition label rule — gap exceeding both the
+tolerance and the truth's uncertainty — reduces to the single-condition rule depends on
+`u_extract`, which is not yet quantified, and on the final tolerance. With `u_meas` alone
+at 1.27% the second condition would rarely bind, but `u_extract` is unknown and could be
+the larger term. **That determination is deferred until the extraction error is measured.**
+
+### 4. Surrogate fitting, held apart
+
+Unchanged from the earlier proposal and still necessary: fit `Nu_forced(Re)` on gravity-off
+CFD at one set of conditions, evaluate only at **held-out** conditions, and **report `ε` on
+both splits**. This attacks the `ε ≈ 0` term in the coupling. It does not by itself make
+the evaluation independent — the acceptance dependency in §1 is a separate problem needing
+a separate fix.
+
+### 5. What must be rendered before any of this
+
+Both blockers need the same thing: **the figure pages rendered as images**, so the tick
+labels and the legend can be read. `pdftoppm` is not installed here, and installing it is
+a system change I have not made. The alternative is that you read the two things off the
+figure directly:
+
+- **Figure 16's axis tick values**, x and y, at two or more ticks per axis.
+- **Figure 16's legend** — which marker shape is this work's upward series.
+
+Those two readings unblock calibration, attribution, and the usable point count.
 
 ## What is now decidable, and what is not
 
@@ -549,11 +685,11 @@ truth does not rescue the second condition; it removes the need for it.
    values are recoverable exactly from the vector figures. This remains the cleanest break
    in the coupling and the only route to an experimental-truth claim. It is now a build
    task rather than an access problem.
-3. **Which label rule — and note it is now entangled with the truth choice.** With
-   measured truth the uncertainty is ±1.27%, which against `tol = 0.10` almost never
-   binds, so the two-condition rule collapses to the single-condition one. With
-   correlation truth the relevant band is ±8%, comparable to the tolerance, so the second
-   condition binds often and changes labels. These are not two independent decisions.
+3. **Which label rule — and note it is entangled with the truth choice.** The three
+   uncertainty terms differ by an order of magnitude: `u_meas` 1.27%, `u_corr` 8%,
+   `u_extract` unquantified. Which of them enters the rule depends on what the truth is,
+   and whether the second condition binds at all depends on `u_extract`, which is not yet
+   measured. **No claim is made here that the rule collapses.**
 4. **What the evaluable rule says about coverage** — grid points far from any measured
    condition, now that extrapolation beyond the envelope is off the table.
 
