@@ -93,11 +93,28 @@ E ≡ (Nu_s − Nu_t)/Nu_t = d − m(1 + d) + ε
 With `|d|, |ε|` small against `m`, this is `E ≈ −m`, so **`|E| ≈ m`**.
 
 The label rule `|E| > tol` therefore becomes, to first order, **`m > tol`**. And the flag
-rule is `m ≥ θ`. With `θ = tol`, **every flagged point is labelled untrustworthy**, so
+rule is `m ≥ θ`. With `θ = tol`, a flagged point is labelled untrustworthy, so
 
-> **causal precision = 1.00 exactly, by construction, not by measurement.**
+> **causal precision near 1.00 is strongly favoured by the construction rather than
+> earned against the data.**
 
-#### The correction terms do not rescue it — they reinforce it
+**That is the claim, and it is narrower than "an identity".** An earlier version of this
+document said precision 1.00 was an identity. It is not established as one, and cannot be
+until three things are settled:
+
+1. **Step 4's error scale** is unknown (A2). The algebra above assumes normalisation by
+   the truth.
+2. **The surrogate fit residual `ε` is unrecorded** (A1). `ε ≈ 0` is what makes `|E| ≈ m`.
+3. **The behaviour of `d` across the grid is unknown** (A5). Two negative values at
+   `Ri ≥ 1.8` do not establish that `d < 0` everywhere, and the sign is what decides
+   whether the correction reinforces or cancels.
+
+What the algebra does establish is a **mechanism** by which the flag and the label are
+linked through a shared input, and a quantification of how large `ε` would have to be to
+overcome it under the observed `d`. That is enough to stop the performance table being
+read as independent evidence. It is not enough to call the number an identity.
+
+#### Where `d` was observed, it reinforces rather than rescues
 
 A causal false positive needs `m ≥ θ` **and** `|E| ≤ tol` at once. Since `−m(1+d)` is
 negative, a **negative** `d` pushes `|E|` further past the tolerance rather than back
@@ -108,8 +125,11 @@ inside it. Both validated points have `d < 0`:
 | ≈1.8 | 8.155 | 8.47 | **−0.037** |
 | 13 | 9.17 | 10.11 | **−0.093** |
 
-So on the evidence that exists, the discrepancy always pushes the same way as the
-materiality. Cancellation would need `d > 0`, which was never observed.
+**Two points, both at `Ri ≥ 1.8`.** They do not establish the sign of `d` across the
+grid, and the low-`Ri` corner — where materiality is smallest and the tolerance
+comparison is tightest — was never validated at all. Cancellation would need `d > 0`,
+which was not observed *at the two conditions that were checked*. That is the honest
+scope of the evidence.
 
 #### How large a fit residual would be needed to break it
 
@@ -133,27 +153,33 @@ well `Nu_forced(Re)` reproduced the g-off CFD.
 
 #### What this does and does not impugn
 
-- **Precision 1.00 is structural.** It follows from fitting the surrogate to the same
-  g-off CFD that supplies the materiality numerator, then aligning `θ` with `tol`. It is
-  not evidence that the method avoids false alarms on an independent problem.
-- **Recall 0.65 is not explained by this.** Recall is limited by the calibration-box
-  placement: points that are material but sit *inside* the `Gr*` box are never flagged.
-  That is a genuine empirical quantity and the coupling says nothing about it.
-- **The precision lift over naive (1.00 vs 0.73) has one structural half.** Naive flags on
-  box membership, which is not coupled to the error, so it can false-alarm. The design
-  document argued the precision lift escapes the circularity because it turns on box-edge
-  versus threshold. That is right about *naive's* side and wrong about *causal's*: the
-  1.00 is pinned by construction.
+- **Causal precision is favoured by the construction.** Fitting the surrogate to the same
+  g-off CFD that supplies the materiality numerator, then aligning `θ` with `tol`, links
+  the flag to the error. It is not evidence that the method avoids false alarms on an
+  independent problem.
+- **Recall 0.65 is not explained by this coupling** — it is limited by calibration-box
+  placement, and the algebra says nothing about it. **That does not make it evidence of
+  performance.** It was scored against correlation-based labels like every other number in
+  the table. "Unaffected by defect A" is not "sound"; these are two separate defects and
+  the second applies to every cell.
+- **Naive precision 0.73 is likewise not independent evidence.** Naive flags on box
+  membership, which is not coupled to the error — so the *lift* comparison is less
+  compromised than the absolute figure. But its labels came from the same correlation, so
+  0.73 is a correlation-referenced quantity too.
+- **The design document's defence was half right.** It argued the precision lift escapes
+  the circularity because it turns on box-edge versus threshold. That is right about the
+  coupling on *naive's* side, and wrong about *causal's*. Neither side escapes the
+  correlation referencing.
 
 #### Assumptions, and which are unverified
 
 | # | Assumption | Status |
 |---|---|---|
-| A1 | `ε` is small — the fit tracks the g-off CFD closely | **UNVERIFIED.** Never recorded anywhere |
-| A2 | The label scale is `Nu_t` (relative error) | **INFERRED** from `norm_strategy="per_row_truth"` on the *Step-3* substrate. Step 4's scale is not stated |
+| A1 | `ε` is small — the fit tracks the g-off CFD closely | **UNRECOVERABLE.** Traced: no coefficients, no R², no residual for `Nu_forced(Re)` survive anywhere. The only `Nu_forced` in the codebase is the Pohlhausen flat-plate closure used by unrelated loaders |
+| A2 | The label scale is `Nu_t` (relative error) | **PARTIALLY RECOVERED.** `_norm_for` with `per_row_truth` returns `row.cfd_truth`, and `normalize_row` computes `err = 1 − Nu_s/Nu_t` — exactly this assumption, and the only normalisation any surviving loader uses. But that is the *Step-3* substrate; Step 4's `scale` is written as an undefined symbol and **remains unknown** |
 | A3 | `θ = tol = 0.10` | Documented in the writeup |
 | A4 | `m = 1 − Nu_F/Nu_M`, truth = Eq 13, surrogate fitted to the same `Nu_F` | Documented in the step-4 design |
-| A5 | `d < 0` generally | Only **two** observations, both at `Ri ≥ 1.8` |
+| A5 | `d < 0` across the grid | **NOT ESTABLISHED.** Two observations, both at `Ri ≥ 1.8`. The low-`Ri` corner was never validated |
 
 A2 is the load-bearing one. If step 4 normalised by something other than the truth — an
 absolute tolerance, say — the algebra changes and the conclusion must be redone.
@@ -278,9 +304,13 @@ a legitimate experimental product with a stated ±8% band.
    Mohammed & Salman's own abstract reports `Re = 400–1600` and `Gr = 1.1e5–7.4e6`, which
    **matches** the stated step-4 grid bounds. The claim is withdrawn.
 
-   I could not verify those ranges independently: the paper is closed access, the
-   publisher page returns 403, and neither OSTI nor Semantic Scholar carries the abstract.
-   The figures above come from the maintainer reading the abstract directly.
+   **Source for the correction:** the authors' university record at KFUPM,
+   <https://pure.kfupm.edu.sa/en/publications/heat-transfer-measurements-of-mixed-convection-for-upward-and-dow/>,
+   which gives *Experimental Heat Transfer* 21(1):1–23 (2008), DOI
+   `10.1080/08916150701647801`, an aluminium cylinder of 30 mm inside diameter with a
+   900 mm heated length (L/D = 30), `Re = 400–1600`, `Gr = 1.1e5–7.4e6`, `Ri ≈ 0.1–30`,
+   and results "correlated empirically as Log Nu against Log Ra/Re" for both flow
+   directions.
 
    **What the envelope match does and does not establish.** It establishes that the grid
    lies inside the range the experiments spanned. It does **not** establish measurement
@@ -296,6 +326,107 @@ a legitimate experimental product with a stated ±8% band.
    "Eq13" in this repository.
 
 ---
+
+## Obtaining the paper, and what it would yield
+
+**No legitimate open copy exists.** OpenAlex lists exactly one location — the publisher —
+`is_oa: false`, `oa_status: closed`. The KFUPM record has an "Access to Document" section
+with no PDF. Unpaywall, OSTI and Semantic Scholar have nothing. The paper is cited 6 times.
+
+Routes that remain, none of which I can execute:
+
+| Route | Notes |
+|---|---|
+| Institutional subscription | Taylor & Francis. The fastest route if your institution subscribes |
+| Interlibrary loan | Standard, slow, free at most institutions |
+| Direct author request | H. A. Mohammed is a prolific, contactable author. Ordinary academic practice, and it could also yield the underlying data rather than only the paper |
+| Publisher purchase | Article-level purchase from T&F |
+
+**What the record says the paper contains**, which bounds what an inventory could find:
+
+- Measured **surface temperature distribution** and **local and average Nusselt number
+  distribution**, for both flow directions.
+- `Re = 400–1600`, `Gr = 1.1e5–7.4e6`, `Ri ≈ 0.1–30`.
+- Results "correlated empirically as Log Nu against Log Ra/Re" — the correlation is a fit
+  *through* these distributions.
+- 23 pages, which is long enough to carry data tables, but the record does not say whether
+  it does.
+
+So pointwise values plausibly exist as **figures** (distributions along the tube), and
+possibly as tables. **Whether per-point uncertainty is reported at all is unknown** — the
+abstract states no uncertainty, and the only figure anywhere in this project's record is
+the ±8% band, which is a property of the correlation.
+
+**Until the paper is in hand, the inventory stands at zero measured points**, and no
+experimental-truth claim can be made.
+
+## A proposed evaluation against independent measured points
+
+Offered as a design, not a decision. It is written to break the coupling, not to recover
+the old numbers.
+
+### The inversion to keep in view
+
+Given the mechanism derived above, **reproducing precision ≈ 1.00 would now be a warning
+sign rather than a success.** It would be consistent with the coupling having survived the
+rebuild. A design that targets the old triple is therefore targeting the wrong thing, and
+this proposal deliberately does not.
+
+### 1. The evaluable set is the measured conditions, and only those
+
+Truth comes from Mohammed & Salman's reported values at the conditions they actually ran.
+Grid points with no measurement are **not evaluable**, however comfortably they sit inside
+the `(Re, Gr)` envelope. Envelope membership is not coverage.
+
+This is likely to be a small set. That is a fact about the available evidence, and the
+measurement inventory exists to establish it before any criterion is fixed.
+
+### 2. The surrogate is fitted on data disjoint from its evaluation points
+
+This is the change that attacks `ε ≈ 0`.
+
+- Fit `Nu_forced(Re)` on gravity-off CFD at a set of `Re` values, and **evaluate only at
+  `Re` values held out of that fit**.
+- At an evaluation point the surrogate is then interpolating or extrapolating, so `ε` is a
+  genuine generalisation error rather than a residual against the very value that also
+  forms the materiality numerator.
+- **Record `ε` on both the fitted and the held-out conditions.** This is precisely the
+  number that was never recorded, and it decides how much of the coupling survives.
+
+The split is by operating condition, not by row, so that no evaluation point's `Nu_F`
+appears in the fit.
+
+### 3. Truth is measured, so `d` is replaced by something unsigned
+
+With measured truth, the `d` term becomes an experiment-versus-CFD difference carrying the
+experiment's own uncertainty, with no structural reason to share a sign with the
+materiality. That is the cleanest break in the chain, and the one that most changes what
+the metrics mean.
+
+### 4. Pre-specify what Step 4 left undefined
+
+- **The error scale.** Write it down. Step 4's `scale` was an undefined symbol and that is
+  why A2 is still an assumption.
+- **The label rule.** Single-condition or two-condition, decided explicitly; the
+  two-condition form needs per-point uncertainty, which may not exist.
+- **`θ` and `tol` separately**, with the sweep reported, since aligning them is part of
+  what produces the coupling.
+
+### 5. Report accordingly
+
+- Metrics with their uncertainty, never as bare point estimates.
+- **Measurement-referenced** only where measured truth was used; **correlation-referenced**
+  everywhere else, in those words.
+- `ε` reported alongside, on fitted and held-out conditions.
+- If the evaluable set is too small to separate the method from its baselines, the outcome
+  is `INCONCLUSIVE` and that is a result.
+
+### What this cannot fix
+
+If the paper yields no per-point uncertainty, the two-condition label rule has nothing to
+operate on and the experimental-truth framing stays unavailable regardless of how the
+surrogate is fitted. The fitting split addresses the coupling; it does not manufacture
+uncertainty that was never published.
 
 ## What is now decidable, and what is not
 

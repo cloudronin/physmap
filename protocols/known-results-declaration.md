@@ -50,6 +50,38 @@ The original study's inputs are gone. Specifically absent at the time of writing
 
 Only the abstract's figures (as raster images) and its prose survive.
 
+## How these numbers were produced — established after this declaration was written
+
+Two properties of the original construction were traced from surviving artifacts and
+recorded here, because they change what the table above can be read as saying.
+
+**The table is correlation-referenced.** No pointwise measurement was used. The truth was
+Mohammed & Salman's assisting-flow correlation `Nu = 3.7151 (Ra/Re)^0.11868`, evaluated
+densely across the grid. Every cell in the table — including recall and including the
+baselines' figures — was scored against that correlation, not against their measurements.
+The numbers are to be described as **correlation-referenced** wherever they appear.
+
+**The table may be strongly favoured by the test construction.** The surrogate was a
+forced-convection closure fitted to the gravity-off CFD, and the materiality numerator
+`Nu_F` is that same gravity-off CFD. The relative surrogate error then satisfies
+
+    E = d − m(1 + d) + ε
+
+so that for small `d` and `ε` the label rule `|E| > tol` approaches the flag condition
+`m ≥ θ`, and with `θ ≈ tol` a flagged point is labelled untrustworthy.
+
+**This is a mechanism, not a proof.** It is conditional on three things that are not
+established: Step 4's error scale (unknown), the surrogate fit residual `ε` (unrecoverable
+— no coefficients, R² or residual survive), and the behaviour of `d` across the grid (two
+observations, both at `Ri ≥ 1.8`, both negative; the low-`Ri` corner was never validated).
+
+The consequence for the reconstruction is an inversion worth stating plainly:
+**recovering precision ≈ 1.00 would be evidence that the coupling survived, not evidence
+that the method works.**
+
+Full derivation, assumptions with their recovery status, and the conditions under which
+false positives remain possible: `docs/findings/surrogate-and-truth-provenance.md`.
+
 ## Consequence
 
 This is a **reconstruction, not a reproduction**. It will produce its own numbers under a

@@ -130,12 +130,44 @@ CFD working tree, the per-point ablation pairs, the evaluated grid, the surrogat
 predictions and the experimental-truth table. What survives is the abstract's figures and
 its prose.
 
+### Two things now known about how that table was produced
+
+Both were traced from surviving artifacts. Both change what the slide may claim, and both
+are better volunteered than discovered by a questioner.
+
+**One — the table is correlation-referenced.** No pointwise measurement was used. The
+truth was Mohammed & Salman's correlation, evaluated densely. **Every** cell was scored
+against it, including recall and including the baselines. Say *correlation-referenced*,
+not *experimental*.
+
+**Two — the table may be strongly favoured by the test construction.** The surrogate was a
+forced-convection closure fitted to the gravity-off CFD, and the materiality numerator is
+that same gravity-off CFD. The relative surrogate error then works out as
+
+```
+E = d − m(1+d) + ε
+```
+
+so for small `d` and `ε` the label rule `|E| > tol` approaches the flag condition
+`m ≥ θ` — and with `θ ≈ tol`, a flagged point is labelled untrustworthy.
+
+**Do not overclaim this either.** It is a mechanism, not a proof. It rests on Step 4's
+error scale (unknown), the surrogate fit residual (unrecoverable), and the sign of `d`
+across the grid (two observations, both at high `Ri`). If asked how confident you are:
+confident there is a coupling, not confident it fully explains the number.
+
+**The inversion is the memorable part.** Given the mechanism, **a rebuild that recovers
+precision ≈ 1.00 would be evidence the coupling survived, not evidence the method works.**
+That is why the reconstruction is not aimed at the old numbers.
+
 ### The label that goes on the slide
 
 **Right now, and for the talk as scheduled:**
 
-> Historical result of the original study. The public release does not reproduce these
-> numbers. A reconstruction is under way under a locked protocol.
+> Historical, **correlation-referenced** results of the original study, scored against an
+> experimental correlation rather than pointwise measurements, and possibly strongly
+> favoured by the test construction. The public release does not reproduce them. A
+> reconstruction is under way under a locked protocol.
 
 **Not** "not yet reproduced", which implies it is a matter of time.
 
@@ -171,7 +203,10 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "PhysMAP achieves precision 1.00, recall 0.65, F1 0.79." | "The original study reported 1.00, 0.65 and 0.79. The public release does not reproduce them." |
 | "The benchmark you just saw demonstrates the causal method." | "What you just saw is observability. The causal method is a different claim, and it is on the next slide." |
 | "This reproduces the results in the abstract." | "This is a reconstruction. The best it can reach is independent corroboration." |
-| "We validated against experimental truth." | "Whether that truth is experimental or a closure-style correlation is unresolved. That is why no performance claim ships." |
+| "We validated against experimental truth." | "The truth was their experimental correlation, evaluated densely. No pointwise measurement was used. It is correlation-referenced." |
+| "Recall 0.65 is unaffected by the coupling, so it's the solid number." | "It is unaffected by that coupling and still correlation-referenced. Two different defects; the second applies to every cell." |
+| "The naive baseline's 0.73 is real performance." | "It is a correlation-referenced number too. The comparison is less compromised than the absolute figure; the figure is not independent evidence." |
+| "If the rebuild gets 1.00 again, that confirms it." | "It would suggest the coupling survived. That is why we are not aiming at the old numbers." |
 | "The seven vehicles validate the materiality screen." | "The seven vehicles are a closure-observability benchmark. They say nothing about materiality." |
 | "There's no mixed-convection vertical-pipe case in the benchmark." | "jin_sco2_buoyancy is one. It measures observability of the buoyancy parameter, not materiality." |
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
@@ -279,3 +314,5 @@ file carries its own redistribution determination.
 - [ ] Terminal capture of every demo saved as a fallback slide
 - [ ] Every slide bearing 1.00 / 0.65 / 0.79 carries the historical label
 - [ ] Read the "sentences not to say" table once more, out loud
+- [ ] You can say "correlation-referenced" without hesitating, and explain in one sentence
+      why recovering 1.00 would be a bad sign rather than a good one

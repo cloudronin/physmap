@@ -125,5 +125,26 @@
     ],
     "consistent_with": "known-results-declaration.md; neither may change without the other",
     "outcome": "NOT_ATTEMPTED"
+  },
+  "original_construction": {
+    "traced_from": "docs/findings/surrogate-and-truth-provenance.md",
+    "surrogate": "forced-convection closure Nu_forced(Re) fitted to the gravity-off CFD; implementing code did not survive",
+    "truth": "Mohammed & Salman assisting-flow correlation Eq 13, evaluated densely",
+    "metrics_referenced_against": "correlation",
+    "shared_input_coupling": {
+      "relation": "E = d - m(1+d) + eps, with E the relative surrogate error and m the materiality",
+      "effect": "for small d and eps the label rule |E| > tol approaches the flag condition m >= theta; with theta ~= tol a flagged point is labelled untrustworthy",
+      "status": "mechanism established; NOT established as an identity",
+      "conditional_on": [
+        "step 4 error scale: UNKNOWN (scale is an undefined symbol in the surviving design)",
+        "surrogate fit residual eps: UNRECOVERABLE (no coefficients, R2 or residual survive)",
+        "sign of d across the grid: NOT ESTABLISHED (two observations, both Ri >= 1.8)"
+      ],
+      "false_positives_remain_possible_when": "eps is positive and large enough to offset d - m(1+d); >= +3.3% just above theta under the observed d, rising past +20% at m = 0.26",
+      "inversion": "recovering precision ~= 1.00 in the reconstruction would be evidence the coupling survived, not evidence the method works"
+    },
+    "grid_bounds_source": "https://pure.kfupm.edu.sa/en/publications/heat-transfer-measurements-of-mixed-convection-for-upward-and-dow/ -- Re 400-1600, Gr 1.1e5-7.4e6; matches the step-4 grid. An earlier overrun claim was withdrawn: it used the companion ECM paper's ranges by mistake",
+    "envelope_vs_coverage": "grid bounds lying inside the experimental range does NOT establish measurement coverage at grid points; the evaluable rule must address coverage",
+    "measured_points_in_hand": 0
   }
 }
