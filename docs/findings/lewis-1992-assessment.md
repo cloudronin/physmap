@@ -221,6 +221,12 @@ thing it had to do:
 **Seven stations, x/d 9.92 to 135.84, are grid-converged to better than 0.7 %.** The three
 entrance stations and the outlet station are not.
 
+**This is a statement about the solver, not about the physics.** Grid convergence says the
+discretisation no longer moves the answer. It says nothing about whether a steady laminar
+model represents the experiment at those stations — and the section below argues it does
+not. A converged station is a station where the model's own answer is trustworthy as *the
+model's answer*. It is not a validated prediction.
+
 The stations the rebuild cannot resolve and the stations Lewis disowns are **almost the
 same set**. x/d 0.31, 0.85 and 159.33 appear in both lists, for unrelated reasons — mesh
 sensitivity on one side, axial wall conduction on the other. That agreement was not
@@ -241,9 +247,16 @@ the buoyancy-distorted velocity profile, citing Barozzi et al (1984), and notes 
 Somers (1962) measured up to 30 % increases under comparable nonlaminar conditions.
 
 So a steady laminar solver under-predicting downstream Nu by up to 23 % is the **expected**
-outcome, not a defect in the rebuild. It is also a hard ceiling: **no amount of mesh
-refinement will close this gap**, because the missing physics is unsteady transition, and
-the grid study above shows those stations are already converged.
+outcome. It is also a hard ceiling: **no amount of mesh refinement will close this gap**,
+because the missing physics is unsteady transition, and the grid study above shows those
+stations are already converged.
+
+Expected is not the same as acceptable, and it is worth being blunt about which this is.
+The rebuild is not defective — it solves the equations it was given, correctly, on a
+converged grid. But **the equations it was given are the wrong ones for this part of the
+tube.** A model that is missing the mechanism driving the measurement is not validated
+there, however cleanly it converges. Lewis's account makes the gap *explicable*; it does
+not make it *small*, and it does not make these stations usable as agreement.
 
 ### One real defect found and fixed
 
@@ -273,15 +286,22 @@ described above. Energy closure on the fine mesh is **+0.65 %**.
 
 ## Still not an evaluable set
 
-Nothing above licenses a performance metric. Three things are still missing, and the third
-is the one that bites:
+Nothing above licenses a performance metric. Three things are missing, and no ordering of
+them is meant — each blocks on its own:
 
-1. a redistribution determination (below);
-2. per-point measurement uncertainty (below);
-3. **a reason to believe the remaining stations are independent evidence.** The seven
-   grid-converged stations come from **one** operating condition. One run is one case, not
-   seven. Precision and recall over twelve axial positions of a single test would be
-   counting the same experiment twelve times.
+1. **Model adequacy over the comparison band.** A steady laminar solver is missing the
+   transition that drives the measured Nu downstream. That is a physics gap, not a mesh
+   gap, and grid convergence does not touch it. Where the model lacks the mechanism, the
+   station is not a validated prediction no matter how stable the number is.
+2. **Per-point measurement uncertainty** (below). Not reported by the source; constructible
+   by propagation, but that construction is a modelling choice and belongs in the locked
+   protocol.
+3. **Independent cases.** The seven grid-converged stations come from **one** operating
+   condition. One run is one case, not seven. Precision and recall over twelve axial
+   positions of a single test would be counting the same experiment twelve times.
+
+A redistribution determination is also outstanding, but that is a rights question, not an
+evidence one, and it does not gate the analysis.
 
 ## What uncertainty can actually be reconstructed
 
