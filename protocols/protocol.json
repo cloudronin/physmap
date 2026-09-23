@@ -146,5 +146,40 @@
     "grid_bounds_source": "https://pure.kfupm.edu.sa/en/publications/heat-transfer-measurements-of-mixed-convection-for-upward-and-dow/ -- Re 400-1600, Gr 1.1e5-7.4e6; matches the step-4 grid. An earlier overrun claim was withdrawn: it used the companion ECM paper's ranges by mistake",
     "envelope_vs_coverage": "grid bounds lying inside the experimental range does NOT establish measurement coverage at grid points; the evaluable rule must address coverage",
     "measured_points_in_hand": 0
+  },
+  "source_paper": {
+    "citation": "Mohammed, H. A. & Salman, Y. K. (2008). Experimental Heat Transfer 21(1):1-23",
+    "doi": "10.1080/08916150701647801",
+    "read_in_full": true,
+    "data_tables": 0,
+    "test_runs": 88,
+    "test_run_coverage": "4 entrance lengths (L/D 20/40/60/80) x upward and downward",
+    "surface_thermocouples": 35,
+    "measurement_uncertainty": {
+      "method": "Moffat",
+      "nusselt_number_pct": 1.27,
+      "reynolds_number_pct": 1.35,
+      "rayleigh_number_pct": 1.13,
+      "per_point": false,
+      "note": "single global maximum; no per-condition band is reported"
+    },
+    "correlation_accuracy_pct": 8.0,
+    "CORRECTION": "the +/-8% figure this project carried as experimental uncertainty is the scatter of the data about the fitted correlation (paper: 'the overall accuracy of heat transfer data in these correlations ... of the order of +/-8%, as shown in Figure 16'). The MEASUREMENT uncertainty on Nu is +/-1.27%. Do not use 8% as measurement uncertainty.",
+    "eq13_upward": "Nu = 3.7151 (Ra/Re)^0.11868",
+    "eq14_downward": "Nu = 3.6254 (Ra/Re)^0.08697",
+    "individual_values": {
+      "in_tables": false,
+      "in_figures": true,
+      "upward_flow_figures": [
+        9,
+        14,
+        16
+      ],
+      "figure_16": "Log Nu vs Log Ra/Re, Re 400-1600, Gr 1.1e5-7.4e6 -- the average-Nu data the correlation was fitted through",
+      "graphics_type": "vector",
+      "recovery_method": "exact extraction of marker coordinates from the PDF content stream; axis calibration is the only error source. NOT visual digitisation.",
+      "extracted_yet": false
+    },
+    "label_rule_entanglement": "truth choice and label rule are coupled: measured truth gives 1.27% uncertainty, which against tol=0.10 almost never binds so the two-condition rule collapses to the single-condition one; correlation truth gives an 8% band comparable to the tolerance, which binds often and changes labels"
   }
 }

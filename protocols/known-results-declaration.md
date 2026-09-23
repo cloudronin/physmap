@@ -50,6 +50,32 @@ The original study's inputs are gone. Specifically absent at the time of writing
 
 Only the abstract's figures (as raster images) and its prose survive.
 
+## The source paper, read — and one figure corrected
+
+Mohammed & Salman (2008) has since been obtained and read in full. Two facts change what
+can be written into the protocol.
+
+**The measurement uncertainty on Nusselt number is ±1.27%, not ±8%.** The paper reports
+±1.27% following Moffat's method, combined from heater power (±0.13%), temperature
+difference (±0.21%), heat transfer rate (±1.1%), surface area (±1.2%) and air flow rate
+(±0.01%); also ±1.35% on Re and ±1.13% on Ra. The **±8%** this project carried is the
+paper's stated *"overall accuracy of heat transfer data in these correlations"* — the
+scatter of the data about the fit, a property of the correlation, not of the measurement.
+
+**This entangles the truth choice with the label rule.** The abstract's rule needs the gap
+to exceed both the tolerance and the truth's own uncertainty. Against `tol = 0.10`, a
+measured truth carries ±1.27%, which almost never binds — so the two-condition rule
+collapses to the single-condition one. A correlation truth carries ±8%, comparable to the
+tolerance, so the second condition binds often and changes labels. They are not
+independent decisions.
+
+**Individual values are recoverable but not yet recovered.** No data tables exist: 88 test
+runs across four entrance lengths and both flow directions, all reported in 16 figures.
+The figures are vector graphics, so marker coordinates are embedded exactly and recovery
+is extraction rather than visual digitisation. Upward flow — the case Eq 13 describes — is
+the thinner half of the paper, carried by Figures 9, 14 and 16. Per-point uncertainty does
+not exist; only the global ±1.27%.
+
 ## How these numbers were produced — established after this declaration was written
 
 Two properties of the original construction were traced from surviving artifacts and

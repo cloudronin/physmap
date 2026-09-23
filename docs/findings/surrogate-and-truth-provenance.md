@@ -327,38 +327,104 @@ a legitimate experimental product with a stated ±8% band.
 
 ---
 
-## Obtaining the paper, and what it would yield
+## The paper, read — inventory of what it actually reports
 
-**No legitimate open copy exists.** OpenAlex lists exactly one location — the publisher —
-`is_oa: false`, `oa_status: closed`. The KFUPM record has an "Access to Document" section
-with no PDF. Unpaywall, OSTI and Semantic Scholar have nothing. The paper is cited 6 times.
+*Mohammed, H. A. & Salman, Y. K. (2008), Experimental Heat Transfer 21(1):1–23,
+DOI `10.1080/08916150701647801`. 24 pages. Read in full.*
 
-Routes that remain, none of which I can execute:
+### The correction that matters most: ±8% is not the measurement uncertainty
 
-| Route | Notes |
+This project has carried **±8%** as Mohammed & Salman's experimental uncertainty. **It is
+not.** The paper is explicit, and the two quantities are different things:
+
+> "…the overall accuracy of heat transfer **data in these correlations** is expected to be
+> of the order of ±8%, **as shown in Figure 16**."
+
+±8% is the **scatter of the data about the fitted correlation**. It is a property of the
+fit.
+
+The measurement uncertainty is reported separately, following Moffat's method, and it is
+far tighter:
+
+| Quantity | Uncertainty |
 |---|---|
-| Institutional subscription | Taylor & Francis. The fastest route if your institution subscribes |
-| Interlibrary loan | Standard, slow, free at most institutions |
-| Direct author request | H. A. Mohammed is a prolific, contactable author. Ordinary academic practice, and it could also yield the underlying data rather than only the paper |
-| Publisher purchase | Article-level purchase from T&F |
+| Heater input power | ±0.13% |
+| Temperature difference `Ts − Ta` | ±0.21% |
+| Heat transfer rate | ±1.1% |
+| Cylinder surface area | ±1.2% |
+| Air flow rate | ±0.01% |
+| **Nusselt number (combined maximum)** | **±1.27%** |
+| Reynolds number | ±1.35% |
+| Rayleigh number | ±1.13% |
 
-**What the record says the paper contains**, which bounds what an inventory could find:
+**A factor of about six**, and the two are not interchangeable.
 
-- Measured **surface temperature distribution** and **local and average Nusselt number
-  distribution**, for both flow directions.
-- `Re = 400–1600`, `Gr = 1.1e5–7.4e6`, `Ri ≈ 0.1–30`.
-- Results "correlated empirically as Log Nu against Log Ra/Re" — the correlation is a fit
-  *through* these distributions.
-- 23 pages, which is long enough to carry data tables, but the record does not say whether
-  it does.
+**This decides whether the label rule's second condition does any work.** The abstract's
+rule requires the gap to exceed both the tolerance *and* the truth's own uncertainty. With
+`tol = 0.10`:
 
-So pointwise values plausibly exist as **figures** (distributions along the tube), and
-possibly as tables. **Whether per-point uncertainty is reported at all is unknown** — the
-abstract states no uncertainty, and the only figure anywhere in this project's record is
-the ±8% band, which is a property of the correlation.
+- **truth = measurement** → uncertainty 1.27%, far below the tolerance, so the second
+  condition almost never binds and the rule collapses to the single-condition form;
+- **truth = correlation** → the relevant band is 8%, comparable to the tolerance, so the
+  second condition binds often and materially changes the labels.
 
-**Until the paper is in hand, the inventory stands at zero measured points**, and no
-experimental-truth claim can be made.
+So the truth choice and the label-rule choice are not independent decisions.
+
+### What the paper contains
+
+| | |
+|---|---|
+| **Data tables** | **None.** 16 figures, zero tables of measured values |
+| **Test runs** | **88 total**, covering four entrance-section lengths (L/D = 20, 40, 60, 80) for **both** upward and downward flow |
+| **Surface thermocouples** | 35 along the cylinder, positions in Figure 3 |
+| **Bulk air temperature** | One thermocouple at inlet, two at the exit mixing chamber; local bulk temperature by straight-line interpolation between them |
+| **Steady state** | Declared when no thermocouple drifted more than a stated threshold |
+| **Correlations** | Eq 13 `Nu = 3.7151 (Ra/Re)^0.11868` **upward** — confirmed as the one used as truth. Eq 14 `Nu = 3.6254 (Ra/Re)^0.08697` downward |
+
+### Where the individual values live
+
+All of them are in figures. Coverage is uneven, and **the upward/assisting case — the one
+Eq 13 describes and the one the NAFEMS case uses — is the thinner half of the paper.**
+Most of the detailed sweeps are downward flow or inclination studies.
+
+| Figure | Content | Upward flow? |
+|---|---|---|
+| 5, 6 | Surface temperature vs axial distance | No — downward |
+| 7, 8 | Surface temperature, inclination angles | Inclination study |
+| 9 | Surface temperature, **different flow situations** | **Yes**, among others |
+| 10, 11 | Local Nusselt vs dimensionless axial distance | No — downward |
+| 12, 13 | Local Nusselt, inclination angles | Inclination study |
+| 14 | Local Nusselt, **different flow situations** | **Yes**, among others |
+| 15 | Average Nusselt vs axial distance, Re 400 | No — downward |
+| **16** | **Log Nu vs Log Ra/Re**, Re 400–1600, Gr 1.1e5–7.4e6, with literature and Sieder–Tate comparisons | **Yes** — this is the average-Nu data the correlation was fitted through |
+
+88 runs across four lengths and two directions is roughly 11 per combination. The directly
+relevant count for a single upward configuration is of that order, not 88.
+
+### The figures are vector, which changes what recovery means
+
+The figure pages carry thousands of path-construction operators (`m`, `l`, `c`) and no
+meaningful raster images — the embedded bitmaps are 67-byte stubs. **The plots are vector
+graphics, so the plotted marker coordinates are in the file exactly.**
+
+Recovery is therefore *extraction from the content stream*, not visual digitisation. The
+only error introduced is axis calibration, not marker reading. That is a materially better
+provenance than the ±18% read uncertainty this project has had to accept elsewhere, and it
+should be done that way rather than with a screen digitiser.
+
+**Not attempted here.** Extraction is a build step, and doing it now would mean producing
+evaluation inputs before the protocol is locked.
+
+### Inventory, stated plainly
+
+- **Individual measured values: recoverable, not yet recovered.** They exist as vector
+  coordinates in Figures 9, 14 and 16 for the upward case.
+- **Per-point uncertainty: does not exist.** The paper reports a single global maximum
+  (±1.27% on Nu), not a per-condition band. The two-condition label rule still has no
+  per-point term to operate on — but it now has a defensible *global* one, which is a
+  different and better position than before.
+- **The ±8% figure should be removed** wherever this project uses it as measurement
+  uncertainty.
 
 ## A proposed evaluation against independent measured points
 
@@ -423,14 +489,33 @@ the metrics mean.
 
 ### What this cannot fix
 
-If the paper yields no per-point uncertainty, the two-condition label rule has nothing to
-operate on and the experimental-truth framing stays unavailable regardless of how the
-surrogate is fitted. The fitting split addresses the coupling; it does not manufacture
-uncertainty that was never published.
+The paper reports **no per-point uncertainty** — only a global maximum of ±1.27% on Nu. So
+a two-condition label rule still has no per-condition term to operate on. It can use the
+global figure, which is defensible and is a better position than the ±8% this project was
+carrying, but it is not the per-point uncertainty the abstract's rule implies.
+
+Note the consequence, because it cuts against the reconstruction rather than for it: at
+±1.27% against `tol = 0.10`, **the uncertainty condition almost never binds**, so the
+two-condition rule collapses to the single-condition rule in practice. Choosing measured
+truth does not rescue the second condition; it removes the need for it.
 
 ## What is now decidable, and what is not
 
-**Established by these checks:**
+**Established by reading the paper:**
+
+- **±8% is the correlation's fit scatter, not the measurement uncertainty.** The measured
+  uncertainty on Nu is **±1.27%** (Moffat's method). The project has been using the wrong
+  number, by a factor of about six, and it should be removed wherever it stands in for
+  experimental uncertainty.
+- **No data tables exist.** 88 test runs across four entrance lengths and both flow
+  directions; all values live in 16 figures.
+- **Individual values are recoverable exactly.** The figures are vector, so the marker
+  coordinates are embedded — extraction, not visual digitisation.
+- **Per-point uncertainty does not exist.** Only the global ±1.27%.
+- **Upward-flow coverage is the thinner half of the paper**; Figures 9, 14 and 16 carry it.
+- **Eq 13 confirmed** as the upward correlation used as truth.
+
+**Established by the coupling check:**
 
 - **Causal precision 1.00 is structural**, under assumptions A1–A5. It follows from
   fitting the surrogate to the same gravity-off CFD that supplies the materiality
@@ -447,6 +532,8 @@ uncertainty that was never published.
 
 - The surrogate fit residual `ε`. Not recorded. Decides whether precision was pinned
   exactly or merely nearly.
+- How many upward-flow points Figure 16 actually plots, and at which conditions. Counting
+  them is part of the measurement inventory, not of this trace.
 - The step-4 label scale. A2 is inferred from the Step-3 substrate, not from step 4.
 - Whether pointwise measurements exist in the paper at all — it is closed access, 23
   pages, and no open copy was found.
@@ -458,11 +545,15 @@ uncertainty that was never published.
 1. **What claim the causal result supports.** If precision 1.00 is structural, the honest
    headline is not "no false alarms" — it is the causal-versus-naive comparison, where
    naive's 0.73 is uncoupled and therefore real. That is a smaller claim and a sounder one.
-2. **Whether to pursue pointwise measurements.** This is the cleanest break in the
-   coupling and the only route to an experimental-truth claim. It needs a closed-access
-   paper.
-3. **Which label rule.** Single-condition, as the surviving design states, or the
-   two-condition rule the abstract describes.
+2. **Whether to extract the pointwise measurements.** The paper is now in hand and the
+   values are recoverable exactly from the vector figures. This remains the cleanest break
+   in the coupling and the only route to an experimental-truth claim. It is now a build
+   task rather than an access problem.
+3. **Which label rule — and note it is now entangled with the truth choice.** With
+   measured truth the uncertainty is ±1.27%, which against `tol = 0.10` almost never
+   binds, so the two-condition rule collapses to the single-condition one. With
+   correlation truth the relevant band is ±8%, comparable to the tolerance, so the second
+   condition binds often and changes labels. These are not two independent decisions.
 4. **What the evaluable rule says about coverage** — grid points far from any measured
    condition, now that extrapolation beyond the envelope is off the table.
 

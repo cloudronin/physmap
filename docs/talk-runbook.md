@@ -160,6 +160,18 @@ confident there is a coupling, not confident it fully explains the number.
 precision ≈ 1.00 would be evidence the coupling survived, not evidence the method works.**
 That is why the reconstruction is not aimed at the old numbers.
 
+### If anyone asks about the experimental uncertainty
+
+The paper reports **±1.27%** on Nusselt number, following Moffat's method. Not ±8%.
+
+The ±8% figure — which this project carried for a while, wrongly — is the paper's stated
+accuracy of the **data about the fitted correlation**. A property of the fit, not of the
+measurement. Six times larger, and a different quantity.
+
+Worth knowing because it is the kind of number a heat-transfer audience will have opinions
+about, and because it decides whether the label rule's uncertainty condition does anything
+at all: at 1.27% against a 10% tolerance, it almost never binds.
+
 ### The label that goes on the slide
 
 **Right now, and for the talk as scheduled:**
