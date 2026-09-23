@@ -716,6 +716,113 @@ says the implementation is now sound, not that anything has been validated. No m
 computed from any of it, and the boundary at x/d ≈ 102 found in 13A remains a finding about
 the experiment, never an eligibility rule.
 
+## Matched ablation, and the causal path end to end
+
+`--gravity off` on the corrected variable-property setup. A recursive diff of the two case
+directories touches exactly two files: `constant/g`, and the flag recording it in
+`case.json`. Mesh, property polynomials, boundary conditions, schemes, solver settings,
+iteration count, QoI and extraction code path are identical.
+
+**Both halves converge and close energy.** Gravity on: `h` 4.2e-5, `p_rgh` 3.3e-5, energy
+−0.05 %. Gravity off: `h` 7.0e-8, `p_rgh` 1.3e-7, energy +0.11 %. Zero reversed cells in the
+heated section of either. The ablated half converges far harder, which is what removing the
+instability should do.
+
+The pair runs 3000 iterations, not 25 000. With gravity off, GAMG hit its 1000-sweep cap
+every step while residuals sat at 1e-6 — 4.8 hours of grinding on a solved problem. Both
+halves were rerun at a matched 3000, and the gravity-on half at 3000 reproduces the
+25 000-iteration answer to **within 0.063 %** at every station.
+
+### Materiality is position-dependent
+
+| x/d | Nu full | Nu ablated | materiality | fires at θ = 0.10 |
+|---|---|---|---|---|
+| 0.31 | 60.359 | 60.287 | 0.0012 | no |
+| 0.85 | 34.007 | 33.908 | 0.0029 | no |
+| 2.45 | 23.951 | 23.802 | 0.0062 | no |
+| 5.65 | 17.911 | 17.690 | 0.0124 | no |
+| 9.92 | 14.902 | 14.605 | 0.0200 | no |
+| 16.32 | 12.613 | 12.213 | 0.0317 | no |
+| 33.39 | 10.207 | 9.585 | 0.0610 | no |
+| 50.47 | 9.246 | 8.443 | 0.0869 | no |
+| 67.55 | 8.745 | 7.774 | 0.1110 | **yes** |
+| 101.69 | 8.281 | 7.004 | 0.1542 | **yes** |
+| 135.84 | 8.137 | 6.551 | 0.1950 | **yes** |
+| 159.33 | 8.124 | 6.325 | 0.2214 | **yes** |
+
+All twelve return `estimated` with `matched_ablation` provenance. The mechanism — buoyancy as
+a Richardson number, `Ri = 0.287` against a forced-convection window of `Ri ≤ 0.1` — is
+outside calibration, so the flag rule's other half is satisfied and the materiality decides.
+
+**The flag fires downstream and stays quiet upstream, within one run.** Buoyancy needs axial
+distance to distort the velocity profile, so the same mechanism is immaterial at the inlet and
+dominant at the outlet of the same tube.
+
+That is a structural finding, not a curiosity: **any protocol that assigns one materiality per
+operating condition is choosing an aggregation**, and the choice changes which cases flag. The
+mean over all twelve stations is 0.0383, which would *not* fire — but it is dominated by the
+entrance, where `Nu` is 60 and materiality is 0.001. That aggregation belongs in the locked
+protocol, decided before any label.
+
+The refusal control behaves: the same two numbers with `flat_plate_correlation` provenance
+return `refused_provenance` with **no value**, not a zero.
+
+One clarification. x/d 0.31 and 0.85 are the stations Lewis discounts for axial wall
+conduction. That exclusion governs comparisons with his *measurement*. Materiality here is
+CFD against CFD with no experimental value anywhere in it, so the exclusion does not apply —
+and `evidence_state: measured` means *recorded data with stated provenance*, not *from an
+experiment*.
+
+## Flow-regime eligibility for the uninspected runs
+
+Three independent criteria were assessed against source-reported quantities only. No CFD
+result, no measured-versus-predicted divergence and no PhysMAP output entered any of it.
+
+**Metais & Eckert (1964) regime diagram — rejected.** The data exist at the right basis:
+Lewis's Table E.4 gives `Gr·Pr·d/L` at mean film for 29 runs, and Aung (1987) fixes mean film
+externally. But Lewis reports that **Barozzi et al (1984) found the diagram unreliable for
+water flowing upward in a uniformly heated vertical tube** — this configuration exactly — and
+notes its limits have never been revisited. His own partial validation is self-described as
+"cursory" and was built from his measured data *and* his numerical predictions, so his
+endorsement rests on evidence this rule may not use.
+
+**Petukhov et al (1969) transition correlation — rejected.** `x*_tr = 12.9·C·(Gr_q/Re)^−0.8`,
+measured on upflow of water at uniform heat flux using wall-temperature fluctuations — the
+same detection method Lewis used, in the same configuration. Applied to Lewis it puts
+transition at x/d between 170 and 6500, so **no run transitions inside a 159.66-diameter
+tube** — contradicting Lewis's own fluctuation observations. Their data covered
+`10³ < Gr_q/Re < 4×10⁵`; most Lewis runs sit *below* that, and with a −0.8 exponent the
+extrapolation pushes transition further away. Permissive extrapolation outside the calibrated
+range, exactly what disqualified Hallman.
+
+**Yao (1987a) linear stability — applicable, but it does not yield enough runs.** A stability
+analysis rather than a fitted correlation, for fully-developed buoyancy-aided flow in a
+vertical pipe at uniform heat flux: the flow *can* become unstable for `Gr_q/Re > 300` and
+`Re > 80`. Below that boundary it is a **stability statement**, which is the direction
+eligibility needs, and it is conservative — using it to exclude is the safe error.
+
+Its problem is that Yao's analysis is constant-property and Lewis's water is not. Mapping the
+experiment onto a single `Gr_q/Re` needs a reference temperature the analysis cannot supply.
+Evaluating the verdict on all three of Lewis's own bases (Tables E.2, E.3, E.4):
+
+- **stable on every basis: 16A, 20A, 26A**
+- **verdict flips with the basis: 15A, 18A, 21A, 27A, 34A**
+
+### The arithmetic, and what it settles
+
+16A is a **spent** development run. That leaves **two** runs, 20A and 26A. Two runs are two
+cases, and axial stations are not cases, so there is no arithmetic that makes this an
+evaluation set. It is worse than that: both have local `Nu` only in figures and would need
+digitising, and **20A is the run the digitiser already rejected** — one marker recovered, an
+implied Prandtl number of 0.15 instead of about 8.
+
+**Lewis cannot support an independent eligibility rule that yields a scoreable set.** It is
+retained as a reproducible causal demonstration — richest per-run conditions of anything
+reachable, published property laws, and a rebuild that now tracks Lewis's own laminar
+prediction to about 5 %. A different source is needed for scored validation.
+
+Metrics stay closed. Nothing above opens them.
+
 ## Redistribution — the licence was there all along
 
 The record page states no licence, which is why this was left open. **The PDF itself carries

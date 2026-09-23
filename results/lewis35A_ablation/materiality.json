@@ -1,0 +1,172 @@
+{
+  "what": "Matched gravity-on / gravity-off ablation for Lewis Test 35A on the corrected variable-property setup, passed through PhysMAP's shipped materiality estimator.",
+  "status": "DEVELOPMENT DEMONSTRATION. 35A is a spent run. This shows the causal path runs end to end on real, converged, matched CFD. It is not a performance case and no precision, recall or F1 follows from it.",
+  "the_match_is_provable": "A recursive diff of the two case directories touches exactly two files: constant/g (value (0 -9.81 0) versus (0 0 0)) and the gravity_on flag recorded in case.json. Mesh, property polynomials, boundary conditions, schemes, linear-solver settings, iteration count, QoI and the extraction code path are identical.",
+  "iteration_count": {
+    "used": 3000,
+    "why_not_25000": "With gravity off, GAMG hit its 1000-sweep cap every step while the residuals were already at 1e-6, making 25000 iterations cost about 4.8 hours of grinding on a solved problem. Both halves were rerun at a MATCHED 3000.",
+    "justified_by": "The gravity-on half at 3000 reproduces the 25000-iteration result to within 0.063% at every one of the twelve stations."
+  },
+  "convergence": {
+    "gravity_on": {
+      "Ux": 0.00678,
+      "Uy": 0.000177,
+      "h": 4.18e-05,
+      "p_rgh": 3.26e-05,
+      "energy_closure_pct": -0.05,
+      "reversed_cells_in_heated_section": 0
+    },
+    "gravity_off": {
+      "Ux": 6.82e-07,
+      "Uy": 1.3e-08,
+      "h": 6.95e-08,
+      "p_rgh": 1.31e-07,
+      "energy_closure_pct": 0.11,
+      "reversed_cells_in_heated_section": 0
+    },
+    "note": "The ablated half converges far harder, which is expected: removing buoyancy removes the instability that drives the limit cycle seen in the buoyant case at high iteration counts."
+  },
+  "mechanism": {
+    "id": "buoyancy-vertical-pipe-aiding",
+    "variable": "richardson_number",
+    "calibration_window": "0 <= Ri <= 0.1",
+    "operating_value": 0.287,
+    "outside_calibration": true,
+    "basis_note": "Ri = Gr_q/Re^2 at inlet bulk. On the mean-film basis 35A's Gr_q/Re is 1388 rather than 328, so Ri moves too. The window and the operating value must share a basis; inlet bulk is used for both here."
+  },
+  "provenance": "matched_ablation",
+  "theta": 0.1,
+  "stations": [
+    {
+      "x_over_d": 0.31,
+      "Nu_full": 60.3591,
+      "Nu_ablated": 60.2868,
+      "status": "estimated",
+      "materiality": 0.0012,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 0.85,
+      "Nu_full": 34.0065,
+      "Nu_ablated": 33.9078,
+      "status": "estimated",
+      "materiality": 0.0029,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 2.45,
+      "Nu_full": 23.9506,
+      "Nu_ablated": 23.8024,
+      "status": "estimated",
+      "materiality": 0.0062,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 5.65,
+      "Nu_full": 17.9112,
+      "Nu_ablated": 17.6897,
+      "status": "estimated",
+      "materiality": 0.0124,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 9.92,
+      "Nu_full": 14.9019,
+      "Nu_ablated": 14.6046,
+      "status": "estimated",
+      "materiality": 0.02,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 16.32,
+      "Nu_full": 12.6126,
+      "Nu_ablated": 12.2134,
+      "status": "estimated",
+      "materiality": 0.0317,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 33.39,
+      "Nu_full": 10.2073,
+      "Nu_ablated": 9.5851,
+      "status": "estimated",
+      "materiality": 0.061,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 50.47,
+      "Nu_full": 9.2461,
+      "Nu_ablated": 8.4429,
+      "status": "estimated",
+      "materiality": 0.0869,
+      "fired_at_theta_0_10": false,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 67.55,
+      "Nu_full": 8.7449,
+      "Nu_ablated": 7.774,
+      "status": "estimated",
+      "materiality": 0.111,
+      "fired_at_theta_0_10": true,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 101.69,
+      "Nu_full": 8.2812,
+      "Nu_ablated": 7.0043,
+      "status": "estimated",
+      "materiality": 0.1542,
+      "fired_at_theta_0_10": true,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 135.84,
+      "Nu_full": 8.137,
+      "Nu_ablated": 6.5506,
+      "status": "estimated",
+      "materiality": 0.195,
+      "fired_at_theta_0_10": true,
+      "evidence_state": "measured"
+    },
+    {
+      "x_over_d": 159.33,
+      "Nu_full": 8.1238,
+      "Nu_ablated": 6.3254,
+      "status": "estimated",
+      "materiality": 0.2214,
+      "fired_at_theta_0_10": true,
+      "evidence_state": "measured"
+    }
+  ],
+  "headline": "Materiality is POSITION-DEPENDENT and rises monotonically: 0.0012 at x/d 0.31 to 0.2214 at x/d 159.33. With theta = 0.10 the flag fires at x/d 67.55 and beyond, and stays quiet upstream -- within a single run.",
+  "why_that_matters": "A single scalar materiality per case would hide this. Buoyancy needs axial distance to distort the velocity profile, so a mechanism can be immaterial at the inlet and dominant at the outlet of the same tube. Any protocol that assigns one materiality per operating condition is choosing an aggregation, and that choice belongs in the locked protocol.",
+  "aggregate_for_reference": {
+    "mean_over_12_stations": {
+      "full": 18.04018333333334,
+      "ablated": 17.34891666666667,
+      "materiality": 0.038318161955116836
+    },
+    "mean_excluding_x_over_d_below_1": {
+      "full": 12.21166,
+      "ablated": 11.399239999999999,
+      "materiality": 0.06652821975063183
+    },
+    "caution": "Both means are dominated by the entrance stations, where Nu is large (60, 34, 24) and materiality is near zero. They are reported for reference, not recommended."
+  },
+  "entrance_stations_are_fine_here": "x/d 0.31 and 0.85 are the stations Lewis discounts for axial wall conduction. That exclusion applies to comparisons against his MEASUREMENT. Materiality is a CFD-versus-CFD quantity with no experimental value anywhere in it, so the exclusion does not apply.",
+  "refusal_control": {
+    "input": "the same two numbers with provenance flat_plate_correlation",
+    "status": "refused_provenance",
+    "value": null,
+    "reason": "ablation provenance 'flat_plate_correlation' is refused: it is a correlation for a different geometry, not an ablation of this case."
+  },
+  "evidence_state": "measured -- meaning recorded data with stated provenance. BOTH Nu values are CFD-computed. No experimental measurement enters the materiality anywhere."
+}

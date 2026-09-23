@@ -75,7 +75,7 @@ def inlet_properties() -> dict:
 
 
 def build(out: pathlib.Path, nr: int, ny: int, iters: int, entry_d: float = 2.5,
-          exit_d: float = 0.0) -> dict:
+          exit_d: float = 0.0, gravity: bool = True) -> dict:
     """exit_d: unheated tube length appended AFTER the heated section, in diameters.
 
     A NUMERICAL device, not a claim about the rig. With the outlet sitting flush against the
@@ -152,8 +152,12 @@ SIMPLE
 }
 relaxationFactors { fields { rho 1.0; p_rgh 0.7; } equations { U 0.3; h 0.3; } }""")
 
+    # The ablation is ONLY this line. Mesh, properties, boundary conditions, schemes,
+    # solver settings, iteration count and the Nu extraction are byte-identical between the
+    # two halves; a diff of the two case directories touches constant/g and nothing else.
+    gvec = "(0 -9.81 0)" if gravity else "(0 0 0)"
     w(out / "constant/g", "uniformDimensionedVectorField", "g",
-      "dimensions [0 1 -2 0 0 0 0];\nvalue (0 -9.81 0);", "constant")
+      f"dimensions [0 1 -2 0 0 0 0];\nvalue {gvec};", "constant")
     w(out / "constant/momentumTransport", "dictionary", "momentumTransport",
       "simulationType laminar;", "constant")
     # buoyantSimpleFoam still reads the legacy name; both must be present and agree.
@@ -238,7 +242,7 @@ boundaryField
     meta = {"case": "Lewis (1992) Test 35A, VARIABLE properties",
             "solver": "buoyantSimpleFoam", "properties": "Lewis Appendix B, B.2/B.4/B.5/B.6",
             "property_model": "icoPolynomial + polynomial transport + hPolynomial",
-            "beta_is_an_input": False,
+            "beta_is_an_input": False, "gravity_on": gravity,
             "buoyancy": "rho(T)*g -- no Boussinesq approximation, no beta choice",
             "geometry": {"d_m": D_TUBE, "L_heated_m": L_TUBE, "L_over_D": L_TUBE / D_TUBE},
             "unheated_entry_diameters": entry_d, "ny_entry": ny_entry, "ny_heated": ny,
@@ -260,11 +264,14 @@ def main() -> int:
     ap.add_argument("--ny", type=int, default=400)
     ap.add_argument("--iters", type=int, default=25000)
     ap.add_argument("--entry-diameters", type=float, default=2.5, dest="entry_d")
+    ap.add_argument("--gravity", choices=["on","off"], default="on",
+                    help="off is the matched ablation: identical in every other respect")
     ap.add_argument("--exit-diameters", type=float, default=0.0, dest="exit_d",
                     help="unheated tube appended after the heated section, to move the outlet "
                          "boundary away from the measured region (numerical, not physical)")
     a = ap.parse_args()
-    m = build(a.out, a.nr, a.ny, a.iters, entry_d=a.entry_d, exit_d=a.exit_d)
+    m = build(a.out, a.nr, a.ny, a.iters, entry_d=a.entry_d, exit_d=a.exit_d,
+              gravity=(a.gravity == 'on'))
     v = m["inlet_bulk_values"]
     print(f"  wrote {a.out}")
     print(f"  properties  VARIABLE (Lewis Appendix B); beta is not an input")

@@ -1,0 +1,62 @@
+{
+  "question": "Is there an independent rule that establishes flow-regime eligibility for UNINSPECTED Lewis runs, using neither CFD agreement, nor measured-versus-predicted divergence, nor any PhysMAP outcome?",
+  "searched": "Lewis's remaining documentation first -- Section 7.2 (the only regime section), the Chapter 2 stability review, and Appendix E -- then outward.",
+  "candidates": {
+    "metais_eckert_1964": {
+      "what": "Convection regime diagram for vertical tubes; Re versus Gr*Pr*d/L, with forced, combined, transition and turbulent regions.",
+      "data_available": "YES, and at the right basis. Lewis's Table E.4 gives Gr*Pr*d/L at mean film for 29 of 30 runs, and Aung (1987) specifies mean film, so the basis is fixed by an external citation rather than by us.",
+      "why_it_is_rejected": [
+        "Lewis reports that Barozzi et al (1984) found the diagram UNRELIABLE for estimating the effect of natural convection on laminar forced convection FOR WATER FLOWING UPWARD IN A UNIFORMLY HEATED VERTICAL TUBE -- exactly this configuration. We have this only through Lewis's one-sentence report and cannot check which boundary was tested.",
+        "Lewis notes the diagram's limits 'have not been reviewed in the light of more recently obtained data'.",
+        "Lewis's own partial validation of the boundaries is explicitly 'cursory', and he reached it by examining his measured data AND his numerical predictions -- so his endorsement is built from precisely the evidence this rule may not use.",
+        "He states the plotted positions are 'very sensitive to the choice of reference temperature', and that on the inlet-bulk basis 'the majority of the points lay in the laminar forced convection regime' -- a different answer."
+      ],
+      "verdict": "REJECTED as an eligibility rule."
+    },
+    "petukhov_1969": {
+      "what": "x*_tr = 12.9 * C * (Gr_q/Re)^-0.8, C = 1 with a calming section and C = 1 + 10*exp(-0.0025*Re) without one. Measured on UPFLOW OF WATER with uniform heat flux, using wall temperature fluctuations to detect instability onset -- the same detection method Lewis used, in the same configuration.",
+      "applied": "Predicts transition at x/d between 170 and 6500 for Lewis's runs. The tube is 159.66 diameters. So it predicts NO transition anywhere, in any run.",
+      "why_it_is_rejected": [
+        "That contradicts Lewis's direct observation of wall temperature fluctuations, which is source-reported flow behaviour and not an agreement measure.",
+        "Their stated data range is 10^3 < Gr_q/Re < 4e5 and 250 < Re. Only 6 of 30 Lewis runs fall inside it on the inlet-bulk basis.",
+        "Most Lewis runs sit BELOW the lower Gr_q/Re bound, and with a -0.8 exponent that extrapolation pushes the transition distance further away -- the PERMISSIVE direction. It would return 'laminar' almost by construction, which is the same failure that disqualified Hallman's criterion."
+      ],
+      "verdict": "REJECTED. Same failure mode as Hallman: permissive extrapolation outside the calibrated range, contradicted by direct observation."
+    },
+    "yao_1987a": {
+      "what": "Linear stability analysis of fully-developed buoyancy-aided flow in a vertical pipe at uniform heat flux (Int. J. Heat Mass Transfer 30(4):707-716). The flow CAN become unstable for Gr_q/Re > 300 and Re > 80. Below the boundary it is a STABILITY statement, which is the direction eligibility needs.",
+      "why_it_is_the_strongest": "It is an analysis, not a correlation fitted to data, so the 'outside its calibration range' objection that killed Hallman and Petukhov does not apply in the same way. Its configuration matches exactly. It is conservative: it flags possible instability, so using it to EXCLUDE is the safe direction.",
+      "the_problem": "Yao's analysis is CONSTANT-property. Lewis's water is not -- viscosity falls by a factor of 2.1 across the tube. Mapping the experiment onto Yao's single parameter needs a reference temperature that a constant-property analysis cannot supply.",
+      "basis_robustness_test": {
+        "method": "Evaluate the verdict on all three of Lewis's own bases (Tables E.2, E.3, E.4) and keep only runs whose verdict is the same on all three.",
+        "stable_on_every_basis": [
+          "16A",
+          "20A",
+          "26A"
+        ],
+        "verdict_flips_with_basis": [
+          "15A",
+          "18A",
+          "21A",
+          "27A",
+          "34A"
+        ],
+        "incomplete_rows": [
+          "13A",
+          "14A",
+          "20A"
+        ]
+      },
+      "verdict": "APPLICABLE, but it yields too few runs. Three are stable on every basis -- 16A, 20A and 26A -- and 16A is a SPENT development run. Two remain."
+    }
+  },
+  "conclusion": {
+    "finding": "Lewis cannot support an independent eligibility rule that yields a scoreable set.",
+    "arithmetic": "The only admissible criterion leaves 2 usable runs after the spent ones are removed. Two runs are two cases. Axial stations are not cases, so there is no arithmetic that turns this into an evaluation set.",
+    "and_worse": "Both survivors -- 20A and 26A -- have local Nu only in Figures 6.13 and 6.12, so they would need digitisation; and 20A is the run the digitiser already REJECTED (one marker recovered, implied Prandtl number 0.15 instead of ~8).",
+    "disposition": "Lewis is RETAINED as a reproducible causal demonstration -- it has the richest per-run conditions of anything reachable, its property laws are published, and the variable-property rebuild now matches Lewis's own laminar prediction to about 5%. It is NOT the scored validation source.",
+    "next": "A different source is required for scored validation. Barozzi (1993) is open and has the strongest steadiness evidence found, but is horizontal -- a different mechanism -- so it is a separate generalization vehicle, not a substitute.",
+    "metrics": "CLOSED. Nothing here opens them."
+  },
+  "not_used": "No CFD result, no measured-versus-predicted divergence, and no PhysMAP output entered any judgement on this page. The rules were stated with their published validity limits, then applied."
+}
