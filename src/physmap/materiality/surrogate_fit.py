@@ -19,9 +19,23 @@ HOW A REPEATED `Re` IS HANDLED, EXPLICITLY
 ------------------------------------------
 1. **All cases are kept and all are fitted.** Nothing is collapsed or averaged.
 2. **A surrogate whose only input is `Re` cannot separate them.** Two cases at one `Re`
-   with different `Nu` put a floor under the achievable residual. That floor is computed
-   and reported as `irreducible_spread` rather than being discovered later as a mysterious
-   fit error.
+   with different `Nu` must receive the same prediction, so some error is unavoidable
+   *for this choice of surrogate inputs*. Two quantities are reported, and they are not
+   the same thing:
+
+   - `same_re_spread` — the **observed** relative spread `(max − min) / mean`. A
+     description of the data, not a bound on anything.
+   - `minimax_relative_bound` — the **actual floor** on the worst relative error, for
+     the minimax measure: `(max − min) / (max + min)`, attained at the harmonic mean.
+
+   For `Nu = 8.0` and `9.6` these are 18.2% and 9.1%. An earlier version reported the
+   spread and called it the floor; it is about twice the floor. A bound is only
+   meaningful once the error measure is named — the RMS-relative measure has a different
+   optimum and a different value.
+
+   Neither quantity says the variation is irreducible **in the physics**. It is
+   unresolvable **by a surrogate whose only input is `Re`**, which is a statement about
+   the chosen inputs and is exactly why `conditions` is carried on every `Case`.
 3. **The split groups by `Re`.** Every case sharing an `Re` goes to the same side. A case
    at `Re = 800` in the fit and another at `Re = 800` held out would leak, because the
    surrogate sees only `Re` and would already have been shown that abscissa.
@@ -46,7 +60,9 @@ __all__ = [
     "residuals",
     "split_by_re",
     "fit_and_verify",
-    "irreducible_spread",
+    "same_re_spread",
+    "minimax_relative_bound",
+    "minimax_predictor",
 ]
 
 
@@ -94,11 +110,12 @@ def by_re(cases: Sequence[Case]) -> dict[float, list[Case]]:
     return dict(groups)
 
 
-def irreducible_spread(cases: Sequence[Case]) -> dict[float, float]:
-    """For each `Re` carrying more than one case, the relative spread in `Nu`.
+def same_re_spread(cases: Sequence[Case]) -> dict[float, float]:
+    """Observed relative spread in `Nu` at each repeated `Re`: `(max − min) / mean`.
 
-    A surrogate seeing only `Re` cannot do better than the middle of this spread, so it
-    is a floor on the residual and not a defect of the fit.
+    **A description of the data, not a bound.** It is roughly twice the minimax floor,
+    and it is reported because it is the quantity a reader expects to see, not because
+    anything can be concluded from it. For a floor, use `minimax_relative_bound`.
     """
     out: dict[float, float] = {}
     for re, group in by_re(cases).items():
@@ -106,6 +123,39 @@ def irreducible_spread(cases: Sequence[Case]) -> dict[float, float]:
             continue
         nus = [c.Nu for c in group]
         out[re] = (max(nus) - min(nus)) / (sum(nus) / len(nus))
+    return out
+
+
+def minimax_predictor(nus: Sequence[float]) -> float:
+    """The single value minimising the worst RELATIVE error over `nus`.
+
+    Setting the two binding errors equal — the smallest and largest value — gives the
+    harmonic mean of the extremes. Intermediate values do not affect a minimax optimum.
+    """
+    lo, hi = min(nus), max(nus)
+    return 2.0 * lo * hi / (lo + hi)
+
+
+def minimax_relative_bound(cases: Sequence[Case]) -> dict[float, float]:
+    """For each repeated `Re`, the floor on the worst relative error a `Re`-only
+    surrogate can achieve there.
+
+        E* = (max − min) / (max + min),  attained at p* = 2·min·max / (min + max)
+
+    **The measure is named on purpose.** This bounds the worst relative error. A
+    different measure — RMS relative error, say — has a different optimum and a
+    different bound, so "the floor" is not well defined until the measure is fixed.
+
+    This is a floor under *this surrogate's chosen inputs*, not a claim that the
+    variation is irreducible physically.
+    """
+    out: dict[float, float] = {}
+    for re, group in by_re(cases).items():
+        if len(group) < 2:
+            continue
+        nus = [c.Nu for c in group]
+        lo, hi = min(nus), max(nus)
+        out[re] = (hi - lo) / (hi + lo)
     return out
 
 
@@ -118,7 +168,10 @@ class FitResult:
     n_cases: int
     n_distinct_re: int
     fitted_case_ids: tuple[str, ...]
-    irreducible_spread: Mapping[float, float] = field(default_factory=dict)
+    #: Observed spread at repeated Re -- a description, not a bound.
+    same_re_spread: Mapping[float, float] = field(default_factory=dict)
+    #: Floor on the WORST RELATIVE error at repeated Re, for the minimax measure.
+    minimax_relative_bound: Mapping[float, float] = field(default_factory=dict)
 
     def predict(self, re: float) -> float:
         return self.coefficient * re**self.exponent
@@ -168,7 +221,8 @@ def fit_power_law(cases: Sequence[Case]) -> FitResult:
         n_cases=n,
         n_distinct_re=len(groups),
         fitted_case_ids=tuple(c.case_id for c in cases),
-        irreducible_spread=irreducible_spread(cases),
+        same_re_spread=same_re_spread(cases),
+        minimax_relative_bound=minimax_relative_bound(cases),
     )
 
 

@@ -15,7 +15,9 @@ from physmap.materiality.surrogate_fit import (
     fit_and_verify,
     fit_power_law,
     ingest,
-    irreducible_spread,
+    minimax_predictor,
+    minimax_relative_bound,
+    same_re_spread,
     residuals,
     split_by_re,
 )
@@ -57,14 +59,58 @@ def test_non_positive_values_are_refused(re, nu):
 
 # ── repeated Re: kept, fitted, and its floor reported ────────────────────────
 
-def test_repeated_re_puts_a_floor_on_the_residual_and_it_is_reported():
-    cases = [Case("a", 800, 8.0), Case("b", 800, 9.6), Case("c", 1600, 10.0)]
-    spread = irreducible_spread(cases)
-    assert 800 in spread and 1600 not in spread
-    assert spread[800] == pytest.approx((9.6 - 8.0) / 8.8, rel=1e-9)
-    fit = fit_power_law(cases)
+CASES_8_96 = [Case("a", 800, 8.0), Case("b", 800, 9.6), Case("c", 1600, 10.0)]
+
+
+def test_same_re_spread_is_the_observed_spread_only():
+    """(max - min)/mean. A description of the data. It is NOT a bound, and an earlier
+    version of this module presented it as one."""
+    s = same_re_spread(CASES_8_96)
+    assert 800 in s and 1600 not in s
+    assert s[800] == pytest.approx((9.6 - 8.0) / 8.8, rel=1e-12)
+    assert s[800] == pytest.approx(0.181818, rel=1e-5)
+
+
+def test_minimax_bound_is_half_the_spread_here_and_they_must_not_be_confused():
+    b = minimax_relative_bound(CASES_8_96)
+    assert b[800] == pytest.approx((9.6 - 8.0) / (9.6 + 8.0), rel=1e-12)
+    assert b[800] == pytest.approx(0.090909, rel=1e-5)
+    # the spread is about twice the floor; reporting the spread as the floor overstated
+    # the unavoidable error by a factor of two
+    assert same_re_spread(CASES_8_96)[800] > 1.9 * b[800]
+
+
+def test_the_minimax_predictor_is_the_harmonic_mean_of_the_extremes():
+    assert minimax_predictor([8.0, 9.6]) == pytest.approx(2 * 8.0 * 9.6 / 17.6, rel=1e-12)
+    assert minimax_predictor([8.0, 9.6]) == pytest.approx(8.72727, rel=1e-5)
+    # intermediate values do not move a minimax optimum
+    assert minimax_predictor([8.0, 8.7, 9.6]) == pytest.approx(minimax_predictor([8.0, 9.6]))
+
+
+def test_the_bound_really_is_a_floor():
+    """No single prediction beats it. Swept directly rather than argued."""
+    nus = [8.0, 9.6]
+    bound = (max(nus) - min(nus)) / (max(nus) + min(nus))
+    best = min(
+        max(abs(p - v) / v for v in nus)
+        for p in [min(nus) + i * (max(nus) - min(nus)) / 20000 for i in range(20001)]
+    )
+    assert best >= bound - 1e-9
+    assert best == pytest.approx(bound, rel=1e-4)
+
+
+def test_a_different_error_measure_gives_a_different_optimum():
+    """Why the measure is named. The RMS-relative optimum is not the minimax one, so
+    'the floor' is undefined until the measure is fixed."""
+    nus = [8.0, 9.6]
+    p_rms = sum(1 / v for v in nus) / sum(1 / v**2 for v in nus)
+    assert p_rms != pytest.approx(minimax_predictor(nus), rel=1e-3)
+
+
+def test_both_quantities_reach_the_fit_result():
+    fit = fit_power_law(CASES_8_96)
     assert fit.n_cases == 3 and fit.n_distinct_re == 2
-    assert fit.irreducible_spread[800] > 0
+    assert fit.same_re_spread[800] > fit.minimax_relative_bound[800] > 0
 
 
 def test_a_fit_needs_two_distinct_re_not_merely_two_cases():
