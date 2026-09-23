@@ -9,11 +9,19 @@ from this.
 
 > **The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism.**
 
-That is **specificity and causal diagnosis**, not OOD detection failure. The input-based OOD
-detector did not miss the bad predictions — it warned on all of them, and on the good ones too.
-Whether it *misses* the buoyancy error when the inputs are familiar is a separate, stronger
-claim, tested in design M and pre-declared before it ran
-(`results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`).
+That is **specificity and causal diagnosis**, from designs A and A3. The input-based OOD
+detector did not miss the bad predictions there — it warned on all of them, and on the good ones
+too.
+
+**Design M then tested the stronger claim directly, and it met every pre-declared criterion.**
+With the evaluated `(Re, Pr, x/D)` inside the training data and gravity withheld:
+
+> **The input-based OOD detector stayed quiet for both gravity states — including at the
+> stations where the surrogate is off by 17–18 %. PhysMAP flagged exactly those stations,
+> stayed quiet on the accurate gravity-off control, and named buoyancy.**
+
+That is what the input-based OOD detector misses, shown on one run. See
+[Design M](#design-m--the-operating-point-matched-check) below.
 
 ## The short answer
 
@@ -170,6 +178,82 @@ buoyancy accounts for essentially all of it.
   buoyancy. PhysMAP does not flag it and is not designed to. The surrogate inherits this gap from
   the CFD it was trained on; a surrogate built on a better base model would carry less of it.
 
+## Design M — the operating-point-matched check
+
+**Pre-declared before it ran**, in `results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`,
+committed in `b3da673` ahead of every design-M output. Designs A and A3 are preserved
+unchanged; a re-run of A3 after adding design M's code was byte-identical to the banked file.
+
+**The one change from A3:** the existing gravity-off run at 35A's operating point was added as
+a thirteenth training run — sampled at the same 40 stations plus Lewis's 12, labelled with the
+evaluated inputs (Re 1143.4, Pr 8.46; its polynomial values differ by −0.062 % and +0.141 %).
+Every evaluated input is an exact training input — checked in the output, not assumed. Gravity
+and Ri stay withheld from both the surrogate and the detector.
+
+**The surrogate is unchanged in quality:** leave-one-run-out worst 0.45 %; with the matched run
+itself held out, 0.30 %.
+
+### Result, at the benchmark's reference percentile 99
+
+| x/D | gravity OFF: error | OOD | PhysMAP | gravity ON: error | OOD | PhysMAP | materiality |
+|---|---|---|---|---|---|---|---|
+| 2.45 | −0.02 % | quiet | quiet | +9.9 % | quiet | quiet | 0.006 |
+| 5.65 | −0.06 % | quiet | quiet | −6.4 % | quiet | quiet | 0.012 |
+| 9.92 | −0.04 % | quiet | quiet | −2.6 % | quiet | quiet | 0.020 |
+| 16.32 | −0.04 % | quiet | quiet | −12.8 % | quiet | quiet | 0.032 |
+| 33.39 | −0.02 % | quiet | quiet | −11.0 % | quiet | quiet | 0.061 |
+| 50.47 | −0.01 % | quiet | quiet | −10.0 % | quiet | quiet | 0.087 |
+| 67.55 | −0.01 % | quiet | quiet | **−17.0 %** | **quiet** | **flags** | 0.111 |
+| 101.69 | −0.00 % | quiet | quiet | **−16.8 %** | **quiet** | **flags** | 0.154 |
+| 135.84 | +0.03 % | quiet | quiet | **−18.0 %** | **quiet** | **flags** | 0.195 |
+
+(Comparable stations. The three Lewis disowns are also quiet on the detector at 99.)
+
+Distance scores 0.003–0.167 against a threshold of 0.408; GP variance 0.0025–0.0098 against
+0.050. The detector's output is **identical** between the two gravity states — as it must be,
+since its inputs are.
+
+| Pre-declared criterion | Result |
+|---|---|
+| 1. Detector quiet at every comparable station, both gravity states, at 99 | **met** |
+| 2. PhysMAP flags a comparable station with gravity on | **met** — x/D 67.55, 101.69, 135.84 |
+| 3. PhysMAP flags nothing with gravity off | **met** |
+| Stronger claim supported | **yes** |
+
+The detector is also quiet at percentiles 90, 95 and 100.
+
+### The lower percentiles, and why they do not change the reading
+
+At percentile 75 the detector fires at x/D ≥ 67.55, and at 50 from x/D 16.32 on — the same
+downstream stations PhysMAP flags. It does so **identically with gravity off**, where those
+stations are accurate to 0.03 %.
+
+The mechanism is measured, from training inputs alone
+(`design_M_low_pct_mechanism.json`). Each training point is its own nearest neighbour, the
+training stations are log-spaced, and the detector measures raw `x_over_D` — so downstream
+stations are the sparsest part of the grid. At percentile 75 the detector already fires on
+**97–100 % of the training rows themselves** beyond x/D 50, and on none below x/D 10. A test
+input identical to those rows fires for the same reason. Its alignment with PhysMAP's flags is a
+coincidence of geometry: buoyancy builds with distance, and so does training-grid spacing. The
+pre-declaration named this in advance: lower percentiles are reported, and do not decide.
+
+### Everything else still holds
+
+- PhysMAP still misses the base-model errors at x/D 2.45 (+9.9 %) and 16.32 (−12.8 %), by design.
+- x/D 33.39 and 50.47 carry real buoyancy (−6.1 %, −8.7 %) below θ = 0.10; θ is not locked.
+- One run. A development example. Stations are not cases. No precision, recall or F1.
+
+## Across all three designs
+
+| | where 35A sits | detector | PhysMAP |
+|---|---|---|---|
+| A, A3 | between training operating points | **warns everywhere** — accurate and inaccurate alike | flags x/D ≥ 67.55 with gravity on; quiet with gravity off |
+| M | on a training operating point | **quiet everywhere** — accurate and inaccurate alike | the same |
+
+The detector's answer depends on where the inputs sit, and **never changed when gravity was
+switched**, in any design. PhysMAP's answer did not depend on the training design, and **always
+changed when gravity was switched**. That is the whole result in one table.
+
 ## What this says about when an input-based OOD detector fires
 
 The NACA demo and this run look contradictory and are not. In NACA the input-based OOD detector
@@ -185,9 +269,15 @@ in one, firing in the other, informative about the mechanism in neither.
 
 ## What may and may not be said
 
-- **Say:** "The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism."
-- **Do not use Lewis as a "what OOD misses" example** until design M reports and meets its
-  pre-declared criteria.
+- **Say (design M, the stronger claim):** "With the operating point inside its training data and
+  gravity withheld, the input-based OOD detector stayed quiet — for both gravity states,
+  including where the surrogate was off by 17–18 %. PhysMAP flagged exactly those stations,
+  stayed quiet on the accurate control, and named buoyancy."
+- **Say (designs A, A3, the specificity claim):** "When the inputs were unfamiliar, the detector
+  warned everywhere, including where the surrogate was right. It could not say whether buoyancy
+  caused an error. PhysMAP could."
+- **Do not cite the lower percentiles** as the detector "catching" the downstream stations. It
+  fires there on its own training data, and identically with gravity off.
 - **Do not say** the OOD detector "missed it" or "stayed quiet" on Lewis. It fired.
 - **Do not say** PhysMAP "caught what the OOD detector missed" on Lewis. Both fired downstream;
   only one fired *because of* the error.

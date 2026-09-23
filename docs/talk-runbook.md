@@ -235,12 +235,54 @@ A development example.** Its stations are not independent cases, so no precision
 F1 — and none should be implied by the slide's layout. Full record:
 `docs/findings/lewis-ood-head-to-head.md`.
 
-**The slide is the control, not the scorecard.** Same surrogate, same detector, same inputs —
-once against gravity-off CFD, where the surrogate is right to 0.25 %, and once against
-Lewis's measurement, where it is off by up to 18 %:
+**It was run three ways, and the slide shows all three.** The only thing that changes between
+them is where 35A's operating point sits relative to the surrogate's training data. Gravity is
+withheld from the surrogate and the detector in every one.
 
-| | surrogate error | input-based OOD detector | PhysMAP |
+| | where 35A sits | input-based OOD detector | PhysMAP |
 |---|---|---|---|
+| **Design M** — pre-declared, matched | on a training operating point | **quiet** at every station, gravity on or off | flags x/D ≥ 67.55 with gravity on, where the surrogate is off by 17–18 %; quiet with gravity off |
+| **Designs A, A3** | between training operating points | **warns** at every station, gravity on or off | the same |
+
+**The line to land (design M, the stronger claim):**
+
+> *"With the operating point inside its training data and gravity withheld, the input-based OOD
+> detector stayed quiet — for both gravity states, including where the surrogate was off by
+> 17–18 %. PhysMAP flagged exactly those stations, stayed quiet on the accurate control, and
+> named buoyancy."*
+
+**The follow-up line (designs A and A3, the specificity claim):**
+
+> *"The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an
+> error. PhysMAP distinguished the accurate control from the materially affected prediction and
+> named the mechanism."*
+
+**Why design M may be cited as "what the OOD detector misses".** It was pre-declared, with its
+success criteria, in `results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`, committed
+before any of its output existed, and it met all three: the detector quiet at every comparable
+station for both gravity states at the benchmark's reference percentile; PhysMAP flagging with
+gravity on; PhysMAP silent with gravity off. Say "pre-declared" out loud — it is what makes the
+result worth more than a demo.
+
+**Volunteer these four before anyone asks.** They are true, and a sharp questioner will find
+them:
+
+1. **The detector's answer tracked where the inputs sat — never gravity.** Quiet on the training
+   operating point, warning between them, and identical with gravity on and off in every design.
+   The same thing explains NACA, where it was silent: those entrance points shared the training
+   operating point.
+2. **At low operating percentiles the detector does fire downstream in design M** — at 75, on the
+   same stations PhysMAP flags. It fires identically with gravity off, where those stations are
+   right to 0.03 %, and at that percentile it already fires on 97–100 % of its own training rows
+   beyond x/D 50. It is flagging sparse training coverage, not buoyancy. The reference percentile
+   is 99, and it is quiet there.
+3. **PhysMAP missed two real errors, by design.** At x/D 2.45 and 16.32 the surrogate is off by
+   +10 % and −13 %, mostly because the base CFD model differs from the experiment there — not
+   because of buoyancy. PhysMAP checks one mechanism and does not claim to see the others.
+4. **The threshold is not locked.** At θ = 0.10 it flags three comparable stations. Buoyancy is
+   worth 6–9 % at two more; whether those flag is the open θ decision.
+
+---|---|---|---|
 | 35A, gravity off (control) | ≤ 0.25 % | fires at every station | quiet |
 | 35A, the experiment | up to −18 % | fires at every station — **identically** | flags x/D ≥ 67.55, where the error is 17–18 % |
 
@@ -295,7 +337,8 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "The statistical baseline / novelty detector is silent." | "The input-based OOD detector is silent." |
 | "NVIDIA PhysicsNeMo fails here." / "PhysicsNeMo's guardrail would miss this." | "An input-based OOD detector misses this. PhysicsNeMo's out-of-distribution check and its physics checks are separate things; we have not run its guardrail, so we make no claim about it." |
 | "The OOD detector was starved of inputs." | "It got every input the surrogate gets, position included. The contract is recorded in the head-to-head output." |
-| "Lewis shows what an input-based OOD detector misses." | "On Lewis the input-based OOD detector warned on unfamiliar inputs — everywhere, including where the surrogate was right. It could not say whether buoyancy caused an error; PhysMAP could." |
+| "Lewis shows what an input-based OOD detector misses." (with no design named) | "In the pre-declared matched design it stayed quiet where the surrogate was off by 17–18 %. With unfamiliar inputs it warned everywhere instead. Either way its answer never changed with gravity." |
+| "The OOD detector caught the downstream stations too." (citing percentile 75) | "At 75 it fires on its own training data there, and identically with gravity off. At the reference 99 it is quiet." |
 | "The OOD detector missed the buoyancy error on Lewis." | "It fired everywhere on Lewis, with the same answer whether buoyancy was on or off. It fired because the operating point was between the training runs, not because of buoyancy." |
 | "PhysMAP caught what the OOD detector missed." (of Lewis) | "Both fired downstream. Only PhysMAP's answer changes when buoyancy is switched off." |
 | "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |

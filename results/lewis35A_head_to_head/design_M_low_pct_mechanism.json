@@ -1,0 +1,10 @@
+{
+  "what": "Why the input-based OOD detector fires on downstream stations at operating percentiles 50 and 75 in design M -- for BOTH gravity states.",
+  "method": "Distance-to-training self-scores of the design-M TRAINING rows (each training point is its own nearest neighbour), thresholded at the given percentile, tallied by x/D band. Uses training inputs only; no test output, error or PhysMAP result enters it.",
+  "pct_50": {"threshold": 0.018, "training_rows_firing": 0.500,
+             "by_x_over_D": {"0-10": 0.089, "10-50": 0.992, "50-100": 1.000, "100-200": 1.000}},
+  "pct_75": {"threshold": 0.085, "training_rows_firing": 0.248,
+             "by_x_over_D": {"0-10": 0.000, "10-50": 0.189, "50-100": 0.970, "100-200": 1.000}},
+  "reading": "Training stations are log-spaced, but the detector measures raw x_over_D, so downstream stations are the sparsest part of the grid and carry the largest self-scores. At low percentiles the detector fires on the TRAINING data itself there. A test input identical to one of those rows fires for the same reason. That is its built-in alarm pattern, not buoyancy detection: the output is identical with gravity off, where those stations are accurate to 0.03 %.",
+  "predeclared": "PREDECLARE_design_M_matched.md states lower percentiles are reported but do not decide, for exactly this reason. This file measures the mechanism; it changes no criterion."
+}

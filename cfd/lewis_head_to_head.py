@@ -182,6 +182,8 @@ def main() -> int:
     # Which training design. A = the pre-committed 8 runs; A3 = A plus the pre-committed
     # third inlet level (13.25 degC). Nothing else may be selected here.
     design = sys.argv[3] if len(sys.argv) > 3 else "A"
+    if design == "M":
+        return main_matched(runs, out_json)
     levels = {"A": ("T12p0", "T14p5"), "A3": ("T12p0", "T13p25", "T14p5")}[design]
     doe = sorted(p for p in runs.glob("doe_*")
                  if p.name.split("_")[-1] in levels and latest_time(p) in ("2000", "4000"))
@@ -316,6 +318,149 @@ def main() -> int:
                 for p in det for i in range(len(xds))),
         },
         "stations": stations,
+    }
+    out_json.write_text(json.dumps(out, indent=2) + "\n")
+    return 0
+
+
+def matched_rows(case: pathlib.Path) -> list[dict]:
+    """The one change in design M: a gravity-off run AT 35A's operating point, sampled at the
+    same 40 stations as every other run PLUS Lewis's 12, and labelled with the EVALUATED inputs
+    (Re 1143.4, Pr 8.46) so every evaluated (Re, Pr, x/D) is an exact training input. Its
+    polynomial-evaluated inlet values differ by -0.062 % and +0.141 % (pre-declared)."""
+    m = json.loads((case / "case.json").read_text())
+    assert m["gravity_on"] is False, "the matched training run must be gravity-off"
+    xds = sorted(set(float(x) for x in np.geomspace(0.3, 159.5, 40)) | {x for x, _ in LEWIS_35A})
+    return [{"run": case.name, "Re": RE_35A, "Pr": PR_35A, "x_over_D": xd, "Nu": nu,
+             "q_w": m.get("q_w_W_m2"), "gravity_on": False}
+            for xd, nu in zip(xds, lewis_nu(case, latest_time(case), xds))]
+
+
+def _in_sample_alarm_rate(train, train_pred) -> dict:
+    """Fraction of TRAINING rows that fire at each percentile -- the detector's built-in alarm
+    rate, since each training point is its own nearest neighbour. Context, not a criterion."""
+    colmap = ColumnMap(inputs=["Re", "Pr", "x_over_D"], truth="truth", prediction="prediction")
+    out = {}
+    with tempfile.TemporaryDirectory() as td:
+        tr = pathlib.Path(td) / "train.csv"
+        _write(train, tr, train_pred)
+        for pct in OPERATING_PERCENTILES:
+            g = CredibilityGuardrail(surrogate_inputs=["Re", "Pr", "x_over_D"],
+                                     regime=Regime.UNLISTED, detectors=_DETECTORS,
+                                     operating_pct=float(pct))
+            g.fit(tr, columns=colmap)
+            a = g.assess(tr, columns=colmap)
+            n = sum(1 for x in a if x.signals[DetectorKind.DISTANCE_TO_TRAINING].fired
+                    or x.signals[DetectorKind.GP_VARIANCE].fired)
+            out[str(pct)] = round(n / len(a), 4)
+    return out
+
+
+def main_matched(runs: pathlib.Path, out_json: pathlib.Path) -> int:
+    base = sorted(p for p in runs.glob("doe_*")
+                  if p.name.split("_")[-1] in ("T12p0", "T13p25", "T14p5")
+                  and latest_time(p) in ("2000", "4000"))
+    assert len(base) == 12, f"design M builds on A3's 12 runs; found {len(base)}"
+    train = training_table(base) + matched_rows(runs / "pair_gOFF")
+    assert not any(r["gravity_on"] for r in train), "a training row had gravity ON"
+    surrogate = fit_surrogate(train)
+    train_pred = surrogate(train)
+
+    loro = {}
+    for name in sorted({r["run"] for r in train}):
+        tr = [r for r in train if r["run"] != name]
+        te = [r for r in train if r["run"] == name]
+        pr = fit_surrogate(tr)(te)
+        e = [100 * (a / r["Nu"] - 1) for a, r in zip(pr, te)]
+        loro[name] = {"max_abs_pct": round(max(abs(x) for x in e), 3),
+                      "mean_abs_pct": round(sum(abs(x) for x in e) / len(e), 3)}
+
+    xds = [x for x, _ in LEWIS_35A]
+    nu_off = lewis_nu(runs / "pair_gOFF", "3000", xds)
+    nu_on = lewis_nu(runs / "pair_gON", "3000", xds)
+    tests = {
+        "gravity_on_experiment": [{"Re": RE_35A, "Pr": PR_35A, "x_over_D": x, "Nu": n}
+                                  for x, n in LEWIS_35A],
+        "gravity_off_control": [{"Re": RE_35A, "Pr": PR_35A, "x_over_D": x, "Nu": n}
+                                for x, n in zip(xds, nu_off)],
+    }
+    exact = all(any(r["Re"] == t["Re"] and r["Pr"] == t["Pr"] and r["x_over_D"] == t["x_over_D"]
+                    for r in train) for t in tests["gravity_on_experiment"])
+
+    screen = screen_case("lewis-35A", "local_Nusselt_number", qoi_decomposes=True,
+                         mechanisms_separable=True, has_calibration_window=True,
+                         ablation_available=True, evidence_state=EvidenceState.MEASURED)
+    window = CalibrationWindow("richardson_number", 0.0, 0.0)
+    mechs = {"gravity_on_experiment": Mechanism("buoyancy-vertical-pipe-aiding",
+                                                "buoyancy (Richardson number)", window, RI_35A),
+             "gravity_off_control": Mechanism("buoyancy-vertical-pipe-aiding",
+                                              "buoyancy (Richardson number)", window, 0.0)}
+    ref = str(int(REFERENCE_PCT))
+    states = {}
+    for state, test in tests.items():
+        pred = surrogate(test)
+        det = run_detectors(train, train_pred, test, pred, Regime.UNLISTED)
+        rows = []
+        for i, (xd, t) in enumerate(zip(xds, test)):
+            q_full, q_abl = (nu_on[i], nu_off[i]) if state == "gravity_on_experiment" \
+                else (nu_off[i], nu_off[i])
+            r = estimate_materiality(mechs[state], "local_Nusselt_number",
+                                     AblationInputs(q_full, q_abl,
+                                                    AblationProvenance.MATCHED_ABLATION),
+                                     evidence_state=EvidenceState.MEASURED)
+            d99 = det[ref][i]
+            rows.append({
+                "x_over_D": xd, "comparable": xd not in DISOWNED,
+                "surrogate_prediction": round(float(pred[i]), 4), "truth": round(t["Nu"], 4),
+                "prediction_error_pct": round(100 * (float(pred[i]) / t["Nu"] - 1), 3),
+                "ood_ref": {"distance": d99["distance"], "gp_variance": d99["gp_variance"],
+                            "either_fired": bool(d99["distance"]["fired"]
+                                                 or d99["gp_variance"]["fired"])},
+                "ood_fired_by_pct": {p: bool(det[p][i]["distance"]["fired"]
+                                             or det[p][i]["gp_variance"]["fired"]) for p in det},
+                "physmap": {"applicability": screen.applicability.value,
+                            "mechanism_outside_calibration":
+                                mechs[state].outside_calibration(),
+                            "materiality": None if r.value is None else round(r.value, 4),
+                            "flag_theta_0p10": materiality_signal(mechs[state], r,
+                                                                  theta=0.10).fired,
+                            "flag_theta_0p20": materiality_signal(mechs[state], r,
+                                                                  theta=0.20).fired}})
+        states[state] = {"stations": rows, "detectors_raw": det}
+
+    on, off = states["gravity_on_experiment"]["stations"], states["gravity_off_control"]["stations"]
+    identical = all(states["gravity_on_experiment"]["detectors_raw"][p][i]
+                    == states["gravity_off_control"]["detectors_raw"][p][i]
+                    for p in states["gravity_on_experiment"]["detectors_raw"]
+                    for i in range(len(xds)))
+    comp = lambda rows: [r for r in rows if r["comparable"]]
+    c1 = not any(r["ood_ref"]["either_fired"] for r in comp(on) + comp(off))
+    c2 = any(r["physmap"]["flag_theta_0p10"] for r in comp(on))
+    c3 = not any(r["physmap"]["flag_theta_0p10"] for r in off)
+    fired_at_ref = sorted({r["x_over_D"] for r in comp(on) + comp(off)
+                           if r["ood_ref"]["either_fired"]})
+
+    out = {
+        "design": "M -- operating-point-matched, pre-declared in PREDECLARE_design_M_matched.md",
+        "status": "DEVELOPMENT DEMONSTRATION. 35A is spent; stations are not cases; no "
+                  "precision, recall or F1.",
+        "input_contract": {"surrogate_inputs": ["Re", "Pr", "x_over_D"],
+                           "ood_detector_features": ["log10_Re", "Pr", "x_over_D"],
+                           "withheld_from_both": ["gravity", "Ri", "Gr_q", "wall heat flux",
+                                                  "flow direction"],
+                           "every_evaluated_input_is_an_exact_training_input": exact},
+        "training": {"runs": sorted({r["run"] for r in train}), "rows": len(train),
+                     "matched_run": "pair_gOFF, labelled Re 1143.4 Pr 8.46 (pre-declared)",
+                     "leave_one_run_out": loro, "kernel_fitted": surrogate.kernel},
+        "in_sample_alarm_rate_by_pct": _in_sample_alarm_rate(train, train_pred),
+        "ood_output_identical_between_gravity_states": identical,
+        "predeclared_criteria": {
+            "1_ood_quiet_at_every_comparable_station_both_states_at_99": c1,
+            "2_physmap_flags_a_comparable_station_with_gravity_on": c2,
+            "3_physmap_flags_nothing_with_gravity_off": c3,
+            "stronger_claim_supported": bool(c1 and c2 and c3),
+            "comparable_stations_where_ood_fired_at_99": fired_at_ref},
+        "states": {k: {"stations": v["stations"]} for k, v in states.items()},
     }
     out_json.write_text(json.dumps(out, indent=2) + "\n")
     return 0

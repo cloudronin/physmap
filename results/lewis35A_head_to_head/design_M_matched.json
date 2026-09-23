@@ -1,0 +1,1012 @@
+{
+  "design": "M -- operating-point-matched, pre-declared in PREDECLARE_design_M_matched.md",
+  "status": "DEVELOPMENT DEMONSTRATION. 35A is spent; stations are not cases; no precision, recall or F1.",
+  "input_contract": {
+    "surrogate_inputs": [
+      "Re",
+      "Pr",
+      "x_over_D"
+    ],
+    "ood_detector_features": [
+      "log10_Re",
+      "Pr",
+      "x_over_D"
+    ],
+    "withheld_from_both": [
+      "gravity",
+      "Ri",
+      "Gr_q",
+      "wall heat flux",
+      "flow direction"
+    ],
+    "every_evaluated_input_is_an_exact_training_input": true
+  },
+  "training": {
+    "runs": [
+      "doe_Re1350_T12p0",
+      "doe_Re1350_T13p25",
+      "doe_Re1350_T14p5",
+      "doe_Re1550_T12p0",
+      "doe_Re1550_T13p25",
+      "doe_Re1550_T14p5",
+      "doe_Re750_T12p0",
+      "doe_Re750_T13p25",
+      "doe_Re750_T14p5",
+      "doe_Re950_T12p0",
+      "doe_Re950_T13p25",
+      "doe_Re950_T14p5",
+      "pair_gOFF"
+    ],
+    "rows": 532,
+    "matched_run": "pair_gOFF, labelled Re 1143.4 Pr 8.46 (pre-declared)",
+    "leave_one_run_out": {
+      "doe_Re1350_T12p0": {
+        "max_abs_pct": 0.234,
+        "mean_abs_pct": 0.037
+      },
+      "doe_Re1350_T13p25": {
+        "max_abs_pct": 0.256,
+        "mean_abs_pct": 0.028
+      },
+      "doe_Re1350_T14p5": {
+        "max_abs_pct": 0.277,
+        "mean_abs_pct": 0.052
+      },
+      "doe_Re1550_T12p0": {
+        "max_abs_pct": 0.186,
+        "mean_abs_pct": 0.061
+      },
+      "doe_Re1550_T13p25": {
+        "max_abs_pct": 0.149,
+        "mean_abs_pct": 0.032
+      },
+      "doe_Re1550_T14p5": {
+        "max_abs_pct": 0.144,
+        "mean_abs_pct": 0.053
+      },
+      "doe_Re750_T12p0": {
+        "max_abs_pct": 0.16,
+        "mean_abs_pct": 0.059
+      },
+      "doe_Re750_T13p25": {
+        "max_abs_pct": 0.203,
+        "mean_abs_pct": 0.045
+      },
+      "doe_Re750_T14p5": {
+        "max_abs_pct": 0.447,
+        "mean_abs_pct": 0.073
+      },
+      "doe_Re950_T12p0": {
+        "max_abs_pct": 0.334,
+        "mean_abs_pct": 0.058
+      },
+      "doe_Re950_T13p25": {
+        "max_abs_pct": 0.188,
+        "mean_abs_pct": 0.031
+      },
+      "doe_Re950_T14p5": {
+        "max_abs_pct": 0.164,
+        "mean_abs_pct": 0.035
+      },
+      "pair_gOFF": {
+        "max_abs_pct": 0.297,
+        "mean_abs_pct": 0.053
+      }
+    },
+    "kernel_fitted": "74.2**2 * Matern(length_scale=[398, 1.02e+04, 7.32], nu=2.5) + WhiteKernel(noise_level=1e-05)"
+  },
+  "in_sample_alarm_rate_by_pct": {
+    "50": 0.5,
+    "75": 0.2481,
+    "90": 0.0921,
+    "95": 0.0451,
+    "99": 0.0113,
+    "100": 0.0
+  },
+  "ood_output_identical_between_gravity_states": true,
+  "predeclared_criteria": {
+    "1_ood_quiet_at_every_comparable_station_both_states_at_99": true,
+    "2_physmap_flags_a_comparable_station_with_gravity_on": true,
+    "3_physmap_flags_nothing_with_gravity_off": true,
+    "stronger_claim_supported": true,
+    "comparable_stations_where_ood_fired_at_99": []
+  },
+  "states": {
+    "gravity_on_experiment": {
+      "stations": [
+        {
+          "x_over_D": 0.31,
+          "comparable": false,
+          "surrogate_prediction": 54.9556,
+          "truth": 33.72,
+          "prediction_error_pct": 62.976,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.00043163983506955164,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.000432 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.0008859597764462341,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.000886 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.0014,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 0.85,
+          "comparable": false,
+          "surrogate_prediction": 36.5221,
+          "truth": 32.69,
+          "prediction_error_pct": 11.722,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.001133576049406096,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.00113 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.001567222643510485,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00157 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.0026,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 2.45,
+          "comparable": true,
+          "surrogate_prediction": 24.3532,
+          "truth": 22.15,
+          "prediction_error_pct": 9.947,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.0033009696839216562,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0033 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.0025360792287198028,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00254 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.0059,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 5.65,
+          "comparable": true,
+          "surrogate_prediction": 17.8472,
+          "truth": 19.07,
+          "prediction_error_pct": -6.412,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.007818239106261648,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.00782 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.0035842936598008746,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00358 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.0121,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 9.92,
+          "comparable": true,
+          "surrogate_prediction": 14.5276,
+          "truth": 14.92,
+          "prediction_error_pct": -2.63,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.012669909714754679,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0127 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.004404038964741504,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.0044 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.0202,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 16.32,
+          "comparable": true,
+          "surrogate_prediction": 12.1704,
+          "truth": 13.95,
+          "prediction_error_pct": -12.757,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.020532323199410545,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0205 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.005257119639022994,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00526 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.032,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 33.39,
+          "comparable": true,
+          "surrogate_prediction": 9.5786,
+          "truth": 10.76,
+          "prediction_error_pct": -10.979,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.04590701395513297,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0459 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.006681090684056242,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00668 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.061,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 50.47,
+          "comparable": true,
+          "surrogate_prediction": 8.4433,
+          "truth": 9.38,
+          "prediction_error_pct": -9.986,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.06333669914597073,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0633 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.007580237032839026,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00758 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.0868,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 67.55,
+          "comparable": true,
+          "surrogate_prediction": 7.7765,
+          "truth": 9.37,
+          "prediction_error_pct": -17.007,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.08738397715494835,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0874 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.008230574155741497,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00823 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.1109,
+            "flag_theta_0p10": true,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 101.69,
+          "comparable": true,
+          "surrogate_prediction": 7.0005,
+          "truth": 8.41,
+          "prediction_error_pct": -16.76,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.14161080084934477,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.142 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.009143062017134983,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00914 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.1543,
+            "flag_theta_0p10": true,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 135.84,
+          "comparable": true,
+          "surrogate_prediction": 6.5507,
+          "truth": 7.99,
+          "prediction_error_pct": -18.013,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.16713516852935437,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.167 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.009771673815203842,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00977 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.1948,
+            "flag_theta_0p10": true,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 159.33,
+          "comparable": false,
+          "surrogate_prediction": 6.3393,
+          "truth": 8.82,
+          "prediction_error_pct": -28.126,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.19497678878953306,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.195 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.010117103985989933,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.0101 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": true,
+            "materiality": 0.2211,
+            "flag_theta_0p10": true,
+            "flag_theta_0p20": true
+          }
+        }
+      ]
+    },
+    "gravity_off_control": {
+      "stations": [
+        {
+          "x_over_D": 0.31,
+          "comparable": false,
+          "surrogate_prediction": 54.9556,
+          "truth": 54.974,
+          "prediction_error_pct": -0.033,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.00043163983506955164,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.000432 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.0008859597764462341,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.000886 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 0.85,
+          "comparable": false,
+          "surrogate_prediction": 36.5221,
+          "truth": 36.5529,
+          "prediction_error_pct": -0.084,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.001133576049406096,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.00113 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.001567222643510485,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00157 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 2.45,
+          "comparable": true,
+          "surrogate_prediction": 24.3532,
+          "truth": 24.3591,
+          "prediction_error_pct": -0.024,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.0033009696839216562,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0033 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.0025360792287198028,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00254 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 5.65,
+          "comparable": true,
+          "surrogate_prediction": 17.8472,
+          "truth": 17.8573,
+          "prediction_error_pct": -0.056,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.007818239106261648,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.00782 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.0035842936598008746,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00358 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 9.92,
+          "comparable": true,
+          "surrogate_prediction": 14.5276,
+          "truth": 14.5341,
+          "prediction_error_pct": -0.044,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.012669909714754679,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0127 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.004404038964741504,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.0044 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": false,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 16.32,
+          "comparable": true,
+          "surrogate_prediction": 12.1704,
+          "truth": 12.1756,
+          "prediction_error_pct": -0.043,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.020532323199410545,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0205 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.005257119639022994,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00526 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 33.39,
+          "comparable": true,
+          "surrogate_prediction": 9.5786,
+          "truth": 9.5806,
+          "prediction_error_pct": -0.02,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.04590701395513297,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0459 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.006681090684056242,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00668 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 50.47,
+          "comparable": true,
+          "surrogate_prediction": 8.4433,
+          "truth": 8.4442,
+          "prediction_error_pct": -0.011,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.06333669914597073,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0633 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.007580237032839026,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00758 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": false,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 67.55,
+          "comparable": true,
+          "surrogate_prediction": 7.7765,
+          "truth": 7.777,
+          "prediction_error_pct": -0.006,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.08738397715494835,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.0874 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.008230574155741497,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00823 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 101.69,
+          "comparable": true,
+          "surrogate_prediction": 7.0005,
+          "truth": 7.0008,
+          "prediction_error_pct": -0.004,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.14161080084934477,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.142 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.009143062017134983,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00914 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 135.84,
+          "comparable": true,
+          "surrogate_prediction": 6.5507,
+          "truth": 6.5488,
+          "prediction_error_pct": 0.03,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.16713516852935437,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.167 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.009771673815203842,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.00977 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        },
+        {
+          "x_over_D": 159.33,
+          "comparable": false,
+          "surrogate_prediction": 6.3393,
+          "truth": 6.3267,
+          "prediction_error_pct": 0.2,
+          "ood_ref": {
+            "distance": {
+              "fired": false,
+              "score": 0.19497678878953306,
+              "threshold": 0.4079668602128621,
+              "rationale": "distance: quiet (Mahalanobis k=3 mean k-NN distance=0.195 <= threshold=0.408)"
+            },
+            "gp_variance": {
+              "fired": false,
+              "score": 0.010117103985989933,
+              "threshold": 0.05,
+              "rationale": "gp_variance: quiet (GP posterior std / |mean|=0.0101 <= threshold=0.05)"
+            },
+            "either_fired": false
+          },
+          "ood_fired_by_pct": {
+            "50": true,
+            "75": true,
+            "90": false,
+            "95": false,
+            "99": false,
+            "100": false
+          },
+          "physmap": {
+            "applicability": "applicable",
+            "mechanism_outside_calibration": false,
+            "materiality": 0.0,
+            "flag_theta_0p10": false,
+            "flag_theta_0p20": false
+          }
+        }
+      ]
+    }
+  }
+}
