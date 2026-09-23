@@ -1,0 +1,27 @@
+{
+  "source": "J. S. Lewis (1992), PhD thesis, City University London, Table 7.1 (p. 203)",
+  "quantity": "Axial distance to the first appearance of negative axial velocity",
+  "kind": "PREDICTED",
+  "predicted_by": "Lewis's own marching finite-difference code (Appendix F), not a measurement",
+  "property_basis": "inlet bulk (Tb0). Lewis states the ordering by Grq/Re is preserved under mean-bulk (Tbm) and mean-film (Tfm) bases.",
+  "note_on_coverage": "Table 7.1 lists only the conditions Lewis actually computed for Figures 7.1-7.3, not all 30 runs. A run absent from this table was either not computed or had no reversal predicted within the heated tube; the two are distinguished by the surrounding text, not by the table.",
+  "no_reversal_predicted": {
+    "figure": "7.4",
+    "Re_range": [1098, 1143],
+    "statement": "No flow reversals were predicted within the heated tube for the conditions considered in Figure 7.4.",
+    "includes_test_35A": true
+  },
+  "rows": [
+    {"test": "7A",  "Re": 296.0, "Gr_q": 1.72e5, "Gr_q_over_Re": 581,  "x_over_d_reversal": 157.0},
+    {"test": "6A",  "Re": 609.0, "Gr_q": 3.78e5, "Gr_q_over_Re": 620,  "x_over_d_reversal": 134.5},
+    {"test": "10A", "Re": 81.2,  "Gr_q": 7.96e4, "Gr_q_over_Re": 980,  "x_over_d_reversal": 73.5},
+    {"test": "12A", "Re": 309.0, "Gr_q": 3.36e5, "Gr_q_over_Re": 1090, "x_over_d_reversal": 54.0},
+    {"test": "25A", "Re": 687.0, "Gr_q": 1.03e6, "Gr_q_over_Re": 1500, "x_over_d_reversal": 69.0},
+    {"test": "15A", "Re": 74.9,  "Gr_q": 1.55e5, "Gr_q_over_Re": 2070, "x_over_d_reversal": 11.5}
+  ],
+  "transcription_check": "Gr_q / Re reproduces the printed Gr_q_over_Re for every row to within rounding, which is how the OCR-ambiguous exponents were resolved.",
+  "stations_lewis_himself_discounts": {
+    "x_over_d_0.31_and_0.85": "Predictions over-predict Nu here. Lewis attributes this to axial wall conduction preheating the fluid upstream of x=0; he measured the wall at x=0 to be 0.5-5.7 degC above the inlet bulk. No correction was applied in the data reduction.",
+    "x_over_d_159.33": "Lewis calls these values 'suspect': the station sits ~1/3 tube diameter from the end of the heated section and its accuracy 'is also impaired by axial conduction because of heat loss through the adjacent power connection flange'."
+  }
+}

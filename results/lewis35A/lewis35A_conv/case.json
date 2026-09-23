@@ -1,0 +1,42 @@
+{
+  "source": "Lewis (1992) Test 35A",
+  "geometry": {
+    "d_m": 0.0119,
+    "L_m": 1.9,
+    "L_over_D": 159.66386554621846
+  },
+  "q_w_W_m2": 12749.6,
+  "T_inlet_C": 13.06,
+  "V_dot_L_min": 0.7679,
+  "property_basis": "inlet bulk 13.06 degC",
+  "beta_basis": "mean bulk 21.53 degC",
+  "solver": "buoyantBoussinesqSimpleFoam",
+  "mesh": {
+    "nr": 30,
+    "ny": 400,
+    "cells": 12000
+  },
+  "iterations": 25000,
+  "derived": {
+    "U_inlet": 0.1150719871951288,
+    "Re": 1143.2698019499007,
+    "Pr": 8.464702127659574,
+    "Gr_q": 374932.4641686556,
+    "Ri": 0.28685048042732947,
+    "T_exit_bulk_C_energy_balance": 29.967575547587856,
+    "L_over_D": 159.66386554621846,
+    "nu": 1.1977545853887948e-06,
+    "rho": 999.37,
+    "k": 0.5922,
+    "Cp": 4187.8,
+    "beta": 0.000127
+  },
+  "lewis_reported": {
+    "Re": 1143.4,
+    "Pr": 8.46,
+    "Gr_q": 374663,
+    "Nu_mean": 9.55,
+    "T_exit_bulk_calc_C": 30.0,
+    "energy_bal_error_pct": -3.96
+  }
+}

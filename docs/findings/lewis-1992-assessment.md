@@ -78,6 +78,211 @@ Distribution: minimum 0.04%, **median 2.32%**, maximum 12.52%. Worst five: 18A (
 the median. It is the only run with printed local `Nu`, so it is where any work must
 start, and it is not a run that would survive a strict energy-balance screen.
 
+## Flow-regime screen — done, and it is a *predicted* screen
+
+Lewis's Table 7.1 (p. 203) is the screen. It lists the axial distance at which his own
+marching code first produced a **negative axial velocity**, for the conditions he actually
+computed. Transcribed to `data/lewis1992/table_7_1_flow_reversal.json`.
+
+| Test | Re | Gr_q | Gr_q/Re | (x/d) at reversal |
+|---|---|---|---|---|
+| 7A | 296 | 1.72e5 | 581 | 157.0 |
+| 6A | 609 | 3.78e5 | 620 | 134.5 |
+| 10A | 81.2 | 7.96e4 | 980 | 73.5 |
+| 12A | 309 | 3.36e5 | 1090 | 54.0 |
+| 25A | 687 | 1.03e6 | 1500 | 69.0 |
+| 15A | 74.9 | 1.55e5 | 2070 | 11.5 |
+
+Three things about this table have to be said plainly.
+
+**It is predicted, not measured.** These are outputs of Lewis's own numerical code, on the
+inlet-bulk property basis. He measured no velocity field. A reversal in this table is a
+reason to *doubt* a station, not an observation of one.
+
+**It does not cover all 30 runs.** It covers only the conditions plotted in Figures
+7.1–7.3. A run's absence means either "not computed" or "no reversal predicted", and only
+the surrounding text distinguishes them — the table alone cannot.
+
+**35A is in the clear.** Lewis states that *no* flow reversals were predicted within the
+heated tube for the Figure 7.4 conditions, Re 1098–1181, which is 35A's group. 35A's
+buoyancy parameter, Gr_q/Re = 328, is below every entry in the table. Of the fully
+tabulated run, this is the most benign one on the buoyancy axis.
+
+### The fluctuation measurements do not cover the main test series
+
+An earlier reading of this treated the wall-temperature fluctuations as a per-run property
+of Tests 1A–35A. That was wrong. Section 6.5 is explicit: the fluctuation records come
+from **eight separate tests, 36–43**, run afterwards specifically to sample temperature at
+1 Hz for 4 minutes. Only Test 36 is plotted. The main-series runs carry no fluctuation
+record at all.
+
+What Tests 36–43 do establish, and it is still useful:
+
+- fluctuation magnitude **increases with both heat flux and flow rate**;
+- in the **lower** half of the tube the record is dominated by occasional large excursions
+  *below* the mean, growing then decaying with axial distance;
+- in the **upper** half, *"rapid and irregular wall temperature fluctuations of larger
+  amplitude ... were observed in many tests"*;
+- thermocouples on diametrically opposite walls correlate in two distinct groups, which
+  Lewis reads as **strong evidence of asymmetric flow**;
+- Lewis calls these measurements **"of only a preliminary nature"**.
+
+So the honest screen is: the upper tube is where the flow stops being cleanly laminar, and
+that is a *qualitative* finding from a side experiment, not a per-run flag.
+
+### Two stations Lewis himself discounts
+
+Independent of buoyancy, Lewis rules out three measurement positions on instrumentation
+grounds, and these apply to **every** run including 35A:
+
+- **x/d = 0.31 and x/d = 0.85.** Predictions over-predict Nu here. Lewis attributes it to
+  **axial wall conduction** preheating the water upstream of x = 0, and confirms it
+  directly: the copper power-connection flange put the wall at x = 0 between **0.5 and
+  5.7 °C above the measured inlet bulk**, depending on heat flux. No correction for this
+  was applied in the data reduction.
+- **x/d = 159.33.** Called **"suspect"**. It sits about 1/3 of a tube diameter from the end
+  of the heated section and its accuracy *"is also impaired by axial conduction because of
+  heat loss through the adjacent power connection flange"*.
+
+That leaves **9 of 12 stations** on 35A that Lewis does not himself disown.
+
+## Property basis and QoI — fixed, and verified against his spreadsheet
+
+These were chosen before the rebuilt case was run and are now checked line by line against
+the Appendix D-2 spreadsheet for 35A. Recorded in
+`data/lewis1992/test_35A_reduction.json`.
+
+**Property basis: inlet bulk, 13.06 °C.** Lewis tabulates four bases (inlet bulk, mean
+bulk, mean wall, exit bulk) and reports derived groups on two of them. The choice is not
+cosmetic:
+
+| | Re | Pr | Gr_q | mean Nu |
+|---|---|---|---|---|
+| inlet bulk (13.06 °C) | 1143.4 | 8.46 | 3.75e5 | 9.55 |
+| mean bulk (21.53 °C) | 1417.1 | 6.66 | 9.86e5 | 9.33 |
+
+**The basis moves Re by 24% and Gr_q by a factor of 2.6.** Inlet bulk is taken because it
+is the basis on which Lewis prints the local Nu table, Table 7.1, and Figures 7.1–7.4.
+
+**Expansion coefficient: 1.27e-4 /K**, the inlet-bulk value, passed as an explicit input to
+the case generator rather than derived. On the mean-bulk basis it would be 2.23e-4 — a
+factor of 1.76, and the single largest lever on Gr_q.
+
+**QoI: Nu(x) on a linear energy-balance bulk temperature.** This is Lewis's experimental
+definition, and it has a detail that matters:
+
+> the bulk rises linearly from the **measured** inlet, 13.06 °C, to the **calculated**
+> exit, 30.00 °C — not to the measured exit, 29.32 °C.
+
+The gap between those two exit temperatures *is* the −3.96 % energy-balance error. Which
+one the reduction uses was settled by arithmetic, not assumption: reproducing the printed
+`(Tw − Tb)` at x/d = 159.33 gives 29.06 K with the calculated exit and 29.73 K with the
+measured one. The printed value is **29.06 K**. The whole reduction rule then reproduces
+all 12 printed Nu values — at x/d = 0.31, `12749.6/7.60 = 1677.6` against a printed 1678.0,
+and `1677.6 × 0.0119 / 0.5922 = 33.71` against a printed 33.72.
+
+**Lewis's own two sides use two different bulk definitions.** His experiment uses the
+linear rise above. His prediction code integrates a true **mixing-cup** bulk — Appendix F,
+the `SUMUCT` loop, summing `U·cp·r·T` across the radius. These are different quantities,
+and the rebuilt case reports both so they are never silently swapped.
+
+## Test 35A rebuilt — numerical reconstruction check
+
+`cfd/gencase_lewis.py` + `cfd/compare_lewis.py`, solver `buoyantBoussinesqSimpleFoam`
+(OpenFOAM v2312), axisymmetric wedge, two meshes at 25 000 iterations each. Banked in
+`results/lewis35A/grid_pair.json`.
+
+**The case reproduces Lewis's stated operating point almost exactly**, which is the first
+thing it had to do:
+
+| | Lewis | rebuilt | |
+|---|---|---|---|
+| Re | 1143.4 | 1143.3 | −0.01 % |
+| Pr | 8.46 | 8.465 | +0.06 % |
+| Gr_q | 3.7466e5 | 3.7493e5 | +0.07 % |
+
+### Grid convergence is station-dependent, and that is the useful part
+
+| x/d | 20×300 | 30×400 | grid Δ | experiment | CFD − exp |
+|---|---|---|---|---|---|
+| 0.31 | 73.334 | 100.498 | **+37.0 %** | 33.72 | +198.0 % |
+| 0.85 | 50.311 | 39.683 | **−21.1 %** | 32.69 | +21.4 % |
+| 2.45 | 26.345 | 24.495 | **−7.0 %** | 22.15 | +10.6 % |
+| 5.65 | 17.777 | 17.264 | −2.9 % | 19.07 | −9.5 % |
+| 9.92 | 14.043 | 13.949 | −0.67 % | 14.92 | −6.5 % |
+| 16.32 | 11.568 | 11.508 | −0.52 % | 13.95 | −17.5 % |
+| 33.39 | 8.990 | 8.941 | −0.55 % | 10.76 | −16.9 % |
+| 50.47 | 7.908 | 7.865 | −0.54 % | 9.38 | −16.1 % |
+| 67.55 | 7.288 | 7.248 | −0.56 % | 9.37 | −22.6 % |
+| 101.69 | 6.577 | 6.558 | −0.30 % | 8.41 | −22.0 % |
+| 135.84 | 6.183 | 6.164 | −0.30 % | 7.99 | −22.9 % |
+| 159.33 | 5.575 | 6.227 | **+11.7 %** | 8.82 | −29.4 % |
+
+**Seven stations, x/d 9.92 to 135.84, are grid-converged to better than 0.7 %.** The three
+entrance stations and the outlet station are not.
+
+The stations the rebuild cannot resolve and the stations Lewis disowns are **almost the
+same set**. x/d 0.31, 0.85 and 159.33 appear in both lists, for unrelated reasons — mesh
+sensitivity on one side, axial wall conduction on the other. That agreement was not
+arranged; it is what the two grids and the thesis text independently say.
+
+### What the converged band shows
+
+Over the seven grid-converged stations the CFD sits **6.5 % to 22.9 % below the
+experiment**, mean 17.8 %, and the gap **widens monotonically downstream**.
+
+Lewis reports the same divergence against his own code, and names the cause:
+
+> a divergence is noted at higher Grashof numbers, with the latter achieving significantly
+> larger values near to the end of the heated tube
+
+He attributes this *"tail-up"* to **transition from laminar flow** driven by instability of
+the buoyancy-distorted velocity profile, citing Barozzi et al (1984), and notes Kemeny and
+Somers (1962) measured up to 30 % increases under comparable nonlaminar conditions.
+
+So a steady laminar solver under-predicting downstream Nu by up to 23 % is the **expected**
+outcome, not a defect in the rebuild. It is also a hard ceiling: **no amount of mesh
+refinement will close this gap**, because the missing physics is unsteady transition, and
+the grid study above shows those stations are already converged.
+
+### One real defect found and fixed
+
+The first version of the comparison script reported *"flow-reversal stations: 0 of 300"*.
+That number was meaningless. It tested whether the **net** axial flux across a section was
+negative — which mass conservation prevents, whatever the profile does. Lewis's criterion
+is per-cell: *"the axial position where negative values of the axial velocity first
+appeared"*. Corrected, the rebuilt case reports a single reversed row.
+
+That row is **the last one**, at x/d 159.5, with a minimum axial velocity of −0.111 m/s in
+the three cells nearest the wall. A buoyancy reversal of the kind Table 7.1 predicts
+develops over many rows upstream; one confined to the final row is an **outlet boundary
+artifact**. The script now says so explicitly rather than reporting a bare count. It also
+explains why the solver's own outlet patch integral disagrees with the last-cell mixing-cup
+value by 3.5 K: negative face fluxes corrupt a flux-weighted average.
+
+### Convergence status, stated honestly
+
+The run reaches a **limit cycle, not a converged steady state** — over the final 2000
+iterations the radial-velocity residual oscillates between 3.8e-2 and 3.3e-1 and is not
+decreasing. The same behaviour appeared in the air case near Ri ≈ 1.3.
+
+It does not move the answer. The axial-velocity and temperature residuals are steady at
+~1.4e-3 and ~1e-3, and Nu at every station below x/d 136 differs by less than 0.01 %
+between 4 000 and 25 000 iterations. The oscillation lives in the outlet recirculation
+described above. Energy closure on the fine mesh is **+0.65 %**.
+
+## Still not an evaluable set
+
+Nothing above licenses a performance metric. Three things are still missing, and the third
+is the one that bites:
+
+1. a redistribution determination (below);
+2. per-point measurement uncertainty (below);
+3. **a reason to believe the remaining stations are independent evidence.** The seven
+   grid-converged stations come from **one** operating condition. One run is one case, not
+   seven. Precision and recall over twelve axial positions of a single test would be
+   counting the same experiment twelve times.
+
 ## What uncertainty can actually be reconstructed
 
 **Per-point measurement uncertainty: not established.** Do not assume it exists. What the
@@ -93,19 +298,47 @@ thesis demonstrably provides per run:
 That last is worth naming: **the property basis changes `Re` by 24%.** Any matched CFD
 case has to state which basis it targets, and the two are not interchangeable.
 
-Whether Lewis states instrument accuracies or a formal uncertainty analysis has **not yet
-been checked** — the sections around the energy-balance discussion (pp. 181–184) and the
-data-reduction appendix have been read only for the quantities above.
+### Instrument accuracies — checked, and they exist
+
+Chapter 5 has now been read. Lewis presents **no combined uncertainty on Nu**, and no
+error bars appear on any Nu figure. What he does give is component accuracies:
+
+| Component | Stated |
+|---|---|
+| Flow rate, calibration re-checks | within ±1.2 % in 9 of 12 checks |
+| Flow rate, run-to-run fluctuation | typically ±1.5 % |
+| Heating voltage, heating current | each within ±1 % of the data-logger value |
+| Thermocouple calibration correction | +0.13 K (ice) to +0.56 K (steam), fitted by a 5th-degree polynomial and **applied** in the reduction |
+| Resistance thermometers, probe-to-probe | differences < 0.1 K in the majority of cases |
+| Local wall heat generation uniformity | −4 % to +1 % of average in the highest-flux test; ±3.5 % in Test 15A |
+| Water property equations | ±1 % |
+
+Two caveats Lewis states himself and that a user of this data inherits:
+
+- **The resistance thermometers were never traceably calibrated** — *"no proper calibration
+  ... could be undertaken because no traceable temperature standard was available"*. The
+  agreement figures above are probe-against-probe, not probe-against-standard.
+- Wall temperatures are measured on the **outside** surface and corrected to the inside by
+  a steady radial-conduction expression (Eq 5.1) that assumes no axial or circumferential
+  gradient — an assumption the axial-conduction discussion later partly contradicts.
+
+So a per-point uncertainty is **constructible** by propagating these components, but it is
+**not reported**. Building one is a modelling choice with real freedom in it, and that
+choice belongs in the locked protocol, decided before any label or metric, not here.
+
+### One thing the accuracies settle outright
+
+Lewis writes that the exit bulk temperature was *"not used for the evaluation of
+experimental Nusselt numbers"* and was measured only *"to indicate the level of overall
+energy balance"*. That independently confirms what the arithmetic above already showed:
+the local-Nu reduction runs on the **calculated** exit bulk, 30.00 °C, and the measured
+29.32 °C serves only as the energy-balance check.
 
 ## Not yet done
 
 - The remaining 29 runs' local `Nu` exists only as **Figures 6.7–6.13**, not as printed
   numbers. Recovering those is a digitisation task with its own error budget, and the
   lesson from Figure 16 applies: a figure is not a pointwise benchmark until proven so.
-- Lewis reports flow-regime observations, including where the flow ceased to be
-  unidirectional. **Those are the flow issues to screen on**, and they have not been
-  extracted yet. The abstract already flags the limit: numerical predictions were compared
-  with experiment *"where the flow remained unidirectional"*.
 - A redistribution determination. The thesis is open access; the licence is **not stated**
   on the record page, so it is not yet established what may be republished here.
 

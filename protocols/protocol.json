@@ -322,6 +322,79 @@
       "reason": "a constant-temperature wall and a constant-flux wall are different boundary-value problems, and L/D differs. NOT interchangeable with Mohammed & Salman.",
       "per_run_data_uncertainty": "UNKNOWN -- cannot be determined without obtaining the paper. It is a 1965 paper, so a stated per-run uncertainty may simply not exist.",
       "status": "candidate, unexamined"
+    },
+    "lewis_1992": {
+      "citation": "Lewis, J. S. (1992). Combined free and forced convection heat transfer to water in a vertical tube. PhD thesis, City University London.",
+      "record": "https://openaccess.city.ac.uk/id/eprint/28530/",
+      "access": "open access; LICENCE NOT STATED on the record page",
+      "redistribution_determination": "NOT MADE. Numbers transcribed to data/lewis1992/ pending it.",
+      "direction": "upward, buoyancy-aiding -- correct direction",
+      "wall_boundary_condition": "uniform heat flux -- MATCHES the NAFEMS case's BC",
+      "working_fluid": "water (the NAFEMS case is air; this is a different fluid)",
+      "geometry": {
+        "d_m": 0.0119,
+        "L_heated_m": 1.9,
+        "L_over_d": 159.66,
+        "adiabatic_entry_diameters": 2.5
+      },
+      "runs_total": 30,
+      "runs_with_printed_local_Nu": 1,
+      "which": "35A only. The other 29 exist as Figures 6.7-6.13, not as numbers.",
+      "cases_not_observations": "One operating run is ONE case. 35A's 12 axial stations are 12 measurements of the same condition, not 12 independent cases. Counting them as cases would inflate any metric.",
+      "screens_applied": {
+        "energy_balance": "35A carries -3.96%, worse than the 30-run median of 2.32%. 12 runs fall within 2%; 35A is not one of them.",
+        "flow_reversal": "PREDICTED by Lewis's own code, Table 7.1, for 6 conditions. 35A is NOT among them: Lewis states no reversal was predicted for the Figure 7.4 group (Re 1098-1181). 35A's Gr_q/Re = 328 is below every tabulated entry. Predicted, not measured.",
+        "fluctuations": "Recorded only in separate Tests 36-43, NOT in the main series. Qualitative: larger and more irregular in the upper half of the tube; Lewis calls the measurements 'of only a preliminary nature'.",
+        "stations_lewis_discounts": "x/d 0.31 and 0.85 (axial wall conduction; wall at x=0 measured 0.5-5.7 degC above inlet bulk) and x/d 159.33 ('suspect', flange heat loss). 9 of 12 stations on 35A survive."
+      },
+      "per_point_uncertainty": {
+        "stated_by_source": false,
+        "components_available": true,
+        "components": [
+          "flow rate +/-1.2% (9 of 12 checks), run fluctuation +/-1.5%",
+          "voltage and current each +/-1% of data-logger value",
+          "thermocouple correction +0.13 K (ice) to +0.56 K (steam), applied",
+          "RTD probe-to-probe < 0.1 K, but NEVER TRACEABLY CALIBRATED",
+          "local wall heat generation -4% to +1% of average; +/-3.5% in Test 15A",
+          "water property equations +/-1%"
+        ],
+        "ruling": "Constructible by propagation, not reported. Building one is a modelling choice with real freedom in it and must be fixed in this protocol BEFORE any label, flag or metric is computed."
+      },
+      "status": "experimental evaluation CANDIDATE. Not an evaluable set.",
+      "blocking_for_evaluability": [
+        "redistribution determination",
+        "a fixed per-point uncertainty rule",
+        "more than one operating condition"
+      ]
+    }
+  },
+  "lewis_case_choices": {
+    "scope": "Applies to the Lewis (1992) track ONLY. Kept entirely separate from the historical NAFEMS causal metrics, which concern a different fluid, geometry and experiment.",
+    "fixed_before_any_label_flag_or_metric": true,
+    "property_basis": {
+      "choice": "inlet bulk, Tb0 = 13.06 degC",
+      "reason": "it is the basis on which Lewis prints the local Nu table, Table 7.1 and Figures 7.1-7.4",
+      "sensitivity": "the basis moves Re by 24% (1143 -> 1417) and Gr_q by 2.6x. Not interchangeable.",
+      "beta_1_per_K": 0.000127,
+      "beta_note": "explicit input to the case generator, not derived. Mean-bulk beta is 2.23e-4, a factor 1.76 and the single largest lever on Gr_q."
+    },
+    "qoi": {
+      "choice": "Nu(x) on a LINEAR energy-balance bulk temperature",
+      "bulk_endpoints": "measured inlet 13.06 degC to CALCULATED exit 30.00 degC (not the measured exit, 29.32 degC)",
+      "how_settled": "arithmetic, not assumption: reproducing the printed (Tw-Tb) at x/d=159.33 gives 29.06 K with the calculated exit and 29.73 K with the measured one; the printed value is 29.06 K. Lewis separately states the measured exit was 'not used for the evaluation of experimental Nusselt numbers'.",
+      "verification": "the full rule reproduces all 12 printed Nu values",
+      "mixing_cup_is_a_different_quantity": "Lewis's own PREDICTION code integrates a true mixing-cup bulk (Appendix F, SUMUCT loop). His EXPERIMENT uses the linear rise. Two different bulk definitions on the two sides of his own comparison. The rebuilt case reports both so they are never silently swapped."
+    },
+    "flow_reversal_criterion": {
+      "choice": "per-cell: any cell with negative axial velocity, matching Lewis's 'the axial position where negative values of the axial velocity first appeared'",
+      "rejected": "net axial flux across a section. Mass conservation keeps it positive whatever the profile does, so it can never detect a reversal. An earlier version of cfd/compare_lewis.py used it and reported a meaningless 0.",
+      "outlet_artifact_rule": "a reversal confined to the FINAL axial row is an outlet boundary artifact, not a developing buoyancy reversal, and is reported as such rather than as a bare count."
+    },
+    "cfd_acceptance": {
+      "basis": "the CFD's own numerical terms: operating-point match, grid convergence, energy closure, residual behaviour. NOT agreement with the experiment.",
+      "why": "the same rule as the NAFEMS case: accepting a CFD because it agrees with the measurement it is about to be tested against destroys the independence.",
+      "grid_convergence_criterion_pct": 0.7,
+      "banked": "results/lewis35A/grid_pair.json"
     }
   }
 }

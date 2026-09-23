@@ -1,0 +1,106 @@
+{
+  "points": [
+    {
+      "x_over_d": 0.31,
+      "Nu_experiment": 33.72,
+      "Nu_cfd_lewis_definition": 100.4978,
+      "Nu_cfd_mixing_cup": 100.3657,
+      "rel_diff_pct": 198.04,
+      "definition_gap_pct": -0.13
+    },
+    {
+      "x_over_d": 0.85,
+      "Nu_experiment": 32.69,
+      "Nu_cfd_lewis_definition": 39.6832,
+      "Nu_cfd_mixing_cup": 39.6779,
+      "rel_diff_pct": 21.39,
+      "definition_gap_pct": -0.01
+    },
+    {
+      "x_over_d": 2.45,
+      "Nu_experiment": 22.15,
+      "Nu_cfd_lewis_definition": 24.4948,
+      "Nu_cfd_mixing_cup": 24.4932,
+      "rel_diff_pct": 10.59,
+      "definition_gap_pct": -0.01
+    },
+    {
+      "x_over_d": 5.65,
+      "Nu_experiment": 19.07,
+      "Nu_cfd_lewis_definition": 17.2641,
+      "Nu_cfd_mixing_cup": 17.2634,
+      "rel_diff_pct": -9.47,
+      "definition_gap_pct": -0.0
+    },
+    {
+      "x_over_d": 9.92,
+      "Nu_experiment": 14.92,
+      "Nu_cfd_lewis_definition": 13.9489,
+      "Nu_cfd_mixing_cup": 13.9482,
+      "rel_diff_pct": -6.51,
+      "definition_gap_pct": -0.0
+    },
+    {
+      "x_over_d": 16.32,
+      "Nu_experiment": 13.95,
+      "Nu_cfd_lewis_definition": 11.5082,
+      "Nu_cfd_mixing_cup": 11.5067,
+      "rel_diff_pct": -17.5,
+      "definition_gap_pct": -0.01
+    },
+    {
+      "x_over_d": 33.39,
+      "Nu_experiment": 10.76,
+      "Nu_cfd_lewis_definition": 8.9412,
+      "Nu_cfd_mixing_cup": 8.9369,
+      "rel_diff_pct": -16.9,
+      "definition_gap_pct": -0.05
+    },
+    {
+      "x_over_d": 50.47,
+      "Nu_experiment": 9.38,
+      "Nu_cfd_lewis_definition": 7.8654,
+      "Nu_cfd_mixing_cup": 7.8637,
+      "rel_diff_pct": -16.15,
+      "definition_gap_pct": -0.02
+    },
+    {
+      "x_over_d": 67.55,
+      "Nu_experiment": 9.37,
+      "Nu_cfd_lewis_definition": 7.2476,
+      "Nu_cfd_mixing_cup": 7.2427,
+      "rel_diff_pct": -22.65,
+      "definition_gap_pct": -0.07
+    },
+    {
+      "x_over_d": 101.69,
+      "Nu_experiment": 8.41,
+      "Nu_cfd_lewis_definition": 6.5575,
+      "Nu_cfd_mixing_cup": 6.5493,
+      "rel_diff_pct": -22.03,
+      "definition_gap_pct": -0.12
+    },
+    {
+      "x_over_d": 135.84,
+      "Nu_experiment": 7.99,
+      "Nu_cfd_lewis_definition": 6.164,
+      "Nu_cfd_mixing_cup": 6.1494,
+      "rel_diff_pct": -22.85,
+      "definition_gap_pct": -0.24
+    },
+    {
+      "x_over_d": 159.33,
+      "Nu_experiment": 8.82,
+      "Nu_cfd_lewis_definition": 6.2273,
+      "Nu_cfd_mixing_cup": 6.2423,
+      "rel_diff_pct": -29.4,
+      "definition_gap_pct": 0.24
+    }
+  ],
+  "n_stations": 400,
+  "reversal_stations": 1,
+  "first_reversal_x_over_d": 159.4642857142857,
+  "min_axial_velocity_m_s": -0.110762,
+  "min_axial_velocity_at_x_over_d": 159.46,
+  "reversal_confined_to_outlet_row": true
+}

@@ -1,0 +1,140 @@
+{
+  "case": "Lewis (1992) Test 35A",
+  "solver": "buoyantBoussinesqSimpleFoam (OpenFOAM v2312)",
+  "meshes": [
+    {
+      "nr": 20,
+      "ny": 300
+    },
+    {
+      "nr": 30,
+      "ny": 400
+    }
+  ],
+  "iterations": 25000,
+  "property_basis": "inlet bulk (Tb0 = 13.06 degC)",
+  "beta_1_per_K": 0.000127,
+  "qoi": "Nu(x) on Lewis's linear energy-balance bulk temperature",
+  "grid_convergence_criterion_pct": 0.7,
+  "stations": [
+    {
+      "x_over_d": 0.31,
+      "Nu_20x300": 73.3341,
+      "Nu_30x400": 100.4978,
+      "grid_change_pct": 37.04,
+      "Nu_experiment": 33.72,
+      "cfd_minus_exp_pct": 198.04,
+      "grid_converged_0p7pct": false
+    },
+    {
+      "x_over_d": 0.85,
+      "Nu_20x300": 50.3113,
+      "Nu_30x400": 39.6832,
+      "grid_change_pct": -21.12,
+      "Nu_experiment": 32.69,
+      "cfd_minus_exp_pct": 21.39,
+      "grid_converged_0p7pct": false
+    },
+    {
+      "x_over_d": 2.45,
+      "Nu_20x300": 26.3453,
+      "Nu_30x400": 24.4948,
+      "grid_change_pct": -7.02,
+      "Nu_experiment": 22.15,
+      "cfd_minus_exp_pct": 10.59,
+      "grid_converged_0p7pct": false
+    },
+    {
+      "x_over_d": 5.65,
+      "Nu_20x300": 17.7767,
+      "Nu_30x400": 17.2641,
+      "grid_change_pct": -2.88,
+      "Nu_experiment": 19.07,
+      "cfd_minus_exp_pct": -9.47,
+      "grid_converged_0p7pct": false
+    },
+    {
+      "x_over_d": 9.92,
+      "Nu_20x300": 14.043,
+      "Nu_30x400": 13.9489,
+      "grid_change_pct": -0.67,
+      "Nu_experiment": 14.92,
+      "cfd_minus_exp_pct": -6.51,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 16.32,
+      "Nu_20x300": 11.5678,
+      "Nu_30x400": 11.5082,
+      "grid_change_pct": -0.52,
+      "Nu_experiment": 13.95,
+      "cfd_minus_exp_pct": -17.5,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 33.39,
+      "Nu_20x300": 8.9904,
+      "Nu_30x400": 8.9412,
+      "grid_change_pct": -0.55,
+      "Nu_experiment": 10.76,
+      "cfd_minus_exp_pct": -16.9,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 50.47,
+      "Nu_20x300": 7.9081,
+      "Nu_30x400": 7.8654,
+      "grid_change_pct": -0.54,
+      "Nu_experiment": 9.38,
+      "cfd_minus_exp_pct": -16.15,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 67.55,
+      "Nu_20x300": 7.2884,
+      "Nu_30x400": 7.2476,
+      "grid_change_pct": -0.56,
+      "Nu_experiment": 9.37,
+      "cfd_minus_exp_pct": -22.65,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 101.69,
+      "Nu_20x300": 6.5772,
+      "Nu_30x400": 6.5575,
+      "grid_change_pct": -0.3,
+      "Nu_experiment": 8.41,
+      "cfd_minus_exp_pct": -22.03,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 135.84,
+      "Nu_20x300": 6.1826,
+      "Nu_30x400": 6.164,
+      "grid_change_pct": -0.3,
+      "Nu_experiment": 7.99,
+      "cfd_minus_exp_pct": -22.85,
+      "grid_converged_0p7pct": true
+    },
+    {
+      "x_over_d": 159.33,
+      "Nu_20x300": 5.5749,
+      "Nu_30x400": 6.2273,
+      "grid_change_pct": 11.7,
+      "Nu_experiment": 8.82,
+      "cfd_minus_exp_pct": -29.4,
+      "grid_converged_0p7pct": false
+    }
+  ],
+  "converged_band_x_over_d": [
+    9.92,
+    135.84
+  ],
+  "not_grid_converged": [
+    0.31,
+    0.85,
+    2.45,
+    5.65,
+    159.33
+  ]
+}

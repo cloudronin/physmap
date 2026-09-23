@@ -1,0 +1,61 @@
+{
+  "source": "J. S. Lewis (1992), PhD thesis, City University London, Appendix D-2 sample spreadsheet for Test 35A (pp. 267-269)",
+  "why_this_run": "35A is the only run whose local Nusselt numbers are printed as numbers rather than plotted. Every other run's local Nu exists only in Figures 6.7-6.13.",
+
+  "raw_inputs": {
+    "volume_flowrate_L_min": 0.7679,
+    "heating_voltage_V": 11.189,
+    "heating_current_A": 81.44,
+    "inlet_bulk_T_C": 13.06,
+    "exit_bulk_T_measured_C": 29.32,
+    "ambient_T_C": 21.63,
+    "date": "1991-04-18"
+  },
+
+  "derived": {
+    "power_input_W": 911.20,
+    "heat_loss_W": 5.58,
+    "wall_heat_flux_W_m2": 12749.6,
+    "exit_bulk_T_calculated_C": 30.00,
+    "energy_balance_error_pct": -3.96,
+    "mean_wall_T_C": 48.36
+  },
+
+  "the_two_exit_temperatures": "29.32 degC is MEASURED; 30.00 degC is CALCULATED from the corrected power input. The -3.96% energy-balance error is exactly the gap between them. The local-Nu reduction uses the CALCULATED value -- verified by reproducing the printed (Tw-Tb) at x/d=159.33: 59.02 - [13.06 + (30.00-13.06)*(1.8960/1.900)] = 29.06 K, which is the printed value. Using the measured 29.32 gives 29.73 K and does not match.",
+
+  "property_bases": {
+    "inlet_bulk":  {"T_C": 13.06, "mu": 0.001197, "k": 0.5922, "cp": 4187.8, "rho": 999.37, "beta": 1.27e-4},
+    "mean_bulk":   {"T_C": 21.53, "mu": 0.000966, "k": 0.6058, "cp": 4180.7, "rho": 997.88, "beta": 2.23e-4},
+    "mean_wall":   {"T_C": 48.36, "mu": 0.000563, "k": 0.6414, "cp": 4180.5, "rho": 988.77, "beta": 4.46e-4},
+    "exit_bulk":   {"T_C": 30.00, "mu": 0.000798, "k": 0.6183, "cp": 4178.4, "rho": 995.65, "beta": 3.04e-4}
+  },
+
+  "dimensionless_by_basis": {
+    "inlet_bulk": {"Re": 1143.4, "Pr": 8.46, "Gr_q_heat_flux_based": 374663, "Gr_T_based": 39244, "mean_Nu": 9.55},
+    "mean_bulk":  {"Re": 1417.1, "Pr": 6.66, "Gr_q_heat_flux_based": 985678, "Gr_T_based": 105624, "mean_Nu": 9.33}
+  },
+  "basis_sensitivity": "The property basis moves Re by 24% (1143 -> 1417) and Gr_q by a factor of 2.6. The two are not interchangeable; any matched CFD case must name which it targets.",
+
+  "local_nu_inlet_bulk_basis": [
+    {"x_over_d": 0.31,   "Tw_minus_Tb_K": 7.60,  "h_W_m2K": 1678.0, "x_star": 3.2126e-05, "Nu": 33.72},
+    {"x_over_d": 0.85,   "Tw_minus_Tb_K": 7.84,  "h_W_m2K": 1626.9, "x_star": 8.7694e-05, "Nu": 32.69},
+    {"x_over_d": 2.45,   "Tw_minus_Tb_K": 11.57, "h_W_m2K": 1102.0, "x_star": 2.5266e-04, "Nu": 22.15},
+    {"x_over_d": 5.65,   "Tw_minus_Tb_K": 13.43, "h_W_m2K": 949.1,  "x_star": 5.8347e-04, "Nu": 19.07},
+    {"x_over_d": 9.92,   "Tw_minus_Tb_K": 17.17, "h_W_m2K": 742.5,  "x_star": 1.0245e-03, "Nu": 14.92},
+    {"x_over_d": 16.32,  "Tw_minus_Tb_K": 18.37, "h_W_m2K": 694.1,  "x_star": 1.6862e-03, "Nu": 13.95},
+    {"x_over_d": 33.39,  "Tw_minus_Tb_K": 23.82, "h_W_m2K": 535.3,  "x_star": 3.4505e-03, "Nu": 10.76},
+    {"x_over_d": 50.47,  "Tw_minus_Tb_K": 27.33, "h_W_m2K": 466.5,  "x_star": 5.2148e-03, "Nu": 9.38},
+    {"x_over_d": 67.55,  "Tw_minus_Tb_K": 27.33, "h_W_m2K": 466.4,  "x_star": 6.9791e-03, "Nu": 9.37},
+    {"x_over_d": 101.69, "Tw_minus_Tb_K": 30.45, "h_W_m2K": 418.7,  "x_star": 1.0507e-02, "Nu": 8.41},
+    {"x_over_d": 135.84, "Tw_minus_Tb_K": 32.08, "h_W_m2K": 397.4,  "x_star": 1.4035e-02, "Nu": 7.99},
+    {"x_over_d": 159.33, "Tw_minus_Tb_K": 29.06, "h_W_m2K": 438.7,  "x_star": 1.6462e-02, "Nu": 8.82}
+  ],
+
+  "reduction_rule_verified": "h = q_w / (Tw - Tb) and Nu = h*d/k with k at the INLET bulk (0.5922). Check at x/d=0.31: 12749.6/7.60 = 1677.6 (printed 1678.0); 1677.6*0.0119/0.5922 = 33.71 (printed 33.72).",
+
+  "bulk_temperature_definition": "EXPERIMENT: linear rise from the measured inlet (13.06) to the CALCULATED exit (30.00) over the heated length. PREDICTION: Lewis's own code integrates a true mixing-cup bulk (Appendix F, the SUMUCT loop sums U*cp*r*T). These are two different bulk definitions on the two sides of his own comparison.",
+
+  "geometry": {"d_m": 0.0119, "L_heated_m": 1.900, "L_over_d": 159.66,
+               "adiabatic_starting_length_diameters": 2.5,
+               "note": "The 2.5d unheated entry is upstream of x=0 and is where partial hydrodynamic development happens; x/d is measured from the start of heating."}
+}
