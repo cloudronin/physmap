@@ -74,16 +74,30 @@ def inlet_properties() -> dict:
             "Gr_q": 9.81 * beta * Q_W * D_TUBE ** 4 / (k * (mu / rho) ** 2)}
 
 
-def build(out: pathlib.Path, nr: int, ny: int, iters: int, entry_d: float = 2.5) -> dict:
+def build(out: pathlib.Path, nr: int, ny: int, iters: int, entry_d: float = 2.5,
+          exit_d: float = 0.0) -> dict:
+    """exit_d: unheated tube length appended AFTER the heated section, in diameters.
+
+    A NUMERICAL device, not a claim about the rig. With the outlet sitting flush against the
+    end of heating, the zeroGradient/fixedValue pair cannot absorb the buoyancy-distorted
+    profile and manufactures a centreline recirculation in the last ~2% of the tube -- wall
+    velocity stays positive while the core reverses, which is the signature of an outlet
+    artifact rather than a developing buoyancy reversal. Extending the domain moves the
+    boundary away from the measured region. Lewis's rig did continue past the heated length
+    into a flange and outlet pipe, so this is not unphysical, but the justification here is
+    numerical and the extension carries no measurements.
+    """
     if out.exists():
         shutil.rmtree(out)
     d = inlet_properties()
     U = d["U_inlet"]
     entry_len = entry_d * D_TUBE
+    exit_len = exit_d * D_TUBE
     ny_entry = int(round(ny * entry_len / L_TUBE)) if entry_len > 0 else 0
-    ny_tot = ny + ny_entry
+    ny_exit = int(round(ny * exit_len / L_TUBE)) if exit_len > 0 else 0
+    ny_tot = ny + ny_entry + ny_exit
 
-    gencase.RAD, gencase.L = D_TUBE / 2, L_TUBE + entry_len
+    gencase.RAD, gencase.L = D_TUBE / 2, L_TUBE + entry_len + exit_len
     w(out / "system/blockMeshDict", "dictionary", "blockMeshDict", blockmesh(nr, ny_tot), "system")
 
     w(out / "system/controlDict", "dictionary", "controlDict", f"""application     buoyantSimpleFoam;
@@ -183,7 +197,8 @@ boundaryField
     # imposes q using the LOCAL conductivity, which a fixedGradient cannot do once k varies
     # with temperature -- and it writes the wall temperature out, so the comparison reads it
     # instead of reconstructing it from the adjacent cell.
-    qvals = " ".join(("0" if k < ny_entry else f"{Q_W:.4f}") for k in range(ny_tot))
+    qvals = " ".join(("0" if (k < ny_entry or k >= ny_entry + ny) else f"{Q_W:.4f}")
+                     for k in range(ny_tot))
     w(out / "0/T", "volScalarField", "T", f"""dimensions [0 0 0 1 0 0 0];
 internalField uniform {T_IN:.4f};
 boundaryField
@@ -227,6 +242,7 @@ boundaryField
             "buoyancy": "rho(T)*g -- no Boussinesq approximation, no beta choice",
             "geometry": {"d_m": D_TUBE, "L_heated_m": L_TUBE, "L_over_D": L_TUBE / D_TUBE},
             "unheated_entry_diameters": entry_d, "ny_entry": ny_entry, "ny_heated": ny,
+            "unheated_exit_diameters": exit_d, "ny_exit": ny_exit,
             "q_w_W_m2": Q_W, "T_inlet_C": T_IN_C, "V_dot_L_min": 0.7679,
             "solver_k_W_mK": None, "reduction_k_W_mK": K_REDUCTION,
             "wall_T_is_written_by_the_BC": True,
@@ -244,8 +260,11 @@ def main() -> int:
     ap.add_argument("--ny", type=int, default=400)
     ap.add_argument("--iters", type=int, default=25000)
     ap.add_argument("--entry-diameters", type=float, default=2.5, dest="entry_d")
+    ap.add_argument("--exit-diameters", type=float, default=0.0, dest="exit_d",
+                    help="unheated tube appended after the heated section, to move the outlet "
+                         "boundary away from the measured region (numerical, not physical)")
     a = ap.parse_args()
-    m = build(a.out, a.nr, a.ny, a.iters, entry_d=a.entry_d)
+    m = build(a.out, a.nr, a.ny, a.iters, entry_d=a.entry_d, exit_d=a.exit_d)
     v = m["inlet_bulk_values"]
     print(f"  wrote {a.out}")
     print(f"  properties  VARIABLE (Lewis Appendix B); beta is not an input")

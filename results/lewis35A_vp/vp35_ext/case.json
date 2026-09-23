@@ -1,0 +1,40 @@
+{
+  "case": "Lewis (1992) Test 35A, VARIABLE properties",
+  "solver": "buoyantSimpleFoam",
+  "properties": "Lewis Appendix B, B.2/B.4/B.5/B.6",
+  "property_model": "icoPolynomial + polynomial transport + hPolynomial",
+  "beta_is_an_input": false,
+  "buoyancy": "rho(T)*g -- no Boussinesq approximation, no beta choice",
+  "geometry": {
+    "d_m": 0.0119,
+    "L_heated_m": 1.9,
+    "L_over_D": 159.66386554621846
+  },
+  "unheated_entry_diameters": 2.5,
+  "ny_entry": 6,
+  "ny_heated": 400,
+  "unheated_exit_diameters": 15.0,
+  "ny_exit": 38,
+  "q_w_W_m2": 12749.6,
+  "T_inlet_C": 13.06,
+  "V_dot_L_min": 0.7679,
+  "solver_k_W_mK": null,
+  "reduction_k_W_mK": 0.5922,
+  "wall_T_is_written_by_the_BC": true,
+  "inlet_bulk_values": {
+    "mu": 0.001197606569908749,
+    "k": 0.5919949501263225,
+    "cp": 4187.8007147436,
+    "rho": 999.3721075706294,
+    "beta_reported": 0.0001268943738430913,
+    "Re": 1142.6931626253142,
+    "Pr": 8.471926404735878,
+    "Gr_q": 374372.4539599041,
+    "U_inlet": 0.1150719871951288
+  },
+  "mesh": {
+    "nr": 30,
+    "ny_total": 444
+  },
+  "iterations": 25000
+}

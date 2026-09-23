@@ -45,14 +45,17 @@ def compare(case: pathlib.Path, time: str, nr: int, ny: int,
             pred_path: pathlib.Path | None = None) -> dict:
     meta = json.loads((case / "case.json").read_text())
     ny_entry = int(meta.get("ny_entry", 0))
+    ny_exit = int(meta.get("ny_exit", 0))
     T = foamread.read_internal(case / time / "T")
     U = foamread.read_internal(case / time / "U")
     Tw_all = foamread.read_patch(case / time / "T", "wall")
-    if len(Tw_all) != ny_entry + ny:
-        raise SystemExit(f"wall patch has {len(Tw_all)} faces, expected {ny_entry + ny}")
-    Tw = Tw_all[ny_entry:]                      # drop the unheated entry
-    T = T[ny_entry * nr:]
-    U = U[ny_entry * nr:]
+    if len(Tw_all) != ny_entry + ny + ny_exit:
+        raise SystemExit(f"wall patch has {len(Tw_all)} faces, "
+                         f"expected {ny_entry + ny + ny_exit}")
+    # Keep only the heated section: the entry and any exit extension carry no measurements.
+    Tw = Tw_all[ny_entry:ny_entry + ny]
+    T = T[ny_entry * nr:(ny_entry + ny) * nr]
+    U = U[ny_entry * nr:(ny_entry + ny) * nr]
 
     aw = foamread.radial_weights(nr, D_TUBE / 2)
     dy = L_TUBE / ny
@@ -105,6 +108,7 @@ def compare(case: pathlib.Path, time: str, nr: int, ny: int,
             "reduction_k_W_mK": K_REDUCTION,
             "wall_T_source": "read from the patch, not reconstructed",
             "unheated_entry_cells_dropped": ny_entry,
+            "unheated_exit_cells_dropped": ny_exit,
             "reversal_stations": len(rev),
             "first_reversal_x_over_d": min((r["x_over_d"] for r in rev), default=None),
             "min_axial_velocity_m_s": round(worst["min_axial_velocity"], 6),

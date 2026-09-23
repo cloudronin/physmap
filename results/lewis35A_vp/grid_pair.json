@@ -1,0 +1,146 @@
+{
+  "case": "Lewis (1992) Test 35A -- VARIABLE properties, model of record",
+  "solver": "buoyantSimpleFoam, heRhoThermo, icoPolynomial + polynomial transport + hPolynomial",
+  "properties": "Lewis Appendix B eqs B.2/B.4/B.5/B.6, shifted to Kelvin",
+  "beta_is_an_input": false,
+  "domain": "2.5 d unheated entry + 1.900 m heated + 15 d unheated exit extension",
+  "exit_extension_is_numerical": "It moves the outlet boundary away from the measured region. Without it the outlet manufactured a CENTRELINE recirculation over the last 8 rows (min axial velocity -0.415 m/s) while the wall flow stayed positive -- an artifact signature -- and drove x/d 159.33 to +49% against measurement. With it: zero reversed cells anywhere, min axial velocity +0.013 m/s, and that station lands at -7.9%.",
+  "nu_reduction": "Lewis's linear energy-balance bulk, inlet-bulk k = 0.5922",
+  "wall_temperature": "read from the patch, not reconstructed",
+  "energy_closure_pct": -0.05,
+  "residual_note": "Ux (radial, tiny in a wedge) still limit-cycles between 2.0e-2 and 3.2e-1 over the last 2000 iterations. Enthalpy is 1.6e-4..8.1e-4 and axial momentum is steady at ~4.5e-2. Energy closes to -0.05% and the two grids agree to 0.9% from x/d 9.92 down, so the oscillation does not move the answer.",
+  "grid_convergence_criterion_pct": 1.0,
+  "stations": [
+    {
+      "x_over_d": 0.31,
+      "Nu_20x300": 54.447,
+      "Nu_30x400": 60.357,
+      "grid_change_pct": 10.85,
+      "Nu_experiment": 33.72,
+      "cfd_vs_experiment_pct": 78.99,
+      "grid_converged_1pct": false,
+      "old_constant_property_Nu": 100.4978
+    },
+    {
+      "x_over_d": 0.85,
+      "Nu_20x300": 38.2228,
+      "Nu_30x400": 34.0068,
+      "grid_change_pct": -11.03,
+      "Nu_experiment": 32.69,
+      "cfd_vs_experiment_pct": 4.03,
+      "grid_converged_1pct": false,
+      "old_constant_property_Nu": 39.6832
+    },
+    {
+      "x_over_d": 2.45,
+      "Nu_20x300": 25.1542,
+      "Nu_30x400": 23.9497,
+      "grid_change_pct": -4.79,
+      "Nu_experiment": 22.15,
+      "cfd_vs_experiment_pct": 8.13,
+      "grid_converged_1pct": false,
+      "old_constant_property_Nu": 24.4948
+    },
+    {
+      "x_over_d": 5.65,
+      "Nu_20x300": 18.3858,
+      "Nu_30x400": 17.9106,
+      "grid_change_pct": -2.58,
+      "Nu_experiment": 19.07,
+      "cfd_vs_experiment_pct": -6.08,
+      "grid_converged_1pct": false,
+      "old_constant_property_Nu": 17.2641
+    },
+    {
+      "x_over_d": 9.92,
+      "Nu_20x300": 15.0363,
+      "Nu_30x400": 14.9018,
+      "grid_change_pct": -0.89,
+      "Nu_experiment": 14.92,
+      "cfd_vs_experiment_pct": -0.12,
+      "grid_converged_1pct": true,
+      "old_constant_property_Nu": 13.9489
+    },
+    {
+      "x_over_d": 16.32,
+      "Nu_20x300": 12.7223,
+      "Nu_30x400": 12.6133,
+      "grid_change_pct": -0.86,
+      "Nu_experiment": 13.95,
+      "cfd_vs_experiment_pct": -9.58,
+      "grid_converged_1pct": true,
+      "old_constant_property_Nu": 11.5082
+    },
+    {
+      "x_over_d": 33.39,
+      "Nu_20x300": 10.301,
+      "Nu_30x400": 10.2043,
+      "grid_change_pct": -0.94,
+      "Nu_experiment": 10.76,
+      "cfd_vs_experiment_pct": -5.16,
+      "grid_converged_1pct": true,
+      "old_constant_property_Nu": 8.9412
+    },
+    {
+      "x_over_d": 50.47,
+      "Nu_20x300": 9.3329,
+      "Nu_30x400": 9.2519,
+      "grid_change_pct": -0.87,
+      "Nu_experiment": 9.38,
+      "cfd_vs_experiment_pct": -1.37,
+      "grid_converged_1pct": true,
+      "Nu_lewis_prediction": 9.668,
+      "cfd_vs_prediction_pct": -4.3,
+      "old_constant_property_Nu": 7.8654
+    },
+    {
+      "x_over_d": 67.55,
+      "Nu_20x300": 8.8244,
+      "Nu_30x400": 8.7464,
+      "grid_change_pct": -0.88,
+      "Nu_experiment": 9.37,
+      "cfd_vs_experiment_pct": -6.66,
+      "grid_converged_1pct": true,
+      "Nu_lewis_prediction": 9.137,
+      "cfd_vs_prediction_pct": -4.28,
+      "old_constant_property_Nu": 7.2476
+    },
+    {
+      "x_over_d": 101.69,
+      "Nu_20x300": 8.3442,
+      "Nu_30x400": 8.2829,
+      "grid_change_pct": -0.73,
+      "Nu_experiment": 8.41,
+      "cfd_vs_experiment_pct": -1.51,
+      "grid_converged_1pct": true,
+      "Nu_lewis_prediction": 8.751,
+      "cfd_vs_prediction_pct": -5.34,
+      "old_constant_property_Nu": 6.5575
+    },
+    {
+      "x_over_d": 135.84,
+      "Nu_20x300": 8.2007,
+      "Nu_30x400": 8.1386,
+      "grid_change_pct": -0.76,
+      "Nu_experiment": 7.99,
+      "cfd_vs_experiment_pct": 1.86,
+      "grid_converged_1pct": true,
+      "Nu_lewis_prediction": 8.658,
+      "cfd_vs_prediction_pct": -6.0,
+      "old_constant_property_Nu": 6.164
+    },
+    {
+      "x_over_d": 159.33,
+      "Nu_20x300": 8.1863,
+      "Nu_30x400": 8.1244,
+      "grid_change_pct": -0.76,
+      "Nu_experiment": 8.82,
+      "cfd_vs_experiment_pct": -7.89,
+      "grid_converged_1pct": true,
+      "Nu_lewis_prediction": 8.607,
+      "cfd_vs_prediction_pct": -5.6,
+      "old_constant_property_Nu": 6.2273
+    }
+  ],
+  "status": "DEVELOPMENT EVIDENCE. 35A is a spent run. No metric may be computed from this."
+}

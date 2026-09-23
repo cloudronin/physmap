@@ -1,0 +1,96 @@
+{
+  "points": [
+    {
+      "x_over_d": 0.31,
+      "Nu_experiment": 33.72,
+      "Nu_cfd": 60.357,
+      "cfd_vs_experiment_pct": 78.99
+    },
+    {
+      "x_over_d": 0.85,
+      "Nu_experiment": 32.69,
+      "Nu_cfd": 34.0068,
+      "cfd_vs_experiment_pct": 4.03
+    },
+    {
+      "x_over_d": 2.45,
+      "Nu_experiment": 22.15,
+      "Nu_cfd": 23.9497,
+      "cfd_vs_experiment_pct": 8.13
+    },
+    {
+      "x_over_d": 5.65,
+      "Nu_experiment": 19.07,
+      "Nu_cfd": 17.9106,
+      "cfd_vs_experiment_pct": -6.08
+    },
+    {
+      "x_over_d": 9.92,
+      "Nu_experiment": 14.92,
+      "Nu_cfd": 14.9018,
+      "cfd_vs_experiment_pct": -0.12
+    },
+    {
+      "x_over_d": 16.32,
+      "Nu_experiment": 13.95,
+      "Nu_cfd": 12.6133,
+      "cfd_vs_experiment_pct": -9.58
+    },
+    {
+      "x_over_d": 33.39,
+      "Nu_experiment": 10.76,
+      "Nu_cfd": 10.2043,
+      "cfd_vs_experiment_pct": -5.16
+    },
+    {
+      "x_over_d": 50.47,
+      "Nu_experiment": 9.38,
+      "Nu_cfd": 9.2519,
+      "cfd_vs_experiment_pct": -1.37,
+      "Nu_lewis_prediction": 9.668,
+      "cfd_vs_prediction_pct": -4.3
+    },
+    {
+      "x_over_d": 67.55,
+      "Nu_experiment": 9.37,
+      "Nu_cfd": 8.7464,
+      "cfd_vs_experiment_pct": -6.66,
+      "Nu_lewis_prediction": 9.137,
+      "cfd_vs_prediction_pct": -4.28
+    },
+    {
+      "x_over_d": 101.69,
+      "Nu_experiment": 8.41,
+      "Nu_cfd": 8.2829,
+      "cfd_vs_experiment_pct": -1.51,
+      "Nu_lewis_prediction": 8.751,
+      "cfd_vs_prediction_pct": -5.34
+    },
+    {
+      "x_over_d": 135.84,
+      "Nu_experiment": 7.99,
+      "Nu_cfd": 8.1386,
+      "cfd_vs_experiment_pct": 1.86,
+      "Nu_lewis_prediction": 8.658,
+      "cfd_vs_prediction_pct": -6.0
+    },
+    {
+      "x_over_d": 159.33,
+      "Nu_experiment": 8.82,
+      "Nu_cfd": 8.1244,
+      "cfd_vs_experiment_pct": -7.89,
+      "Nu_lewis_prediction": 8.607,
+      "cfd_vs_prediction_pct": -5.6
+    }
+  ],
+  "n_stations": 400,
+  "property_model": "icoPolynomial + polynomial transport + hPolynomial",
+  "reduction_k_W_mK": 0.5922,
+  "wall_T_source": "read from the patch, not reconstructed",
+  "unheated_entry_cells_dropped": 6,
+  "unheated_exit_cells_dropped": 38,
+  "reversal_stations": 0,
+  "first_reversal_x_over_d": null,
+  "min_axial_velocity_m_s": 0.01282,
+  "reversal_confined_to_outlet_row": false
+}

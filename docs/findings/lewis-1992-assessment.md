@@ -623,6 +623,99 @@ This is worth stating plainly because it is this project's own method turned on 
 working: a correlation used outside its calibrated range, producing a confident answer that
 the data contradicts. The criterion is not evidence about Lewis.
 
+## The variable-property solver — the diagnosis confirmed
+
+The constant-property Boussinesq case is retired as the model of record. `cfd/gencase_lewis_vp.py`.
+
+### Properties are Lewis's own, not a re-derivation
+
+His Appendix B gives the polynomials **his numerical code used** — B.2 viscosity, B.4
+conductivity, B.5 specific heat, B.6 density — as distinct from the ESDU forms his
+spreadsheet used. Recovered from the thesis and checked against his own tabulated property
+table at all four of his bases: `k`, `c_p` and `ρ` agree to within **0.04 %**, `μ` to within
+**0.42 %**, which is the B.1-versus-B.2 difference he documents himself as *"less than
+0.8 %"*.
+
+One check is independent of that table. Deriving `β = −(1/ρ)·dρ/dT` from the density
+polynomial reproduces his tabulated expansion coefficient at all four temperatures to within
+**0.1 %** — and `β` was nowhere in the fit.
+
+OpenFOAM's polynomials are in kelvin and Lewis's are in celsius; the coefficients used are
+the exact binomial shift, round-trip accurate to 1e-11 over 5–80 °C.
+
+### Two things improve structurally, not just numerically
+
+**`beta` stops being an input.** Buoyancy enters as `ρ(T)·g`. The expansion coefficient was
+the single largest lever in the Boussinesq case — a factor of 1.76 between bases — and the
+choice simply disappears.
+
+**The wall temperature is read, not reconstructed.** `externalWallHeatFluxTemperature`
+imposes `q` using the *local* conductivity, which a `fixedGradient` cannot once `k` varies
+with temperature, and it writes the wall temperature out. The first-order
+`T_cell + (q/k)(dr/2)` estimate is gone.
+
+### The outlet had to be moved, and why that is not a fudge
+
+With the outlet flush against the end of heating the case manufactured a **centreline**
+recirculation over the last 8 rows — minimum axial velocity −0.415 m/s — while the wall flow
+stayed positive throughout. Wall-positive, core-negative, confined to 2 % of the tube at the
+boundary is an outlet artifact, not a developing buoyancy reversal, and it drove x/d 159.33
+to **+49 %** against measurement.
+
+Appending 15 diameters of unheated tube fixes it completely: **zero reversed cells anywhere**,
+minimum axial velocity +0.013 m/s, and that station lands at −7.9 %. Lewis's rig did continue
+past the heated length into a flange and outlet pipe, so it is not unphysical — but the
+justification is numerical, the extension carries no measurements, and the comparison drops
+its cells.
+
+### Result
+
+| x/d | 20×300 | 30×400 | grid Δ | measured | vs measured | Lewis predicted | vs prediction | old constant-property |
+|---|---|---|---|---|---|---|---|---|
+| 0.31 | 54.45 | 60.36 | +10.9 % | 33.72 | +79.0 % | — | — | 100.50 |
+| 0.85 | 38.22 | 34.01 | −11.0 % | 32.69 | +4.0 % | — | — | 39.68 |
+| 2.45 | 25.15 | 23.95 | −4.8 % | 22.15 | +8.1 % | — | — | 24.50 |
+| 5.65 | 18.39 | 17.91 | −2.6 % | 19.07 | −6.1 % | — | — | 17.26 |
+| 9.92 | 15.04 | 14.90 | −0.9 % | 14.92 | **−0.1 %** | — | — | 13.95 |
+| 16.32 | 12.72 | 12.61 | −0.9 % | 13.95 | −9.6 % | — | — | 11.51 |
+| 33.39 | 10.30 | 10.20 | −0.9 % | 10.76 | −5.2 % | — | — | 8.94 |
+| 50.47 | 9.33 | 9.25 | −0.9 % | 9.38 | −1.4 % | 9.67 | **−4.3 %** | 7.87 |
+| 67.55 | 8.82 | 8.75 | −0.9 % | 9.37 | −6.7 % | 9.14 | **−4.3 %** | 7.25 |
+| 101.69 | 8.34 | 8.28 | −0.7 % | 8.41 | −1.5 % | 8.75 | **−5.3 %** | 6.56 |
+| 135.84 | 8.20 | 8.14 | −0.8 % | 7.99 | +1.9 % | 8.66 | **−6.0 %** | 6.16 |
+| 159.33 | 8.19 | 8.12 | −0.8 % | 8.82 | −7.9 % | 8.61 | **−5.6 %** | 6.23 |
+
+**Against Lewis's own steady laminar prediction the gap falls from 18.7–28.8 % to
+4.3–6.0 %.** That is the diagnosis confirmed: the old gap was the frozen-property
+assumption, and it was never transition.
+
+**Eight of twelve stations are grid-converged to better than 1 %, x/d 9.92 to 159.33** — now
+including the outlet station, which the constant-property model moved 11.7 % between grids.
+The remaining shift is a uniform −0.9 %, so Richardson extrapolation puts the converged
+answer roughly 1 % below the fine grid and the residual against Lewis nearer 5–7 %.
+
+Energy closes to **−0.05 %**.
+
+The three entrance stations stay grid-sensitive. x/d 0.31 is the axial-conduction station
+Lewis discounts on his own authority; x/d 0.85 and 2.45 now land at +4.0 % and +8.1 %,
+against +21.4 % and +10.6 % before.
+
+### What the residual 5 % is not
+
+It is not tuned away, and it should not be. Two independently written steady laminar codes
+agreeing to about 5 % on the same case is a reasonable place to stop. The residual has at
+least three plausible contributions that have not been separated: the curve-tracing error in
+our reading of his Figure 7.4 (0.68 % from the axis fit alone, plus tracing), discretisation
+differences, and the fact that Lewis solves an integral energy balance at each axial step
+where this case solves an enthalpy transport equation.
+
+### Still development evidence
+
+35A is a **spent** run and so are 13A and 16A. Everything above is a debugging signal — it
+says the implementation is now sound, not that anything has been validated. No metric may be
+computed from any of it, and the boundary at x/d ≈ 102 found in 13A remains a finding about
+the experiment, never an eligibility rule.
+
 ## Redistribution — the licence was there all along
 
 The record page states no licence, which is why this was left open. **The PDF itself carries
