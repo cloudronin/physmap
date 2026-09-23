@@ -354,11 +354,127 @@ energy balance"*. That independently confirms what the arithmetic above already 
 the local-Nu reduction runs on the **calculated** exit bulk, 30.00 °C, and the measured
 29.32 °C serves only as the energy-balance check.
 
+## The other 29 runs — screened first, then digitised
+
+### The figure legends give every run's conditions without digitising anything
+
+Figures 6.7–6.13 group the 30 runs by Reynolds number, and each legend **names the tests
+and prints their `Re` and `Gr_q`**. That is printed text, not marker positions, so reading
+it costs nothing in accuracy. It yields a quantity Table E.1 never had: the dimensionless
+groups for all 30 runs. Banked in `data/lewis1992/run_inventory.json`.
+
+The six runs that also appear in Table 7.1 agree with their legends to within rounding,
+which is the transcription check.
+
+### Which runs Lewis actually screened — verified, not inferred
+
+Figures 7.1–7.4 name the eleven conditions Lewis computed. Read directly from those four
+legends:
+
+| Group | Computed | Reversal predicted | Clear |
+|---|---|---|---|
+| 7.1, Re 75–81 | 10A, 15A | both | — |
+| 7.2, Re 296–321 | 21A, 7A, 12A | 7A, 12A | **21A** |
+| 7.3, Re 609–687 | 18A, 6A, 25A | 6A, 25A | **18A** |
+| 7.4, Re 1098–1143 | 16A, 35A, 13A | none | **16A, 35A, 13A** |
+
+So **11 of 30 conditions were screened and 5 came back clear.** The other 19 runs Lewis
+never computed. That is absence of evidence, not a clearance, and the inventory marks them
+`NOT_SCREENED` rather than passing them.
+
+### The two screens pull against each other
+
+Ranking by energy balance and ranking by buoyancy safety are **anti-correlated, r = −0.865**
+between `log₁₀(Gr_q/Re)` and the absolute energy-balance error.
+
+The mechanism is not subtle: a higher `Gr_q` means a higher heat input, which makes the
+roughly fixed heat loss a smaller *fraction* of it. The runs that close energy best are the
+hard-driven, strongly buoyant ones.
+
+**So "start with the cleanest energy balance" selects, unaided, for the runs most likely to
+have reversed or transitioned.** The cleanest run of all 30 is 30A at 0.04 %, and its
+`Gr_q/Re` of 1215 is higher than four of the six runs where Lewis *did* find reversal — and
+he never computed it. Ten of the nineteen unscreened runs sit above the lowest `Gr_q/Re` at
+which he found reversal. The screens have to be applied together.
+
+Applying both, the flow-cleared runs ranked by energy balance:
+
+| Test | Re | Gr_q | Gr_q/Re | \|EB\| % | Figure |
+|---|---|---|---|---|---|
+| **13A** | 1138 | 8.06e5 | 708.3 | **0.14** | 6.13 |
+| 35A | 1143 | 3.75e5 | 328.1 | 3.96 | 6.13 |
+| 21A | 321 | 7.15e4 | 222.7 | 8.87 | 6.9 |
+| 16A | 1098 | 7.78e4 | 70.9 | 9.32 | 6.13 |
+| 18A | 625 | 1.03e5 | 164.8 | 12.52 | 6.11 |
+
+**13A is the next case**, and it is not close: flow-screened clear by Lewis, and an energy
+balance of 0.14 %, second-best of all thirty.
+
+### Digitisation, with the error measured rather than assumed
+
+`tools/digitise_lewis_fig613.py`. Figure 6.13 was chosen over Figure 7.4, which covers three
+of the same runs, because 7.4 overlays the prediction curves and those curves merge with the
+markers into single ink components.
+
+Axes were calibrated by locating major tick centres from inward ink-run length, then least
+squares on log₁₀(value) against pixel: 734.5 px/decade in `x*` with a maximum residual of
+0.0008 dex, and a maximum residual of 0.0023 dex — 0.54 % in `Nu` — on the `Nu` axis. The
+five legend glyphs served as classifier templates, separated by hole count, central-cross
+versus diagonal ink, vertical centroid offset and corner occupancy, with wide margins on
+every pair.
+
+**Twelve of the thirty-two ink components were multi-marker clusters. They were skipped, not
+split.** A guessed decomposition would put invented points into an evaluation set.
+
+**Test 35A is a calibration standard inside the plot** — it appears in this figure and its
+twelve local `Nu` are printed in Appendix D-2. Against those:
+
+| | bias | spread | max \|error\| |
+|---|---|---|---|
+| `Nu` | −1.17 % | **0.40 %** | 1.40 % |
+| `x*` | +1.77 % | **0.47 %** | 2.06 % |
+
+The error is almost entirely a **systematic calibration offset**. The random part — the
+spread — is under 0.5 % on both axes, and that is the number that governs runs whose answer
+is unknown.
+
+One check is genuinely independent of all of this. Correcting the `x*` bias and forming
+`Re·Pr = (x/d)/x*` recovers **Pr = 8.46** for 35A, which is exactly Lewis's printed value.
+`Pr` entered neither the axis fit nor the glyph templates; it comes out of marker positions
+alone.
+
+A bias-corrected `Nu` column is reported **alongside** the raw one, never instead of it, and
+the 1.0117 factor is disclosed as coming from 35A.
+
+### What came out
+
+**13A: 7 of 12 stations**, at x/d 9.92, 33.39, 50.47, 67.55, 101.69, 135.84 and 159.33. Every
+recovered point lands on Lewis's fixed thermocouple grid to within 0.41 %, which is a second
+check that the classification is right. The five missing stations are the entrance cluster,
+where all five series bunch and merge.
+
+`9A` also yielded 7 stations and is recorded, but it is `NOT_SCREENED` and its energy balance
+is 6.05 %, so it is held as inventory only. `20A` recovered one marker and implied a Prandtl
+number of 0.15 instead of ~8; every 20A value is **discarded**, and the tool now refuses any
+series under three points rather than reporting a snapped single. `16A` merges too heavily to
+attempt.
+
+### 13A makes the physics problem worse, not better
+
+13A's bias-corrected `Nu` falls from 17.27 at x/d 9.92 to 11.50 at 50.47, then **rises to
+18.77 at 159.33** — a 63 % climb across the back half of the tube. 35A's rise over the same
+stretch is far gentler.
+
+That is the tail-up again, and stronger, exactly as the higher `Gr_q` predicts. So the run
+that best survives the energy and flow screens is also **the run where transition is most
+violent** — and transition is the mechanism a steady laminar solver does not have. The
+anti-correlation found in the screens reappears at the level of the measurement itself.
+
+13A is a **second case**. It is not a test set, and it does not touch the model-adequacy
+problem.
+
 ## Not yet done
 
-- The remaining 29 runs' local `Nu` exists only as **Figures 6.7–6.13**, not as printed
-  numbers. Recovering those is a digitisation task with its own error budget, and the
-  lesson from Figure 16 applies: a figure is not a pointwise benchmark until proven so.
 - A redistribution determination. The thesis is open access; the licence is **not stated**
   on the record page, so it is not yet established what may be republished here.
 

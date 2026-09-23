@@ -1,0 +1,187 @@
+{
+  "source": "Figure 6.13 of Lewis (1992), digitised from the 600-dpi raster page image.",
+  "figure": "6.13 -- local Nusselt number vs x*, five runs, Re 1098-1181. Chosen over Figure 7.4 because 7.4 overlays numerical-prediction curves that merge with the markers.",
+  "method": {
+    "axis_calibration": "Major tick centres found by measuring inward ink-run length from each frame line, then least squares on log10(value) vs pixel. X: 5 decade ticks, 734.5 px/decade, max residual 0.0008 dex. Y: 6 labelled ticks (20,10,8,6,4,2), max residual 0.0023 dex = 0.54% in Nu.",
+    "glyph_classification": "The five legend symbols were used as templates. Discriminators: hole count (square/circle/triangle have one, plus/cross none); central-cross vs diagonal ink (plus vs cross); vertical centroid offset (triangle); corner occupancy (square vs circle). Margins were wide on every pair.",
+    "merged_markers": "12 of 32 ink components were multi-marker clusters and were SKIPPED, not split. No value here comes from a guessed decomposition."
+  },
+  "validation": {
+    "principle": "Test 35A appears in this figure AND has its 12 local Nu values printed in Appendix D-2. It is therefore a calibration standard internal to the plot.",
+    "stations_recovered_for_35A": 5,
+    "raw_error_vs_printed": {
+      "Nu_bias_pct": -1.17,
+      "Nu_spread_pct": 0.4,
+      "Nu_max_abs_pct": 1.4,
+      "x_star_bias_pct": 1.77,
+      "x_star_spread_pct": 0.47
+    },
+    "reading": "The error is almost entirely a SYSTEMATIC calibration offset. The random part -- the spread -- is under 0.5% in both axes. That is the number that matters for runs whose answer is unknown.",
+    "independent_cross_check": {
+      "what": "Correcting the x* bias and forming Re*Pr = (x/d)/x* recovers the Prandtl number.",
+      "result_35A": 8.46,
+      "lewis_printed_35A": 8.46,
+      "why_it_is_independent": "Pr entered neither the axis calibration nor the glyph templates. It is recovered from marker POSITIONS alone."
+    },
+    "bias_correction_disclosure": "Nu_bias_corrected multiplies the raw value by 1.0117, a factor derived FROM 35A. It is reported alongside the raw value, never instead of it. Any use of these numbers must state which column it used. The correction is instrument calibration against a standard in the same plot -- it is not fitted to any outcome."
+  },
+  "runs": {
+    "13A": {
+      "Re": 1138,
+      "Gr_q": 806000.0,
+      "Gr_q_over_Re": 708.3,
+      "Pr_implied": 8.43,
+      "energy_bal_error_pct": 0.14,
+      "flow_screen": "CLEAR -- Lewis computed this condition (Figure 7.4) and predicted no reversal",
+      "stations_recovered": 7,
+      "stations_total": 12,
+      "missing": "x/d 0.31, 0.85, 2.45, 5.65, 16.32 -- the entrance cluster, where markers merge",
+      "points": [
+        {
+          "x_over_d": 9.92,
+          "x_star_digitised": 0.0010504563068248634,
+          "Nu_raw": 17.07,
+          "Nu_bias_corrected": 17.27
+        },
+        {
+          "x_over_d": 33.39,
+          "x_star_digitised": 0.0035124924353184175,
+          "Nu_raw": 12.98,
+          "Nu_bias_corrected": 13.13
+        },
+        {
+          "x_over_d": 50.47,
+          "x_star_digitised": 0.00531317274722802,
+          "Nu_raw": 11.37,
+          "Nu_bias_corrected": 11.5
+        },
+        {
+          "x_over_d": 67.55,
+          "x_star_digitised": 0.007134270345700376,
+          "Nu_raw": 11.39,
+          "Nu_bias_corrected": 11.53
+        },
+        {
+          "x_over_d": 101.69,
+          "x_star_digitised": 0.010707398401261121,
+          "Nu_raw": 11.76,
+          "Nu_bias_corrected": 11.9
+        },
+        {
+          "x_over_d": 135.84,
+          "x_star_digitised": 0.014399931166192651,
+          "Nu_raw": 17.85,
+          "Nu_bias_corrected": 18.05
+        },
+        {
+          "x_over_d": 159.33,
+          "x_star_digitised": 0.016896815095151976,
+          "Nu_raw": 18.55,
+          "Nu_bias_corrected": 18.77
+        }
+      ]
+    },
+    "9A": {
+      "Re": 1153,
+      "Gr_q": 576000.0,
+      "Gr_q_over_Re": 499.6,
+      "Pr_implied": 8.38,
+      "energy_bal_error_pct": -6.05,
+      "flow_screen": "NOT_SCREENED -- Lewis never computed this condition",
+      "stations_recovered": 7,
+      "stations_total": 12,
+      "points": [
+        {
+          "x_over_d": 5.65,
+          "x_star_digitised": 0.0005992963616125497,
+          "Nu_raw": 20.85,
+          "Nu_bias_corrected": 21.09
+        },
+        {
+          "x_over_d": 33.39,
+          "x_star_digitised": 0.0035124924353184175,
+          "Nu_raw": 12.1,
+          "Nu_bias_corrected": 12.24
+        },
+        {
+          "x_over_d": 50.47,
+          "x_star_digitised": 0.0052965402963077385,
+          "Nu_raw": 10.34,
+          "Nu_bias_corrected": 10.46
+        },
+        {
+          "x_over_d": 67.55,
+          "x_star_digitised": 0.007100796705462282,
+          "Nu_raw": 10.17,
+          "Nu_bias_corrected": 10.29
+        },
+        {
+          "x_over_d": 101.69,
+          "x_star_digitised": 0.010673879769952592,
+          "Nu_raw": 9.79,
+          "Nu_bias_corrected": 9.91
+        },
+        {
+          "x_over_d": 135.84,
+          "x_star_digitised": 0.014242775260293598,
+          "Nu_raw": 9.19,
+          "Nu_bias_corrected": 9.29
+        },
+        {
+          "x_over_d": 159.33,
+          "x_star_digitised": 0.01679119249188481,
+          "Nu_raw": 11.79,
+          "Nu_bias_corrected": 11.93
+        }
+      ],
+      "caution": "Recorded for completeness only. Energy balance 6.05% and no flow screen."
+    },
+    "35A": {
+      "note": "digitised only to measure the error; the printed table is authoritative",
+      "points": [
+        {
+          "x_over_d": 50.47,
+          "x_star_digitised": 0.005304850003245831,
+          "Nu_raw": 9.29,
+          "Nu_bias_corrected": 9.4,
+          "Nu_printed": 9.38
+        },
+        {
+          "x_over_d": 67.55,
+          "x_star_digitised": 0.007123094969251726,
+          "Nu_raw": 9.26,
+          "Nu_bias_corrected": 9.37,
+          "Nu_printed": 9.37
+        },
+        {
+          "x_over_d": 101.69,
+          "x_star_digitised": 0.010673879769952592,
+          "Nu_raw": 8.32,
+          "Nu_bias_corrected": 8.41,
+          "Nu_printed": 8.41
+        },
+        {
+          "x_over_d": 135.84,
+          "x_star_digitised": 0.014265120655924935,
+          "Nu_raw": 7.89,
+          "Nu_bias_corrected": 7.99,
+          "Nu_printed": 7.99
+        },
+        {
+          "x_over_d": 159.33,
+          "x_star_digitised": 0.016764890166906105,
+          "Nu_raw": 8.7,
+          "Nu_bias_corrected": 8.8,
+          "Nu_printed": 8.82
+        }
+      ]
+    }
+  },
+  "discarded": {
+    "20A": "Only one marker classified, and the implied Prandtl number came out 0.15 instead of ~8. That is a misclassification or a stray blob, so every 20A value is dropped rather than reported with a caveat."
+  },
+  "not_attempted": [
+    "16A -- markers merge heavily with the pack across most of the range"
+  ],
+  "still_not_evaluable": "13A is a SECOND case, not a test set. Two runs are two cases. No metric follows from two, and the transition problem below is untouched by this work."
+}
