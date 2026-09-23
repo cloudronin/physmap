@@ -82,9 +82,28 @@
       "note": "these produce inputs, not scoring choices, so they need no freeze -- only the discipline of recording inputs not outcomes"
     },
     "lock_B": {
-      "covers": "grid and evaluable rule, surrogate, label rule and tolerance, theta, metric definitions, corroboration criterion",
-      "when": "after the inventory, before any label, flag or metric is computed",
+      "covers": "grid and evaluable rule, surrogate FORM AND SPLIT, label rule and tolerance, theta, metric definitions, corroboration criterion",
+      "when": "after the inventory, and before materiality or fit residuals are inspected at any evaluation condition",
       "status": "blocked on the inventory"
+    },
+    "neutrality": {
+      "principle": "not everything preceding a label is a neutral input",
+      "neutral_may_inspect_before_lock_B": [
+        "source inventory: conditions, geometry, stated uncertainty",
+        "CFD grid convergence, residuals, energy balance",
+        "Nusselt-extraction sensitivity"
+      ],
+      "NOT_neutral_must_not_inspect_before_lock_B": [
+        "materiality at an evaluation condition",
+        "surrogate fit residual at an evaluation condition",
+        "labels, flags, class balance, metrics"
+      ],
+      "why": "through the coupling E = d - m(1+d) + eps, materiality and the fit residual at a condition both carry information about that condition's eventual error label. Seeing either before the scoring choices are fixed is seeing a shadow of the answer, even though neither is itself a label."
+    },
+    "condition_sets": {
+      "development": "for choosing the surrogate's functional form. Residuals here MAY be inspected before Lock B. These conditions are then SPENT and take no part in the evaluation -- not held out, discarded.",
+      "fit": "fitting the final surrogate once the form is fixed",
+      "evaluation": "scoring. Untouched until Lock B is recorded."
     }
   },
   "measurement_inventory": {
@@ -287,5 +306,22 @@
     "eq13_role": "a REPORTED correlation check, not the acceptance test",
     "rationale": "the original acceptance was agreement with Eq 13 within the correlation's own scatter band, which makes the measured points that Eq 13 is fitted through non-independent of the CFD"
   },
-  "if_no_evaluable_truth_set": "report a reproducible demonstration of the method -- rebuilt CFD with recorded numerical checks, matched ablation runs, and a surrogate with a measured generalisation residual -- with NO performance metrics attached"
+  "if_no_evaluable_truth_set": "report a reproducible demonstration of the method -- rebuilt CFD with recorded numerical checks, matched ablation runs, and a surrogate with a measured generalisation residual -- with NO performance metrics attached",
+  "source_candidates": {
+    "brown_gauvin_I": {
+      "citation": "Brown, C.K. & Gauvin, W.H. (1965). Combined free-and-forced convection: I. Heat transfer in aiding flow. Can. J. Chem. Eng. 43(6):306-312",
+      "doi": "10.1002/cjce.5450430608",
+      "part_II": "10.1002/cjce.5450430609 (opposing flow, 313-318)",
+      "direction": "aiding -- correct direction for the NAFEMS case",
+      "access": "closed; Wiley terms of use; no open copy; no abstract available",
+      "wall_boundary_condition": "CONSTANT WALL TEMPERATURE -- differs from Mohammed & Salman's constant heat flux",
+      "L_over_D": 23,
+      "tube": "stainless steel",
+      "working_fluid": "not established",
+      "requires_its_own_cfd_case": true,
+      "reason": "a constant-temperature wall and a constant-flux wall are different boundary-value problems, and L/D differs. NOT interchangeable with Mohammed & Salman.",
+      "per_run_data_uncertainty": "UNKNOWN -- cannot be determined without obtaining the paper. It is a 1965 paper, so a stated per-run uncertainty may simply not exist.",
+      "status": "candidate, unexamined"
+    }
+  }
 }

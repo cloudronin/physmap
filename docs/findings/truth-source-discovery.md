@@ -38,6 +38,53 @@ its `Nu` values are.
 No abstract is available for the last two through Crossref, Unpaywall, OpenAlex or
 Semantic Scholar, so both flags above are genuinely open questions rather than doubts.
 
+## Brown & Gauvin — a candidate that is **not** interchangeable
+
+| | |
+|---|---|
+| **Part I (aiding flow)** | Brown, C. K. & Gauvin, W. H. (1965), *Combined free-and-forced convection: I. Heat transfer in aiding flow*, **Can. J. Chem. Eng. 43(6):306–312**, `10.1002/cjce.5450430608` |
+| **Part II (opposing flow)** | Same issue, 313–318, `10.1002/cjce.5450430609` |
+| Access | **Closed.** Wiley terms of use, no open copy in Unpaywall or Semantic Scholar, no abstract available. Part I is cited 34 times |
+
+**Part I is aiding flow**, which is the right direction for the NAFEMS case.
+
+### Why it needs its own CFD case
+
+Mohammed & Salman cite it directly, and their own description already separates the two
+experiments:
+
+> "The average heat transfer results were compared with vertical tube of Brown and Gauvin
+> [25] **at constant wall temperature boundary condition** and for **stainless steel tube
+> with (L/D = 23)**"
+
+| | Mohammed & Salman | Brown & Gauvin |
+|---|---|---|
+| Wall boundary condition | **Constant heat flux** | **Constant wall temperature** |
+| `L/D` | 30 | **23** |
+| Tube | Aluminium, D = 30 mm | Stainless steel |
+| Working fluid | Air | **Not established** |
+
+A constant-temperature wall and a constant-flux wall are different boundary-value
+problems, and `L/D` differs too. **Brown & Gauvin cannot be substituted into the existing
+CFD case.** Using it means building and verifying a second case with its own geometry and
+its own wall condition. That is legitimate work, and it is not free.
+
+### What the paper contains is unknown
+
+Whether it reports per-run conditions, measured `Nu` values, or any uncertainty **cannot
+be determined without obtaining it**. Two things are worth stating in advance rather than
+discovering later:
+
+- Mohammed & Salman quote it as a **correlation**
+  (`Nu = 1.75 (μb/μw)^0.14 [Gz + 0.012(Gz·Gr^(1/3))^(4/3)]^(1/3)`), which is evidence the
+  paper presents fitted results — not evidence that it lacks tabulated data, but a reason
+  not to assume otherwise.
+- It is a **1965 paper**. Formal uncertainty analysis was not standard practice then, and
+  a stated per-run uncertainty may simply not exist. That is a risk to the plan, not a
+  reason to skip the source.
+
+**Status: candidate, unexamined, requires its own CFD case.**
+
 ## Routes not yet exhausted
 
 - **NASA NTRS** returned nothing for this regime. **OSTI** returned only modern reactor

@@ -208,11 +208,45 @@ more is required by it.
 | | What it fixes | When |
 |---|---|---|
 | **Lock A** | The things that do not depend on what data exists: the result vocabulary (§9), the materiality definition and its refused provenances (§4), the flag rule (§5), the truth-independence requirements (§8), and the baselines (§6) | **Now.** Nothing blocks it |
-| *(no lock)* | **Source discovery and the input-only inventory.** These produce inputs, not scoring choices, so they need no freeze — only the discipline that they record inputs and not outcomes | Now, in parallel |
-| **Lock B** | Every scoring choice: the grid and evaluable rule (§1), the surrogate (§2), the label rule and tolerance (§3), `θ` (§4), the metric definitions (§7), and the corroboration criterion | **After** the inventory, **before** any label, flag or metric is computed |
+| *(no lock)* | **Source discovery and the input-only inventory**, and the CFD's own **numerical verification** — grid convergence, residuals, energy balance, sensitivity of the Nusselt extraction | Now, in parallel. These are genuinely neutral |
+| **Lock B** | Every scoring choice: the grid and evaluable rule (§1), the surrogate **form and split** (§2), the label rule and tolerance (§3), `θ` (§4), the metric definitions (§7), and the corroboration criterion | **After** the inventory, and **before materiality or fit residuals are inspected at any evaluation condition** |
 
 This is not a loosening. Lock B still precedes every outcome. It simply stops the protocol
 demanding a grid before anyone knows which conditions were measured.
+
+### Not everything that precedes a label is a neutral input
+
+The distinction that matters, and it is finer than "inputs versus outcomes":
+
+**Materiality at an evaluation condition, and the surrogate's fit residual there, are not
+neutral.** Through the coupling derived in the findings —
+`E = d − m(1+d) + ε` — both of them carry information about that condition's eventual
+error label. Seeing either before the scoring choices are fixed is seeing a shadow of the
+answer, even though neither is a label.
+
+| Quantity | Neutral? | May be inspected before Lock B? |
+|---|---|---|
+| Source inventory: conditions, geometry, stated uncertainty | Yes | Yes |
+| CFD grid convergence, residuals, energy balance | Yes | Yes |
+| Nusselt-extraction sensitivity | Yes | Yes |
+| **Materiality at an evaluation condition** | **No** | **No** |
+| **Surrogate fit residual at an evaluation condition** | **No** | **No** |
+| Labels, flags, class balance, metrics | No | No |
+
+### Development conditions, kept apart from evaluation conditions
+
+Developing a surrogate needs residuals — you cannot choose a functional form blind. So the
+conditions are split three ways, not two:
+
+| Set | Purpose | May its residuals be inspected before Lock B? |
+|---|---|---|
+| **Development** | Choosing the surrogate's functional form, diagnosing fit problems | **Yes.** That is what it is for |
+| **Fit** | Fitting the final surrogate once the form is fixed | Only as a fitted residual, after Lock B |
+| **Evaluation** | Scoring | **No.** Untouched until Lock B is recorded |
+
+Development conditions are **discarded from the evaluation entirely** — they are not held
+out, they are spent. A condition whose residual was examined while choosing the functional
+form cannot afterwards serve as an unbiased test of that form.
 
 ### Outcomes
 
@@ -240,16 +274,19 @@ presented as a number this repository produces.
    Acceptance rests on the CFD's own criteria — grid convergence, residuals, energy
    balance, sensitivity of the Nusselt extraction. **Eq 13 is a reported correlation check,
    not the acceptance test.**
-4. **Surrogate fitting and verification**, with the fit residual `ε` recorded on both
-   fitted and **held-out** conditions.
-5. **Lock B.** Every scoring choice, given what the inventory found. Record the hash.
-6. **Only now** compute labels, run the detector, and derive the class balance.
+4. **Surrogate development** on the **development conditions** only. Residuals there may
+   be inspected freely; those conditions are then spent and take no part in the
+   evaluation.
+5. **Lock B.** Every scoring choice, given what the inventory found — including the
+   surrogate's form and the fit/evaluation split. Record the hash.
+6. **Only now** fit the final surrogate, compute its residual at evaluation conditions,
+   compute materiality there, run the detector, and derive labels and class balance.
 7. Examine outcomes. Report metrics with their uncertainty, and say what they are
    referenced against — measured points or a correlation.
 
-Steps 2, 3 and 4 may run in any order or together; none of them is a scoring choice.
-**Step 5 must precede step 6.** That single ordering is what the freeze protects, and it
-is the only ordering constraint that matters.
+Steps 2, 3 and 4 may run in any order or together; none of them is a scoring choice, and
+none of them touches an evaluation condition's materiality or residual. **Step 5 must
+precede step 6.** That single ordering is what the freeze protects.
 
 ### If no evaluable truth set is found
 
