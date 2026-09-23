@@ -5,6 +5,16 @@ inspected against agreement. Its twelve stations are twelve measurements of **on
 condition, not twelve cases. No precision, recall or F1 is computed, and none may be computed
 from this.
 
+## The claim this supports
+
+> **The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism.**
+
+That is **specificity and causal diagnosis**, not OOD detection failure. The input-based OOD
+detector did not miss the bad predictions — it warned on all of them, and on the good ones too.
+Whether it *misses* the buoyancy error when the inputs are familiar is a separate, stronger
+claim, tested in design M and pre-declared before it ran
+(`results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`).
+
 ## The short answer
 
 **The input-based OOD detector did not stay quiet.** It fired at every 35A station, in both
@@ -175,11 +185,9 @@ in one, firing in the other, informative about the mechanism in neither.
 
 ## What may and may not be said
 
-- **Say:** "An input-based OOD detector gives the same answer whether buoyancy is on or off,
-  because gravity is not one of its inputs. On Lewis 35A it fired everywhere in both cases —
-  including the case where the surrogate is right to a quarter of a percent. PhysMAP stayed
-  quiet there, and flagged the downstream stations of the real run, where the surrogate is off
-  by 17–18 % and buoyancy accounts for most of it."
+- **Say:** "The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism."
+- **Do not use Lewis as a "what OOD misses" example** until design M reports and meets its
+  pre-declared criteria.
 - **Do not say** the OOD detector "missed it" or "stayed quiet" on Lewis. It fired.
 - **Do not say** PhysMAP "caught what the OOD detector missed" on Lewis. Both fired downstream;
   only one fired *because of* the error.

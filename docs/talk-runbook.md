@@ -244,8 +244,19 @@ Lewis's measurement, where it is off by up to 18 %:
 | 35A, gravity off (control) | ≤ 0.25 % | fires at every station | quiet |
 | 35A, the experiment | up to −18 % | fires at every station — **identically** | flags x/D ≥ 67.55, where the error is 17–18 % |
 
-**The line to land:** *"The input-based OOD detector gives the same answer whether buoyancy is
-on or off, because gravity isn't one of its inputs. PhysMAP is the one whose answer changes."*
+**What Lewis shows: specificity and causal diagnosis — not OOD detection failure.** The
+detector did not miss the bad predictions; it warned everywhere, including on the control where
+the surrogate was right. What it could not do is tell the two apart.
+
+**The line to land:**
+
+> *"The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism."*
+
+**Do not use Lewis as a "what OOD misses" example yet.** That is a stronger claim, and it is
+being tested separately in design M — the evaluated operating point placed inside the training
+set, gravity still withheld — pre-declared in
+`results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md` before it was run. Until that
+result is in and meets its own pre-declared criteria, Lewis is a specificity example.
 
 **Volunteer these three before anyone asks.** They are true, and a sharp questioner will find
 them:
@@ -284,6 +295,7 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "The statistical baseline / novelty detector is silent." | "The input-based OOD detector is silent." |
 | "NVIDIA PhysicsNeMo fails here." / "PhysicsNeMo's guardrail would miss this." | "An input-based OOD detector misses this. PhysicsNeMo's out-of-distribution check and its physics checks are separate things; we have not run its guardrail, so we make no claim about it." |
 | "The OOD detector was starved of inputs." | "It got every input the surrogate gets, position included. The contract is recorded in the head-to-head output." |
+| "Lewis shows what an input-based OOD detector misses." | "On Lewis the input-based OOD detector warned on unfamiliar inputs — everywhere, including where the surrogate was right. It could not say whether buoyancy caused an error; PhysMAP could." |
 | "The OOD detector missed the buoyancy error on Lewis." | "It fired everywhere on Lewis, with the same answer whether buoyancy was on or off. It fired because the operating point was between the training runs, not because of buoyancy." |
 | "PhysMAP caught what the OOD detector missed." (of Lewis) | "Both fired downstream. Only PhysMAP's answer changes when buoyancy is switched off." |
 | "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |
