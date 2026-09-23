@@ -23,7 +23,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass, field
 
-__all__ = ["MatrixComparison", "compare_matrices", "DEFAULT_REL_TOL"]
+__all__ = ["MatrixComparison", "compare_matrices", "compare_records", "DEFAULT_REL_TOL"]
 
 #: Relative tolerance for float fields. Absorbs last-bit differences between numpy /
 #: BLAS builds; far tighter than any numerically meaningful change.
@@ -121,3 +121,13 @@ def compare_matrices(fresh: dict, banked: dict, *, rel_tol: float = DEFAULT_REL_
                 "all_guards_passed"):
         _walk(fresh.get(key), banked.get(key), key, cmp)
     return cmp
+
+
+def compare_records(fresh: dict, banked: dict, *, rel_tol: float = DEFAULT_REL_TOL) -> MatrixComparison:
+    """Compare any two nested records under the same rule as the matrix: floats within
+    `rel_tol`, everything else exactly. For banked results that are not a vehicle matrix --
+    the stress tests -- so they drift-check the same way `benchmark run` does."""
+    cmp = MatrixComparison(rel_tol=rel_tol)
+    _walk(fresh, banked, "record", cmp)
+    return cmp
+

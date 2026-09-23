@@ -303,6 +303,21 @@ The reconstruction's metrics are reported **with their uncertainty**, always —
 point estimates. The numbers presented are the reconstruction's. The original triple is never
 presented as a number this repository produces.
 
+### Presenting results while θ is unlocked (recorded 2026-09-23)
+
+θ is still a decision this protocol has not made, and this section does not make it. It
+fixes how results are shown in the meantime:
+
+- **Materiality is shown as continuous values.** That is the result.
+- **A categorical flag is shown only with its θ and the word "illustrative".** The
+  illustrative value is θ = 0.10 — the original study's own, recorded in the known-results
+  declaration at repo creation, before any Lewis work. It is shown because it is the
+  historical value, not because it is endorsed.
+- **Every categorical result states the θ range over which it holds.**
+- **θ may not be chosen from a Lewis outcome.**
+- The input-based OOD detector's categorical output depends on its operating percentile; the
+  benchmark's shipped reference of 99 is used, with the full sweep beside it.
+
 ## 10. Order of operations
 
 1. **Lock A.** The data-independent decisions above. Record the hash.

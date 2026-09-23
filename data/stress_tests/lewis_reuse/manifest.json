@@ -1,0 +1,22 @@
+{
+  "what": "CFD-derived inputs to the Lewis model-reuse stress test. Every number the one-command path needs, at full float precision.",
+  "cfd_profiles_sha256": "fcd9ef14daf5a56a746186dc5fd9da2485d8ee9876b7015baa09931b603cb30c",
+  "solver": "OpenFOAM v2312 (docker image opencfd/openfoam-default:2312), buoyantSimpleFoam",
+  "case_generator": "cfd/gencase_lewis_vp.py -- variable water properties from Lewis Appendix B, 2.5 d unheated entry, 15 d unheated exit, uniform wall flux",
+  "nu_extraction": "cfd/lewis_head_to_head.py:lewis_nu -- Lewis's own definition: linear bulk to the calculated exit, each run's own inlet-bulk k, wall temperature read from the patch",
+  "regenerate_this_file": "python cfd/bank_lewis_reuse_inputs.py <runs-dir> data/stress_tests/lewis_reuse",
+  "regenerate_the_cases": "for each case in cfd_profiles.json: python cfd/gencase_lewis_vp.py --nr 30 --ny 400 --exit-diameters 15 plus that case's recorded operating point, gravity, iterations and gamg_max_iter; then blockMesh and buoyantSimpleFoam in the docker image above",
+  "matched_ablation": {
+    "provenance": "matched_ablation",
+    "energy_closure_reference": "inlet-property energy balance; see energy_closure_definition",
+    "cases": [
+      "pair_gON",
+      "pair_gOFF"
+    ],
+    "only_difference": "constant/g -- (0 -9.81 0) versus (0 0 0); a recursive diff of system/, 0/ and constant/ excluding the generated mesh is otherwise empty, checked when this file was written",
+    "iterations": 3000,
+    "iteration_check": "the gravity-on half at 3000 reproduces a 25000-iteration run to within 0.063 % at every station"
+  },
+  "training_acceptance": "every training run closes energy within 0.5 % with no reversed cells; asserted when this file was written",
+  "energy_closure_definition": "mixing-cup temperature rise across the heated section against Q / (m_dot * cp), with cp and rho at the run's INLET bulk temperature. cp falls as water heats, so a correctly converged case sits slightly POSITIVE on this measure. For the matched pair this reads +0.15 % and +0.30 %; against Lewis's own calculated rise of 16.94 K the same fields read -0.05 % and +0.11 %. Two references, one flow field."
+}

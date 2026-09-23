@@ -49,6 +49,18 @@ def build_parser() -> argparse.ArgumentParser:
     bench_sub.add_parser(
         "coverage", help="print what the rerunnable subset does and does not cover")
 
+    # A stress test is a controlled demonstration of the CAUSAL path. It is deliberately not a
+    # `benchmark` action: that command measures closure validity and observability, and a
+    # materiality result must never appear under its name.
+    stress = sub.add_parser(
+        "stress-test",
+        help="run a controlled stress test of the causal path -- a development demonstration, "
+             "not a benchmark and not a performance claim")
+    stress.add_argument("test_id", nargs="?", help="stress test id; omit with --list")
+    stress.add_argument("--list", action="store_true", help="list the available stress tests")
+    stress.add_argument("--json", metavar="PATH",
+                        help="also write the full fresh record to PATH (never the committed bank)")
+
     # `reproduce` is added only in a release whose benchmark has cleared the readiness
     # gate. In a preview build the command does not exist -- `physmap reproduce` is an
     # unrecognised command, not a runtime "data missing" failure.
@@ -76,6 +88,8 @@ def main(argv: list[str] | None = None) -> int:
         return _cmd_benchmark(args)
     if args.command == "explain":
         return _cmd_explain(args)
+    if args.command == "stress-test":
+        return _cmd_stress_test(args)
     print(f"'{args.command}' is not implemented yet in this build.", file=sys.stderr)
     return 2
 
@@ -204,6 +218,72 @@ def _cmd_benchmark(args) -> int:
         print()
         print(render_report(rerun_results=cells))
     return 0 if cmp.matches else 1
+
+
+_STRESS_TESTS = {
+    "lewis-reuse": "controlled model-reuse stress test on Lewis (1992) Test 35A: a "
+                   "forced-convection surrogate reused where buoyancy is material",
+}
+
+
+def _cmd_stress_test(args) -> int:
+    if args.list or not args.test_id:
+        for tid, what in _STRESS_TESTS.items():
+            print(f"{tid:14s} {what}")
+        return 0
+    if args.test_id not in _STRESS_TESTS:
+        print(f"unknown stress test {args.test_id!r}; try --list", file=sys.stderr)
+        return 2
+
+    import json
+    from pathlib import Path
+
+    from physmap.benchmarks.compare import compare_records
+    from physmap.stress_tests import lewis_reuse as st
+
+    print("Recomputing from this checkout (about two minutes) ...")
+    print()
+    try:
+        record = st.run()
+    except FileNotFoundError as e:
+        # The banked CFD profiles live in the checkout, like the benchmark's substrate data;
+        # a wheel install says so plainly instead of failing with a traceback.
+        print(f"Cannot run the stress test here: {e}", file=sys.stderr)
+        return 1
+    print(st.render(record))
+    print()
+
+    failures = st.check(record)
+    if failures:
+        print("ASSERTIONS FAILED:")
+        for f in failures:
+            print(f"  {f}")
+    else:
+        print("Assertions hold: every visible deployment input is a training input (design M); "
+              "OOD scores are unchanged between gravity off and gravity on; materiality is zero "
+              "with gravity off; the surrogate matches the accurate control.")
+
+    if args.json:
+        Path(args.json).write_text(json.dumps(record, indent=1) + "\n")
+        print(f"Wrote the fresh record to {args.json}.")
+
+    # Same contract as `benchmark run`: a result that is recomputed but never checked against
+    # its own bank drifts silently.
+    try:
+        banked = st.load_banked()
+    except FileNotFoundError as e:
+        print(f"No banked record to compare against: {e}")
+        return 1
+    cmp = compare_records(record, banked)
+    if not cmp.matches:
+        print(f"DRIFT against the banked record in {len(cmp.drift)} field(s):")
+        for d in cmp.drift[:10]:
+            print(f"  {d}")
+    elif cmp.bit_identical:
+        print("The record matches the banked record exactly.")
+    else:
+        print(f"The record matches the banked record: {cmp.summary()}.")
+    return 0 if (not failures and cmp.matches) else 1
 
 
 if __name__ == "__main__":

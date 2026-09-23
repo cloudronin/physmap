@@ -44,7 +44,7 @@ surrogate. No threshold change would fix it.
 detectors that judge a prediction only by where its *inputs* sit relative to the training
 data. In this demo that is the guardrail's default pair — novelty density and GP variance —
 and the demo prints both, plus a count over all 45 points, so the silence is on screen rather
-than asserted. In the seven-vehicle benchmark and the Lewis head-to-head it is the benchmark's
+than asserted. In the seven-vehicle benchmark and the Lewis stress test it is the benchmark's
 pair, distance-to-training and GP variance. Do not call it "the statistical baseline" or "the
 novelty detector": the first is vague and the second is wrong for the benchmark, which
 excludes novelty density.
@@ -226,21 +226,82 @@ it drifting onto a weaker result.
 **In every outcome the slide shows the reconstruction's numbers, never the original
 triple.** Even under corroboration.
 
-### The Lewis head-to-head — one worked example, one run
+### Lewis 35A — a controlled model-reuse stress test (one run)
 
-**What it is.** Lewis (1992) Test 35A, a real vertical-tube mixed-convection experiment. A
-forced-convection surrogate fitted to gravity-off CFD, judged by the benchmark's own
-input-based OOD detector and by PhysMAP, at each of Lewis's thermocouple stations. **One run.
-A development example.** Its stations are not independent cases, so no precision, recall or
-F1 — and none should be implied by the slide's layout. Full record:
+**What it is — say this first:**
+
+> *"The surrogate was trained for forced convection, where gravity did not vary and was not an
+> input. It was then reused in vertical heated flow, where buoyancy became material. A
+> mixed-convection surrogate designed for this regime should include Richardson number,
+> Grashof number, or equivalent physical information."*
+
+**The claim:**
+
+> *"PhysMAP detects when model reuse activates a physically relevant mechanism outside the
+> surrogate's observable input space. An input-only OOD detector cannot identify a change
+> absent from its input contract."*
+
+**One run. A development example.** Its stations are not independent cases, so no precision,
+recall or F1 — and nothing on the slide may look like a scorecard. Full record:
 `docs/findings/lewis-ood-head-to-head.md`.
 
-**It was run three ways, and the slide shows all three.** The only thing that changes between
-them is where 35A's operating point sits relative to the surrogate's training data. Gravity is
-withheld from the surrogate and the detector in every one.
+**The slide — design M, the headline.** Two parts, in this order.
 
-| | where 35A sits | input-based OOD detector | PhysMAP |
+*1. The input contract.* Both the surrogate and the input-based OOD detector receive `Re`, `Pr`
+and `x_over_D`. **Neither** receives gravity, `Ri`, `Gr` or heat flux. **Every visible deployment
+input exactly matches a training input.** Say that sentence out loud — it is what makes this a
+controlled test rather than a stacked one.
+
+*2. The result, same visible inputs, two physical states:*
+
+| | surrogate error | OOD scores | PhysMAP materiality |
 |---|---|---|---|
+| **gravity off** — the accurate control | within 0.06 % | *identical to the row below* | **0** |
+| **gravity on** — Lewis's measurement | **17–18 %** at x/D 67–136 | quiet at the benchmark's reference percentile | rises to **0.195** downstream |
+
+**The line to land:** *"Same inputs, same OOD scores. Different physics, different materiality —
+and the materiality is where the error is."*
+
+**Show materiality as numbers, not verdicts.** θ is unlocked. If a flag appears at all, label it
+*"at the illustrative θ = 0.10"* — the original study's value, not a chosen one. The headline
+needs no θ: identical OOD scores and zero-versus-0.195 materiality are threshold-free.
+
+**Then the secondary result — designs A and A3, specificity.** When the visible operating point
+falls *between* training runs, the OOD detector warns in both the accurate and the inaccurate case
+— identically — while PhysMAP changes with the physical mechanism:
+
+> *"The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an
+> error. PhysMAP distinguished the accurate control from the materially affected prediction and
+> named the mechanism."*
+
+**Running it.** `physmap stress-test lewis-reuse` reproduces everything from a clone, asserts the
+exact input overlap and the unchanged OOD scores, and checks itself against a committed bank. It
+takes about two minutes — run it before the talk and show the output, rather than waiting on it
+live.
+
+**Say plainly, unprompted:**
+
+- **This is not "OOD detectors fail".** The detector does exactly its job — it reports whether the
+  inputs are familiar. The change that matters is outside its inputs.
+- **This is not "leave gravity out".** A mixed-convection surrogate built correctly should expose
+  Ri, Gr or equivalent. The test reuses a forced-convection surrogate on purpose.
+- **Nothing here is about NVIDIA PhysicsNeMo.** Its OOD and physics checks are distinct, and
+  neither was run.
+
+**Volunteer these before anyone asks.** They are true, and a sharp questioner will find them:
+
+1. **At low operating percentiles the detector does fire downstream** — at 75, on the same stations
+   the materiality is high. It fires identically with gravity off, where those stations are right
+   to 0.03 %, and at that setting it already fires on 97–100 % of its own training rows beyond
+   x/D 50. It is flagging sparse training coverage, not buoyancy. The reference percentile is 99,
+   and it is quiet there.
+2. **PhysMAP does not see every error.** At x/D 2.45 and 16.32 the surrogate is off by +10 % and
+   −13 %, mostly because the base CFD model differs from the experiment there. PhysMAP checks one
+   mechanism and does not claim to see others.
+3. **θ is not locked.** Any flag shown is illustrative. At θ = 0.10 three comparable stations
+   would flag; at 0.05, five; at 0.20, none. The protocol sets θ, not this outcome.
+
+---|---|---|---|
 | **Design M** — pre-declared, matched | on a training operating point | **quiet** at every station, gravity on or off | flags x/D ≥ 67.55 with gravity on, where the surrogate is off by 17–18 %; quiet with gravity off |
 | **Designs A, A3** | between training operating points | **warns** at every station, gravity on or off | the same |
 
@@ -337,10 +398,10 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "The statistical baseline / novelty detector is silent." | "The input-based OOD detector is silent." |
 | "NVIDIA PhysicsNeMo fails here." / "PhysicsNeMo's guardrail would miss this." | "An input-based OOD detector misses this. PhysicsNeMo's out-of-distribution check and its physics checks are separate things; we have not run its guardrail, so we make no claim about it." |
 | "The OOD detector was starved of inputs." | "It got every input the surrogate gets, position included. The contract is recorded in the head-to-head output." |
-| "Lewis shows what an input-based OOD detector misses." (with no design named) | "In the pre-declared matched design it stayed quiet where the surrogate was off by 17–18 %. With unfamiliar inputs it warned everywhere instead. Either way its answer never changed with gravity." |
+| "OOD detectors fail at this." / "OOD detection doesn't work." | "An input-only OOD detector cannot identify a change absent from its input contract. Here the change was gravity, which was not an input." |
+| "Engineers shouldn't bother including gravity." | "A mixed-convection surrogate built for this regime should include Ri, Gr or equivalent. This test shows what reuse without it looks like." |
+| "PhysMAP flagged three stations." (as a verdict) | "Materiality rose to 0.195 downstream. At the illustrative θ = 0.10 three stations would flag; θ is not locked." |
 | "The OOD detector caught the downstream stations too." (citing percentile 75) | "At 75 it fires on its own training data there, and identically with gravity off. At the reference 99 it is quiet." |
-| "The OOD detector missed the buoyancy error on Lewis." | "It fired everywhere on Lewis, with the same answer whether buoyancy was on or off. It fired because the operating point was between the training runs, not because of buoyancy." |
-| "PhysMAP caught what the OOD detector missed." (of Lewis) | "Both fired downstream. Only PhysMAP's answer changes when buoyancy is switched off." |
 | "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
 | "Materiality was 0.04, so the mechanism doesn't matter." | Only if the status is `estimated`. If it is `insufficient_evidence`, say "we could not assess it" — those are different findings. |

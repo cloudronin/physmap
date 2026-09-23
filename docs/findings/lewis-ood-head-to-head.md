@@ -1,305 +1,283 @@
-# Lewis 35A head-to-head — the input-based OOD detector against PhysMAP
+# Lewis 35A — a controlled model-reuse stress test
 
-**Status: development demonstration.** 35A is a spent run: every station of it had already been
-inspected against agreement. Its twelve stations are twelve measurements of **one** operating
-condition, not twelve cases. No precision, recall or F1 is computed, and none may be computed
-from this.
+```bash
+physmap stress-test lewis-reuse
+```
 
-## The claim this supports
+One command, from a clone, in about two minutes. It recomputes everything below from the
+checkout, asserts the two properties the test rests on, and checks itself against a committed
+bank — the same contract as `physmap benchmark run`, kept apart from that command because this is
+a causal-materiality result and that one is a closure-observability benchmark.
 
-> **The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism.**
+## What it is
 
-That is **specificity and causal diagnosis**, from designs A and A3. The input-based OOD
-detector did not miss the bad predictions there — it warned on all of them, and on the good ones
-too.
+> The surrogate was trained for forced convection, where gravity did not vary and was not an
+> input. It was then reused in vertical heated flow, where buoyancy became material. A
+> mixed-convection surrogate designed for this regime should include Richardson number, Grashof
+> number, or equivalent physical information.
 
-**Design M then tested the stronger claim directly, and it met every pre-declared criterion.**
-With the evaluated `(Re, Pr, x/D)` inside the training data and gravity withheld:
+## The claim
 
-> **The input-based OOD detector stayed quiet for both gravity states — including at the
-> stations where the surrogate is off by 17–18 %. PhysMAP flagged exactly those stations,
-> stayed quiet on the accurate gravity-off control, and named buoyancy.**
+> **PhysMAP detects when model reuse activates a physically relevant mechanism outside the
+> surrogate's observable input space. An input-only OOD detector cannot identify a change absent
+> from its input contract.**
 
-That is what the input-based OOD detector misses, shown on one run. See
-[Design M](#design-m--the-operating-point-matched-check) below.
+## What it is not
 
-## The short answer
+- **Not a claim that OOD detectors fail in general.** The input-based OOD detector here does
+  exactly its job: it reports whether the inputs are familiar. The change that matters is not in
+  its inputs.
+- **Not a suggestion to leave gravity out.** A mixed-convection surrogate built correctly should
+  expose the relevant physics — Richardson number, Grashof number, or equivalent. This test
+  reuses a forced-convection surrogate *on purpose*, to show what happens when that has not been
+  done.
+- **Not a claim about NVIDIA PhysicsNeMo.** Its out-of-distribution check and its physics checks
+  are distinct; neither was run, and no faithful equivalent was built or tested.
 
-**The input-based OOD detector did not stay quiet.** It fired at every 35A station, in both
-pre-committed training designs, at every operating percentile including the most lenient.
+## Status
 
-**But its firing carries no information about where the surrogate is wrong.** Its output is
-*identical* when the surrogate is accurate to 0.25 % and when it is wrong by 17–18 %, because
-what separates those two cases — gravity — is not one of its inputs. It fires because 35A's
-operating point sits between the training runs' operating points, which is true and irrelevant.
+**Development demonstration.** One run, Lewis Test 35A, already inspected during development.
+Its twelve stations are twelve measurements of one operating condition, not twelve cases. No
+precision, recall or F1 is computed, and none may be computed from this.
 
-**PhysMAP's flag lands on real errors, and names their cause.** It flags x/D 67.55, 101.69 and
-135.84, where the surrogate is off by 17.0 %, 16.8 % and 18.0 % — six to eleven times the
-experiment's bulk-error uncertainty at those stations — and buoyancy accounts for most of each.
-It stays quiet on the control where the surrogate is right.
+**θ is unlocked.** Materiality is reported as continuous values. θ = 0.10 — the original study's
+value, recorded before any Lewis work — appears only as an illustration, never as a verdict.
 
-**PhysMAP does not catch errors with other causes.** At x/D 2.45 (+9.9 %) and 16.32 (−12.8 %) the
-surrogate is wrong mostly because of the base model's own gap to the experiment, not buoyancy.
-PhysMAP does not flag them and is not built to.
+## Headline — design M
 
-## Input contract
+### Input contract
 
 | | |
 |---|---|
-| Surrogate inputs | `Re`, `Pr`, `x_over_D` |
-| OOD detector features | `log10_Re`, `Pr`, `x_over_D` — the guardrail's own `input_to_feature` map |
-| Position | **included** — the surrogate predicts local Nu, so `x_over_D` is an input to both |
-| Not an input to either | `Gr_q`, `Ri`, wall heat flux, gravity, flow direction |
-| Deploy inputs | Re 1143.4, Pr 8.46 — Lewis Appendix D-2, inlet-bulk basis |
+| Surrogate receives | `Re`, `Pr`, `x_over_D` |
+| Input-based OOD detector receives | `Re`, `Pr`, `x_over_D` — every input the surrogate receives, nothing withheld |
+| Neither receives | gravity, `Ri`, `Gr`, wall heat flux, flow direction |
+| Deployment inputs | Re 1143.4, Pr 8.46 (Lewis Appendix D-2, inlet-bulk basis), `x_over_D` at Lewis's 12 stations |
+| **Every visible deployment input exactly matches a training input** | **yes — asserted by the command** |
 
-The OOD detector receives **every** input the surrogate receives. Nothing is withheld from it.
+The surrogate is a forced-convection model fitted to thirteen gravity-off CFD runs, one of them
+at 35A's own operating point. So there is no input gap for the detector to notice: the
+deployment looks exactly like training. What changed is gravity, and gravity is not an input.
 
-## The OOD detector is the shipped one, unchanged
+### Result
 
-`physmap.benchmarks.benchmark_v0_4._DETECTORS`, imported, not rebuilt. Two baselines, fired if
-either fires, exactly as the benchmark reads them:
+Scored twice with the **same visible inputs**: against gravity-off CFD at 35A — the accurate
+control — and against Lewis's measurement, where buoyancy is active.
 
-- **distance-to-training** — Mahalanobis, mean distance to the 3 nearest training rows;
-- **GP variance** — Matérn-5/2, posterior std / |mean|, threshold floored at 0.05.
+| x/D | control error (gravity off) | experimental error (gravity on) | OOD distance | OOD GP variance | OOD at 99 | materiality, gravity off | materiality, gravity on |
+|---|---|---|---|---|---|---|---|
+| 2.45 | −0.02 % | +9.9 % | 0.003 | 0.0025 | quiet | 0 | 0.006 |
+| 5.65 | −0.06 % | −6.4 % | 0.008 | 0.0036 | quiet | 0 | 0.012 |
+| 9.92 | −0.04 % | −2.6 % | 0.013 | 0.0044 | quiet | 0 | 0.020 |
+| 16.32 | −0.04 % | −12.8 % | 0.021 | 0.0053 | quiet | 0 | 0.032 |
+| 33.39 | −0.02 % | −11.0 % | 0.046 | 0.0067 | quiet | 0 | 0.061 |
+| 50.47 | −0.01 % | −10.0 % | 0.063 | 0.0076 | quiet | 0 | 0.087 |
+| 67.55 | −0.01 % | **−17.0 %** | 0.087 | 0.0082 | quiet | 0 | **0.111** |
+| 101.69 | −0.00 % | **−16.8 %** | 0.142 | 0.0091 | quiet | 0 | **0.154** |
+| 135.84 | +0.03 % | **−18.0 %** | 0.167 | 0.0098 | quiet | 0 | **0.195** |
 
-Each fires when its score exceeds the given percentile of the **training rows' own** scores. The
-benchmark's percentiles were swept — 50, 75, 90, 95, 99, 100 — with 99 as reference. Both
-baselines are marked "locked v0.2, do not change" in the source, and were not.
+Comparable stations only; Lewis disowns x/D 0.31 and 0.85 (axial wall conduction) and 159.33
+("suspect"), and the detector is quiet there too. OOD thresholds at the benchmark's reference
+percentile 99: distance 0.408, GP variance 0.050.
 
-## The surrogate
+**The OOD scores are identical with gravity off and gravity on** — every score, every
+percentile, asserted by the command. The two cases are indistinguishable to it, because they
+differ only in something outside its input contract.
 
-The NAFEMS original's own recipe: a forced-convection model fitted to **gravity-off** CFD. It
-mirrors the benchmark's buoyancy vehicle, Jin: a surrogate that omits the mechanism, trained
-where the mechanism is absent, deployed where it is present, over the same input range.
+**PhysMAP's materiality is zero with gravity off and rises to 0.195 with gravity on**, growing
+down the tube as buoyancy distorts the flow. The surrogate is right to within 0.06 % on the
+control and off by 17–18 % at the downstream stations with buoyancy active.
 
-- GP on (log10 Re, Pr, log10 x/D) → log Nu, fitted to variable-property CFD with Lewis's
-  Appendix B properties and his Nu definition applied to each run's own inlet-bulk values.
-- **Design A (pre-committed):** 8 runs, Re {750, 950, 1350, 1550} × inlet {12.0, 14.5} °C,
-  35A's heat flux, 40 log-spaced stations each. 35A's operating point is interior, not a node.
-- **Design A3 (pre-committed sensitivity):** A plus a third inlet level, 13.25 °C.
-- Every training run converged and closed energy within 0.5 %. The four low-Re runs first
-  closed only to −0.6…−2.25 % at 2000 iterations with the enthalpy residual still falling; they
-  were continued to 4000 and then closed within 0.35 %. A numerical acceptance fix, made on the
-  residual history, before any head-to-head output existed.
+**Neither of those two sentences depends on a threshold.** That is the headline.
 
-**It is an excellent forced-convection model.** Leave-one-run-out error: worst 0.58 % (A),
-0.42 % (A3). At 35A it reproduces gravity-off CFD at 35A's exact conditions to within **0.27 %**
-(A) and **0.25 %** (A3) at every station. So its error against the experiment is not a fitting
-problem.
+### What does depend on a threshold
 
-## What the OOD detector actually responds to
-
-Firing at every station, in both designs, at every percentile:
-
-| design | distance score along the tube | threshold | fires |
-|---|---|---|---|
-| A | 1.08 → 1.14 | 0.45 | everywhere |
-| A3 | 0.60 → 0.70 | 0.47 | everywhere |
-
-The distance score is almost flat along the tube, so position is not what drives it. Decomposing
-it from the training inputs alone — moving 35A's value onto the nearest training level, one axis
-at a time — shows why:
-
-| | distance score | fires? |
+| Result | Threshold | Holds for |
 |---|---|---|
-| as deployed | 1.08–1.13 | yes |
-| Pr gap closed only | 0.58–0.67 | **yes** |
-| Re gap closed only | 0.91–1.00 | yes |
-| both closed | 0.007–0.33 | no |
+| OOD scores identical between gravity states | none | exact equality |
+| every visible deployment input is a training input | none | exact set membership |
+| materiality 0 with gravity off; continuous with gravity on | none | reported as values |
+| control and experimental errors | none | reported as values, no right/wrong label |
+| OOD fired or quiet at a station | operating percentile — the benchmark's shipped reference 99 | full sweep reported below |
+| PhysMAP flags nothing with gravity off | none | **every θ** — materiality is 0 and Ri = 0 sits inside the surrogate's window |
+| PhysMAP flags at least one comparable station with gravity on | **θ, unlocked** | any θ ≤ 0.195 |
+| which stations PhysMAP flags | **θ, unlocked** | each station flags for θ up to its own materiality |
 
-35A is off the training grid in both Re and Pr, and **either gap alone fires it**. The
-pre-committed third inlet level closed the Pr gap — and the Re gap still fired it, as the
-decomposition predicted. The detector is correctly reporting "no training run at this operating
-point". It is not reporting anything about buoyancy, because it cannot.
+**At the illustrative θ = 0.10** — not a verdict — PhysMAP would flag x/D 67.55, 101.69 and
+135.84 with gravity on, and nothing with gravity off. At θ = 0.05 it would add 33.39 and 50.47;
+at θ = 0.20, none of the comparable stations. θ will be set by the protocol, not by this outcome.
 
-The GP-variance score is not flat: it is near zero at the dense entrance stations and 0.2–1.7
-downstream, where the training stations thin out. It does not track the error either — it is
-lowest of the downstream stations at x/D 135.84, where the error is largest.
+### Pre-declared, and met
 
-## The control: same inputs, gravity off
-
-Same surrogate, same detectors, same inputs, scored against **gravity-off** CFD at 35A — where
-the surrogate is accurate — instead of against the experiment.
-
-| x/D | gravity OFF: error | OOD | PhysMAP | gravity ON (experiment): error | OOD | PhysMAP | materiality |
-|---|---|---|---|---|---|---|---|
-| 2.45 | −0.04 % | fires | quiet | +9.9 % | fires | quiet | 0.006 |
-| 9.92 | −0.06 % | fires | quiet | −2.6 % | fires | quiet | 0.020 |
-| 16.32 | −0.06 % | fires | quiet | −12.8 % | fires | quiet | 0.032 |
-| 33.39 | −0.03 % | fires | quiet | −11.0 % | fires | quiet | 0.061 |
-| 50.47 | −0.01 % | fires | quiet | −10.0 % | fires | quiet | 0.087 |
-| 67.55 | −0.00 % | fires | quiet | −17.0 % | fires | **flags** | 0.111 |
-| 101.69 | +0.00 % | fires | quiet | −16.8 % | fires | **flags** | 0.154 |
-| 135.84 | +0.05 % | fires | quiet | −18.0 % | fires | **flags** | 0.195 |
-
-**The OOD detector's output is bit-identical in the two columns**, at every station and every
-percentile. That is true by construction — its scores read only the inputs — and the run
-confirms it. It cannot tell a condition where the surrogate is right from one where it is wrong,
-when the difference is a mechanism outside its inputs.
-
-**PhysMAP separates them.** With gravity off, Ri = 0 sits inside the surrogate's calibrated
-window, so the flag rule's out-of-range half fails and it stays quiet. With gravity on,
-Ri = 0.287 is outside it, and the flag follows materiality.
-
-## Does the flag correspond to an actual prediction error?
-
-The surrogate matches gravity-off CFD to 0.25 %, so its error against the experiment splits
-cleanly into **missing buoyancy** — PhysMAP's materiality — times **the base model's own gap**
-to the experiment (the gravity-*on* CFD against the measurement). The split closes to within
-0.2 % at every station.
-
-| x/D | surrogate error | from missing buoyancy | from base model gap | exp. bulk-error unc. | PhysMAP (θ = 0.10) |
-|---|---|---|---|---|---|
-| 2.45 | +9.9 % | −0.6 % | +10.6 % | 0.1 % | quiet |
-| 5.65 | −6.4 % | −1.2 % | −5.2 % | 0.1 % | quiet |
-| 9.92 | −2.6 % | −2.0 % | −0.6 % | 0.2 % | quiet |
-| 16.32 | −12.8 % | −3.2 % | −9.8 % | 0.4 % | quiet |
-| 33.39 | −11.0 % | −6.1 % | −5.2 % | 0.8 % | quiet |
-| 50.47 | −10.0 % | −8.7 % | −1.4 % | 1.1 % | quiet |
-| 67.55 | −17.0 % | −11.1 % | −6.6 % | 1.5 % | **flags** |
-| 101.69 | −16.8 % | −15.4 % | −1.6 % | 2.3 % | **flags** |
-| 135.84 | −18.0 % | −19.5 % | +1.8 % | 3.1 % | **flags** |
-
-(Surrogate errors from design A3; design A differs by at most 0.01 percentage points. Comparable
-stations only. Lewis disowns x/D 0.31 and 0.85 for axial wall conduction and 159.33
-as "suspect". The uncertainty column is only the bulk-temperature component; a combined
-per-point uncertainty is not reported by the source and is a protocol decision.)
-
-**Where PhysMAP flags, the error is real and large** — 17–18 %, far above the bulk-error
-uncertainty — **and the mechanism it names is the main cause.** At x/D 101.69 and 135.84
-buoyancy accounts for essentially all of it.
-
-**Where PhysMAP is quiet, the errors split three ways:**
-
-- **x/D 9.92 and 5.65** — small errors, correctly quiet.
-- **x/D 33.39 and 50.47** — buoyancy is real (−6.1 %, −8.7 %) but below θ = 0.10. Whether these
-  should flag is exactly the θ decision the protocol has not locked.
-- **x/D 2.45 and 16.32** — the error is mostly the base model's gap to the experiment, not
-  buoyancy. PhysMAP does not flag it and is not designed to. The surrogate inherits this gap from
-  the CFD it was trained on; a surrogate built on a better base model would carry less of it.
-
-## Design M — the operating-point-matched check
-
-**Pre-declared before it ran**, in `results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`,
-committed in `b3da673` ahead of every design-M output. Designs A and A3 are preserved
-unchanged; a re-run of A3 after adding design M's code was byte-identical to the banked file.
-
-**The one change from A3:** the existing gravity-off run at 35A's operating point was added as
-a thirteenth training run — sampled at the same 40 stations plus Lewis's 12, labelled with the
-evaluated inputs (Re 1143.4, Pr 8.46; its polynomial values differ by −0.062 % and +0.141 %).
-Every evaluated input is an exact training input — checked in the output, not assumed. Gravity
-and Ri stay withheld from both the surrogate and the detector.
-
-**The surrogate is unchanged in quality:** leave-one-run-out worst 0.45 %; with the matched run
-itself held out, 0.30 %.
-
-### Result, at the benchmark's reference percentile 99
-
-| x/D | gravity OFF: error | OOD | PhysMAP | gravity ON: error | OOD | PhysMAP | materiality |
-|---|---|---|---|---|---|---|---|
-| 2.45 | −0.02 % | quiet | quiet | +9.9 % | quiet | quiet | 0.006 |
-| 5.65 | −0.06 % | quiet | quiet | −6.4 % | quiet | quiet | 0.012 |
-| 9.92 | −0.04 % | quiet | quiet | −2.6 % | quiet | quiet | 0.020 |
-| 16.32 | −0.04 % | quiet | quiet | −12.8 % | quiet | quiet | 0.032 |
-| 33.39 | −0.02 % | quiet | quiet | −11.0 % | quiet | quiet | 0.061 |
-| 50.47 | −0.01 % | quiet | quiet | −10.0 % | quiet | quiet | 0.087 |
-| 67.55 | −0.01 % | quiet | quiet | **−17.0 %** | **quiet** | **flags** | 0.111 |
-| 101.69 | −0.00 % | quiet | quiet | **−16.8 %** | **quiet** | **flags** | 0.154 |
-| 135.84 | +0.03 % | quiet | quiet | **−18.0 %** | **quiet** | **flags** | 0.195 |
-
-(Comparable stations. The three Lewis disowns are also quiet on the detector at 99.)
-
-Distance scores 0.003–0.167 against a threshold of 0.408; GP variance 0.0025–0.0098 against
-0.050. The detector's output is **identical** between the two gravity states — as it must be,
-since its inputs are.
+Design M was pre-declared, with its success criteria, in
+`results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`, committed in `b3da673` before any
+of its output existed.
 
 | Pre-declared criterion | Result |
 |---|---|
-| 1. Detector quiet at every comparable station, both gravity states, at 99 | **met** |
-| 2. PhysMAP flags a comparable station with gravity on | **met** — x/D 67.55, 101.69, 135.84 |
-| 3. PhysMAP flags nothing with gravity off | **met** |
-| Stronger claim supported | **yes** |
+| 1. Detector quiet at every comparable station, both gravity states, at 99 | met |
+| 2. PhysMAP flags a comparable station with gravity on (θ = 0.10) | met — and would be for any θ ≤ 0.195 |
+| 3. PhysMAP flags nothing with gravity off | met — for every θ |
 
-The detector is also quiet at percentiles 90, 95 and 100.
+Criterion 2 used the illustrative θ. It is recorded that way, with the range over which it holds,
+rather than read as a fixed verdict.
 
-### The lower percentiles, and why they do not change the reading
+### The lower operating percentiles
 
-At percentile 75 the detector fires at x/D ≥ 67.55, and at 50 from x/D 16.32 on — the same
-downstream stations PhysMAP flags. It does so **identically with gravity off**, where those
-stations are accurate to 0.03 %.
+The detector is quiet at 90, 95, 99 and 100. At 75 it fires on 3 of the 9 comparable stations
+(x/D ≥ 67.55), and at 50 on 6 — the downstream stations — **identically with gravity off**, where
+those stations are accurate to 0.03 %.
 
-The mechanism is measured, from training inputs alone
+That is the detector's own alarm pattern, measured from training inputs alone
 (`design_M_low_pct_mechanism.json`). Each training point is its own nearest neighbour, the
-training stations are log-spaced, and the detector measures raw `x_over_D` — so downstream
-stations are the sparsest part of the grid. At percentile 75 the detector already fires on
-**97–100 % of the training rows themselves** beyond x/D 50, and on none below x/D 10. A test
-input identical to those rows fires for the same reason. Its alignment with PhysMAP's flags is a
-coincidence of geometry: buoyancy builds with distance, and so does training-grid spacing. The
-pre-declaration named this in advance: lower percentiles are reported, and do not decide.
+training stations are log-spaced, and the detector measures raw `x_over_D`, so downstream is the
+sparsest part of the grid. At 75 it already fires on 97–100 % of its **own training rows** beyond
+x/D 50, and on none below x/D 10. Buoyancy also builds with distance, so the two line up — by
+geometry, not by detection. The pre-declaration said in advance that low percentiles do not
+decide.
 
-### Everything else still holds
+## Secondary — designs A and A3: specificity
 
-- PhysMAP still misses the base-model errors at x/D 2.45 (+9.9 %) and 16.32 (−12.8 %), by design.
-- x/D 33.39 and 50.47 carry real buoyancy (−6.1 %, −8.7 %) below θ = 0.10; θ is not locked.
-- One run. A development example. Stations are not cases. No precision, recall or F1.
+The same test with 35A's operating point **between** training runs instead of on one: eight runs
+(design A), then twelve with a third inlet temperature (design A3, the pre-committed
+sensitivity). Everything else identical.
+
+> **The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an
+> error. PhysMAP distinguished the accurate control from the materially affected prediction and
+> named the mechanism.**
+
+The detector warns at all 9 comparable stations in both gravity states, at every operating
+percentile — on the control where the surrogate is right to within 0.07 %, and on the experiment
+where it is off by 17–18 %. Its scores are identical between the two. PhysMAP's materiality is exactly the
+headline's: it follows the physics, not the training design.
+
+Why it warns, measured from training inputs alone: 35A is off the training grid in both Re and
+Pr, and either gap alone trips it.
+
+| design A, distance score | value | fires? (threshold 0.452) |
+|---|---|---|
+| as deployed | 1.08–1.13 | yes |
+| Pr gap closed only | 0.58–0.67 | yes |
+| Re gap closed only | 0.91–1.00 | yes |
+| both closed | 0.007–0.33 | no |
+
+The third inlet level (A3) closed the Pr gap and the score fell to 0.60–0.70 — still above 0.47,
+as the decomposition predicted.
 
 ## Across all three designs
 
-| | where 35A sits | detector | PhysMAP |
+| | 35A's visible operating point | input-based OOD detector | PhysMAP |
 |---|---|---|---|
-| A, A3 | between training operating points | **warns everywhere** — accurate and inaccurate alike | flags x/D ≥ 67.55 with gravity on; quiet with gravity off |
-| M | on a training operating point | **quiet everywhere** — accurate and inaccurate alike | the same |
+| **M** (headline) | on a training operating point | quiet — accurate and inaccurate alike | materiality 0 → up to 0.195 when buoyancy is active |
+| **A, A3** | between training operating points | warns — accurate and inaccurate alike | the same |
 
-The detector's answer depends on where the inputs sit, and **never changed when gravity was
-switched**, in any design. PhysMAP's answer did not depend on the training design, and **always
-changed when gravity was switched**. That is the whole result in one table.
+The detector's answer followed where the visible inputs sat and **never changed when gravity was
+switched**, in any design. PhysMAP's answer did not depend on the training design and **always
+changed when gravity was switched**.
 
-## What this says about when an input-based OOD detector fires
+## How the surrogate's error splits
 
-The NACA demo and this run look contradictory and are not. In NACA the input-based OOD detector
-was silent on all 45 entrance points; here it fired on all 12 stations. The difference is **where
-the deploy point sits in the input space**, not whether the unmodelled mechanism is active:
+The surrogate reproduces gravity-off CFD at 35A to within 0.25 %, so its error against the
+experiment splits cleanly into **missing buoyancy** (PhysMAP's materiality) times **the base
+model's own gap** to the experiment (gravity-on CFD against the measurement). The split closes to
+within 0.2 % at every station.
 
-- NACA's entrance points share their operating point with the training data — only `x/D` differs,
-  and `x/D` is not an input — so they look in-distribution.
-- 35A is at an operating point between the training runs, so it looks out-of-distribution.
+| x/D | surrogate error | from missing buoyancy | from base model gap | bulk-error unc. | materiality | above illustrative θ = 0.10? |
+|---|---|---|---|---|---|---|
+| 2.45 | +9.9 % | −0.6 % | +10.6 % | 0.1 % | 0.006 | no |
+| 5.65 | −6.4 % | −1.2 % | −5.2 % | 0.1 % | 0.012 | no |
+| 9.92 | −2.6 % | −2.0 % | −0.6 % | 0.2 % | 0.020 | no |
+| 16.32 | −12.8 % | −3.2 % | −9.8 % | 0.4 % | 0.032 | no |
+| 33.39 | −11.0 % | −6.1 % | −5.2 % | 0.8 % | 0.061 | no |
+| 50.47 | −10.0 % | −8.7 % | −1.4 % | 1.1 % | 0.087 | no |
+| 67.55 | −17.0 % | −11.1 % | −6.6 % | 1.5 % | 0.111 | yes |
+| 101.69 | −16.8 % | −15.4 % | −1.6 % | 2.3 % | 0.154 | yes |
+| 135.84 | −18.0 % | −19.5 % | +1.8 % | 3.1 % | 0.195 | yes |
 
-In both, the detector's answer is independent of the mechanism that breaks the surrogate. Silent
-in one, firing in the other, informative about the mechanism in neither.
+The uncertainty column is only the bulk-temperature component; a combined per-point uncertainty is
+not reported by the source and is a protocol decision.
+
+- **Where materiality is largest, buoyancy causes most of the error.** At the three stations
+  above the illustrative θ the error is six to eleven times the bulk-error uncertainty (11.2×,
+  7.3×, 5.9×); at x/D 101.69 and 135.84 buoyancy is essentially all of it.
+- **x/D 33.39 and 50.47** carry real buoyancy (−6.1 %, −8.7 %) with materiality below the
+  illustrative θ. Whether they should flag is the open θ decision.
+- **x/D 2.45 and 16.32** are wrong mostly because of the base model, not buoyancy. PhysMAP checks
+  one mechanism and does not claim to see others; the surrogate inherits this gap from the CFD it
+  was trained on.
+
+## Provenance
+
+- **The input-based OOD detector** is the seven-vehicle benchmark's own:
+  `physmap.benchmarks.benchmark_v0_4._DETECTORS`, imported unchanged — Mahalanobis k = 3
+  distance-to-training OR a Matérn-5/2 GP's posterior std / |mean| (floored at 0.05), each firing
+  above the given percentile of its training rows' own scores. Operating percentiles 50–100, the
+  benchmark's reference 99. Both marked "locked v0.2, do not change" in the source, and not
+  changed. The guardrail's closure layer is inactive (regime `UNLISTED`): the shipped corpus has
+  no laminar vertical-tube closure, and a turbulent one would fire on Re < 3000 for a reason
+  unrelated to buoyancy.
+- **The surrogate** is a GP on (log10 Re, Pr, log10 x/D) → log Nu, fitted to variable-property
+  gravity-off CFD with Lewis's Appendix B water properties and his own Nu definition. Leave-one-run-out
+  worst 0.45 %; 0.30 % with the matched run itself held out.
+- **The matched ablation** is `pair_gON` against `pair_gOFF`, provenance `matched_ablation`. The two
+  cases differ only in `constant/g` — checked by a recursive diff when the inputs were banked. 3000
+  iterations each; the gravity-on half reproduces a 25 000-iteration run to within 0.063 %. Energy
+  closes to +0.15 % and +0.30 % against the inlet-property energy balance, which reads slightly
+  positive for a correct case because water's cp falls as it heats; against Lewis's own calculated
+  rise of 16.94 K the same fields read −0.05 % and +0.11 %.
+- **Every training run** closes energy within 0.5 % with no reversed cells, asserted when the
+  inputs were banked. The four low-Re runs were continued from 2000 to 4000 iterations because their
+  enthalpy residual was still falling; that was decided on the residual history, before any
+  head-to-head output existed.
+- **Reproduction.** The command recomputes from CFD-derived inputs banked at full precision in
+  `data/stress_tests/lewis_reuse/`, and reproduces `cfd/lewis_head_to_head.py`'s pre-declared
+  design M to the bit — asserted in `tests/test_stress_test_lewis_reuse.py`. Regenerating the CFD
+  itself needs Docker; the manifest records how.
+
+## NACA and Lewis do not contradict each other
+
+In NACA the input-based OOD detector was silent on all 45 entrance points. In Lewis designs A and
+A3 it warned on every station; in design M it was silent again. What decides it is **where the
+visible deployment inputs sit relative to training** — not whether the unmodelled mechanism is
+active. NACA's entrance points and design M's deployment both share their visible operating point
+with training; designs A and A3 do not. In every case the detector's answer is independent of the
+mechanism that breaks the surrogate.
 
 ## What may and may not be said
 
-- **Say (design M, the stronger claim):** "With the operating point inside its training data and
-  gravity withheld, the input-based OOD detector stayed quiet — for both gravity states,
-  including where the surrogate was off by 17–18 %. PhysMAP flagged exactly those stations,
-  stayed quiet on the accurate control, and named buoyancy."
-- **Say (designs A, A3, the specificity claim):** "When the inputs were unfamiliar, the detector
-  warned everywhere, including where the surrogate was right. It could not say whether buoyancy
-  caused an error. PhysMAP could."
-- **Do not cite the lower percentiles** as the detector "catching" the downstream stations. It
-  fires there on its own training data, and identically with gravity off.
-- **Do not say** the OOD detector "missed it" or "stayed quiet" on Lewis. It fired.
-- **Do not say** PhysMAP "caught what the OOD detector missed" on Lewis. Both fired downstream;
-  only one fired *because of* the error.
-- **Do not say** PhysMAP catches every surrogate error. It missed the base-model errors at x/D
-  2.45 and 16.32, by design.
-- **Do not say** anything about NVIDIA PhysicsNeMo. Its out-of-distribution check and its physics
-  checks are separate things; neither was run here, and no faithful equivalent was built or tested.
+- **Say:** "The surrogate was trained for forced convection, where gravity did not vary and was not
+  an input, and reused in vertical heated flow where buoyancy became material. Every visible input
+  matched training. The input-only OOD detector gave the same scores with buoyancy on and off.
+  PhysMAP's materiality went from zero to about 0.2, at the stations where the surrogate was off by
+  17–18 %."
+- **Say:** "A mixed-convection surrogate built for this regime should include Richardson number,
+  Grashof number, or equivalent. This is what reuse without it looks like."
+- **Say, for designs A and A3:** "When the visible operating point fell between training runs, the
+  OOD detector warned in both the accurate and the inaccurate case. PhysMAP changed with the
+  physical mechanism."
+- **Do not say** OOD detectors fail in general, that engineers should omit gravity, or anything
+  about NVIDIA PhysicsNeMo.
+- **Do not present a flag as a verdict.** θ is unlocked; show materiality, and θ = 0.10 only as an
+  illustration.
+- **Do not cite the low operating percentiles** as the detector "catching" the downstream stations.
+  It fires there on its own training data, and identically with gravity off.
+- **Do not say** PhysMAP catches every surrogate error. It does not see the base-model errors at
+  x/D 2.45 and 16.32, by design.
 - **Always say** it is one development run, and its stations are not independent cases.
 
-## Adherence to the pre-commitment
+## Pre-commitments
 
-`results/lewis35A_head_to_head/PRECOMMIT.md` was written before any head-to-head output for
-the real design existed, and discloses the one-run smoke test that preceded it. Its rules were
-followed: design A's result is reported first and unreplaced; the single permitted sensitivity
-(the third inlet level, triggered by the Pr gap being a driver of the distance score) was run and
-is reported alongside; nothing else about the design changed in response to any result. The
-gravity-off control is an additional analysis of the matched pair built earlier, not a change to
-the training design.
+- `results/lewis35A_head_to_head/PRECOMMIT.md` — designs A and A3, written before any real-design
+  output existed, disclosing the one-run smoke test that preceded it. Followed: design A reported
+  first and unreplaced; the single permitted sensitivity (A3) run and reported alongside.
+- `results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md` — design M, committed in `b3da673`
+  before any of its output existed. All three criteria met; criterion 2's θ-dependence recorded.
+- Both designs' result files are byte-unchanged since their commits.
 
 ## Files
 
-- `cfd/lewis_head_to_head.py` — the run
-- `results/lewis35A_head_to_head/design_A_8runs.json`, `design_A3_12runs.json` — full outputs
-- `results/lewis35A_head_to_head/control_gravity_off.json` — the control
-- `results/lewis35A_head_to_head/PRECOMMIT.md` — the pre-commitment
+- `physmap stress-test lewis-reuse` — the one-command path (`src/physmap/stress_tests/lewis_reuse.py`)
+- `data/stress_tests/lewis_reuse/` — the banked CFD-derived inputs and their manifest
+- `results/lewis35A_head_to_head/stress_test_lewis_reuse.json` — the committed bank the command checks itself against
+- `results/lewis35A_head_to_head/design_M_matched.json`, `design_A_8runs.json`, `design_A3_12runs.json`, `control_gravity_off.json` — the original runs
+- `cfd/lewis_head_to_head.py`, `cfd/bank_lewis_reuse_inputs.py` — the CFD-side scripts

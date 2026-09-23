@@ -35,7 +35,7 @@ one to another.
 |---|---|---|
 | **Closure validity** | Is this closure relation being applied outside the range it was calibrated on? | Shipping |
 | **Surrogate observability** | Can the surrogate's inputs even represent the variable that governs the failure? | Shipping |
-| **Causal materiality** | Is the out-of-range mechanism large enough to matter for the quantity of interest? | Preview — method only |
+| **Causal materiality** | Is the out-of-range mechanism large enough to matter for the quantity of interest? | Preview — method, plus one controlled stress test |
 
 ## What this release claims
 
@@ -47,7 +47,8 @@ data-missing error.
 The causal-materiality API is present: the ablation counterfactual, the applicability
 screen, the independence guard, and deterministic explanations. Its fixtures are
 **synthetic or declarative** — constructed inputs, or preconditions asserted from a case
-description. Nothing in it is an evidence-backed case yet, and every result says so.
+description. Beyond them, **one controlled stress test runs the causal path on a real
+experiment** (below) — a development demonstration on a single run, not an evaluation.
 
 **It makes no performance claim.** No precision, recall or F1 is computed, reported or
 shipped anywhere in this package. A test parses the package and fails if one appears. The causal-materiality results presented in the NAFEMS
@@ -60,6 +61,54 @@ available to that reconstruction is **independent corroboration** of the causal 
 not reproduction of the published numbers. The protocol defines `REPRODUCED` and marks it
 unreachable, so the word cannot drift onto a weaker result. See
 [`protocols/`](protocols/).
+
+## A controlled model-reuse stress test: Lewis 35A
+
+```bash
+physmap stress-test lewis-reuse
+```
+
+**The setup.** The surrogate was trained for forced convection, where gravity did not vary
+and was not an input. It was then reused in vertical heated flow, where buoyancy became
+material. A mixed-convection surrogate designed for this regime should include Richardson
+number, Grashof number, or equivalent physical information — this test reuses one without
+it, on purpose.
+
+**The claim.** PhysMAP detects when model reuse activates a physically relevant mechanism
+outside the surrogate's observable input space. An input-only OOD detector cannot identify a
+change absent from its input contract.
+
+**The input contract.** Both the surrogate and the input-based OOD detector — the
+seven-vehicle benchmark's own, unchanged — receive `Re`, `Pr` and `x_over_D`. Neither
+receives gravity, `Ri`, `Gr` or heat flux. **Every visible deployment input exactly matches a
+training input.**
+
+**The result**, same visible inputs, two physical states, on Lewis's (1992) vertical-tube
+experiment:
+
+| | surrogate error | input-based OOD scores | PhysMAP materiality |
+|---|---|---|---|
+| gravity off — the accurate control | within 0.06 % | identical in both rows | 0 |
+| gravity on — Lewis's measurement | 17–18 % downstream | identical in both rows | up to 0.195 |
+
+Identical OOD scores and zero-versus-0.195 materiality need no threshold. The flag threshold θ
+is not yet locked, so materiality is reported as numbers, and θ = 0.10 appears only as an
+illustration.
+
+A secondary result shows specificity: when the visible operating point falls *between*
+training runs, the OOD detector warns in both the accurate and the inaccurate case —
+identically — while PhysMAP changes with the physical mechanism.
+
+**What it is not.** Not a claim that OOD detectors fail in general — this one does exactly its
+job. Not a suggestion to leave gravity out. Not a claim about NVIDIA PhysicsNeMo, whose OOD
+and physics checks are distinct and were not run. **One run, a development demonstration:** its
+stations are not independent cases, and no precision, recall or F1 is computed.
+
+The command recomputes everything from this checkout in about two minutes, asserts the exact
+input overlap and the unchanged OOD scores, and diffs itself against a committed bank — the
+same contract as `physmap benchmark run`, deliberately kept a separate command because this is
+a causal-materiality result. Full record:
+[docs/findings/lewis-ood-head-to-head.md](docs/findings/lewis-ood-head-to-head.md).
 
 ## The benchmark: seven vehicles, two of them rerunnable
 

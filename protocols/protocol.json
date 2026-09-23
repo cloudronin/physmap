@@ -487,5 +487,22 @@
       "35A"
     ],
     "diagnosis_is_not_scoring": "These are the burned development runs. Agreement with them is a debugging signal, not a result."
+  },
+  "threshold_presentation": {
+    "ruling_date": "2026-09-23",
+    "theta_status": "UNLOCKED. This rule governs how results are shown while it stays unlocked. It does not choose theta, and theta may not be chosen from any Lewis outcome.",
+    "rule": [
+      "Materiality is presented as CONTINUOUS values. That is the result.",
+      "A categorical PhysMAP flag may be shown only when labelled with the theta it used and the word 'illustrative'.",
+      "The illustrative value is theta = 0.10: the ORIGINAL study's own value, recorded in known-results-declaration.md at repo creation (e6de615), before any Lewis work. It is shown because it is the historical value, not because it is endorsed -- the same declaration explains why theta = tol couples the flag to the label.",
+      "Every categorical result must state the range of theta over which it holds.",
+      "The input-based OOD detector's categorical output depends on the operating percentile. The benchmark's shipped reference, 99, fixed in code before this work, is used; the full sweep is always reported beside it."
+    ],
+    "lewis_design_M": {
+      "threshold_free_headline": "OOD scores identical between gravity off and gravity on (exact equality, no threshold); PhysMAP materiality 0 with gravity off and 0.006-0.195 at the comparable stations with gravity on (continuous, no threshold).",
+      "physmap_flags_anything_with_gravity_on": "holds for any theta <= 0.1948",
+      "physmap_flags_nothing_with_gravity_off": "holds for EVERY theta: materiality is 0 and Ri = 0 is inside the calibrated window",
+      "which_stations_flag": "depends on theta: 0.10 -> x/D 67.55, 101.69, 135.84; 0.05 -> also 33.39, 50.47; 0.20 -> none of the comparable stations"
+    }
   }
 }
