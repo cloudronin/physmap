@@ -185,22 +185,24 @@ redistribution terms and partly because it is not runtime data. From a plain
 Optional extras: `[jsonld]` adds evidence export via `uofa`, `[experiment]` adds
 `matplotlib` for benchmark figures, `[dev]` adds the test tooling.
 
-## The corpus is open-core
+## The corpus
 
-The library is open. The calibration corpus is the commercial moat.
+The code is MIT and the corpus data is CC BY 4.0 — see the licences below.
 
-Published here is the **seed**: 15 closures with their validated bounds, plus a
-verdict-free index of 201 closures. The full 53-closure corpus is not published. The
-firewall is an **allowlist**, not a blacklist — an entry ships only if it is on the list,
-and every bound's provenance grading is replaced with `seed`.
+Published here is the **seed**: 15 closure relations with their validated bounds, plus an
+index of 201 closures with no bounds. A larger 53-closure corpus exists and is not published.
+**Nothing in this repository needs it.** The seven-vehicle benchmark, the Lewis stress test
+and the examples all run on the published seed, and CI checks that on a clean checkout.
 
-The same firewall applies to the evidence corpus, so claims and sources cannot leak
-bounds for closures the seed withholds. It is derived deterministically by
-[`dev/tools/split_evidence_corpus.py`](https://github.com/cloudronin/physmap/blob/main/dev/tools/split_evidence_corpus.py), which has a
-`--check` mode that fails on drift.
+What gets published is decided by an **allowlist**, not a blacklist: an entry ships only if
+it is on the list, and every published bound's provenance grade reads `seed`. The evidence
+corpus follows the same list, so its claims and sources cannot carry bounds for closures that
+are not published. It is derived deterministically by
+[`dev/tools/split_evidence_corpus.py`](https://github.com/cloudronin/physmap/blob/main/dev/tools/split_evidence_corpus.py), whose
+`--check` mode fails on drift.
 
-Resolution order is `$PHYSMAP_CORPUS` → an installed premium package → the bundled seed.
-A premium holder drops the file in; no code changes.
+To use a different corpus, point `$PHYSMAP_CORPUS` at it. The loader checks
+`$PHYSMAP_CORPUS`, then an installed corpus package, then the bundled seed — no code changes.
 
 ## Licences
 
