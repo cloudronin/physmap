@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.1 — the README says what is published
+
+- The README's corpus section drops the "open-core" framing and says what is true: the code is
+  MIT and the corpus data CC BY 4.0; the published seed is 15 closures with their bounds plus
+  an index of 201; a larger 53-closure corpus exists and is not published, and nothing in the
+  repository needs it. This release exists so that the PyPI project page shows the same text.
+- No code changes.
+
 ## 0.2.0 — on PyPI, and a controlled model-reuse stress test
 
 ### New
