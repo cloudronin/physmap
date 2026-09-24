@@ -149,3 +149,19 @@ derived, and they are reported with the result.
 
 Choosing the criterion after seeing the balance would be choosing it knowing which way it
 falls. See the measurement inventory and the two-stage lock in the protocol.
+
+## Protocol wording clarified — 2026-09-23
+
+Recorded here because this declaration and the protocol change together.
+
+The protocol's rule for the spent Lewis runs — 13A, 16A and 35A — said they "may not
+contribute to any precision, recall, F1 or materiality figure". It now says any **scored**
+figure. Read literally, the old wording contradicted the protocol's own rule for presenting
+results while θ is unlocked, which reports 35A's materiality as a labelled development
+demonstration.
+
+The author's ruling: a spent run may not enter any metric, or any figure counted as
+validation. It may appear in a labelled development demonstration.
+
+Wording only. No run, result, threshold or rule changed; metrics stay closed. Nothing in
+this declaration's record of what was known is affected.

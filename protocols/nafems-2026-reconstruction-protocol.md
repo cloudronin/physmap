@@ -253,8 +253,13 @@ form cannot afterwards serve as an unbiased test of that form.
 **Runs 13A, 16A and 35A are spent.** Every station of all three has been inspected against
 agreement — against Lewis's measurement, against his own Figure 7.4 laminar prediction
 curves, and across a constant-property basis sweep. They may be used to build and debug the
-solver and to argue about mechanisms. They may not contribute to any precision, recall, F1
-or materiality figure, and no eligibility rule may be tuned on them.
+solver and to argue about mechanisms. They may not contribute to any **scored** precision,
+recall, F1 or materiality figure — any metric, or any figure counted as validation — and no
+eligibility rule may be tuned on them. A labelled development demonstration is not a scored
+figure: 35A's materiality appears on exactly that basis under the threshold rule below.
+*(Clarified 2026-09-23: the word "scored" was added, because the literal wording contradicted
+that threshold rule. Wording only; no run, result, threshold or rule changed. Recorded also in
+the known-results declaration.)*
 
 **One boundary in particular must not be reused.** The 13A laminar cutoff near x/d ≈ 102 was
 located *by looking at where measurement and prediction diverge*. As a diagnostic that is

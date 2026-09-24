@@ -448,7 +448,14 @@
       "16A",
       "35A"
     ],
-    "what_burned_means": "These three runs, every station of them, and the Figure 7.4 prediction curves have all been inspected against agreement. They may be used to build and debug the solver, and to argue about mechanisms. They may NOT contribute to any precision, recall, F1 or materiality figure, and no eligibility rule may be tuned on them.",
+    "what_burned_means": "These three runs, every station of them, and the Figure 7.4 prediction curves have all been inspected against agreement. They may be used to build and debug the solver, and to argue about mechanisms. They may NOT contribute to any SCORED precision, recall, F1 or materiality figure, and no eligibility rule may be tuned on them.",
+    "clarified": {
+      "date": "2026-09-23",
+      "change": "'any precision, recall, F1 or materiality figure' now reads 'any SCORED precision, recall, F1 or materiality figure'.",
+      "why": "Read literally, the old wording contradicted threshold_presentation.lewis_design_M, which reports 35A's materiality. The author's ruling: a burned run may not enter any metric or any figure counted as validation; it may appear in a labelled development demonstration, which is how 35A's materiality is reported.",
+      "effect": "Wording only. No run, result, threshold or rule changed. Metrics stay CLOSED.",
+      "recorded_also_in": "known-results-declaration.md, which changes with this file"
+    },
     "rules_for_the_evaluation_set": {
       "order": "Eligibility and QoI rules are fixed and committed FIRST. Only then is agreement computed, and only on runs not in the burned list.",
       "forbidden_inputs_when_fixing_the_rules": [

@@ -196,17 +196,19 @@ the matched run with 35A's reported Re and Pr, which differ from its own by -0.0
 - **Fact:** `results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`, committed before
   the results.
 
-### 20. "Your own protocol says 35A may not contribute to any materiality figure."
+### 20. "Your own protocol bars 35A from materiality figures."
 
-**Say:** "It may not contribute to any scored figure — anything counted as validation. 35A was
-inspected while the model was built. So its materiality is shown only as a development
-demonstration, labelled that way, and nothing is scored from it. The protocol's own threshold
-section reports these same values on that basis."
+**Say:** "From scored ones — any metric, or anything counted as validation. 35A was inspected
+while the model was built. So its materiality is shown only as a development demonstration,
+labelled that way, and nothing is scored from it. The protocol says exactly that."
 
-- **Fact:** `protocols/protocol.json` — `development_vs_evaluation_split` lists 35A as burned
-  development evidence; `threshold_presentation.lewis_design_M` reports its materiality values.
-- **Interpretation:** we read "materiality figure" in the first section as a scored figure. The
-  wording itself does not say "scored".
+- **Fact:** `protocols/protocol.json` — `development_vs_evaluation_split` bars 13A, 16A and
+  35A from "any SCORED precision, recall, F1 or materiality figure";
+  `threshold_presentation.lewis_design_M` reports 35A's materiality as a development
+  demonstration.
+- **Fact:** the word "scored" was added on 2026-09-23, because the literal wording contradicted
+  the threshold section. The change is recorded in the protocol and in the known-results
+  declaration. No run, result, threshold or rule changed.
 
 ### 21. "Can I rerun it?"
 
