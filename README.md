@@ -23,7 +23,7 @@ rationale: Prediction relies on gnielinski-1976 beyond its validated x_over_D bo
 
 No LLM is in any path. Every explanation is a deterministic rendered template.
 
-Run it yourself: [`examples/naca_entrance_region.py`](examples/naca_entrance_region.py).
+Run it yourself: [`examples/naca_entrance_region.py`](https://github.com/cloudronin/physmap/blob/main/examples/naca_entrance_region.py).
 
 ## Three checks, deliberately kept apart
 
@@ -60,7 +60,7 @@ Because the original grid, truth source and counterfactual all change, the best 
 available to that reconstruction is **independent corroboration** of the causal finding —
 not reproduction of the published numbers. The protocol defines `REPRODUCED` and marks it
 unreachable, so the word cannot drift onto a weaker result. See
-[`protocols/`](protocols/).
+[`protocols/`](https://github.com/cloudronin/physmap/tree/main/protocols).
 
 ## A controlled model-reuse stress test: Lewis 35A
 
@@ -109,9 +109,9 @@ input overlap and the unchanged OOD scores, and diffs itself against a committed
 same contract as `physmap benchmark run`, deliberately kept a separate command because this is
 a causal-materiality result. It recomputes from committed CFD-derived profiles and does not rerun
 OpenFOAM. Full record:
-[docs/findings/lewis-ood-head-to-head.md](docs/findings/lewis-ood-head-to-head.md). The NAFEMS
+[docs/findings/lewis-ood-head-to-head.md](https://github.com/cloudronin/physmap/blob/main/docs/findings/lewis-ood-head-to-head.md). The NAFEMS
 talk package — figures, facts sheet, claims ledger, and a clean-clone reproduction record — is
-in [docs/talk/](docs/talk/README.md).
+in [docs/talk/](https://github.com/cloudronin/physmap/blob/main/docs/talk/README.md).
 
 ## The benchmark: seven vehicles, all rerunnable
 
@@ -154,7 +154,7 @@ registry and report label them rather than calling everything clear:
 
 All five redistribute **numbers only** — no paper, figure or PDF, enforced by two audits —
 and all five are removed on objection. The full basis, including the arguments against, is
-in [data/REDISTRIBUTION.md](data/REDISTRIBUTION.md) and [NOTICE](NOTICE).
+in [data/REDISTRIBUTION.md](https://github.com/cloudronin/physmap/blob/main/data/REDISTRIBUTION.md) and [NOTICE](https://github.com/cloudronin/physmap/blob/main/NOTICE).
 
 **One dataset is published but not benchmark-grade.** `forrest`'s own header calls its
 values visual estimates for triage only, and its cell is degenerate — one training row, no
@@ -165,15 +165,22 @@ them on separate axes. `physmap benchmark coverage` prints it.
 ## Install
 
 ```bash
+pip install physmap
+```
+
+That gives you the library, the `physmap` command and the seed corpus. Python 3.10 or newer.
+
+**To run the benchmark, the Lewis stress test or the examples, install from a clone:**
+
+```bash
+git clone https://github.com/cloudronin/physmap
+cd physmap
 pip install -e .
 ```
 
-Python 3.10 or newer.
-
-**The editable install from a checkout is the supported path**, not a wheel. Fixture and
-benchmark data live in the repository, outside the package, on purpose — partly because
-of redistribution terms and partly because they are not runtime data. A wheel install
-gives you the library and the seed corpus; it cannot run the benchmark.
+Their data lives in the repository, outside the package, on purpose — partly because of
+redistribution terms and partly because it is not runtime data. From a plain
+`pip install physmap`, those commands say so in one sentence and stop.
 
 Optional extras: `[jsonld]` adds evidence export via `uofa`, `[experiment]` adds
 `matplotlib` for benchmark figures, `[dev]` adds the test tooling.
@@ -189,7 +196,7 @@ and every bound's provenance grading is replaced with `seed`.
 
 The same firewall applies to the evidence corpus, so claims and sources cannot leak
 bounds for closures the seed withholds. It is derived deterministically by
-[`dev/tools/split_evidence_corpus.py`](dev/tools/split_evidence_corpus.py), which has a
+[`dev/tools/split_evidence_corpus.py`](https://github.com/cloudronin/physmap/blob/main/dev/tools/split_evidence_corpus.py), which has a
 `--check` mode that fails on drift.
 
 Resolution order is `$PHYSMAP_CORPUS` → an installed premium package → the bundled seed.
@@ -199,10 +206,10 @@ A premium holder drops the file in; no code changes.
 
 Two, because the code and the data are different things.
 
-- **Code** — MIT. See [LICENSE](LICENSE).
-- **Data** — CC BY 4.0. See [LICENSE-CORPUS](LICENSE-CORPUS).
+- **Code** — MIT. See [LICENSE](https://github.com/cloudronin/physmap/blob/main/LICENSE).
+- **Data** — CC BY 4.0. See [LICENSE-CORPUS](https://github.com/cloudronin/physmap/blob/main/LICENSE-CORPUS).
 
-[NOTICE](NOTICE) states which files fall under which, in one page.
+[NOTICE](https://github.com/cloudronin/physmap/blob/main/NOTICE) states which files fall under which, in one page.
 
 The data licence is scoped, and the scope matters. It covers the curated corpus as
 authorship: the selection, structuring, regime mapping, bound assignment and provenance
@@ -216,7 +223,7 @@ No source PDF is redistributed. Papers are cited, not copied.
 
 ## Citing
 
-[`CITATION.cff`](CITATION.cff). Attribution is required by CC BY when you redistribute or
+[`CITATION.cff`](https://github.com/cloudronin/physmap/blob/main/CITATION.cff). Attribution is required by CC BY when you redistribute or
 build on the data.
 
 ## Tests

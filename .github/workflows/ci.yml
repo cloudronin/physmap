@@ -22,8 +22,8 @@ jobs:
       matrix:
         python: ["3.10", "3.11", "3.12", "3.13"]
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: ${{ matrix.python }}
           cache: pip
@@ -31,6 +31,8 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           python -m pip install -e ".[dev]"
+          # Failures become annotations on the commit, readable without access to the logs.
+          python -m pip install pytest-github-actions-annotate-failures
       - name: Run the fast suite
         run: pytest tests/ -q -n auto -m 'not slow'
 
@@ -41,8 +43,8 @@ jobs:
     name: import hygiene (no rdflib, no uofa)
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - run: python -m pip install -e ".[dev]"
@@ -61,16 +63,18 @@ jobs:
     name: wheel contents
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
-      - name: Build
+      - name: Build the sdist and the wheel, as the release does
         run: |
-          python -m pip install --upgrade pip
-          python -m pip wheel --no-deps -w dist .
-      - name: Audit what shipped
-        run: python dev/tools/audit_wheel.py dist/physmap-*.whl
+          python -m pip install --upgrade pip build
+          python -m build
+      - name: Audit what shipped -- both go to PyPI
+        run: |
+          python dev/tools/audit_wheel.py dist/physmap-*.whl
+          python dev/tools/audit_wheel.py dist/physmap-*.tar.gz
       - name: Install the wheel somewhere with no checkout in sight
         run: |
           python -m venv /tmp/wheelenv
@@ -84,13 +88,21 @@ jobs:
           assert active_tier() == "seed"
           print("wheel install resolves the seed corpus and a full index")
           PY
+          # Checkout-only commands must refuse in one sentence, not with a traceback.
+          if /tmp/wheelenv/bin/physmap benchmark report 2> err.txt; then
+            echo "::error::benchmark report should need a checkout"; exit 1
+          fi
+          grep -q "repository checkout" err.txt
+          if grep -q Traceback err.txt; then
+            echo "::error::a checkout-only command crashed instead of refusing"; exit 1
+          fi
 
   public-surface:
     name: public surface
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - run: python -m pip install -e ".[dev]"
@@ -107,8 +119,8 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 25
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
           cache: pip
@@ -127,8 +139,8 @@ jobs:
     name: worked example runs
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.13"
       - run: python -m pip install -e .

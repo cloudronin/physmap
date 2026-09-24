@@ -17,9 +17,26 @@ from __future__ import annotations
 
 from pathlib import Path
 
-__all__ = ["repo_root", "checkout_path", "have_checkout"]
+__all__ = ["repo_root", "checkout_path", "have_checkout", "CheckoutRequired"]
 
 _MARKERS = ("pyproject.toml", ".git")
+REPO_URL = "https://github.com/cloudronin/physmap"
+
+
+class CheckoutRequired(FileNotFoundError):
+    """Checkout-only data was needed from an installed wheel.
+
+    A FileNotFoundError, so every existing handler still catches it. The CLI catches it by
+    name and prints this one sentence instead of a traceback.
+    """
+
+    def __init__(self, what: str):
+        self.what = what
+        super().__init__(
+            f"this needs {what} from the repository checkout, and a pip-installed wheel "
+            f"does not include that data. Clone {REPO_URL} and run `pip install -e .` inside "
+            f"the clone to use it."
+        )
 
 
 def repo_root() -> Path | None:
@@ -42,10 +59,7 @@ def checkout_path(*parts: str, what: str) -> Path:
     """
     root = repo_root()
     if root is None:
-        raise FileNotFoundError(
-            f"{what} lives in the repository checkout and is not shipped in the "
-            f"wheel. Install from a clone with `pip install -e .` to use it."
-        )
+        raise CheckoutRequired(what)
     p = root.joinpath(*parts)
     if not p.exists():
         raise FileNotFoundError(

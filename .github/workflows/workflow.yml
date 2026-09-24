@@ -1,0 +1,103 @@
+# Release: build the sdist and the wheel, check them, and publish them to PyPI.
+#
+# Publishing uses PyPI trusted publishing. PyPI accepts an upload for `physmap` only from
+# THIS file -- `.github/workflows/workflow.yml` in cloudronin/physmap -- so no API token is
+# stored anywhere. Do not rename it without updating the publisher on PyPI first.
+#
+# To release:
+#   1. set `version` in pyproject.toml, commit, push, and let CI go green
+#   2. git tag v<version> && git push origin v<version>
+#
+# A manual run (Actions -> release -> Run workflow) builds and checks, and never publishes.
+# A published version can never be replaced on PyPI, so the tag is checked against the
+# version before anything is uploaded.
+name: release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    name: build and check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.13"
+
+      - name: The tag names the version in pyproject.toml
+        if: github.ref_type == 'tag'
+        run: |
+          version=$(python -c "import tomllib; print(tomllib.load(open('pyproject.toml', 'rb'))['project']['version'])")
+          if [ "${GITHUB_REF_NAME}" != "v${version}" ]; then
+            echo "::error::tag ${GITHUB_REF_NAME} does not match pyproject.toml version ${version}"
+            exit 1
+          fi
+          echo "releasing physmap ${version}"
+
+      - name: Build the sdist and the wheel
+        run: |
+          python -m pip install --upgrade pip build twine
+          python -m build
+
+      - name: The metadata renders on PyPI
+        run: python -m twine check --strict dist/*
+
+      - name: Audit what ships -- the wheel and the sdist, against the same firewall
+        run: |
+          python dev/tools/audit_wheel.py dist/physmap-*.whl
+          python dev/tools/audit_wheel.py dist/physmap-*.tar.gz
+
+      - name: Install the wheel where no checkout exists, as a PyPI user would
+        run: |
+          python -m venv /tmp/wheelenv
+          /tmp/wheelenv/bin/pip install --quiet dist/physmap-*.whl
+          cd /tmp
+          /tmp/wheelenv/bin/physmap --version
+          /tmp/wheelenv/bin/physmap screen conjugate-heat-transfer --qoi peak_solid_temperature
+          /tmp/wheelenv/bin/python - <<'PY'
+          from physmap.closures.index import verify_index_loaded
+          from physmap.corpus.calibration import active_tier, resolve_corpus_path
+          assert verify_index_loaded() == 201
+          assert resolve_corpus_path().name == "corpus_seed.jsonl"
+          assert active_tier() == "seed"
+          print("the wheel loads the full closure index and the seed corpus")
+          PY
+          # Checkout-only commands must refuse in one sentence, not with a traceback.
+          if /tmp/wheelenv/bin/physmap benchmark report 2> err.txt; then
+            echo "::error::benchmark report should need a checkout"; exit 1
+          fi
+          grep -q "repository checkout" err.txt
+          if grep -q Traceback err.txt; then
+            echo "::error::a checkout-only command crashed instead of refusing"; exit 1
+          fi
+
+      - uses: actions/upload-artifact@v6
+        with:
+          name: dist
+          path: dist/
+          if-no-files-found: error
+
+  publish:
+    name: publish to PyPI
+    needs: build
+    # Only a pushed version tag publishes. A manual run never does, whichever ref it is run on.
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/project/physmap/
+    permissions:
+      id-token: write   # the trusted-publishing credential; nothing else
+    steps:
+      - uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: dist/
+      - uses: pypa/gh-action-pypi-publish@release/v1

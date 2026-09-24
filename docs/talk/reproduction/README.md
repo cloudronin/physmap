@@ -48,11 +48,19 @@ echo "exit status: $?"
 | [`benchmark_report.txt`](benchmark_report.txt) | `physmap benchmark report` from this checkout. It reads the committed matrix and recomputes nothing. The seven-vehicle figure is checked against it |
 | [`naca_example.txt`](naca_example.txt) | `python examples/naca_entrance_region.py` from this checkout. The x/D figure is checked against it |
 
-## What the talk package adds after this commit
+## What changed after this commit
 
-Documentation, the figure script `tools/talk_package.py` and its test, and a one-sentence
-correction to the text `physmap benchmark report` prints. Nothing the stress test runs — its
-module, the command, its inputs or its bank — changed after `47ae207`.
+- The talk package: documentation, the figure script `tools/talk_package.py` and its test,
+  and a one-sentence correction to the text `physmap benchmark report` prints.
+- How the command compares a fresh record with the bank. It used the benchmark's tolerance,
+  which absorbs only last-bit noise. This test re-fits a Gaussian-process surrogate, and on
+  other machines and library versions its last few digits move slightly — CI on Linux failed
+  on exactly that. The command now allows for it, at a tolerance far below any printed digit,
+  and still compares every flag, count and label exactly.
+- The command's message when it is run without a repository checkout.
+
+None of these changes a computed value. The run recorded above would print the same result
+today.
 
 ## Run it yourself
 
@@ -63,4 +71,6 @@ pip install -e .
 physmap stress-test lewis-reuse
 ```
 
-A few minutes. Exit status 0 means the assertions held and the record matched the bank.
+A few minutes. Exit status 0 means the assertions held and the record matched the bank —
+exactly on a machine like the one recorded here, or within the command's stated tolerance
+elsewhere. The last line says which.

@@ -167,12 +167,16 @@ Commands run from a clone of the public repository. "The bank" is
 ### M13 — reproduction
 
 > "Anyone can rerun this analysis with one command from a clean clone. It reproduces the
-> committed record exactly. It does not rerun OpenFOAM."
+> committed record — exactly on the recorded machine, and elsewhere to within a tolerance far
+> below any printed digit. It does not rerun OpenFOAM."
 
 - **Command and artifact:** [`reproduction/README.md`](reproduction/README.md): clean public
   clone, exit status 0, "The record matches the banked record exactly."
 - **Scope and limits:** reproduces the analysis from committed CFD-derived profiles.
-  Regenerating the CFD needs Docker and the case generator; the manifest says how.
+  Regenerating the CFD needs Docker and the case generator; the manifest says how. Between
+  machines and library versions the surrogate's last few digits move slightly; the command
+  allows for that at a stated tolerance and still compares every flag, count and label
+  exactly.
 - **Use:** main.
 
 ### M14 — the abstract's numbers

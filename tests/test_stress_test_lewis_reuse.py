@@ -14,7 +14,6 @@ from pathlib import Path
 import pytest
 
 from physmap import cli
-from physmap.benchmarks.compare import compare_records
 from physmap.stress_tests import lewis_reuse as st
 
 REPO = Path(__file__).resolve().parents[1]
@@ -130,26 +129,59 @@ def test_rendered_report_carries_the_framing_the_claim_and_the_disclaimers(recor
 
 # ── reproduction ─────────────────────────────────────────────────────────────
 
+def _near(field: str, fresh: float, banked: float, digits: int | None = None) -> bool:
+    """`fresh` reproduces `banked` -- banked at `digits` decimals, if it was rounded -- within
+    the tolerance the command itself uses for that field against its bank."""
+    rel, absolute = st.bank_tolerance(field)
+    slack = max(rel * max(abs(fresh), abs(banked)), absolute)
+    if digits is not None:
+        slack += 0.5 * 10 ** -digits
+    return abs(fresh - banked) <= slack
+
+
 def test_reproduces_the_predeclared_design_m_run(record):
     """The shipped module must reproduce cfd/lewis_head_to_head.py's pre-declared run, at the
-    precision that run banked."""
+    precision that run banked. Floats get the command's own cross-machine tolerance; every
+    fired/quiet flag must match exactly."""
     pre = json.loads(PREDECLARED.read_text())
     on = pre["states"]["gravity_on_experiment"]["stations"]
     off = pre["states"]["gravity_off_control"]["stations"]
     for new, b_on, b_off in zip(record["headline_design_M"]["stations"], on, off):
-        assert round(new["surrogate_prediction"], 4) == b_on["surrogate_prediction"]
-        assert round(new["experimental_error_pct"], 3) == b_on["prediction_error_pct"]
-        assert round(new["control_error_pct"], 3) == b_off["prediction_error_pct"]
-        assert new["ood_gravity_on"]["99"]["distance"]["score"] == b_on["ood_ref"]["distance"]["score"]
-        assert new["ood_gravity_on"]["99"]["gp_variance"]["score"] == b_on["ood_ref"]["gp_variance"]["score"]
+        assert _near("surrogate_prediction", new["surrogate_prediction"],
+                     b_on["surrogate_prediction"], 4)
+        assert _near("experimental_error_pct", new["experimental_error_pct"],
+                     b_on["prediction_error_pct"], 3)
+        assert _near("control_error_pct", new["control_error_pct"],
+                     b_off["prediction_error_pct"], 3)
+        assert _near("score", new["ood_gravity_on"]["99"]["distance"]["score"],
+                     b_on["ood_ref"]["distance"]["score"])
+        assert _near("score", new["ood_gravity_on"]["99"]["gp_variance"]["score"],
+                     b_on["ood_ref"]["gp_variance"]["score"])
         for pct, fired in b_on["ood_fired_by_pct"].items():
             assert new["ood_gravity_on"][pct]["fired"] == fired
-        assert round(new["materiality_gravity_on"], 4) == b_on["physmap"]["materiality"]
+        assert _near("materiality", new["materiality_gravity_on"],
+                     b_on["physmap"]["materiality"], 4)
 
 
 def test_matches_the_committed_bank(record):
-    cmp = compare_records(record, st.load_banked())
+    cmp = st.compare_with_bank(record)
     assert cmp.matches, cmp.drift[:5]
+
+
+def test_the_bank_tolerance_is_tight_and_never_excuses_a_changed_outcome(record):
+    """The tolerance exists for floating-point noise between machines and library builds. It
+    must stay far below anything printed, and a flipped flag must fail however small."""
+    assert st.BANK_REL_TOL <= 1e-4 and st.BANK_ERROR_ABS_TOL <= 1e-3
+    moved = copy.deepcopy(record)
+    moved["headline_design_M"]["stations"][9]["surrogate_prediction"] *= 1 + 1e-3
+    assert not st.compare_with_bank(moved).matches
+    error = copy.deepcopy(record)
+    error["headline_design_M"]["stations"][4]["control_error_pct"] += 0.01   # one printed digit
+    assert not st.compare_with_bank(error).matches
+    flipped = copy.deepcopy(record)
+    ood = flipped["headline_design_M"]["stations"][9]["ood_gravity_on"]["99"]
+    ood["fired"] = not ood["fired"]
+    assert not st.compare_with_bank(flipped).matches
 
 
 # ── the command ──────────────────────────────────────────────────────────────

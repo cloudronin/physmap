@@ -393,6 +393,38 @@ def load_banked() -> dict:
                                     what="the banked Lewis stress-test record").read_text())
 
 
+#: How closely a recomputed record must match the bank. The benchmark matrix uses 1e-9 relative,
+#: which absorbs last-bit BLAS noise and nothing more. This test also re-optimises a
+#: Gaussian-process surrogate's hyperparameters, and another numpy/BLAS build or CPU moves that
+#: optimum a little. Measured against the bank (macOS x86-64, numpy 2.2): macOS arm64 with
+#: numpy 2.4, Linux arm64 with numpy 2.5, and Linux x86-64 with the bank's own numpy 2.2 moved
+#: surrogate predictions by up to 1.1e-7 relative, OOD GP-variance scores by up to 7.4e-6
+#: relative, and the error percentages by up to 1.3e-5 percentage points -- errors are
+#: differences of two near-equal numbers, so they get an absolute tolerance. Both tolerances sit at least ten times under the digits the command
+#: prints (errors to 0.01, scores to 0.001 and 0.0001). What decides the result is compared
+#: exactly whatever the tolerance: every fired/quiet flag, every PhysMAP flag, every count and
+#: label. `check` separately asserts the exact input overlap and the exact identity of the OOD
+#: scores between the two gravity states of one run.
+BANK_REL_TOL = 1e-4             # every float but the error percentages
+BANK_ERROR_ABS_TOL = 1e-3       # the error percentages, in percentage points
+BANK_TOLERANCE_NOTE = "1e-4 relative, and 0.001 percentage points for errors"
+
+
+def bank_tolerance(path: str) -> tuple[float, float]:
+    """(relative, absolute) tolerance for one field of the record."""
+    if path.endswith("_error_pct"):
+        return 0.0, BANK_ERROR_ABS_TOL
+    return BANK_REL_TOL, 0.0
+
+
+def compare_with_bank(record: dict):
+    """The command's drift check: `record` against the committed bank, at the tolerances
+    above."""
+    from physmap.benchmarks.compare import compare_records
+    return compare_records(record, load_banked(), tolerance=bank_tolerance,
+                           tolerance_note=BANK_TOLERANCE_NOTE)
+
+
 def render(record: dict) -> str:
     """Deterministic report. Continuous values first; the illustrative threshold last."""
     from physmap.benchmarks.benchmark_v0_4 import REFERENCE_PCT

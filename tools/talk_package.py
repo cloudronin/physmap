@@ -1456,8 +1456,8 @@ def check() -> int:
     readme = (REPRO / "README.md").read_text() if (REPRO / "README.md").exists() else ""
     if not commit or commit.group(1) not in readme:
         fails.append("reproduction/README.md does not name the commit the clean clone ran")
-    from physmap.benchmarks.compare import compare_records
-    cmp = compare_records(json.loads((REPRO / "fresh_record.json").read_text()), _load("bank"))
+    from physmap.stress_tests.lewis_reuse import compare_with_bank
+    cmp = compare_with_bank(json.loads((REPRO / "fresh_record.json").read_text()))
     if not cmp.matches:
         fails.append(f"the clean-clone record drifts from the bank: {cmp.drift[:3]}")
 

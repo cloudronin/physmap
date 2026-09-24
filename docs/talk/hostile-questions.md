@@ -214,7 +214,9 @@ labelled that way, and nothing is scored from it. The protocol says exactly that
 
 **Say:** "Yes. Clone the repository, install it, and run physmap stress-test lewis-reuse. It
 takes a few minutes, asserts the input contract and the identical OOD scores, and compares
-itself with the committed record. It uses committed CFD profiles; it does not rerun OpenFOAM."
+itself with the committed record. It uses committed CFD profiles; it does not rerun OpenFOAM.
+On a different machine the last few digits can move. The command allows for that, far below
+anything it prints, and says so."
 
 - **Fact:** [`reproduction/README.md`](reproduction/README.md) — exit status 0 from a clean
   public clone.

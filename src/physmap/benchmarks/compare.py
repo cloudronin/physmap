@@ -21,6 +21,7 @@ different statements.
 
 from __future__ import annotations
 
+from collections.abc import Callable
 from dataclasses import dataclass, field
 
 __all__ = ["MatrixComparison", "compare_matrices", "compare_records", "DEFAULT_REL_TOL"]
@@ -37,6 +38,12 @@ class MatrixComparison:
     #: Float fields that differ but are within tolerance. Not drift; worth reporting.
     within_tolerance: list[str] = field(default_factory=list)
     rel_tol: float = DEFAULT_REL_TOL
+    #: Optional per-field tolerance, `path -> (rel_tol, abs_tol)`, overriding `rel_tol`. For
+    #: records whose floats are not all alike -- a difference of two near-equal numbers needs
+    #: an absolute tolerance, where everything else is compared relatively.
+    tolerance: Callable[[str], tuple[float, float]] | None = None
+    #: How a summary describes `tolerance`.
+    tolerance_note: str = ""
 
     @property
     def matches(self) -> bool:
@@ -50,6 +57,11 @@ class MatrixComparison:
         if self.drift:
             return f"DRIFT in {len(self.drift)} field(s)"
         if self.within_tolerance:
+            if self.tolerance is not None:
+                return (
+                    f"matches within {self.tolerance_note} "
+                    f"({len(self.within_tolerance)} float field(s) differ, all by less than that)"
+                )
             return (
                 f"matches within {self.rel_tol:g} relative "
                 f"({len(self.within_tolerance)} float field(s) differ in their last bits)"
@@ -60,11 +72,11 @@ class MatrixComparison:
         return sorted({d.split(".")[0] for d in self.drift})
 
 
-def _close(a: float, b: float, rel_tol: float) -> bool:
+def _close(a: float, b: float, rel_tol: float, abs_tol: float = 0.0) -> bool:
     if a == b:
         return True
     scale = max(abs(a), abs(b))
-    return scale > 0 and abs(a - b) <= rel_tol * scale
+    return abs(a - b) <= max(rel_tol * scale, abs_tol)
 
 
 def _walk(fresh, banked, path: str, cmp: MatrixComparison) -> None:
@@ -94,7 +106,8 @@ def _walk(fresh, banked, path: str, cmp: MatrixComparison) -> None:
             cmp.drift.append(f"{path}: fresh={fresh!r} banked={banked!r}")
         elif fresh == banked:
             return
-        elif _close(float(fresh), float(banked), cmp.rel_tol):
+        elif _close(float(fresh), float(banked),
+                    *(cmp.tolerance(path) if cmp.tolerance else (cmp.rel_tol, 0.0))):
             cmp.within_tolerance.append(f"{path}: fresh={fresh!r} banked={banked!r}")
         else:
             cmp.drift.append(f"{path}: fresh={fresh!r} banked={banked!r}")
@@ -123,11 +136,14 @@ def compare_matrices(fresh: dict, banked: dict, *, rel_tol: float = DEFAULT_REL_
     return cmp
 
 
-def compare_records(fresh: dict, banked: dict, *, rel_tol: float = DEFAULT_REL_TOL) -> MatrixComparison:
+def compare_records(fresh: dict, banked: dict, *, rel_tol: float = DEFAULT_REL_TOL,
+                    tolerance: Callable[[str], tuple[float, float]] | None = None,
+                    tolerance_note: str = "") -> MatrixComparison:
     """Compare any two nested records under the same rule as the matrix: floats within
-    `rel_tol`, everything else exactly. For banked results that are not a vehicle matrix --
-    the stress tests -- so they drift-check the same way `benchmark run` does."""
-    cmp = MatrixComparison(rel_tol=rel_tol)
+    tolerance -- `rel_tol`, or per field via `tolerance` -- and everything else exactly. For
+    banked results that are not a vehicle matrix -- the stress tests -- so they drift-check
+    the same way `benchmark run` does."""
+    cmp = MatrixComparison(rel_tol=rel_tol, tolerance=tolerance, tolerance_note=tolerance_note)
     _walk(fresh, banked, "record", cmp)
     return cmp
 

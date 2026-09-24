@@ -36,14 +36,11 @@ from physmap.substrate.vehicle_config import VehicleConfig
 # surfaces as an empty or short substrate, which the engine happily runs on and
 # reports an outcome for.
 def _repo_root() -> Path:
-    from physmap._paths import repo_root
+    from physmap._paths import CheckoutRequired, repo_root
 
     root = repo_root()
     if root is None:
-        raise FileNotFoundError(
-            "benchmark substrate data lives in the repository checkout and is not "
-            "shipped in the wheel. Install from a clone with `pip install -e .`."
-        )
+        raise CheckoutRequired("the benchmark substrate data")
     return root
 
 

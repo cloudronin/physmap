@@ -294,7 +294,9 @@ exact input overlap and the unchanged OOD scores, and checks itself against a co
 takes a few minutes — 212 s from a clean public clone, recorded with its commit, environment and
 exit status in `docs/talk/reproduction/`. Run it before the talk and show the output rather than
 waiting on it live. It reproduces the analysis from committed CFD-derived profiles; it does not
-rerun OpenFOAM.
+rerun OpenFOAM. On a machine unlike the recorded one, the last line reads "matches the banked
+record: matches within …" instead of "exactly". Both pass: the surrogate's last few digits move
+between machines, and every flag, count and label is still compared exactly.
 
 **Say plainly, unprompted:**
 

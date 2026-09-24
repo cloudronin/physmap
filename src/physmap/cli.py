@@ -82,14 +82,21 @@ def main(argv: list[str] | None = None) -> int:
     if not args.command:
         parser.print_help()
         return 0
-    if args.command == "screen":
-        return _cmd_screen(args)
-    if args.command == "benchmark":
-        return _cmd_benchmark(args)
-    if args.command == "explain":
-        return _cmd_explain(args)
-    if args.command == "stress-test":
-        return _cmd_stress_test(args)
+    from physmap._paths import CheckoutRequired
+    try:
+        if args.command == "screen":
+            return _cmd_screen(args)
+        if args.command == "benchmark":
+            return _cmd_benchmark(args)
+        if args.command == "explain":
+            return _cmd_explain(args)
+        if args.command == "stress-test":
+            return _cmd_stress_test(args)
+    except CheckoutRequired as e:
+        # A pip-installed wheel has no checkout. One sentence saying what is missing and how
+        # to get it, not a traceback.
+        print(f"physmap {args.command}: {e}", file=sys.stderr)
+        return 1
     print(f"'{args.command}' is not implemented yet in this build.", file=sys.stderr)
     return 2
 
@@ -180,6 +187,9 @@ def _cmd_benchmark(args) -> int:
     # `run`. Recompute every vehicle from the checkout, then compare against the
     # banked matrix. The comparison is the point: a benchmark that runs but is never
     # checked against its own bank will drift silently.
+    from physmap._paths import CheckoutRequired, have_checkout
+    if not have_checkout():
+        raise CheckoutRequired("the benchmark's vehicle data")
     from physmap.benchmarks.benchmark_v0_4 import run_matrix
     from physmap.benchmarks.compare import compare_matrices
     from physmap.benchmarks.report import load_banked_matrix
@@ -238,10 +248,12 @@ def _cmd_stress_test(args) -> int:
     import json
     from pathlib import Path
 
-    from physmap.benchmarks.compare import compare_records
+    from physmap._paths import CheckoutRequired, have_checkout
     from physmap.stress_tests import lewis_reuse as st
 
-    print("Recomputing from this checkout (about two minutes) ...")
+    if not have_checkout():
+        raise CheckoutRequired("the stress test's banked CFD-derived inputs")
+    print("Recomputing from this checkout (a few minutes) ...")
     print()
     try:
         record = st.run()
@@ -270,11 +282,10 @@ def _cmd_stress_test(args) -> int:
     # Same contract as `benchmark run`: a result that is recomputed but never checked against
     # its own bank drifts silently.
     try:
-        banked = st.load_banked()
+        cmp = st.compare_with_bank(record)
     except FileNotFoundError as e:
         print(f"No banked record to compare against: {e}")
         return 1
-    cmp = compare_records(record, banked)
     if not cmp.matches:
         print(f"DRIFT against the banked record in {len(cmp.drift)} field(s):")
         for d in cmp.drift[:10]:
