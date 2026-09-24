@@ -1,0 +1,3 @@
+state,surrogate error,input-based OOD detector,PhysMAP materiality,illustrative θ = 0.10
+gravity off — the control (CFD),within 0.06 % at every comparable station,distance 0.003–0.167 against 0.408: quiet at p99,0 at every station,flags nothing
+gravity on — Lewis's measurement,"17–18 % at x/D 67.55, 101.69, 135.84","the same scores, at every station and every percentile","0.006 to 0.195, rising down the tube","would flag x/D 67.55, 101.69, 135.84"

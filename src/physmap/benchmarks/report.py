@@ -132,8 +132,8 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
         out.append("")
         out.append(
             f"NOTHING WAS RECOMPUTED IN THIS RUN. Every number below is read from the "
-            f"banked matrix. The substrate runner is not yet ported into this "
-            f"repository."
+            f"banked matrix. `physmap benchmark run` recomputes them from this checkout "
+            f"and diffs the result against that bank."
         )
     elif recomputed < n:
         out.append("")

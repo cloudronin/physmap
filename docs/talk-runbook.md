@@ -66,10 +66,10 @@ Do not debug live. Say "the recorded run is on the next slide" and move on — h
 terminal capture ready. The demo is evidence, not theatre; a broken demo costs nothing
 compared to a live fix that eats four minutes.
 
-### The benchmark: run the subset, then show all seven
+### The benchmark: recompute all seven, then show the report
 
-Order matters here. Run the public subset first, then show the full report — never the
-other way round, and never the full report alone.
+Order matters here. Run the recompute first, then show the report — never the report alone,
+because the report reads the bank and recomputes nothing.
 
 ```bash
 physmap benchmark run --report
@@ -228,6 +228,11 @@ triple.** Even under corroboration.
 
 ### Lewis 35A — a controlled model-reuse stress test (one run)
 
+**The full package for this part is in [`docs/talk/`](talk/README.md):** figures, a generated
+facts sheet, the claims ledger, speaker notes, hostile questions and the slide order. Its
+numbers are generated from the committed records and checked by
+`python tools/talk_package.py check`.
+
 **What it is — say this first:**
 
 > *"The surrogate was trained for forced convection, where gravity did not vary and was not an
@@ -257,18 +262,28 @@ controlled test rather than a stacked one.
 | | surrogate error | OOD scores | PhysMAP materiality |
 |---|---|---|---|
 | **gravity off** — the accurate control | within 0.06 % | *identical to the row below* | **0** |
-| **gravity on** — Lewis's measurement | **17–18 %** at x/D 67–136 | quiet at the benchmark's reference percentile | rises to **0.195** downstream |
+| **gravity on** — Lewis's measurement | **17–18 %** at x/D 67.55, 101.69, 135.84 | quiet at the benchmark's reference percentile | rises to **0.195** downstream |
 
 **The line to land:** *"Same inputs, same OOD scores. Different physics, different materiality —
-and the materiality is where the error is."*
+and where materiality is largest, the surrogate is 17–18 % off."*
+
+An earlier draft ended *"and the materiality is where the error is"*. Do not use it: at x/D 2.45
+and 16.32 the surrogate is off by +9.9 % and −12.8 % with almost no materiality.
 
 **Show materiality as numbers, not verdicts.** θ is unlocked. If a flag appears at all, label it
 *"at the illustrative θ = 0.10"* — the original study's value, not a chosen one. The headline
 needs no θ: identical OOD scores and zero-versus-0.195 materiality are threshold-free.
 
+**Pre-declared.** Design M and its success criteria were committed in
+`results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md` before any of its output existed,
+and all three were met: the detector quiet at every comparable station for both gravity states
+at the reference percentile 99; PhysMAP flagging a comparable station with gravity on — at the
+illustrative θ = 0.10, and for any θ ≤ 0.195; PhysMAP flagging nothing with gravity off, at any
+θ. Say "pre-declared" out loud — it is what makes the result worth more than a demo.
+
 **Then the secondary result — designs A and A3, specificity.** When the visible operating point
-falls *between* training runs, the OOD detector warns in both the accurate and the inaccurate case
-— identically — while PhysMAP changes with the physical mechanism:
+falls *between* training runs, the OOD detector warns in both the accurate and the inaccurate
+case — identically — while PhysMAP changes with the physical mechanism:
 
 > *"The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an
 > error. PhysMAP distinguished the accurate control from the materially affected prediction and
@@ -276,8 +291,10 @@ falls *between* training runs, the OOD detector warns in both the accurate and t
 
 **Running it.** `physmap stress-test lewis-reuse` reproduces everything from a clone, asserts the
 exact input overlap and the unchanged OOD scores, and checks itself against a committed bank. It
-takes about two minutes — run it before the talk and show the output, rather than waiting on it
-live.
+takes a few minutes — 212 s from a clean public clone, recorded with its commit, environment and
+exit status in `docs/talk/reproduction/`. Run it before the talk and show the output rather than
+waiting on it live. It reproduces the analysis from committed CFD-derived profiles; it does not
+rerun OpenFOAM.
 
 **Say plainly, unprompted:**
 
@@ -290,90 +307,27 @@ live.
 
 **Volunteer these before anyone asks.** They are true, and a sharp questioner will find them:
 
-1. **At low operating percentiles the detector does fire downstream** — at 75, on the same stations
-   the materiality is high. It fires identically with gravity off, where those stations are right
-   to 0.03 %, and at that setting it already fires on 97–100 % of its own training rows beyond
-   x/D 50. It is flagging sparse training coverage, not buoyancy. The reference percentile is 99,
-   and it is quiet there.
-2. **PhysMAP does not see every error.** At x/D 2.45 and 16.32 the surrogate is off by +10 % and
+1. **The detector's answer tracked where the inputs sat — never gravity.** Quiet with 35A on a
+   training operating point (design M), warning with it between them (A and A3), and identical
+   with gravity on and off in every design. The same explains NACA, where it was silent: those
+   entrance points shared the training operating point.
+2. **At low operating percentiles the detector does fire downstream** — at 75, on the stations
+   where materiality is high. It fires identically with gravity off, where those stations are
+   right to 0.03 %, and at that setting it already fires on 97–100 % of its own training rows
+   beyond x/D 50. It is flagging sparse training coverage, not buoyancy. The reference
+   percentile is 99, and it is quiet there.
+3. **PhysMAP does not see every error.** At x/D 2.45 and 16.32 the surrogate is off by +10 % and
    −13 %, mostly because the base CFD model differs from the experiment there. PhysMAP checks one
    mechanism and does not claim to see others.
-3. **θ is not locked.** Any flag shown is illustrative. At θ = 0.10 three comparable stations
-   would flag; at 0.05, five; at 0.20, none. The protocol sets θ, not this outcome.
-
----|---|---|---|
-| **Design M** — pre-declared, matched | on a training operating point | **quiet** at every station, gravity on or off | flags x/D ≥ 67.55 with gravity on, where the surrogate is off by 17–18 %; quiet with gravity off |
-| **Designs A, A3** | between training operating points | **warns** at every station, gravity on or off | the same |
-
-**The line to land (design M, the stronger claim):**
-
-> *"With the operating point inside its training data and gravity withheld, the input-based OOD
-> detector stayed quiet — for both gravity states, including where the surrogate was off by
-> 17–18 %. PhysMAP flagged exactly those stations, stayed quiet on the accurate control, and
-> named buoyancy."*
-
-**The follow-up line (designs A and A3, the specificity claim):**
-
-> *"The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an
-> error. PhysMAP distinguished the accurate control from the materially affected prediction and
-> named the mechanism."*
-
-**Why design M may be cited as "what the OOD detector misses".** It was pre-declared, with its
-success criteria, in `results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md`, committed
-before any of its output existed, and it met all three: the detector quiet at every comparable
-station for both gravity states at the benchmark's reference percentile; PhysMAP flagging with
-gravity on; PhysMAP silent with gravity off. Say "pre-declared" out loud — it is what makes the
-result worth more than a demo.
-
-**Volunteer these four before anyone asks.** They are true, and a sharp questioner will find
-them:
-
-1. **The detector's answer tracked where the inputs sat — never gravity.** Quiet on the training
-   operating point, warning between them, and identical with gravity on and off in every design.
-   The same thing explains NACA, where it was silent: those entrance points shared the training
-   operating point.
-2. **At low operating percentiles the detector does fire downstream in design M** — at 75, on the
-   same stations PhysMAP flags. It fires identically with gravity off, where those stations are
-   right to 0.03 %, and at that percentile it already fires on 97–100 % of its own training rows
-   beyond x/D 50. It is flagging sparse training coverage, not buoyancy. The reference percentile
-   is 99, and it is quiet there.
-3. **PhysMAP missed two real errors, by design.** At x/D 2.45 and 16.32 the surrogate is off by
-   +10 % and −13 %, mostly because the base CFD model differs from the experiment there — not
-   because of buoyancy. PhysMAP checks one mechanism and does not claim to see the others.
-4. **The threshold is not locked.** At θ = 0.10 it flags three comparable stations. Buoyancy is
-   worth 6–9 % at two more; whether those flag is the open θ decision.
-
----|---|---|---|
-| 35A, gravity off (control) | ≤ 0.25 % | fires at every station | quiet |
-| 35A, the experiment | up to −18 % | fires at every station — **identically** | flags x/D ≥ 67.55, where the error is 17–18 % |
-
-**What Lewis shows: specificity and causal diagnosis — not OOD detection failure.** The
-detector did not miss the bad predictions; it warned everywhere, including on the control where
-the surrogate was right. What it could not do is tell the two apart.
-
-**The line to land:**
-
-> *"The OOD detector detected unfamiliar inputs but could not identify whether buoyancy caused an error. PhysMAP distinguished the accurate control from the materially affected prediction and named the mechanism."*
-
-**Do not use Lewis as a "what OOD misses" example yet.** That is a stronger claim, and it is
-being tested separately in design M — the evaluated operating point placed inside the training
-set, gravity still withheld — pre-declared in
-`results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md` before it was run. Until that
-result is in and meets its own pre-declared criteria, Lewis is a specificity example.
-
-**Volunteer these three before anyone asks.** They are true, and a sharp questioner will find
-them:
-
-1. **The OOD detector was not quiet on Lewis — it fired everywhere.** It fired because 35A's
-   operating point sits between the training runs'. That is correct and has nothing to do with
-   buoyancy; its output does not change when buoyancy is switched off. Contrast NACA, where it
-   was silent: there the entrance points shared the training operating point. Silent in one,
-   firing in the other, informative about the mechanism in neither.
-2. **PhysMAP missed two real errors, by design.** At x/D 2.45 and 16.32 the surrogate is off by
-   +10 % and −13 %, mostly because the base CFD model differs from the experiment there — not
-   because of buoyancy. PhysMAP checks one mechanism and does not claim to see the others.
-3. **The threshold is not locked.** At θ = 0.10 it flags three comparable stations. Buoyancy is
-   worth 6–9 % at two more; whether those flag is the open θ decision.
+4. **θ is not locked.** At θ = 0.10 three comparable stations would flag; at 0.05, five; at 0.20,
+   none. Buoyancy is worth 6–9 % at x/D 33.39 and 50.47; whether those flag is the open θ
+   decision. The protocol sets θ, not this outcome.
+5. **Materiality with gravity off is zero by construction** — there is no buoyancy to remove. The
+   finding is the gravity-on profile, and that the OOD output does not move while it grows.
+6. **The surrogate and the materiality share the gravity-off CFD**, so their agreement is partly
+   built in — the same coupling that retired the abstract's precision. That is why no rate is
+   computed. What the measurement adds independently: downstream it sides with the gravity-on
+   CFD, within 1.6–6.6 %.
 
 ---
 
@@ -401,6 +355,11 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "OOD detectors fail at this." / "OOD detection doesn't work." | "An input-only OOD detector cannot identify a change absent from its input contract. Here the change was gravity, which was not an input." |
 | "Engineers shouldn't bother including gravity." | "A mixed-convection surrogate built for this regime should include Ri, Gr or equivalent. This test shows what reuse without it looks like." |
 | "PhysMAP flagged three stations." (as a verdict) | "Materiality rose to 0.195 downstream. At the illustrative θ = 0.10 three stations would flag; θ is not locked." |
+| "The materiality is where the error is." | "Where materiality is largest, the surrogate is 17–18 % off. At x/D 2.45 and 16.32 the error comes from the base model, not buoyancy." |
+| "Materiality predicts the surrogate's error." | "Here the two share the gravity-off CFD, so the agreement is partly built in. The test shows which output moves when the physics moves." |
+| "Lewis gives us twelve test cases." | "One run. Its stations are positions along one tube, not cases." |
+| "PhysMAP outperforms OOD detection." | "They answer different questions. An input-based detector asks whether the inputs are familiar; PhysMAP asks whether an unseen mechanism has become material." |
+| "The CFD is validated against Lewis." | "From x/D 9.92 on it is grid-converged and within 9.6 % of the measurement. That is development evidence, not validation — 35A was inspected while the model was built." |
 | "The OOD detector caught the downstream stations too." (citing percentile 75) | "At 75 it fires on its own training data there, and identically with gravity off. At the reference 99 it is quiet." |
 | "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |
 | "It flags untrustworthy predictions with 100% precision." | "In the original study it flagged no false positives on the evaluated set. The public release computes no precision." |
@@ -411,8 +370,8 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "All the benchmark data is openly licensed." | "Two of the seven are. Five ship without a licence, four of those against express publisher terms. It is in NOTICE." |
 | "Elsevier's terms don't apply because facts aren't copyrightable." | "The term is a contract, not a copyright claim. We took the risk knowingly and we remove the data if they object." |
 | "Forrest shows the guard correctly staying quiet." | "Forrest has one training row, so there is no detector to stay quiet. Its values are triage-grade by its own header." |
-| "All seven vehicles reproduce from a clean clone." | "All seven **ran**. Two **rerun** publicly." |
-| "The public subset shows the method working across domains." | "The public subset is thermal-fluids only, and it happens to contain only the cases where the method fires. The restraint cases are in the report, not the rerun." |
+| "All seven vehicles are validated." | "All seven recompute from a clean clone and match the committed matrix. That shows the benchmark reproduces, not that its data are benchmark-grade — Forrest is triage-only." |
+| "The benchmark shows the method working across domains." | "It shows the failure variable's observability across two domains. The one restraint case, DO_NO_HARM, rests on Forrest, which is not earned." |
 | "The open-source release reproduces the paper." | "The open-source release contains the method and the observability benchmark. The causal numbers are historical." |
 | "PhysMAP uses an LLM to explain its verdicts." | "Explanations are deterministic templates. Same input, same bytes. No model call anywhere." |
 
@@ -505,6 +464,11 @@ file carries its own redistribution determination.
 - [ ] Both `physmap screen` refusals print `declarative`
 - [ ] `physmap reproduce nafems-2026` → *invalid choice*. If this ever prints a
       data-missing error instead, the release state and the shipped data disagree
+- [ ] `physmap stress-test lewis-reuse` from a FRESH clone → exit 0 and "The record matches the
+      banked record exactly." (last recorded: `docs/talk/reproduction/`)
+- [ ] `python tools/talk_package.py check` → passes
+- [ ] Every Lewis slide says "one run", and shows θ = 0.10 only with the word "illustrative"
+- [ ] Read `docs/talk/hostile-questions.md` aloud once
 - [ ] Terminal capture of every demo saved as a fallback slide
 - [ ] Every slide bearing 1.00 / 0.65 / 0.79 carries the historical label
 - [ ] Read the "sentences not to say" table once more, out loud

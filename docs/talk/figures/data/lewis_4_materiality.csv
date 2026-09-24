@@ -1,0 +1,16 @@
+x_over_D,comparable,materiality_gravity_off,materiality_gravity_on
+0.31,False,0.000,0.001
+0.85,False,0.000,0.003
+2.45,True,0.000,0.006
+5.65,True,0.000,0.012
+9.92,True,0.000,0.020
+16.32,True,0.000,0.032
+33.39,True,0.000,0.061
+50.47,True,0.000,0.087
+67.55,True,0.000,0.111
+101.69,True,0.000,0.154
+135.84,True,0.000,0.195
+159.33,False,0.000,0.221
+stations flagged at theta=0.05 (illustrative),,0,5
+stations flagged at theta=0.10 (illustrative),,0,3
+stations flagged at theta=0.20 (illustrative),,0,0

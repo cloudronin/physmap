@@ -1,0 +1,1324 @@
+{
+ "generated_by": "python tools/talk_package.py build",
+ "numbers": {
+  "bench.casper_hypersonic_transition.n_test": {
+   "display": "8",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.casper_hypersonic_transition.n_train": {
+   "display": "159",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.casper_hypersonic_transition.observability": {
+   "display": "unobservable",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.casper_hypersonic_transition.outcome": {
+   "display": "PHYSMAP_WINS",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.count_BASELINE_VISIBLE": {
+   "display": "1",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.count_DO_NO_HARM": {
+   "display": "1",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.count_PARTIAL": {
+   "display": "2",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.count_PHYSMAP_WINS": {
+   "display": "3",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.dirker_water.n_test": {
+   "display": "60",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.dirker_water.n_train": {
+   "display": "31",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.dirker_water.observability": {
+   "display": "partial",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.dirker_water.outcome": {
+   "display": "PARTIAL",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.forrest.n_test": {
+   "display": "4",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.forrest.n_train": {
+   "display": "1",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.forrest.observability": {
+   "display": "observable",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.forrest.outcome": {
+   "display": "DO_NO_HARM",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.jin_sco2_buoyancy.n_test": {
+   "display": "27",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.jin_sco2_buoyancy.n_train": {
+   "display": "17",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.jin_sco2_buoyancy.observability": {
+   "display": "unobservable",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.jin_sco2_buoyancy.outcome": {
+   "display": "PHYSMAP_WINS",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.marineau_hypersonic_transition.n_test": {
+   "display": "6",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.marineau_hypersonic_transition.n_train": {
+   "display": "9",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.marineau_hypersonic_transition.observability": {
+   "display": "observable",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.marineau_hypersonic_transition.outcome": {
+   "display": "BASELINE_VISIBLE",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.n_vehicles": {
+   "display": "7",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.n_test": {
+   "display": "47",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.n_train": {
+   "display": "29",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.observability": {
+   "display": "unobservable",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.outcome": {
+   "display": "PHYSMAP_WINS",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.ref_n_baseline_fired": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.ref_n_corpus_fired": {
+   "display": "47",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.ref_n_distance_fired": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.ref_n_gp_var_fired": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.velazquez_sco2.n_test": {
+   "display": "67",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.velazquez_sco2.n_train": {
+   "display": "393",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.velazquez_sco2.observability": {
+   "display": "partial",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.velazquez_sco2.outcome": {
+   "display": "PARTIAL",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "lewis.A3.control_error_max_abs_pct": {
+   "display": "0.07",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.A3.distance_range": {
+   "display": "0.60–0.68",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.A3.fired_p99_off": {
+   "display": "9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.A3.fired_p99_on": {
+   "display": "9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.A3.threshold_distance": {
+   "display": "0.473",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.A3.training_rows": {
+   "display": "480",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.A3.training_runs": {
+   "display": "12",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.M.in_sample_alarm_p100_pct": {
+   "display": "0.0",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.M.in_sample_alarm_p50_pct": {
+   "display": "50.0",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.M.in_sample_alarm_p75_pct": {
+   "display": "24.8",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.M.in_sample_alarm_p90_pct": {
+   "display": "9.2",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.M.in_sample_alarm_p95_pct": {
+   "display": "4.5",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.M.in_sample_alarm_p99_pct": {
+   "display": "1.1",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.M.training_rows": {
+   "display": "532",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.M.training_runs": {
+   "display": "13",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.Ri_gravity_on": {
+   "display": "0.29",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ablation.energy_full_inlet_ref": {
+   "display": "+0.15",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ablation.energy_full_lewis_ref": {
+   "display": "-0.05",
+   "source": "data/stress_tests/lewis_reuse/manifest.json (energy_closure_definition)"
+  },
+  "lewis.ablation.energy_removed_inlet_ref": {
+   "display": "+0.30",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ablation.energy_removed_lewis_ref": {
+   "display": "+0.11",
+   "source": "data/stress_tests/lewis_reuse/manifest.json (energy_closure_definition)"
+  },
+  "lewis.ablation.iteration_check_pct": {
+   "display": "0.063",
+   "source": "data/stress_tests/lewis_reuse/manifest.json (matched_ablation.iteration_check)"
+  },
+  "lewis.ablation.iterations": {
+   "display": "3000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.case.Gr_q": {
+   "display": "374663",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.L_m": {
+   "display": "1.900",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.L_over_d": {
+   "display": "159.66",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.T_exit_calc": {
+   "display": "30.00",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.T_exit_meas": {
+   "display": "29.32",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.T_in": {
+   "display": "13.06",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.Vdot": {
+   "display": "0.7679",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.d_m": {
+   "display": "0.0119",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.energy_balance_pct": {
+   "display": "-3.96",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.entry_d": {
+   "display": "2.5",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.k_inlet": {
+   "display": "0.5922",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.q_w": {
+   "display": "12749.6",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.case.rise_calc": {
+   "display": "16.94",
+   "source": "data/lewis1992/test_35A_reduction.json"
+  },
+  "lewis.control_error_max_abs_pct": {
+   "display": "0.06",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.deploy_Pr": {
+   "display": "8.46",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.deploy_Re": {
+   "display": "1143.4",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.downstream_base_gap_range_pct": {
+   "display": "1.6–6.6",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.downstream_error_range_pct": {
+   "display": "17–18",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.downstream_stations": {
+   "display": "67.55, 101.69, 135.84",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.extraction.diff_entrance": {
+   "display": "x/D 0.31: 8.8 %; x/D 0.85: 7.8 %; x/D 2.45: 2.3 %; x/D 5.65: 0.9 %",
+   "source": "results/lewis35A_vp/grid_pair.json + data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.extraction.max_diff_downstream_pct": {
+   "display": "0.07",
+   "source": "results/lewis35A_vp/grid_pair.json + data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.extraction.max_diff_grid_band_pct": {
+   "display": "0.45",
+   "source": "results/lewis35A_vp/grid_pair.json + data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.flagged_at_illustrative": {
+   "display": "67.55, 101.69, 135.84",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.flags_on_at_theta_0.05": {
+   "display": "5",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.flags_on_at_theta_0.10": {
+   "display": "3",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.flags_on_at_theta_0.20": {
+   "display": "0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.grid.band_from": {
+   "display": "9.92",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.band_to": {
+   "display": "159.33",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.cfd_vs_lewis_prediction_range_pct": {
+   "display": "4.3–6.0",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.cfd_vs_measurement_max_in_band_pct": {
+   "display": "9.6",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.criterion_pct": {
+   "display": "1",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.energy_pct": {
+   "display": "-0.05",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.entrance_stations": {
+   "display": "0.31, 0.85, 2.45, 5.65",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.iterations": {
+   "display": "25000",
+   "source": "data/stress_tests/lewis_reuse/manifest.json (matched_ablation.iteration_check)"
+  },
+  "lewis.grid.max_change_in_band_pct": {
+   "display": "0.94",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.meshes": {
+   "display": "20×300 and 30×400",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.n_converged": {
+   "display": "8",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.grid.n_stations": {
+   "display": "12",
+   "source": "results/lewis35A_vp/grid_pair.json"
+  },
+  "lewis.lowpct.p75_rows_firing_xd0_10_pct": {
+   "display": "0",
+   "source": "results/lewis35A_head_to_head/design_M_low_pct_mechanism.json"
+  },
+  "lewis.lowpct.p75_rows_firing_xd50_100_pct": {
+   "display": "97",
+   "source": "results/lewis35A_head_to_head/design_M_low_pct_mechanism.json"
+  },
+  "lewis.materiality_on_max": {
+   "display": "0.195",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.materiality_on_min": {
+   "display": "0.006",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.n_comparable": {
+   "display": "9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.n_stations": {
+   "display": "12",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.fired_p99_comparable": {
+   "display": "0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.max_abs_difference_on_vs_off": {
+   "display": "0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.max_distance_comparable": {
+   "display": "0.167",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.max_gp_all": {
+   "display": "0.0101",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.min_distance_comparable": {
+   "display": "0.003",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.sweep_p100": {
+   "display": "0/9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.sweep_p50": {
+   "display": "6/9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.sweep_p75": {
+   "display": "3/9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.sweep_p90": {
+   "display": "0/9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.sweep_p95": {
+   "display": "0/9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.sweep_p99": {
+   "display": "0/9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.threshold_distance": {
+   "display": "0.408",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.ood.threshold_gp": {
+   "display": "0.050",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.surrogate.loo_worst_pct": {
+   "display": "0.45",
+   "source": "results/lewis35A_head_to_head/design_M_matched.json"
+  },
+  "lewis.theta_0.05": {
+   "display": "0.05",
+   "source": "shown for illustration; theta is unlocked"
+  },
+  "lewis.theta_0.10": {
+   "display": "0.10",
+   "source": "shown for illustration; theta is unlocked"
+  },
+  "lewis.theta_0.20": {
+   "display": "0.20",
+   "source": "shown for illustration; theta is unlocked"
+  },
+  "lewis.theta_any_flag_up_to": {
+   "display": "0.195",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.theta_illustrative": {
+   "display": "0.10",
+   "source": "src/physmap/stress_tests/lewis_reuse.py (ILLUSTRATIVE_THETA); protocols/protocol.json"
+  },
+  "lewis.train.Re_levels": {
+   "display": "750, 950, 1350, 1550",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.Re_max": {
+   "display": "1550",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.Re_min": {
+   "display": "750",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.T_in_levels": {
+   "display": "12, 13.25, 14.5",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.energy_max_abs_pct": {
+   "display": "0.35",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.iterations": {
+   "display": "2000 or 4000",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.matched_label_offset_Pr_pct": {
+   "display": "+0.141",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.train.matched_label_offset_Re_pct": {
+   "display": "-0.062",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.train.matched_run_stations": {
+   "display": "52",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.reversed_cells_total": {
+   "display": "0",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.train.stations_per_run": {
+   "display": "40",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json"
+  },
+  "lewis.x0.31.Nu_control": {
+   "display": "54.97",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.Nu_experiment": {
+   "display": "33.72",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.Nu_surrogate": {
+   "display": "54.96",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.control_error_pct": {
+   "display": "-0.03",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.experimental_error_pct": {
+   "display": "+63.0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.materiality_on": {
+   "display": "0.001",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.ood_distance": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.ood_gp": {
+   "display": "0.0009",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.split_base_model_gap_pct": {
+   "display": "+63.3",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.split_fit_pct": {
+   "display": "-0.03",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.split_missing_buoyancy_pct": {
+   "display": "-0.1",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.31.x_over_D": {
+   "display": "0.31",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.Nu_control": {
+   "display": "36.55",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.Nu_experiment": {
+   "display": "32.69",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.Nu_surrogate": {
+   "display": "36.52",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.control_error_pct": {
+   "display": "-0.08",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.experimental_error_pct": {
+   "display": "+11.7",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.materiality_on": {
+   "display": "0.003",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.ood_distance": {
+   "display": "0.001",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.ood_gp": {
+   "display": "0.0016",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.split_base_model_gap_pct": {
+   "display": "+12.1",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.split_fit_pct": {
+   "display": "-0.08",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.split_missing_buoyancy_pct": {
+   "display": "-0.3",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x0.85.x_over_D": {
+   "display": "0.85",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.Nu_control": {
+   "display": "7.00",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.Nu_experiment": {
+   "display": "8.41",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.Nu_surrogate": {
+   "display": "7.00",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.control_error_pct": {
+   "display": "-0.00",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.experimental_error_pct": {
+   "display": "-16.8",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.materiality_on": {
+   "display": "0.154",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.ood_distance": {
+   "display": "0.142",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.ood_gp": {
+   "display": "0.0091",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.split_base_model_gap_pct": {
+   "display": "-1.6",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.split_fit_pct": {
+   "display": "-0.00",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.split_missing_buoyancy_pct": {
+   "display": "-15.4",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x101.69.x_over_D": {
+   "display": "101.69",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.Nu_control": {
+   "display": "6.55",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.Nu_experiment": {
+   "display": "7.99",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.Nu_surrogate": {
+   "display": "6.55",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.control_error_pct": {
+   "display": "+0.03",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.experimental_error_pct": {
+   "display": "-18.0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.materiality_on": {
+   "display": "0.195",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.ood_distance": {
+   "display": "0.167",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.ood_gp": {
+   "display": "0.0098",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.split_base_model_gap_pct": {
+   "display": "+1.8",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.split_fit_pct": {
+   "display": "+0.03",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.split_missing_buoyancy_pct": {
+   "display": "-19.5",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x135.84.x_over_D": {
+   "display": "135.84",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.Nu_control": {
+   "display": "6.33",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.Nu_experiment": {
+   "display": "8.82",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.Nu_surrogate": {
+   "display": "6.34",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.control_error_pct": {
+   "display": "+0.20",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.experimental_error_pct": {
+   "display": "-28.1",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.materiality_on": {
+   "display": "0.221",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.ood_distance": {
+   "display": "0.195",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.ood_gp": {
+   "display": "0.0101",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.split_base_model_gap_pct": {
+   "display": "-7.9",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.split_fit_pct": {
+   "display": "+0.20",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.split_missing_buoyancy_pct": {
+   "display": "-22.1",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x159.33.x_over_D": {
+   "display": "159.33",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.Nu_control": {
+   "display": "12.18",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.Nu_experiment": {
+   "display": "13.95",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.Nu_surrogate": {
+   "display": "12.17",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.control_error_pct": {
+   "display": "-0.04",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.experimental_error_pct": {
+   "display": "-12.8",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.materiality_on": {
+   "display": "0.032",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.ood_distance": {
+   "display": "0.021",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.ood_gp": {
+   "display": "0.0053",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.split_base_model_gap_pct": {
+   "display": "-9.8",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.split_fit_pct": {
+   "display": "-0.04",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.split_missing_buoyancy_pct": {
+   "display": "-3.2",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x16.32.x_over_D": {
+   "display": "16.32",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.Nu_control": {
+   "display": "24.36",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.Nu_experiment": {
+   "display": "22.15",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.Nu_surrogate": {
+   "display": "24.35",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.control_error_pct": {
+   "display": "-0.02",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.experimental_error_pct": {
+   "display": "+9.9",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.materiality_on": {
+   "display": "0.006",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.ood_distance": {
+   "display": "0.003",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.ood_gp": {
+   "display": "0.0025",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.split_base_model_gap_pct": {
+   "display": "+10.6",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.split_fit_pct": {
+   "display": "-0.02",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.split_missing_buoyancy_pct": {
+   "display": "-0.6",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x2.45.x_over_D": {
+   "display": "2.45",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.Nu_control": {
+   "display": "9.58",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.Nu_experiment": {
+   "display": "10.76",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.Nu_surrogate": {
+   "display": "9.58",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.control_error_pct": {
+   "display": "-0.02",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.experimental_error_pct": {
+   "display": "-11.0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.materiality_on": {
+   "display": "0.061",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.ood_distance": {
+   "display": "0.046",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.ood_gp": {
+   "display": "0.0067",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.split_base_model_gap_pct": {
+   "display": "-5.2",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.split_fit_pct": {
+   "display": "-0.02",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.split_missing_buoyancy_pct": {
+   "display": "-6.1",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x33.39.x_over_D": {
+   "display": "33.39",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.Nu_control": {
+   "display": "17.86",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.Nu_experiment": {
+   "display": "19.07",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.Nu_surrogate": {
+   "display": "17.85",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.control_error_pct": {
+   "display": "-0.06",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.experimental_error_pct": {
+   "display": "-6.4",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.materiality_on": {
+   "display": "0.012",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.ood_distance": {
+   "display": "0.008",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.ood_gp": {
+   "display": "0.0036",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.split_base_model_gap_pct": {
+   "display": "-5.2",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.split_fit_pct": {
+   "display": "-0.06",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.split_missing_buoyancy_pct": {
+   "display": "-1.2",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x5.65.x_over_D": {
+   "display": "5.65",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.Nu_control": {
+   "display": "8.44",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.Nu_experiment": {
+   "display": "9.38",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.Nu_surrogate": {
+   "display": "8.44",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.control_error_pct": {
+   "display": "-0.01",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.experimental_error_pct": {
+   "display": "-10.0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.materiality_on": {
+   "display": "0.087",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.ood_distance": {
+   "display": "0.063",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.ood_gp": {
+   "display": "0.0076",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.split_base_model_gap_pct": {
+   "display": "-1.4",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.split_fit_pct": {
+   "display": "-0.01",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.split_missing_buoyancy_pct": {
+   "display": "-8.7",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x50.47.x_over_D": {
+   "display": "50.47",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.Nu_control": {
+   "display": "7.78",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.Nu_experiment": {
+   "display": "9.37",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.Nu_surrogate": {
+   "display": "7.78",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.control_error_pct": {
+   "display": "-0.01",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.experimental_error_pct": {
+   "display": "-17.0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.materiality_on": {
+   "display": "0.111",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.ood_distance": {
+   "display": "0.087",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.ood_gp": {
+   "display": "0.0082",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.split_base_model_gap_pct": {
+   "display": "-6.6",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.split_fit_pct": {
+   "display": "-0.01",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.split_missing_buoyancy_pct": {
+   "display": "-11.1",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x67.55.x_over_D": {
+   "display": "67.55",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.Nu_control": {
+   "display": "14.53",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.Nu_experiment": {
+   "display": "14.92",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.Nu_surrogate": {
+   "display": "14.53",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.control_error_pct": {
+   "display": "-0.04",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.experimental_error_pct": {
+   "display": "-2.6",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.materiality_off": {
+   "display": "0.000",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.materiality_on": {
+   "display": "0.020",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.ood_distance": {
+   "display": "0.013",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.ood_gp": {
+   "display": "0.0044",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.ood_p99": {
+   "display": "quiet",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.split_base_model_gap_pct": {
+   "display": "-0.6",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_full) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.split_fit_pct": {
+   "display": "-0.04",
+   "source": "data/stress_tests/lewis_reuse/cfd_profiles.json (ablation_removed) + results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.split_missing_buoyancy_pct": {
+   "display": "-2.0",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "lewis.x9.92.x_over_D": {
+   "display": "9.92",
+   "source": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json"
+  },
+  "naca.Pr": {
+   "display": "0.71",
+   "source": "data/naca/cross_validated_fig10.csv"
+  },
+  "naca.bound": {
+   "display": "10",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.closure_fired": {
+   "display": "45",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.either_input_based_fired": {
+   "display": "0",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.entrance_positions_per_curve": {
+   "display": "9",
+   "source": "data/naca/cross_validated_fig10.csv"
+  },
+  "naca.gp_fired": {
+   "display": "0",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.n_Re_curves": {
+   "display": "5",
+   "source": "data/naca/cross_validated_fig10.csv"
+  },
+  "naca.n_entrance": {
+   "display": "45",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.n_training": {
+   "display": "40",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.novelty_fired": {
+   "display": "0",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  }
+ },
+ "figures": {
+  "lewis_1_input_contract": [
+   "lewis.M.training_runs",
+   "lewis.M.training_rows",
+   "lewis.train.Re_levels",
+   "lewis.train.T_in_levels",
+   "lewis.deploy_Re",
+   "lewis.deploy_Pr",
+   "lewis.n_stations",
+   "lewis.Ri_gravity_on"
+  ],
+  "lewis_2_control_vs_gravity_on": [
+   "lewis.x0.31.experimental_error_pct",
+   "lewis.downstream_stations",
+   "lewis.downstream_error_range_pct",
+   "lewis.control_error_max_abs_pct",
+   "lewis.ood.threshold_distance",
+   "lewis.ood.max_gp_all",
+   "lewis.ood.threshold_gp",
+   "lewis.materiality_on_max"
+  ],
+  "lewis_3_ood_identical": [
+   "lewis.n_stations",
+   "lewis.ood.max_abs_difference_on_vs_off",
+   "lewis.ood.threshold_distance",
+   "lewis.ood.threshold_gp"
+  ],
+  "lewis_4_materiality": [
+   "lewis.materiality_on_min",
+   "lewis.materiality_on_max",
+   "lewis.theta_illustrative",
+   "lewis.x67.55.materiality_on",
+   "lewis.x101.69.materiality_on",
+   "lewis.x135.84.materiality_on",
+   "lewis.theta_any_flag_up_to",
+   "lewis.n_comparable"
+  ],
+  "lewis_5_control_table": [
+   "lewis.theta_illustrative",
+   "lewis.control_error_max_abs_pct",
+   "lewis.ood.min_distance_comparable",
+   "lewis.ood.max_distance_comparable",
+   "lewis.ood.threshold_distance",
+   "lewis.downstream_error_range_pct",
+   "lewis.downstream_stations",
+   "lewis.materiality_on_min",
+   "lewis.materiality_on_max",
+   "lewis.flagged_at_illustrative"
+  ],
+  "bench_1_naca_entrance": [
+   "naca.bound",
+   "naca.n_training",
+   "naca.n_entrance",
+   "naca.closure_fired",
+   "naca.novelty_fired",
+   "naca.gp_fired"
+  ],
+  "bench_2_seven_vehicles": [
+   "bench.naca_tn1451.observability",
+   "bench.naca_tn1451.outcome",
+   "bench.casper_hypersonic_transition.observability",
+   "bench.casper_hypersonic_transition.outcome",
+   "bench.jin_sco2_buoyancy.observability",
+   "bench.jin_sco2_buoyancy.outcome",
+   "bench.velazquez_sco2.observability",
+   "bench.velazquez_sco2.outcome",
+   "bench.dirker_water.observability",
+   "bench.dirker_water.outcome",
+   "bench.marineau_hypersonic_transition.observability",
+   "bench.marineau_hypersonic_transition.outcome",
+   "bench.forrest.observability",
+   "bench.forrest.outcome",
+   "bench.forrest.n_train"
+  ]
+ }
+}

@@ -1,0 +1,15 @@
+=== when ===
+2026-09-23T23:38:00Z
+=== clone (public https, no credentials) ===
+commit: 47ae207487a3be6862cab3ce410911da420277f7
+subject: stress-test: Lewis 35A as a controlled model-reuse stress test, one command
+status clean: yes
+=== fresh venv ===
+=== environment ===
+python 3.10.15
+platform macOS-26.5.2-x86_64-i386-64bit
+numpy 2.2.6 scipy 1.15.3 scikit-learn 1.7.2
+=== run ===
+exit status: 0
+wall clock: 212 s
+CLEANDONE

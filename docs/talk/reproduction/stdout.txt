@@ -1,0 +1,81 @@
+Recomputing from this checkout (about two minutes) ...
+
+CONTROLLED MODEL-REUSE STRESS TEST -- Lewis (1992) Test 35A
+
+The surrogate was trained for forced convection, where gravity did not vary and was not an
+input. It was then reused in vertical heated flow, where buoyancy became material. A mixed-
+convection surrogate designed for this regime should include Richardson number, Grashof
+number, or equivalent physical information.
+
+Claim: PhysMAP detects when model reuse activates a physically relevant mechanism outside
+       the surrogate's observable input space. An input-only OOD detector cannot identify a
+       change absent from its input contract.
+
+Development demonstration. One run (Lewis 35A), already inspected during development. Its
+stations are not independent cases. No performance metric is computed or implied.
+
+INPUT CONTRACT
+  surrogate receives     Re, Pr, x_over_D
+  OOD detector receives  Re, Pr, x_over_D
+  neither receives       gravity, Ri, Gr, wall heat flux, flow direction
+  deployment             Re 1143.4, Pr 8.46, x/D at Lewis's 12 stations
+  every visible deployment input exactly matches a training input (design M): YES
+
+MATCHED ABLATION
+  provenance matched_ablation; pair_gON vs pair_gOFF
+  only difference: constant/g -- (0 -9.81 0) versus (0 0 0)
+  energy closure +0.15 % (full), +0.30 % (removed), against the inlet-property energy balance; 3000 iterations each
+
+HEADLINE -- design M: every visible deployment input is a training input
+      x/D   |    surrogate error    |  input-based OOD detector   | PhysMAP materiality
+            |   control  experiment |  distance   GP var      @99 | grav off   grav on
+     0.31 * |    -0.03%      +63.0% |     0.000   0.0009    quiet |    0.000     0.001
+     0.85 * |    -0.08%      +11.7% |     0.001   0.0016    quiet |    0.000     0.003
+     2.45   |    -0.02%       +9.9% |     0.003   0.0025    quiet |    0.000     0.006
+     5.65   |    -0.06%       -6.4% |     0.008   0.0036    quiet |    0.000     0.012
+     9.92   |    -0.04%       -2.6% |     0.013   0.0044    quiet |    0.000     0.020
+    16.32   |    -0.04%      -12.8% |     0.021   0.0053    quiet |    0.000     0.032
+    33.39   |    -0.02%      -11.0% |     0.046   0.0067    quiet |    0.000     0.061
+    50.47   |    -0.01%      -10.0% |     0.063   0.0076    quiet |    0.000     0.087
+    67.55   |    -0.01%      -17.0% |     0.087   0.0082    quiet |    0.000     0.111
+   101.69   |    -0.00%      -16.8% |     0.142   0.0091    quiet |    0.000     0.154
+   135.84   |    +0.03%      -18.0% |     0.167   0.0098    quiet |    0.000     0.195
+   159.33 * |    +0.20%      -28.1% |     0.195   0.0101    quiet |    0.000     0.221
+  * disowned by Lewis. OOD thresholds at the reference percentile 99: distance 0.408, GP variance 0.050.
+  The OOD columns are the SAME with gravity off and on -- every score, every percentile: YES
+  Comparable stations where it fires, by operating percentile (both states): 50: 6/9, 75: 3/9, 90: 0/9, 95: 0/9, 99: 0/9, 100: 0/9
+  (At low percentiles it fires on its own training data too -- see design_M_low_pct_mechanism.json.)
+
+SECONDARY -- design A3, the visible operating point falls BETWEEN training runs
+  OOD fires at 9 of 9 comparable stations with gravity off (surrogate accurate) and 9 of 9 with gravity on; scores identical between them: YES
+  PhysMAP's materiality is the same as in the headline: it follows the physics, not the training design.
+
+THRESHOLDS -- which results depend on one
+  OOD scores identical between gravity off and gravity on
+      threshold: none. exact equality of every score
+  every visible deployment input is a training input (design M)
+      threshold: none. exact set membership
+  materiality: 0 with gravity off, continuous values with gravity on
+      threshold: none. reported as values
+  control and experimental errors
+      threshold: none. reported as values; no right/wrong label, the tolerance being unlocked
+  OOD fired or quiet at a station
+      threshold: operating percentile -- shipped reference 99, fixed in code before this work. the full sweep is reported; the fired/quiet pattern is identical between gravity states at every percentile
+  PhysMAP flags nothing with gravity off
+      threshold: none. holds for every theta: materiality is 0 and Ri = 0 is inside the window
+  PhysMAP flags at least one comparable station with gravity on
+      threshold: theta -- UNLOCKED. holds for theta <= 0.195
+  which stations PhysMAP flags
+      threshold: theta -- UNLOCKED. a station flags for theta up to its own materiality; shown at theta = 0.10, illustrative only
+  At the ILLUSTRATIVE theta = 0.10 (not a verdict; theta is unlocked) PhysMAP would flag x/D 67.55, 101.69, 135.84 with gravity on, and nothing with gravity off.
+
+NOT CLAIMED
+  - OOD detectors do not fail in general; this one does exactly its job.
+  - Gravity should not be omitted: a mixed-convection surrogate built correctly exposes Ri,
+    Gr or equivalent physical information.
+  - Nothing is claimed about NVIDIA PhysicsNeMo; its OOD and physics checks are distinct and
+    were not run.
+
+Assertions hold: every visible deployment input is a training input (design M); OOD scores are unchanged between gravity off and gravity on; materiality is zero with gravity off; the surrogate matches the accurate control.
+Wrote the fresh record to <WORK>/fresh_record.json.
+The record matches the banked record exactly.

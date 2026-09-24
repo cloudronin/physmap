@@ -1,0 +1,101 @@
+PhysMAP Benchmark v0.4 (cross-domain, real-API, registry-driven)
+
+All 7 vehicles are reported. 7 of 7 ship their source data -- all of them.
+
+NOTHING WAS RECOMPUTED IN THIS RUN. Every number below is read from the banked matrix. `physmap benchmark run` recomputes them from this checkout and diffs the result against that bank.
+
+vehicle                            domain         failure var            observability  outcome           source
+----------------------------------------------------------------------------------------------------------------
+naca_tn1451                        thermal-fluids x_over_D               unobservable   PHYSMAP_WINS      ships, licensed
+velazquez_sco2                     thermal-fluids ratio_mu_w_b           partial        PARTIAL           ships, licensed
+forrest                            thermal-fluids Re                     observable     DO_NO_HARM        ships, AGAINST publisher terms
+casper_hypersonic_transition       aerospace      freestream_noise_pct   unobservable   PHYSMAP_WINS      ships, AGAINST publisher terms
+marineau_hypersonic_transition     aerospace      st_xsw_ratio           observable     BASELINE_VISIBLE  ships, NOT licensed (facts basis)
+dirker_water                       thermal-fluids Ri                     partial        PARTIAL           ships, AGAINST publisher terms
+jin_sco2_buoyancy                  thermal-fluids Bu                     unobservable   PHYSMAP_WINS      ships, AGAINST publisher terms
+
+observability guards: all passed
+
+Redistribution basis -- read this before reusing any of this data
+
+  2 of the 7 shipped datasets carry affirmative permission: public domain or an open licence.
+  5 ship WITHOUT a licence: forrest, casper_hypersonic_transition, marineau_hypersonic_transition, dirker_water, jin_sco2_buoyancy.
+  Shipping is not licensing. They rest on the position that measured values
+  are facts.
+  4 of them are published AGAINST an express publisher
+  term rather than under one: forrest, casper_hypersonic_transition, dirker_water, jin_sco2_buoyancy.
+  Only the numbers are redistributed; no paper, figure or PDF. They are
+  removed on objection -- see NOTICE.
+
+Data quality -- separate from redistribution, and not implied by it
+
+  Not benchmark-grade by their own account: forrest.
+  A dataset can be perfectly legal to publish and still be unfit to
+  benchmark on. Their cells are reported so the weakness is
+  inspectable, not so it can be cited.
+
+Provenance and redistribution basis
+
+  naca_tn1451
+    source      NACA TN-1451 (1947), Fig 10, bellmouth entrance
+    values      Two-reader visual digitisation
+    ships       yes (clear)
+    licensed    yes
+    basis       US Government work, public domain.
+
+  velazquez_sco2
+    source      Velazquez et al. (2026), Appl. Therm. Eng. 285:129206
+    values      Verbatim transcription of supplementary Appendix D, Tables D1-D28
+    ships       yes (clear)
+    licensed    yes
+    basis       CC BY 4.0, publisher-deposited. Elsevier states the article licence extends to supplementary files.
+
+  forrest
+    source      Forrest et al., J. Heat Transfer 138(2):021704
+    values      Visual estimates from Fig 5 of the version of record
+    ships       yes (against_publisher_terms)
+    licensed    NO
+    QUALITY     TRIAGE_ONLY -- The file's own header: 'VISUAL ESTIMATES ... NOT digitized by WebPlotDigitizer. Use ONLY as a resolvability triage check.' Its benchmark cell is also degenerate -- 1 training row, no detector fit -- so its DO_NO_HARM outcome is short-circuited rather than earned. Published so both weaknesses are visible; re-digitise Fig 5 properly before treating this cell as evidence.
+    basis       ASME holds copyright and requires written permission to reproduce. The CC-BY route does not apply: ASME grants it for accepted manuscripts in INSTITUTIONAL repositories, the OSTI deposit is a FUNDER repository, and the deposited PDF carries no Creative Commons marking at all. Shipped anyway, as an accepted risk. Numbers only.
+
+  casper_hypersonic_transition
+    source      Casper MS thesis (DTIC ADA504177) and AIAA 2009-4054
+    values      Figure digitisation, 600-DPI segmentation, two readers
+    ships       yes (against_publisher_terms)
+    licensed    NO
+    basis       The rows carrying the result come from the AIAA paper, and AIAA prohibits using their content to develop machine-learning models without written permission -- which is what a public ML benchmark is. Shipped anyway, as an accepted risk. Weaker than Marineau, not equal to it: the OSTI copy carries no copyright notice AND no public-release marking, just silence. Numbers only.
+
+  marineau_hypersonic_transition
+    source      Marineau et al., AIAA 2014-3108 / SAND2014-4326C
+    values      Transcribed from Table 3
+    ships       yes (no_licence_facts_basis)
+    licensed    NO
+    basis       No reuse licence exists, and no prohibition either. The OSTI copy carries no copyright notice and is marked public-release-unlimited by the controlling office -- a security determination, not a licence, and OSTI expressly disclaims granting one. Ships on the position that measured values transcribed from a published table are facts. Government-funded, government-hosted, transcribed rather than digitised: the cleanest of the unlicensed three.
+
+  dirker_water
+    source      Dirker, Meyer & Reid (2018), Exp. Therm. Fluid Sci. 98
+    values      Figure digitisation from Figs 17-20
+    ships       yes (against_publisher_terms)
+    licensed    NO
+    basis       Elsevier's TDM licence forbids substantially or systematically redistributing the dataset, and the one permissions exemption is drafted to exclude data that was previously in figure format -- which this was. Shipped anyway, as an accepted risk. Values are numbers only; no figure, text or PDF is redistributed. Weakest of the three: read off plots rather than transcribed.
+
+  jin_sco2_buoyancy
+    source      Jin et al. (2023), Ann. Nucl. Energy 188:109825
+    values      Figure digitisation, two readers; Bu and Bo* recomputed
+    ships       yes (against_publisher_terms)
+    licensed    NO
+    basis       Same Elsevier terms as Dirker, with no open copy anywhere, and the authors were asked for raw data and declined. Shipped anyway, as an accepted risk. Bu and Bo* are recomputed from the paper's own equations, so part of this file is derived work rather than extraction.
+
+What the rerunnable subset covers
+
+  domains       full: aerospace, thermal-fluids
+                public: aerospace, thermal-fluids
+  outcomes      full: BASELINE_VISIBLE, DO_NO_HARM, PARTIAL, PHYSMAP_WINS
+                public: BASELINE_VISIBLE, DO_NO_HARM, PARTIAL, PHYSMAP_WINS
+  observability full: observable, partial, unobservable
+                public: observable, partial, unobservable
+
+  Outcome classes whose ONLY vehicle is not benchmark-grade: DO_NO_HARM.
+    DO_NO_HARM rests on forrest: n_train=1, n_test=4 -- observable degenerate pole; only 1 train rows (thin) — baseline-sufficient by construction, no detector fit (matches degenerate_short_circuit)
+
+Full determinations: data/REDISTRIBUTION.md

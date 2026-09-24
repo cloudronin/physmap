@@ -1,0 +1,14 @@
+item,value
+surrogate_inputs,Re; Pr; x_over_D
+ood_detector_inputs,Re; Pr; x_over_D
+withheld_from_both,gravity; Ri; Gr; wall heat flux; flow direction
+deployment_Re,1143.4
+deployment_Pr,8.46
+deployment_stations,12
+every_visible_deployment_input_is_a_training_input,True
+training_runs,13
+training_rows,532
+training_Re_levels,"750, 950, 1350, 1550"
+training_inlet_T_C_levels,"12, 13.25, 14.5"
+physmap_calibration_window,0 <= richardson_number <= 0
+Ri_gravity_on,0.29

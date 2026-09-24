@@ -104,17 +104,20 @@ job. Not a suggestion to leave gravity out. Not a claim about NVIDIA PhysicsNeMo
 and physics checks are distinct and were not run. **One run, a development demonstration:** its
 stations are not independent cases, and no precision, recall or F1 is computed.
 
-The command recomputes everything from this checkout in about two minutes, asserts the exact
+The command recomputes everything from this checkout in a few minutes, asserts the exact
 input overlap and the unchanged OOD scores, and diffs itself against a committed bank — the
 same contract as `physmap benchmark run`, deliberately kept a separate command because this is
-a causal-materiality result. Full record:
-[docs/findings/lewis-ood-head-to-head.md](docs/findings/lewis-ood-head-to-head.md).
+a causal-materiality result. It recomputes from committed CFD-derived profiles and does not rerun
+OpenFOAM. Full record:
+[docs/findings/lewis-ood-head-to-head.md](docs/findings/lewis-ood-head-to-head.md). The NAFEMS
+talk package — figures, facts sheet, claims ledger, and a clean-clone reproduction record — is
+in [docs/talk/](docs/talk/README.md).
 
-## The benchmark: seven vehicles, two of them rerunnable
+## The benchmark: seven vehicles, all rerunnable
 
 ```bash
 physmap benchmark report     # all seven outcomes, each marked recomputed or banked
-physmap benchmark run        # recomputes the subset whose data can be redistributed
+physmap benchmark run        # recomputes all seven from this checkout, diffs against the bank
 physmap benchmark coverage   # what that subset does and does not cover
 ```
 

@@ -1,0 +1,20 @@
+train: 40 fully-developed points   test: 45 entrance points
+
+observability, decided at construction time:
+  reynolds_number          OBSERVABLE
+  prandtl_number           OBSERVABLE
+  x_over_D                 UNOBSERVABLE
+  prandtl_ratio_bulk_wall  UNOBSERVABLE
+  temperature_ratio_bulk_wall UNOBSERVABLE
+
+verdicts: {'REJECT': 45}
+bound variable that fired: {'x_over_D'}
+
+one assessment:
+  verdict          REJECT
+  observability    UNOBSERVABLE
+  closure_validity fired=True
+  novelty_density  fired=False  <- input-based OOD detector
+  gp_variance      fired=False  <- input-based OOD detector
+  rationale        Prediction relies on gnielinski-1976 beyond its validated x_over_D bound (x_over_D ≥ 10); x_over_D is not a surrogate input (unobservable to input-based OOD detectors), and the literature (Tam, L.M. & Ghajar, A.J. (1998). 'The unusual behavior of local heat transfer coefficient in a circular tube with a bell-mouth inlet.' Experimental Thermal and Fluid Science 16(3): 187-194.) reports divergence up to -63% past this bound. Input-based OOD detectors are silent because they cannot observe x_over_D.
+  input-based OOD detectors fired on 0 of 45 entrance points

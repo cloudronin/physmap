@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN"
+  "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" width="720pt" height="259.2pt" viewBox="0 0 720 259.2" xmlns="http://www.w3.org/2000/svg" version="1.1">
+ <metadata>
+  <rdf:RDF xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:cc="http://creativecommons.org/ns#" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+   <cc:Work>
+    <dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/>
+    <dc:format>image/svg+xml</dc:format>
+    <dc:creator>
+     <cc:Agent>
+      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+     </cc:Agent>
+    </dc:creator>
+   </cc:Work>
+  </rdf:RDF>
+ </metadata>
+ <defs>
+  <style type="text/css">*{stroke-linejoin: round; stroke-linecap: butt}</style>
+ </defs>
+ <g id="figure_1">
+  <g id="patch_1">
+   <path d="M 0 259.2 
+L 720 259.2 
+L 720 0 
+L 0 0 
+z
+" style="fill: #fcfcfb"/>
+  </g>
+  <g id="axes_1">
+   <g id="patch_2">
+    <path d="M 8.64 141.264 
+L 11.88 141.264 
+L 11.88 89.424 
+L 8.64 89.424 
+z
+" clip-path="url(#pbdddea4a11)" style="fill: #2a78d6"/>
+   </g>
+   <g id="patch_3">
+    <path d="M 8.64 208.656 
+L 11.88 208.656 
+L 11.88 156.816 
+L 8.64 156.816 
+z
+" clip-path="url(#pbdddea4a11)" style="fill: #eb6834"/>
+   </g>
+   <g id="line2d_1">
+    <path d="M 8.64 79.056 
+L 711.36 79.056 
+" clip-path="url(#pbdddea4a11)" style="fill: none; stroke: #c3c2b7; stroke-width: 0.9; stroke-linecap: square"/>
+   </g>
+   <g id="line2d_2">
+    <path d="M 8.64 226.8 
+L 711.36 226.8 
+" clip-path="url(#pbdddea4a11)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
+   </g>
+   <g id="text_1">
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="22.30375" transform="rotate(-0 8.64 22.30375)">Lewis 35A, design M — every visible deployment input is a training input</text>
+   </g>
+   <g id="text_2">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="154.8" y="65.939906" transform="rotate(-0 154.8 65.939906)">surrogate error</text>
+   </g>
+   <g id="text_3">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="291.6" y="66.167719" transform="rotate(-0 291.6 66.167719)">input-based OOD detector</text>
+   </g>
+   <g id="text_4">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="435.6" y="66.058031" transform="rotate(-0 435.6 66.058031)">PhysMAP materiality</text>
+   </g>
+   <g id="text_5">
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="576" y="66.058031" transform="rotate(-0 576 66.058031)">illustrative θ = 0.10</text>
+   </g>
+   <g id="text_6">
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 96.194109)">gravity off — the</text>
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 106.952611)">control (CFD)</text>
+   </g>
+   <g id="text_7">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 96.194109)">within 0.06 % at every</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 106.805264)">comparable station</text>
+   </g>
+   <g id="text_8">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 96.080766)">distance 0.003–0.167</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 106.618828)">against 0.408: quiet at</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 117.265875)">p99</text>
+   </g>
+   <g id="text_9">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="435.6" y="96.108375" transform="rotate(-0 435.6 96.108375)">0 at every station</text>
+   </g>
+   <g id="text_10">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="576" y="96.194109" transform="rotate(-0 576 96.194109)">flags nothing</text>
+   </g>
+   <g id="text_11">
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 163.472766)">gravity on — Lewis's</text>
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 174.08392)">measurement</text>
+   </g>
+   <g id="text_12">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 163.472766)">17–18 % at x/D 67.55,</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 173.974936)">101.69, 135.84</text>
+   </g>
+   <g id="text_13">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 163.472766)">the same scores, at</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 173.974936)">every station and every</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 184.586091)">percentile</text>
+   </g>
+   <g id="text_14">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(435.6 163.500375)">0.006 to 0.195, rising</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(435.6 174.11153)">down the tube</text>
+   </g>
+   <g id="text_15">
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(576 163.586109)">would flag x/D 67.55,</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(576 174.197264)">101.69, 135.84</text>
+   </g>
+   <g id="text_16">
+    <text style="font-size: 8.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="238.031328" transform="rotate(-0 8.64 238.031328)">One run: its stations are not independent cases. No precision, recall or F1. Only gravity differs between the rows, and gravity is not an input.</text>
+   </g>
+  </g>
+  <g id="text_17">
+   <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="254.616319" transform="rotate(-0 8.64 254.616319)">Source: results/lewis35A_head_to_head/stress_test_lewis_reuse.json; table: docs/talk/figures/data/lewis_5_control_table.csv</text>
+  </g>
+ </g>
+ <defs>
+  <clipPath id="pbdddea4a11">
+   <rect x="0" y="0" width="720" height="259.2"/>
+  </clipPath>
+ </defs>
+</svg>

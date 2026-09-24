@@ -1,0 +1,8 @@
+cloudpickle==3.1.2
+joblib==1.6.0
+numpy==2.2.6
+-e git+https://github.com/cloudronin/physmap.git@47ae207487a3be6862cab3ce410911da420277f7#egg=physmap
+PyYAML==6.0.3
+scikit-learn==1.7.2
+scipy==1.15.3
+threadpoolctl==3.7.0

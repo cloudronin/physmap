@@ -1,0 +1,4412 @@
+{
+ "stress_test": "lewis-reuse",
+ "kind": "controlled model-reuse stress test",
+ "framing": "The surrogate was trained for forced convection, where gravity did not vary and was not an input. It was then reused in vertical heated flow, where buoyancy became material. A mixed-convection surrogate designed for this regime should include Richardson number, Grashof number, or equivalent physical information.",
+ "claim": "PhysMAP detects when model reuse activates a physically relevant mechanism outside the surrogate's observable input space. An input-only OOD detector cannot identify a change absent from its input contract.",
+ "not_claimed": [
+  "OOD detectors do not fail in general; this one does exactly its job.",
+  "Gravity should not be omitted: a mixed-convection surrogate built correctly exposes Ri, Gr or equivalent physical information.",
+  "Nothing is claimed about NVIDIA PhysicsNeMo; its OOD and physics checks are distinct and were not run."
+ ],
+ "status": "Development demonstration. One run (Lewis 35A), already inspected during development. Its stations are not independent cases. No performance metric is computed or implied.",
+ "input_contract": {
+  "surrogate_inputs": [
+   "Re",
+   "Pr",
+   "x_over_D"
+  ],
+  "ood_detector_inputs": [
+   "Re",
+   "Pr",
+   "x_over_D"
+  ],
+  "ood_detector_features": [
+   "log10_Re",
+   "Pr",
+   "x_over_D"
+  ],
+  "withheld_from_both": [
+   "gravity",
+   "Ri",
+   "Gr",
+   "wall heat flux",
+   "flow direction"
+  ],
+  "deployment_inputs": {
+   "Re": 1143.4,
+   "Pr": 8.46,
+   "x_over_D": [
+    0.31,
+    0.85,
+    2.45,
+    5.65,
+    9.92,
+    16.32,
+    33.39,
+    50.47,
+    67.55,
+    101.69,
+    135.84,
+    159.33
+   ]
+  },
+  "design_M_every_visible_input_exactly_in_training": true,
+  "design_A3_visible_inputs_in_training": 0
+ },
+ "matched_ablation": {
+  "provenance": "matched_ablation",
+  "energy_closure_reference": "inlet-property energy balance; see energy_closure_definition",
+  "cases": [
+   "pair_gON",
+   "pair_gOFF"
+  ],
+  "only_difference": "constant/g -- (0 -9.81 0) versus (0 0 0); a recursive diff of system/, 0/ and constant/ excluding the generated mesh is otherwise empty, checked when this file was written",
+  "iterations": 3000,
+  "iteration_check": "the gravity-on half at 3000 reproduces a 25000-iteration run to within 0.063 % at every station",
+  "full": {
+   "case": "pair_gON",
+   "gravity_on": true,
+   "iterations": 3000,
+   "energy_closure_pct": 0.1461,
+   "final_initial_residuals": {
+    "Ux_initial": 0.0067845035,
+    "Uy_initial": 0.00017743509,
+    "h_initial": 4.1800615e-05,
+    "p_rgh_initial": 3.2622572e-05
+   },
+   "reversed_cells_in_heated_section": 0
+  },
+  "removed": {
+   "case": "pair_gOFF",
+   "gravity_on": false,
+   "iterations": 3000,
+   "energy_closure_pct": 0.3004,
+   "final_initial_residuals": {
+    "Ux_initial": 6.8182414e-07,
+    "Uy_initial": 1.3029978e-08,
+    "h_initial": 6.946617e-08,
+    "p_rgh_initial": 1.3119603e-07
+   },
+   "reversed_cells_in_heated_section": 0
+  }
+ },
+ "inputs_sha256": "fcd9ef14daf5a56a746186dc5fd9da2485d8ee9876b7015baa09931b603cb30c",
+ "ood_detector": {
+  "object": "physmap.benchmarks.benchmark_v0_4._DETECTORS, unchanged",
+  "operating_percentiles": [
+   50,
+   75,
+   90,
+   95,
+   99,
+   100
+  ],
+  "reference_pct": 99.0
+ },
+ "physmap": {
+  "applicability": "applicable",
+  "reason_code": "satisfied",
+  "calibration_window": "0 <= richardson_number <= 0",
+  "Ri_gravity_on": 0.28657904462321093,
+  "outside_calibration": {
+   "gravity_on": true,
+   "gravity_off": false
+  }
+ },
+ "headline_design_M": {
+  "training_runs": 13,
+  "training_rows": 532,
+  "ood": {
+   "comparable_stations_fired_by_pct": {
+    "50": {
+     "gravity_off": 6,
+     "gravity_on": 6
+    },
+    "75": {
+     "gravity_off": 3,
+     "gravity_on": 3
+    },
+    "90": {
+     "gravity_off": 0,
+     "gravity_on": 0
+    },
+    "95": {
+     "gravity_off": 0,
+     "gravity_on": 0
+    },
+    "99": {
+     "gravity_off": 0,
+     "gravity_on": 0
+    },
+    "100": {
+     "gravity_off": 0,
+     "gravity_on": 0
+    }
+   },
+   "identical_between_gravity_states": true
+  },
+  "stations": [
+   {
+    "x_over_D": 0.31,
+    "comparable": false,
+    "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
+    "surrogate_prediction": 54.95559424934452,
+    "control_gravity_off_truth": 54.97400055660621,
+    "control_error_pct": -0.03348184064343451,
+    "experiment_Nu": 33.72,
+    "experimental_error_pct": 62.976258153453514,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.00043163983506955164,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0008859597764462341,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.0013951427554482754,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 0.85,
+    "comparable": false,
+    "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
+    "surrogate_prediction": 36.52207069065153,
+    "control_gravity_off_truth": 36.55291800583049,
+    "control_error_pct": -0.0843908417216932,
+    "experiment_Nu": 32.69,
+    "experimental_error_pct": 11.722455462378512,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.001133576049406096,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.001567222643510485,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.0025909167598138216,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 2.45,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 24.353220082566608,
+    "control_gravity_off_truth": 24.35912026436245,
+    "control_error_pct": -0.024221653868483628,
+    "experiment_Nu": 22.15,
+    "experimental_error_pct": 9.946817528517427,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.0033009696839216562,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0025360792287198028,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.0058982336887503095,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 5.65,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 17.8472277967762,
+    "control_gravity_off_truth": 17.8572627949338,
+    "control_error_pct": -0.05619561224381453,
+    "experiment_Nu": 19.07,
+    "experimental_error_pct": -6.412019943491353,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.007818239106261648,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.0035842936598008746,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.012105359332462817,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 9.92,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 14.527636779383984,
+    "control_gravity_off_truth": 14.534069199954224,
+    "control_error_pct": -0.0442575336730866,
+    "experiment_Nu": 14.92,
+    "experimental_error_pct": -2.629780299034956,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.018484627748934793,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "75": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.012669909714754679,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.004404038964741504,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.020225077316751494,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 16.32,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 12.170372974139907,
+    "control_gravity_off_truth": 12.17563370580396,
+    "control_error_pct": -0.04320704606566306,
+    "experiment_Nu": 13.95,
+    "experimental_error_pct": -12.757182981075932,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.020532323199410545,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.005257119639022994,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.03198154152704169,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 33.39,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 9.578645757464876,
+    "control_gravity_off_truth": 9.580604216163485,
+    "control_error_pct": -0.020441912163582376,
+    "experiment_Nu": 10.76,
+    "experimental_error_pct": -10.979128648095937,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.04590701395513297,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.006681090684056242,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.06100207327542362,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 50.47,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 8.443279201916095,
+    "control_gravity_off_truth": 8.444175886445544,
+    "control_error_pct": -0.010618970299858255,
+    "experiment_Nu": 9.38,
+    "experimental_error_pct": -9.986362452920105,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.08499028047185452,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "90": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.06333669914597073,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.007580237032839026,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.08680915434298242,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 67.55,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 7.776468450883519,
+    "control_gravity_off_truth": 7.776950364076799,
+    "control_error_pct": -0.006196685985115913,
+    "experiment_Nu": 9.37,
+    "experimental_error_pct": -17.006740118639062,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.08738397715494835,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.008230574155741497,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.11089545774333265,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   },
+   {
+    "x_over_D": 101.69,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 7.000516750589364,
+    "control_gravity_off_truth": 7.000797142675188,
+    "control_error_pct": -0.0040051451300371355,
+    "experiment_Nu": 8.41,
+    "experimental_error_pct": -16.75961057563182,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.14161080084934477,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009143062017134983,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.15434751126570656,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   },
+   {
+    "x_over_D": 135.84,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 6.550747678494179,
+    "control_gravity_off_truth": 6.548810328666752,
+    "control_error_pct": 0.029583233140018095,
+    "experiment_Nu": 7.99,
+    "experimental_error_pct": -18.013170481925165,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.16713516852935437,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.009771673815203842,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.1947661427792411,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   },
+   {
+    "x_over_D": 159.33,
+    "comparable": false,
+    "why_not": "'suspect' -- flange heat loss (Lewis Sec 7.1.1)",
+    "surrogate_prediction": 6.339329989294386,
+    "control_gravity_off_truth": 6.3266644059582156,
+    "control_error_pct": 0.2001936964483697,
+    "experiment_Nu": 8.82,
+    "experimental_error_pct": -28.12551032546048,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.018484627748934793,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.08499028047185452,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.22320216659261014,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "95": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.30794615585369467,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "99": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.4079668602128621,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     },
+     "100": {
+      "distance": {
+       "score": 0.19497678878953306,
+       "threshold": 0.48474097540365824,
+       "fired": false
+      },
+      "gp_variance": {
+       "score": 0.010117103985989933,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": false
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.22114884622152486,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   }
+  ]
+ },
+ "secondary_design_A3": {
+  "training_runs": 12,
+  "training_rows": 480,
+  "ood": {
+   "comparable_stations_fired_by_pct": {
+    "50": {
+     "gravity_off": 9,
+     "gravity_on": 9
+    },
+    "75": {
+     "gravity_off": 9,
+     "gravity_on": 9
+    },
+    "90": {
+     "gravity_off": 9,
+     "gravity_on": 9
+    },
+    "95": {
+     "gravity_off": 9,
+     "gravity_on": 9
+    },
+    "99": {
+     "gravity_off": 9,
+     "gravity_on": 9
+    },
+    "100": {
+     "gravity_off": 9,
+     "gravity_on": 9
+    }
+   },
+   "identical_between_gravity_states": true
+  },
+  "stations": [
+   {
+    "x_over_D": 0.31,
+    "comparable": false,
+    "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
+    "surrogate_prediction": 54.94680950315721,
+    "control_gravity_off_truth": 54.97400055660621,
+    "control_error_pct": -0.049461660373428806,
+    "experiment_Nu": 33.72,
+    "experimental_error_pct": 62.950206118497064,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.596752427187645,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0009180451040943462,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.0013951427554482754,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 0.85,
+    "comparable": false,
+    "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
+    "surrogate_prediction": 36.516846909774465,
+    "control_gravity_off_truth": 36.55291800583049,
+    "control_error_pct": -0.09868185092711812,
+    "experiment_Nu": 32.69,
+    "experimental_error_pct": 11.706475710536758,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5967574961199208,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.0020331809072263833,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.0025909167598138216,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 2.45,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 24.349982533285182,
+    "control_gravity_off_truth": 24.35912026436245,
+    "control_error_pct": -0.037512566045483364,
+    "experiment_Nu": 22.15,
+    "experimental_error_pct": 9.932201053206246,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5968042802431373,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.005269303736173004,
+       "threshold": 0.05,
+       "fired": false
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.0058982336887503095,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 5.65,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 17.84395929664667,
+    "control_gravity_off_truth": 17.8572627949338,
+    "control_error_pct": -0.07449909003357513,
+    "experiment_Nu": 19.07,
+    "experimental_error_pct": -6.429159430274412,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5970354283252339,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.18658281681067077,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.012105359332462817,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 9.92,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 14.525149308282929,
+    "control_gravity_off_truth": 14.534069199954224,
+    "control_error_pct": -0.06137229394314048,
+    "experiment_Nu": 14.92,
+    "experimental_error_pct": -2.646452357353024,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5978656243764208,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.6334283253344085,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.020225077316751494,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 16.32,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 12.16856095591091,
+    "control_gravity_off_truth": 12.17563370580396,
+    "control_error_pct": -0.05808937804755443,
+    "experiment_Nu": 13.95,
+    "experimental_error_pct": -12.770172359061572,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.5994920804555149,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.9458185706762008,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.03198154152704169,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 33.39,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 9.578039798907465,
+    "control_gravity_off_truth": 9.580604216163485,
+    "control_error_pct": -0.026766759153806774,
+    "experiment_Nu": 10.76,
+    "experimental_error_pct": -10.984760233201996,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6067019677737121,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.6339450342318294,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.06100207327542362,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 50.47,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 8.443210645982983,
+    "control_gravity_off_truth": 8.444175886445544,
+    "control_error_pct": -0.011430842696091847,
+    "experiment_Nu": 9.38,
+    "experimental_error_pct": -9.987093326407436,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6218029680966294,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.7323847546651505,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.08680915434298242,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": false
+   },
+   {
+    "x_over_D": 67.55,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 7.776652968608181,
+    "control_gravity_off_truth": 7.776950364076799,
+    "control_error_pct": -0.0038240628356334128,
+    "experiment_Nu": 9.37,
+    "experimental_error_pct": -17.004770879315036,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6312241330232576,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.4785204582164735,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.11089545774333265,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   },
+   {
+    "x_over_D": 101.69,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 7.001085247587728,
+    "control_gravity_off_truth": 7.000797142675188,
+    "control_error_pct": 0.00411531582287239,
+    "experiment_Nu": 8.41,
+    "experimental_error_pct": -16.752850801572794,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6534424708589014,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 1.5023056693718162,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.15434751126570656,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   },
+   {
+    "x_over_D": 135.84,
+    "comparable": true,
+    "why_not": null,
+    "surrogate_prediction": 6.5519973134116665,
+    "control_gravity_off_truth": 6.548810328666752,
+    "control_error_pct": 0.0486650946502909,
+    "experiment_Nu": 7.99,
+    "experimental_error_pct": -17.997530495473512,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6804593622390757,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.238052643745413,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.1947661427792411,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   },
+   {
+    "x_over_D": 159.33,
+    "comparable": false,
+    "why_not": "'suspect' -- flange heat loss (Lewis Sec 7.1.1)",
+    "surrogate_prediction": 6.3425926631740195,
+    "control_gravity_off_truth": 6.3266644059582156,
+    "control_error_pct": 0.2517639026467622,
+    "experiment_Nu": 8.82,
+    "experimental_error_pct": -28.08851855811769,
+    "ood_gravity_off": {
+     "50": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "ood_gravity_on": {
+     "50": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.018710089600622072,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "75": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.08977671906660174,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "90": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.22985589168611076,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "95": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.31255418055321077,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "99": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.4727696214539505,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     },
+     "100": {
+      "distance": {
+       "score": 0.6990968575225452,
+       "threshold": 0.4727708681523188,
+       "fired": true
+      },
+      "gp_variance": {
+       "score": 0.8194929919949155,
+       "threshold": 0.05,
+       "fired": true
+      },
+      "fired": true
+     }
+    },
+    "materiality_gravity_off": 0.0,
+    "materiality_gravity_on": 0.22114884622152486,
+    "physmap_flag_gravity_off_at_illustrative_theta": false,
+    "physmap_flag_gravity_on_at_illustrative_theta": true
+   }
+  ]
+ },
+ "threshold_dependence": [
+  {
+   "result": "OOD scores identical between gravity off and gravity on",
+   "threshold": "none",
+   "depends_on_unlocked_threshold": false,
+   "note": "exact equality of every score"
+  },
+  {
+   "result": "every visible deployment input is a training input (design M)",
+   "threshold": "none",
+   "depends_on_unlocked_threshold": false,
+   "note": "exact set membership"
+  },
+  {
+   "result": "materiality: 0 with gravity off, continuous values with gravity on",
+   "threshold": "none",
+   "depends_on_unlocked_threshold": false,
+   "note": "reported as values"
+  },
+  {
+   "result": "control and experimental errors",
+   "threshold": "none",
+   "depends_on_unlocked_threshold": false,
+   "note": "reported as values; no right/wrong label, the tolerance being unlocked"
+  },
+  {
+   "result": "OOD fired or quiet at a station",
+   "threshold": "operating percentile -- shipped reference 99, fixed in code before this work",
+   "depends_on_unlocked_threshold": false,
+   "note": "the full sweep is reported; the fired/quiet pattern is identical between gravity states at every percentile"
+  },
+  {
+   "result": "PhysMAP flags nothing with gravity off",
+   "threshold": "none",
+   "depends_on_unlocked_threshold": false,
+   "note": "holds for every theta: materiality is 0 and Ri = 0 is inside the window"
+  },
+  {
+   "result": "PhysMAP flags at least one comparable station with gravity on",
+   "threshold": "theta -- UNLOCKED",
+   "depends_on_unlocked_threshold": true,
+   "holds_for_theta_up_to": 0.1947661427792411
+  },
+  {
+   "result": "which stations PhysMAP flags",
+   "threshold": "theta -- UNLOCKED",
+   "depends_on_unlocked_threshold": true,
+   "note": "a station flags for theta up to its own materiality; shown at theta = 0.10, illustrative only"
+  }
+ ]
+}
