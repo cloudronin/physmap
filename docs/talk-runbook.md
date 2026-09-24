@@ -443,9 +443,11 @@ claim that the method knows when to hold back is the one claim in the matrix not
 supported. `physmap benchmark coverage` prints that, unprompted.
 
 **"Why is the corpus not fully open?"**
-The library is open, the calibration corpus is the commercial moat. Fifteen closures ship
-with their bounds, and a verdict-free index of 201 closures ships alongside. The seed is an
-allowlist, and everything published passes through it — including the evidence corpus.
+Everything this repository uses is open: the code is MIT and the corpus data CC BY 4.0.
+Fifteen closures ship with their bounds, plus an index of 201 closures with no bounds. A larger
+53-closure corpus exists and is not published — and nothing here needs it. The benchmark, the
+Lewis stress test and the examples all run on the published fifteen, and CI checks that on a
+clean checkout. What gets published passes through an allowlist, the evidence corpus included.
 
 **"What licence?"**
 MIT for the code, CC BY 4.0 for the corpus. Digitised third-party measurements are under
