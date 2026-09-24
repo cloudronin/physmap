@@ -33,8 +33,11 @@ jobs:
           python -m pip install -e ".[dev]"
           # Failures become annotations on the commit, readable without access to the logs.
           python -m pip install pytest-github-actions-annotate-failures
+      # One worker per test file. The Lewis stress test computes its record once per worker in
+      # a module-scoped fixture; spread across four workers it ran four times at once and a CI
+      # run took 30-46 minutes.
       - name: Run the fast suite
-        run: pytest tests/ -q -n auto -m 'not slow'
+        run: pytest tests/ -q -n auto --dist loadfile -m 'not slow'
 
   # rdflib, pyshacl, uofa and the deep-learning stack are absent from this job on
   # purpose. A guard that only passes because the forbidden package is installed but
