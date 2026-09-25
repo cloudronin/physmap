@@ -1484,6 +1484,13 @@ def _load_dirker_water_rows(csv_path: Path) -> list[dict]:
     return rows
 
 
+def dirker_forced_fit(log10_re, nu) -> np.ndarray:
+    """The Dirker surrogate: a degree-1 least-squares fit of Nu against log10(Re). Returns
+    the coefficients (a, b) of Nu = a*log10(Re) + b, for np.polyval. Module-level so the
+    home baseline can refit it without one row."""
+    return np.polyfit(np.asarray(log10_re, dtype=float), np.asarray(nu, dtype=float), deg=1)
+
+
 def dirker_water_richardson_bands(config: VehicleConfig,
                                   registry: dict[str, ClosureEntry]) -> tuple[list[Row], dict, SubstrateMeta]:
     """Engine-driven Dirker/Meyer/Reid (2018) MIDDLE-axis loader (Path A).
@@ -1534,7 +1541,7 @@ def dirker_water_richardson_bands(config: VehicleConfig,
         )
     x_train = np.array([np.log10(d["Re"]) for d in train], dtype=float)
     y_train = np.array([d["Nu_meas"] for d in train], dtype=float)
-    coeffs = np.polyfit(x_train, y_train, deg=1)          # Nu ~ a*log10(Re) + b
+    coeffs = dirker_forced_fit(x_train, y_train)          # Nu ~ a*log10(Re) + b
     surrogate_calib_lo = float(min(d["Re"] for d in train))
     surrogate_calib_hi = float(max(d["Re"] for d in train))
 
@@ -1790,6 +1797,24 @@ def _casper_freestream_pct(flow: str, mach: float, re_per_m_e6: float) -> float:
     return float(np.interp(re_per_m_e6, xs, [table[x] for x in xs]))
 
 
+def casper_gp_fit(X, y):
+    """The Casper surrogate: a GP on (Mach, unit Reynolds, axial x) with the G6 v0.2 kernel.
+    Returns predict(X) on raw inputs. Module-level so the home baseline can refit it
+    without one row."""
+    from sklearn.gaussian_process import GaussianProcessRegressor
+    from sklearn.gaussian_process.kernels import RBF, WhiteKernel, ConstantKernel
+
+    X = np.asarray(X, dtype=float)
+    mu, sd = X.mean(0), X.std(0)
+    sd = np.where(sd > 0, sd, 1.0)
+    gp = GaussianProcessRegressor(
+        kernel=ConstantKernel(0.001, (1e-6, 1.0)) * RBF([1.0, 1.0, 1.0], (0.1, 10.0))
+        + WhiteKernel(1e-5, (1e-8, 1e-2)),
+        normalize_y=True, n_restarts_optimizer=4, random_state=0,
+    ).fit((X - mu) / sd, np.asarray(y, dtype=float))
+    return lambda Xn: gp.predict((np.asarray(Xn, dtype=float) - mu) / sd)
+
+
 def casper_hypersonic_transition(config: VehicleConfig,
                                  registry: dict[str, ClosureEntry]) -> tuple[list[Row], dict, SubstrateMeta]:
     """Engine-driven Casper loader (aerospace PHYSMAP_WINS: freestream-noise transition).
@@ -1802,8 +1827,6 @@ def casper_hypersonic_transition(config: VehicleConfig,
     G6 kernel), so it over-predicts on the quiet deploy. The matched closure
     (Pate-Stainback freestream-noise bound) is the corpus/validity anchor only.
     """
-    from sklearn.gaussian_process import GaussianProcessRegressor
-    from sklearn.gaussian_process.kernels import RBF, WhiteKernel, ConstantKernel
     import csv as _csv
 
     opts = config.data_source.options
@@ -1860,21 +1883,14 @@ def casper_hypersonic_transition(config: VehicleConfig,
     # GP surrogate on (Mach, unit Reynolds, axial x), fit on NOISY (G6 v0.2 kernel).
     Xtr = np.array([[d["M"], d["re"], d["x"]] for d in noisy], dtype=float)
     ytr = np.array([d["truth"] for d in noisy], dtype=float)
-    mu, sd = Xtr.mean(0), Xtr.std(0)
-    sd = np.where(sd > 0, sd, 1.0)
-    gp = GaussianProcessRegressor(
-        kernel=ConstantKernel(0.001, (1e-6, 1.0)) * RBF([1.0, 1.0, 1.0], (0.1, 10.0))
-        + WhiteKernel(1e-5, (1e-8, 1e-2)),
-        normalize_y=True, n_restarts_optimizer=4, random_state=0,
-    ).fit((Xtr - mu) / sd, ytr)
+    predict = casper_gp_fit(Xtr, ytr)
 
     matched = registry[config.matched_closure_id]   # corpus/validity anchor (Pate bound)
     fs_lo, fs_hi = matched.bound_range               # freestream-noise validated band (corpus mirror)
 
     rows: list[Row] = []
     for d in raw:
-        xz = (np.array([[d["M"], d["re"], d["x"]]], dtype=float) - mu) / sd
-        pred = float(gp.predict(xz)[0])
+        pred = float(predict(np.array([[d["M"], d["re"], d["x"]]], dtype=float))[0])
         mech = Mechanism(
             name="casper_freestream_noise_validity_anchor",
             closure_id=config.matched_closure_id,
@@ -1943,6 +1959,23 @@ _MARINEAU_REASON = (
 )
 
 
+def marineau_gp_fit(X, y):
+    """The Marineau surrogate: a GP on (unit Reynolds, nose radius). Returns predict(X) on
+    raw inputs. Module-level so the home baseline can refit it without one row."""
+    from sklearn.gaussian_process import GaussianProcessRegressor
+    from sklearn.gaussian_process.kernels import RBF, WhiteKernel, ConstantKernel
+
+    X = np.asarray(X, dtype=float)
+    mu, sd = X.mean(0), X.std(0)
+    sd = np.where(sd > 0, sd, 1.0)
+    gp = GaussianProcessRegressor(
+        kernel=ConstantKernel(1.0, (1e-3, 1e3)) * RBF([1.0, 1.0], (1e-2, 1e2))
+        + WhiteKernel(1.0, (1e-5, 1e2)),
+        normalize_y=True, n_restarts_optimizer=4, random_state=0,
+    ).fit((X - mu) / sd, np.asarray(y, dtype=float))
+    return lambda Xn: gp.predict((np.asarray(Xn, dtype=float) - mu) / sd)
+
+
 def marineau_hypersonic_transition(config: VehicleConfig,
                                    registry: dict[str, ClosureEntry]) -> tuple[list[Row], dict, SubstrateMeta]:
     """Engine-driven Marineau loader (aerospace NEGATIVE CONTROL: bluntness/entropy).
@@ -1953,8 +1986,6 @@ def marineau_hypersonic_transition(config: VehicleConfig,
     GP on (unit Reynolds, nose radius) -> Re_theta,ST fit on benign. The matched
     closure (Marineau entropy-layer/shock bound) is the corpus/validity anchor.
     """
-    from sklearn.gaussian_process import GaussianProcessRegressor
-    from sklearn.gaussian_process.kernels import RBF, WhiteKernel, ConstantKernel
     import csv as _csv
 
     if config.data_source.path is None:
@@ -1990,21 +2021,14 @@ def marineau_hypersonic_transition(config: VehicleConfig,
 
     Xtr = np.array([[d["Re_per_m"], d["Rn_mm"]] for d in benign], dtype=float)
     ytr = np.array([d["truth"] for d in benign], dtype=float)
-    mu, sd = Xtr.mean(0), Xtr.std(0)
-    sd = np.where(sd > 0, sd, 1.0)
-    gp = GaussianProcessRegressor(
-        kernel=ConstantKernel(1.0, (1e-3, 1e3)) * RBF([1.0, 1.0], (1e-2, 1e2))
-        + WhiteKernel(1.0, (1e-5, 1e2)),
-        normalize_y=True, n_restarts_optimizer=4, random_state=0,
-    ).fit((Xtr - mu) / sd, ytr)
+    predict = marineau_gp_fit(Xtr, ytr)
 
     matched = registry[config.matched_closure_id]
     st_lo, st_hi = matched.bound_range               # S_T/X_SW validated band (corpus mirror)
 
     rows: list[Row] = []
     for d in raw:
-        xz = (np.array([[d["Re_per_m"], d["Rn_mm"]]], dtype=float) - mu) / sd
-        pred = float(gp.predict(xz)[0])
+        pred = float(predict(np.array([[d["Re_per_m"], d["Rn_mm"]]], dtype=float))[0])
         mech = Mechanism(
             name="marineau_entropy_layer_shock_validity_anchor",
             closure_id=config.matched_closure_id,

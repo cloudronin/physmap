@@ -48,6 +48,12 @@ def build_parser() -> argparse.ArgumentParser:
         "report", help="print all seven outcomes, marking which are recomputed here")
     bench_sub.add_parser(
         "coverage", help="print what the rerunnable subset does and does not cover")
+    bench_arch = bench_sub.add_parser(
+        "architectures",
+        help="retrain three model types per vehicle and compare with the banked result "
+             "(about 20 minutes; needs PyTorch)")
+    bench_arch.add_argument("--banked", action="store_true",
+                            help="print the banked result without recomputing it")
 
     # A stress test is a controlled demonstration of the CAUSAL path. It is deliberately not a
     # `benchmark` action: that command measures closure validity and observability, and a
@@ -82,7 +88,7 @@ def main(argv: list[str] | None = None) -> int:
     if not args.command:
         parser.print_help()
         return 0
-    from physmap._paths import CheckoutRequired
+    from physmap._paths import CheckoutRequired, TorchRequired
     try:
         if args.command == "screen":
             return _cmd_screen(args)
@@ -92,9 +98,9 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_explain(args)
         if args.command == "stress-test":
             return _cmd_stress_test(args)
-    except CheckoutRequired as e:
-        # A pip-installed wheel has no checkout. One sentence saying what is missing and how
-        # to get it, not a traceback.
+    except (CheckoutRequired, TorchRequired) as e:
+        # A pip-installed wheel has no checkout, and PyTorch is an optional extra. One
+        # sentence saying what is missing and how to get it, not a traceback.
         print(f"physmap {args.command}: {e}", file=sys.stderr)
         return 1
     print(f"'{args.command}' is not implemented yet in this build.", file=sys.stderr)
@@ -184,6 +190,9 @@ def _cmd_benchmark(args) -> int:
         print(coverage_note())
         return 0
 
+    if args.action == "architectures":
+        return _cmd_benchmark_architectures(args)
+
     # `run`. Recompute every vehicle from the checkout, then compare against the
     # banked matrix. The comparison is the point: a benchmark that runs but is never
     # checked against its own bank will drift silently.
@@ -224,9 +233,54 @@ def _cmd_benchmark(args) -> int:
         for d in cmp.within_tolerance[:5]:
             print(f"  {d}")
 
+    # The home baseline is derived from the same data; it is recomputed and checked against
+    # its own bank, which sits beside the matrix and changes none of it.
+    from physmap.benchmarks.home_baseline import compare_with_bank as compare_home
+    from physmap.benchmarks.home_baseline import compute as compute_home
+    print()
+    print("Recomputing the home baseline (refits the fitted surrogates without each home row) ...")
+    home_cmp = compare_home(compute_home())
+    if home_cmp.matches:
+        print(f"The home baseline matches its bank: {home_cmp.summary()}.")
+    else:
+        print(f"DRIFT in the home baseline: {home_cmp.summary()}")
+        for d in home_cmp.drift[:10]:
+            print(f"  {d}")
+
     if args.report:
         print()
         print(render_report(rerun_results=cells))
+    return 0 if (cmp.matches and home_cmp.matches) else 1
+
+
+def _cmd_benchmark_architectures(args) -> int:
+    from physmap.benchmarks.architecture_axis import (
+        compare_with_bank,
+        load_banked_axis,
+        render_axis,
+        run_axis,
+    )
+
+    if args.banked:
+        print(render_axis(load_banked_axis(), recomputed=False))
+        return 0
+    from physmap._paths import CheckoutRequired, have_checkout
+    if not have_checkout():
+        raise CheckoutRequired("the benchmark's vehicle data")
+    print("Retraining three model types on every vehicle flagged for this axis "
+          "(about 20 minutes) ...")
+    fresh = run_axis(write=False)          # never overwrites the bank it is compared with
+    cmp = compare_with_bank(fresh)
+    print(render_axis(fresh, recomputed=True))
+    print()
+    if not cmp.matches:
+        print(f"DRIFT against the banked result: {cmp.summary()}")
+        for d in cmp.drift[:10]:
+            print(f"  {d}")
+    elif cmp.bit_identical:
+        print("Every cell matches the banked result exactly.")
+    else:
+        print(f"Every cell matches the banked result: {cmp.summary()}.")
     return 0 if cmp.matches else 1
 
 

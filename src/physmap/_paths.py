@@ -17,10 +17,20 @@ from __future__ import annotations
 
 from pathlib import Path
 
-__all__ = ["repo_root", "checkout_path", "have_checkout", "CheckoutRequired"]
+__all__ = ["repo_root", "checkout_path", "have_checkout", "CheckoutRequired", "TorchRequired"]
 
 _MARKERS = ("pyproject.toml", ".git")
 REPO_URL = "https://github.com/cloudronin/physmap"
+
+
+class TorchRequired(ImportError):
+    """PyTorch, an optional extra, was needed -- by the DeepONet column of the architecture
+    axis. Raised before any work starts; the CLI prints this one sentence."""
+
+    def __init__(self):
+        super().__init__(
+            "the DeepONet column needs PyTorch, which is not installed. Install it with "
+            "`pip install \"physmap[architectures]\"` and run this again.")
 
 
 class CheckoutRequired(FileNotFoundError):

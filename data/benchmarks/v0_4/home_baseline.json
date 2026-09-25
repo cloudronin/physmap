@@ -1,0 +1,172 @@
+{
+  "benchmark": "PhysMAP Benchmark v0.4 -- home baseline",
+  "derived": "Derived from the committed vehicle data. Adds fields beside the banked matrix and changes none of it; no row is removed.",
+  "added": "2026-09-25",
+  "rule": "A vehicle supports a deployment-induced blind-spot reading iff its deployment error rate exceeds its held-out home error rate with a one-sided Fisher exact p < 0.05. Fixed on 2026-09-25, after these home counts were first seen.",
+  "reference_pct": 99,
+  "cells": [
+    {
+      "vehicle_id": "casper_hypersonic_transition",
+      "surrogate": "a Gaussian process on (Mach, unit Reynolds, axial x)",
+      "home_definition": "the noisy-tunnel rows, which the Gaussian process is fitted to",
+      "home_evaluation_provenance": "in-sample fit error; held-out home error by leave-one-out refit",
+      "threshold_pct": 30.594117,
+      "home_in_sample": {
+        "n": 159,
+        "n_wrong": 2
+      },
+      "home_held_out": {
+        "n": 159,
+        "n_wrong": 6,
+        "method": "leave-one-out refit"
+      },
+      "home_inside_validated_range": 159,
+      "deployment": {
+        "n": 8,
+        "n_wrong": 8
+      },
+      "deployment_counts_match_bank": true,
+      "fisher_p": 2.3728759059281474e-10,
+      "supports_blind_spot": true,
+      "reason": "yes: deployment is wrong on 100% of rows against 4% held out at home (one-sided Fisher exact p = 2e-10)"
+    },
+    {
+      "vehicle_id": "dirker_water",
+      "surrogate": "a straight-line fit of Nu against log10(Re)",
+      "home_definition": "the low-Richardson rows, which the line is fitted to",
+      "home_evaluation_provenance": "in-sample fit error; held-out home error by leave-one-out refit",
+      "threshold_pct": 12.903488,
+      "home_in_sample": {
+        "n": 31,
+        "n_wrong": 0
+      },
+      "home_held_out": {
+        "n": 31,
+        "n_wrong": 0,
+        "method": "leave-one-out refit"
+      },
+      "home_inside_validated_range": 10,
+      "deployment": {
+        "n": 60,
+        "n_wrong": 11
+      },
+      "deployment_counts_match_bank": true,
+      "fisher_p": 0.007241366381202188,
+      "supports_blind_spot": true,
+      "reason": "yes: deployment is wrong on 18% of rows against 0% held out at home (one-sided Fisher exact p = 0.007)"
+    },
+    {
+      "vehicle_id": "forrest",
+      "surrogate": "the modified Sparrow-Cur correlation (2014)",
+      "home_definition": "the rows the vehicle's split assigns to training",
+      "home_evaluation_provenance": "held-out home error: published correlation, not fitted to these rows",
+      "threshold_pct": 12.727922,
+      "home_in_sample": null,
+      "home_held_out": {
+        "n": 1,
+        "n_wrong": 0,
+        "method": "published correlation, not fitted to these rows"
+      },
+      "home_inside_validated_range": null,
+      "deployment": {
+        "n": 4,
+        "n_wrong": 4
+      },
+      "deployment_counts_match_bank": false,
+      "fisher_p": 0.20000000000000004,
+      "supports_blind_spot": false,
+      "reason": "no: 1 home row cannot establish a home baseline, so it cannot show that deployment created the failure"
+    },
+    {
+      "vehicle_id": "jin_sco2_buoyancy",
+      "surrogate": "the constant-property Dittus-Boelter correlation",
+      "home_definition": "the rows the vehicle's split assigns to training",
+      "home_evaluation_provenance": "held-out home error: published correlation, not fitted to these rows",
+      "threshold_pct": 12.727922,
+      "home_in_sample": null,
+      "home_held_out": {
+        "n": 17,
+        "n_wrong": 17,
+        "method": "published correlation, not fitted to these rows"
+      },
+      "home_inside_validated_range": 11,
+      "deployment": {
+        "n": 27,
+        "n_wrong": 26
+      },
+      "deployment_counts_match_bank": true,
+      "fisher_p": 1.0,
+      "supports_blind_spot": false,
+      "reason": "no: deployment is wrong on 96% of rows and home on 100% (p = 1); deployment is not distinguishably worse, so the counts cannot show that it created the failure"
+    },
+    {
+      "vehicle_id": "marineau_hypersonic_transition",
+      "surrogate": "a Gaussian process on (unit Reynolds, nose radius)",
+      "home_definition": "the benign-regime rows, which the Gaussian process is fitted to",
+      "home_evaluation_provenance": "in-sample fit error; held-out home error by leave-one-out refit",
+      "threshold_pct": 12.727922,
+      "home_in_sample": {
+        "n": 9,
+        "n_wrong": 0
+      },
+      "home_held_out": {
+        "n": 9,
+        "n_wrong": 5,
+        "method": "leave-one-out refit"
+      },
+      "home_inside_validated_range": 9,
+      "deployment": {
+        "n": 6,
+        "n_wrong": 6
+      },
+      "deployment_counts_match_bank": true,
+      "fisher_p": 0.09230769230769229,
+      "supports_blind_spot": false,
+      "reason": "no: deployment is wrong on 100% of rows and home on 56% (p = 0.092); deployment is not distinguishably worse, so the counts cannot show that it created the failure"
+    },
+    {
+      "vehicle_id": "naca_tn1451",
+      "surrogate": "the Gnielinski correlation (1976)",
+      "home_definition": "the fully developed rows (x/D at or above the entrance cut)",
+      "home_evaluation_provenance": "held-out home error: published correlation, not fitted to these rows",
+      "threshold_pct": 17.492856,
+      "home_in_sample": null,
+      "home_held_out": {
+        "n": 29,
+        "n_wrong": 13,
+        "method": "published correlation, not fitted to these rows"
+      },
+      "home_inside_validated_range": 29,
+      "deployment": {
+        "n": 47,
+        "n_wrong": 20
+      },
+      "deployment_counts_match_bank": true,
+      "fisher_p": 0.6678686851623072,
+      "supports_blind_spot": false,
+      "reason": "no: deployment is wrong on 43% of rows and home on 45% (p = 0.67); deployment is not distinguishably worse, so the counts cannot show that it created the failure"
+    },
+    {
+      "vehicle_id": "velazquez_sco2",
+      "surrogate": "the constant-property Gnielinski correlation",
+      "home_definition": "the rows the vehicle's split assigns to training",
+      "home_evaluation_provenance": "held-out home error: published correlation, not fitted to these rows",
+      "threshold_pct": 12.727922,
+      "home_in_sample": null,
+      "home_held_out": {
+        "n": 393,
+        "n_wrong": 386,
+        "method": "published correlation, not fitted to these rows"
+      },
+      "home_inside_validated_range": 197,
+      "deployment": {
+        "n": 67,
+        "n_wrong": 67
+      },
+      "deployment_counts_match_bank": true,
+      "fisher_p": 0.32963095317691826,
+      "supports_blind_spot": false,
+      "reason": "no: deployment is wrong on 100% of rows and home on 98% (p = 0.33); deployment is not distinguishably worse, so the counts cannot show that it created the failure"
+    }
+  ]
+}

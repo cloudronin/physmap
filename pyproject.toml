@@ -48,6 +48,7 @@ physmap = "physmap.cli:main"
 jsonld = ["uofa>=0.10.0"]        # optional evidence export only
 experiment = ["matplotlib>=3.5"]  # benchmark figure only; the run works without it
 dev = ["pytest>=7.4", "pytest-xdist>=3.5"]
+architectures = ["torch>=2.2"]    # the DeepONet column of `physmap benchmark architectures`
 
 [tool.setuptools.packages.find]
 where = ["src"]

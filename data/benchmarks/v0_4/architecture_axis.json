@@ -1,0 +1,274 @@
+{
+  "benchmark": "PhysMAP Benchmark v0.4 -- architecture axis",
+  "question": "Per vehicle: do structurally different surrogates, each accurate enough to pass the same gate, leave wrong predictions that PhysMAP flags and the input-based detectors do not? The detectors never see a prediction, so their flags are the same for every model type.",
+  "reference_pct": 99,
+  "settings": {
+    "seed": 20260605,
+    "gp": "physmap.pipeline.surrogate.Surrogate: scikit-learn Gaussian process, Matern-5/2 with constant and white-noise terms, 3 optimizer restarts",
+    "gbt": {
+      "n_estimators": 200,
+      "max_depth": 2,
+      "learning_rate": 0.05
+    },
+    "deeponet": {
+      "branch_and_trunk_hidden": [
+        40,
+        40
+      ],
+      "latent": 32,
+      "activation": "tanh",
+      "optimizer": "Adam",
+      "learning_rate": 0.001,
+      "epochs": 4000,
+      "dtype": "float32"
+    },
+    "gate": "leave-one-out for gp and gbt; one seeded 80/20 holdout for deeponet"
+  },
+  "vehicles": [
+    "casper_hypersonic_transition",
+    "jin_sco2_buoyancy",
+    "naca_tn1451",
+    "velazquez_sco2"
+  ],
+  "cells": [
+    {
+      "vehicle_id": "casper_hypersonic_transition",
+      "architecture": "gp",
+      "gate1": {
+        "trainable": true,
+        "median_err_pct": 4.94,
+        "p95_err_pct": 18.29,
+        "gate1_median_max": 20.4,
+        "gate1_p95_max": 30.59,
+        "method": "loo"
+      },
+      "outcome": "TRAINABLE",
+      "gate2_n_wrong_in_deploy": 8,
+      "n_deploy": 8,
+      "deploy_median_rel_err_pct": 509.0,
+      "clean_lift_max": 8,
+      "clean_lift_by_pct": {
+        "50": 0,
+        "75": 0,
+        "90": 0,
+        "95": 0,
+        "99": 4,
+        "100": 8
+      }
+    },
+    {
+      "vehicle_id": "casper_hypersonic_transition",
+      "architecture": "deeponet",
+      "gate1": {
+        "trainable": true,
+        "median_err_pct": 4.82,
+        "p95_err_pct": 18.53,
+        "gate1_median_max": 20.4,
+        "gate1_p95_max": 30.59,
+        "method": "holdout80"
+      },
+      "outcome": "TRAINABLE",
+      "gate2_n_wrong_in_deploy": 8,
+      "n_deploy": 8,
+      "deploy_median_rel_err_pct": 683.3,
+      "clean_lift_max": 8,
+      "clean_lift_by_pct": {
+        "50": 0,
+        "75": 0,
+        "90": 0,
+        "95": 0,
+        "99": 4,
+        "100": 8
+      }
+    },
+    {
+      "vehicle_id": "casper_hypersonic_transition",
+      "architecture": "gbt",
+      "gate1": {
+        "trainable": true,
+        "median_err_pct": 8.71,
+        "p95_err_pct": 28.28,
+        "gate1_median_max": 20.4,
+        "gate1_p95_max": 30.59,
+        "method": "loo"
+      },
+      "outcome": "TRAINABLE",
+      "gate2_n_wrong_in_deploy": 8,
+      "n_deploy": 8,
+      "deploy_median_rel_err_pct": 590.7,
+      "clean_lift_max": 8,
+      "clean_lift_by_pct": {
+        "50": 0,
+        "75": 0,
+        "90": 0,
+        "95": 0,
+        "99": 4,
+        "100": 8
+      }
+    },
+    {
+      "vehicle_id": "jin_sco2_buoyancy",
+      "architecture": "gp",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 8.73,
+        "p95_err_pct": 16.06,
+        "gate1_median_max": 8.49,
+        "gate1_p95_max": 25.0,
+        "method": "loo"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "jin_sco2_buoyancy",
+      "architecture": "deeponet",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 9.71,
+        "p95_err_pct": 12.62,
+        "gate1_median_max": 8.49,
+        "gate1_p95_max": 25.0,
+        "method": "holdout80"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "jin_sco2_buoyancy",
+      "architecture": "gbt",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 10.74,
+        "p95_err_pct": 15.09,
+        "gate1_median_max": 8.49,
+        "gate1_p95_max": 25.0,
+        "method": "loo"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "naca_tn1451",
+      "architecture": "gp",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 19.47,
+        "p95_err_pct": 150.2,
+        "gate1_median_max": 11.66,
+        "gate1_p95_max": 25.0,
+        "method": "loo"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "naca_tn1451",
+      "architecture": "deeponet",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 20.58,
+        "p95_err_pct": 822.92,
+        "gate1_median_max": 11.66,
+        "gate1_p95_max": 25.0,
+        "method": "holdout80"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "naca_tn1451",
+      "architecture": "gbt",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 20.52,
+        "p95_err_pct": 141.27,
+        "gate1_median_max": 11.66,
+        "gate1_p95_max": 25.0,
+        "method": "loo"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "velazquez_sco2",
+      "architecture": "gp",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 13.71,
+        "p95_err_pct": 55.47,
+        "gate1_median_max": 8.49,
+        "gate1_p95_max": 25.0,
+        "method": "loo"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "velazquez_sco2",
+      "architecture": "deeponet",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 19.63,
+        "p95_err_pct": 66.21,
+        "gate1_median_max": 8.49,
+        "gate1_p95_max": 25.0,
+        "method": "holdout80"
+      },
+      "outcome": "NOT_TRAINABLE"
+    },
+    {
+      "vehicle_id": "velazquez_sco2",
+      "architecture": "gbt",
+      "gate1": {
+        "trainable": false,
+        "median_err_pct": 21.27,
+        "p95_err_pct": 73.78,
+        "gate1_median_max": 8.49,
+        "gate1_p95_max": 25.0,
+        "method": "loo"
+      },
+      "outcome": "NOT_TRAINABLE"
+    }
+  ],
+  "agreement": {
+    "casper_hypersonic_transition": {
+      "trainable_architectures": [
+        "gp",
+        "deeponet",
+        "gbt"
+      ],
+      "all_show_corpus_lift": true,
+      "not_trainable": []
+    },
+    "jin_sco2_buoyancy": {
+      "trainable_architectures": [],
+      "all_show_corpus_lift": false,
+      "not_trainable": [
+        "gp",
+        "deeponet",
+        "gbt"
+      ]
+    },
+    "naca_tn1451": {
+      "trainable_architectures": [],
+      "all_show_corpus_lift": false,
+      "not_trainable": [
+        "gp",
+        "deeponet",
+        "gbt"
+      ]
+    },
+    "velazquez_sco2": {
+      "trainable_architectures": [],
+      "all_show_corpus_lift": false,
+      "not_trainable": [
+        "gp",
+        "deeponet",
+        "gbt"
+      ]
+    }
+  },
+  "environment": {
+    "python": "3.11.2",
+    "machine": "arm64",
+    "numpy": "2.4.6",
+    "scipy": "1.17.1",
+    "scikit-learn": "1.9.1",
+    "torch": "2.12.0",
+    "corpus_tier": "seed"
+  }
+}

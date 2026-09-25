@@ -128,7 +128,26 @@ def _what_physmap_adds(cells: list[dict | None]) -> list[str]:
             continue
         caught = f"{ref['clean_lift']} of {ref['n_wrong']}"
         out.append(head + f"{caught:31} {ref['misaligned']}")
+    out.append("")
+    out.append("  Whether a vehicle's count shows a blind spot that deployment created depends")
+    out.append("  on its home baseline, reported next.")
     return out
+
+
+def _home_baseline_lines() -> list[str]:
+    from physmap.benchmarks.home_baseline import load_banked_home, report_lines
+    try:
+        return report_lines(load_banked_home())
+    except FileNotFoundError:
+        return ["Home baseline: not banked in this checkout."]
+
+
+def _architecture_lines() -> list[str]:
+    from physmap.benchmarks.architecture_axis import load_banked_axis, summary_lines
+    try:
+        return summary_lines(load_banked_axis())
+    except FileNotFoundError:
+        return ["Architecture axis: not banked in this checkout."]
 
 
 def render_report(rerun_results: dict[str, Any] | None = None) -> str:
@@ -195,6 +214,10 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
     out.append("")
     out.extend(_what_physmap_adds(
         [rerun_results.get(v.vehicle_id) or cells.get(v.vehicle_id) for v in VEHICLES]))
+    out.append("")
+    out.extend(_home_baseline_lines())
+    out.append("")
+    out.extend(_architecture_lines())
     out.append("")
     unlicensed = unlicensed_shipped_ids()
     if unlicensed:
