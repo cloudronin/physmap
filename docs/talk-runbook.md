@@ -132,8 +132,9 @@ are theirs.
 - `forrest`, `casper`, `dirker_water`, `jin_sco2_buoyancy` — published **against** express
   publisher terms. Risks taken deliberately, not claims the terms do not apply.
 
-Numbers only: no paper, no figure, no PDF. Removed on objection, no argument made. If
-asked, say exactly that — do not defend it as though it were a licence. `NOTICE` and
+Numbers only: no paper, no figure, no PDF. Removed on objection, no argument made — from the
+repository and every later release. A version already archived on Zenodo stays archived, and
+only Zenodo can withdraw it. If asked, say exactly that — do not defend it as though it were a licence. `NOTICE` and
 `data/REDISTRIBUTION.md` already say it, which is the answer to give.
 
 ---

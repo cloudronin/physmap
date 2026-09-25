@@ -137,6 +137,11 @@ Any rights holder who objects gets the data removed. Open an issue at
 <https://github.com/cloudronin/physmap/issues>; see NOTICE. This is a genuine commitment
 and it is also, honestly, the fallback the decision rests on.
 
+Removal has a limit, stated here so that the commitment is not read as larger than it is. It
+reaches this repository and every later release. It cannot reach a version already archived:
+each release is archived on Zenodo with its own DOI, and an archived version is a permanent
+record that only Zenodo can withdraw. The packages on PyPI do not include `data/`.
+
 ## Velázquez — the supplementary file is covered
 
 The question was whether the article's CC BY grant reaches the supplementary file the

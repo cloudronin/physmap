@@ -15,7 +15,7 @@ abstract: >-
 authors:
   - family-names: Vettrivel
     given-names: Vishnu
-version: 0.2.2
+version: 0.2.3
 license:
   - MIT
   - CC-BY-4.0

@@ -110,8 +110,9 @@ registry and report label them rather than calling everything clear:
   findings that the terms do not apply.
 
 All five redistribute **numbers only** — no paper, figure or PDF, enforced by two audits —
-and all five are removed on objection. The full basis, including the arguments against, is
-in [data/REDISTRIBUTION.md](https://github.com/cloudronin/physmap/blob/main/data/REDISTRIBUTION.md) and [NOTICE](https://github.com/cloudronin/physmap/blob/main/NOTICE).
+and all five are removed on objection, from the repository and every later release. A version
+already archived on Zenodo stays archived; only Zenodo can withdraw it. The full basis,
+including the arguments against, is in [data/REDISTRIBUTION.md](https://github.com/cloudronin/physmap/blob/main/data/REDISTRIBUTION.md) and [NOTICE](https://github.com/cloudronin/physmap/blob/main/NOTICE).
 
 **One dataset is published but not benchmark-grade.** `forrest`'s own header calls its
 values visual estimates for triage only, and its cell is degenerate — one training row, no

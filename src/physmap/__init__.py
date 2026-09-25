@@ -27,7 +27,7 @@ from physmap.release import (
     ReleaseState,
 )
 
-__version__ = "0.2.2"
+__version__ = "0.2.3"
 
 
 # The CredibilityGuardrail public surface is re-exported LAZILY (PEP 562). A bare

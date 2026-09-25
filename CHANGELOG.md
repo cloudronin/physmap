@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.3 — archived on Zenodo, with a DOI
+
+- **Every release is now archived on Zenodo.** Once a version is on PyPI, the release workflow
+  creates its GitHub release, with the version's changelog entry as the notes. Zenodo archives
+  that release and gives the version a DOI, so the software can be cited. `.zenodo.json` holds
+  the archive's metadata. This is the first archived release.
+- **NOTICE and `data/REDISTRIBUTION.md` now say what removal on objection can reach.** It
+  reaches the repository and every later release. It cannot reach a version already archived
+  on Zenodo; only Zenodo can withdraw one. The packages on PyPI do not include `data/`.
+- No code changes.
+
 ## 0.2.2 — what PhysMAP adds, up front
 
 - **The README leads with what PhysMAP adds to input-based OOD detection.** A chart and a

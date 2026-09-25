@@ -75,3 +75,8 @@ REMOVAL ON OBJECTION
     Any rights holder who objects gets the data removed. Open an issue at
     https://github.com/cloudronin/physmap/issues, or contact the maintainer.
     No argument will be made; the files come out.
+
+    Removal reaches this repository and every later release. It cannot
+    reach a version already archived: each release is archived on Zenodo
+    with its own DOI, and an archived version is a permanent record that
+    only Zenodo can withdraw. The packages on PyPI do not include data/.
