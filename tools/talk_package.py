@@ -836,7 +836,7 @@ def fig_control_vs_gravity_on(reg: _Reg, L: dict):
                         (s["x"], top), xytext=(9, -2), textcoords="offset points", fontsize=7.5,
                         color=INK["secondary"], va="top")
     ax.text(0.02, 0.05, f"gravity on, x/D {d('lewis.downstream_stations')}: "
-            f"{d('lewis.downstream_error_range_pct')} % off the measurement",
+            f"{d('lewis.downstream_error_range_pct')} % below the measurement",
             transform=ax.transAxes, fontsize=7.8, color=INK["primary"], va="bottom")
     ax.set_ylim(-34, top)
     ax.set_ylabel("%")
@@ -856,7 +856,8 @@ def fig_control_vs_gravity_on(reg: _Reg, L: dict):
         ax.plot(s["x"], s["dist_on"], "o", ms=4.2, color=INK["on"], zorder=4)
     ax.set_ylim(0, 0.5)
     ax.set_title("Input-based OOD detector: distance score", loc="left", weight="bold")
-    ax.text(0.22, 0.29, "gravity off (ring), gravity on (dot):\nthe same at every station",
+    ax.text(0.22, 0.29, "gravity off (ring), gravity on (dot): the same\nat every station — the "
+            "visible inputs are identical",
             fontsize=7.8, color=INK["secondary"], va="center")
     ax.text(0.985, 0.62, f"GP variance: max {d('lewis.ood.max_gp_all')},\n"
             f"fires above {d('lewis.ood.threshold_gp')}", transform=ax.transAxes, ha="right",
@@ -1044,7 +1045,7 @@ def fig_naca(reg: _Reg, N: dict):
     ax.set_xlabel("x/D")
     ax.set_ylabel("measured local Nu (NACA TN-1451, Fig 10)")
     fig.legend(*ax.get_legend_handles_labels(), loc="upper left",
-               bbox_to_anchor=(0.715, 0.2), fontsize=8.5)
+               bbox_to_anchor=(0.715, 0.16), fontsize=8.5)
     n = d("naca.n_entrance")
     fig.text(0.72, 0.74, f"Fired, of the {n} entrance points", fontsize=10.5, weight="bold",
              va="top")
@@ -1054,10 +1055,15 @@ def fig_naca(reg: _Reg, N: dict):
         y = 0.64 - i * 0.075
         fig.text(0.72, y, lab, fontsize=9.5, color=INK["secondary"], va="center")
         fig.text(0.975, y, d(key), fontsize=12, weight="bold", va="center", ha="right")
-    fig.text(0.72, 0.43, "Novelty density and GP variance are the\nguardrail's default "
-             "input-based detectors.\nThey see Re and Pr, which look ordinary.\nClosure "
-             "validity reads x/D against the\nclosure's validated range.", fontsize=8.5,
-             color=INK["secondary"], va="top", linespacing=1.45)
+    fig.text(0.72, 0.43, f"Gnielinski against the measurement,\nthreshold "
+             f"{d('naca.threshold_pct')} %", fontsize=10.5, weight="bold", va="top",
+             linespacing=1.3)
+    for i, (lab, key) in enumerate((("within it, fully developed", "naca.gn_home_within"),
+                                    ("over it, entrance", "naca.gn_entrance_exceed"),
+                                    ("close, not validated here", "naca.gn_acceptable_unsupported"))):
+        y = 0.325 - i * 0.06
+        fig.text(0.72, y, lab, fontsize=9.5, color=INK["secondary"], va="center")
+        fig.text(0.975, y, d(key), fontsize=11, weight="bold", va="center", ha="right")
     _save(fig, "bench_1_naca_entrance",
           f"{SRC['naca_example']} on {SRC['naca']}; plotted values: "
           "docs/talk/figures/data/bench_1_naca_entrance.csv")
@@ -1281,7 +1287,7 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             f"Four views of the same {d('lewis.n_stations')} stations of one run. Top left: the "
             f"surrogate's prediction, the gravity-off CFD control and Lewis's measurement. Top "
             f"right: the surrogate is within {d('lewis.control_error_max_abs_pct')} % of the "
-            f"control and {d('lewis.downstream_error_range_pct')} % off the measurement at x/D "
+            f"control and {d('lewis.downstream_error_range_pct')} % below the measurement at x/D "
             f"{d('lewis.downstream_stations')}. Bottom left: the OOD distance score — identical "
             f"in both states because the visible inputs are identical — and under its threshold "
             f"{d('lewis.ood.threshold_distance')} at the reference percentile {REF_PCT}, as is GP "

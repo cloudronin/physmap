@@ -1705,7 +1705,11 @@
    "naca.n_entrance",
    "naca.closure_fired",
    "naca.novelty_fired",
-   "naca.gp_fired"
+   "naca.gp_fired",
+   "naca.threshold_pct",
+   "naca.gn_home_within",
+   "naca.gn_entrance_exceed",
+   "naca.gn_acceptable_unsupported"
   ],
   "bench_2_seven_vehicles": [
    "bench.naca_tn1451.observability",

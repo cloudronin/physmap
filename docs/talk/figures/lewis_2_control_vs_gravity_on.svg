@@ -722,7 +722,7 @@ z
     </g>
    </g>
    <g id="text_15">
-    <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="414.130909" y="187.469914" transform="rotate(-0 414.130909 187.469914)">gravity on, x/D 67.55, 101.69, 135.84: 17–18 % off the measurement</text>
+    <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="414.130909" y="187.469914" transform="rotate(-0 414.130909 187.469914)">gravity on, x/D 67.55, 101.69, 135.84: 17–18 % below the measurement</text>
    </g>
    <g id="text_16">
     <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="704.683636" y="92.368696" transform="rotate(-0 704.683636 92.368696)">against the control: within 0.06 %</text>
@@ -1019,8 +1019,8 @@ z
     </g>
    </g>
    <g id="text_32">
-    <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(50.824321 288.168766)">gravity off (ring), gravity on (dot):</text>
-    <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(50.824321 296.658274)">the same at every station</text>
+    <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(50.824321 288.168766)">gravity off (ring), gravity on (dot): the same</text>
+    <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(50.824321 296.658274)">at every station — the visible inputs are identical</text>
    </g>
    <g id="text_33">
     <text style="font-size: 7.8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(253.341827 292.106208)">GP variance: max 0.0101,</text>

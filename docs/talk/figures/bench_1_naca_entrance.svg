@@ -398,31 +398,46 @@ L 496.8 356.4
    <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="209.655469" transform="rotate(-0 702 209.655469)">0</text>
   </g>
   <g id="text_24">
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 238.832737)">Novelty density and GP variance are the</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 250.39946)">guardrail's default input-based detectors.</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 261.914387)">They see Re and Pr, which look ordinary.</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 273.532908)">Closure validity reads x/D against the</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 285.047834)">closure's validated range.</text>
+   <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(518.4 239.971978)">Gnielinski against the measurement,</text>
+   <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(518.4 253.736206)">threshold 17.5 %</text>
   </g>
   <g id="text_25">
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="275.833403" transform="rotate(-0 518.4 275.833403)">within it, fully developed</text>
+  </g>
+  <g id="text_26">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="276.22168" transform="rotate(-0 702 276.22168)">40 of 40</text>
+  </g>
+  <g id="text_27">
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="300.133496" transform="rotate(-0 518.4 300.133496)">over it, entrance</text>
+  </g>
+  <g id="text_28">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="300.52168" transform="rotate(-0 702 300.52168)">9 of 45</text>
+  </g>
+  <g id="text_29">
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="324.433496" transform="rotate(-0 518.4 324.433496)">close, not validated here</text>
+  </g>
+  <g id="text_30">
+   <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="324.82168" transform="rotate(-0 702 324.82168)">36</text>
+  </g>
+  <g id="text_31">
    <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv; plotted values: docs/talk/figures/data/bench_1_naca_entrance.csv</text>
   </g>
   <g id="legend_1">
    <g id="line2d_26">
     <g>
-     <use xlink:href="#me4edb42839" x="530.95" y="334.863232" style="fill: #fcfcfb; stroke: #898781; stroke-width: 1.4"/>
+     <use xlink:href="#me4edb42839" x="530.95" y="351.063232" style="fill: #fcfcfb; stroke: #898781; stroke-width: 1.4"/>
     </g>
    </g>
-   <g id="text_26">
-    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="337.838232" transform="rotate(-0 546.25 337.838232)">training: x/D ≥ 10, 40 points</text>
+   <g id="text_32">
+    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="354.038232" transform="rotate(-0 546.25 354.038232)">training: x/D ≥ 10, 40 points</text>
    </g>
    <g id="line2d_27">
     <g>
-     <use xlink:href="#me009feb82f" x="530.95" y="347.090449" style="fill: #0b0b0b; stroke: #0b0b0b"/>
+     <use xlink:href="#me009feb82f" x="530.95" y="363.290449" style="fill: #0b0b0b; stroke: #0b0b0b"/>
     </g>
    </g>
-   <g id="text_27">
-    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="350.065449" transform="rotate(-0 546.25 350.065449)">deployment: x/D &lt; 10, 45 points</text>
+   <g id="text_33">
+    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="366.265449" transform="rotate(-0 546.25 366.265449)">deployment: x/D &lt; 10, 45 points</text>
    </g>
   </g>
  </g>
