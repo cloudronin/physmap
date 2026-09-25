@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.2.4 — the DOI on the PyPI page
+
+- **The README carries the Zenodo DOI**: a badge at the top, and a line in the Citing section.
+  `CITATION.cff` carries it too. `10.5281/zenodo.22950742` always resolves to the latest
+  version; 0.2.3 has its own, `10.5281/zenodo.22950743`. This release exists so that the PyPI
+  project page shows the same.
+- No code changes.
+
 ## 0.2.3 — archived on Zenodo, with a DOI
 
 - **Every release is now archived on Zenodo.** Once a version is on PyPI, the release workflow
