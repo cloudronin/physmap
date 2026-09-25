@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.2.2 — what PhysMAP adds, up front
+
+- **The README leads with what PhysMAP adds to input-based OOD detection.** A chart and a
+  table show, per dataset at the default setting, the wrong predictions the closure check caught
+  that the OOD detectors missed, and the right predictions it flagged anyway. Where the cause of
+  failure is hidden from the surrogate's inputs, it catches what the detectors cannot — all 20 at
+  the pipe entrance. Where the cause is an input, it adds nothing. It costs false alarms: 24 and
+  16 in two datasets. Counts per dataset, never pooled into a rate.
+- **`physmap benchmark report` prints those counts** under its table, so every number in the
+  README can be checked against the command.
+- The talk package leads with the same result, and presents the Lewis stress test as a separate,
+  causal question.
+- A slow test no longer demands a bit-identical benchmark match: on another numpy build one
+  float can differ in its last bit, and the command then reports a match within 1e-9, which
+  passes.
+
 ## 0.2.1 — the README says what is published
 
 - The README's corpus section drops the "open-core" framing and says what is true: the code is
