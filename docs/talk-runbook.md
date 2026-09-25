@@ -18,10 +18,11 @@ weakness in the talk — it is the talk.
 
 ### What it shows
 
-A surrogate trained on `(Re, Pr)` in a heated pipe's fully-developed region, asked about
-the entrance region. It never saw `x/D`. Neither did the input-based OOD detector.
-PhysMAP reads `x/D` from the test coordinates, checks it against the closure's validated
-range, and refuses with a reason.
+Applicability assurance. A prediction from `(Re, Pr)` alone — the Gnielinski correlation, for
+fully developed flow — asked about a heated pipe's entrance region. It never saw `x/D`. Neither
+did the input-based OOD detector. PhysMAP reads `x/D` from the test coordinates, checks it
+against the closure's validated range, and says every entrance prediction is outside the
+closure's supported region — with a reason.
 
 ### The commands
 
@@ -36,8 +37,13 @@ Expected, and verified: **45 entrance points, every one `REJECT`, every one firi
 `gp_variance fired=False`. The rationale names `gnielinski-1976`, the bound `x_over_D ≥ 10`,
 and Tam & Ghajar's reported divergence of up to −63%.
 
-The line to land on is the last one: **the input-based OOD detector is silent, and it is silent
-for a structural reason, not a tuning reason.** It cannot see the variable that broke the
+Then the last block: Gnielinski is within the numerical-error threshold on `40 of 40` fully
+developed points and exceeds it on `9 of 45` entrance points, all at x/D ≤ 5. All 45 are
+outside the supported region; the other `36` are numerically acceptable but not physically
+supported. Say that last part plainly — it is the point of applicability assurance.
+
+The line to land on: **the input-based OOD detector is silent, and it is silent for a
+structural reason, not a tuning reason.** It cannot see the variable that broke the
 surrogate. No threshold change would fix it.
 
 **What "input-based OOD detector" means, precisely.** It is the talk's one name for the
@@ -90,20 +96,25 @@ That is the strongest reproducibility moment in the talk: seven vehicles across 
 recomputed live from a clone anyone in the room can make, matching a matrix committed
 before the talk. Let it sit for a beat.
 
-**Then point at the block under the table: "What the closure-validity check adds to the
-input-based detectors".** That is the point of PhysMAP, per dataset, at percentile 99:
+**Then point at the report's top line: "Bank v0.4.1".** It says the NACA source data was
+corrected, and that the original bank is kept for audit. If asked, say it straight: the old
+NACA row came from an invalid automated read, and its "20 of 20" is withdrawn.
 
-- where the cause of failure is hidden from the inputs, the closure check flags wrong
-  predictions the OOD detectors miss — `4 of 8` in the hypersonic case;
-- then scroll to "Home baseline": only Casper and Dirker have a home baseline from which
-  deployment is distinguishably worse; NACA's `20 of 20` stands as a count, not a blind spot;
+**Then the block "What the closure-validity check adds to the input-based detectors"** — the
+supporting evidence, per dataset, at percentile 99:
+
+- Casper first: `4 of 8` wrong predictions only PhysMAP flags, from a surrogate accurate at home;
+- then scroll to "Home baseline": read each dataset's written interpretation — Casper and
+  Dirker fail on deployment; NACA is the applicability case; Jin and Velazquez are wrong almost
+  everywhere, so their counts cannot show that deployment created the failure;
 - where the cause is an input, it adds nothing — `0 of 6` for Marineau;
-- the right-hand column is the cost: false alarms, `24` and `16`.
+- the right-hand column: accurate predictions flagged anyway, `19` and `16` — outside the
+  closure's supported region.
 
-Land it: *"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP flags what
-the OOD detectors can't see. Where the surrogate was right at home, that is a blind spot
-deployment created. Where the cause is an input, it adds nothing. And it costs false alarms."* The same
-numbers are on the chart, `docs/talk/figures/bench_3_what_physmap_adds.png`.
+Land it: *"OOD asks whether inputs look familiar. PhysMAP asks whether the physics still
+applies, and whether an omitted mechanism matters. The benchmark supports it — led by Casper,
+where three model types give the same result."* The same numbers are on the charts,
+`docs/talk/figures/bench_4_home_baseline.png` and `bench_3_what_physmap_adds.png`.
 
 Takes two to three minutes. Start it, talk over it, come back to it — do not stand in
 silence. If you would rather not wait, `physmap benchmark report` shows the same table
@@ -376,8 +387,11 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "The materiality is where the error is." | "Where materiality is largest, the surrogate is 17–18 % off. At x/D 2.45 and 16.32 the error comes from the base model, not buoyancy." |
 | "Materiality predicts the surrogate's error." | "Here the two share the gravity-off CFD, so the agreement is partly built in. The test shows which output moves when the physics moves." |
 | "Lewis gives us twelve test cases." | "One run. Its stations are positions along one tube, not cases." |
-| "PhysMAP outperforms OOD detection." | "Where the cause of failure isn't one of the surrogate's inputs, it catches what the OOD detectors can't. Where it is, it adds nothing. And it costs false alarms." |
-| "Across the benchmark PhysMAP catches N of M." (a pooled rate) | "Per dataset: 4 of 8 in the hypersonic case, 2 of 11 for Dirker — with the false alarms and the home baseline beside them." |
+| "PhysMAP outperforms OOD detection." | "OOD asks whether inputs look familiar. PhysMAP asks whether the physics still applies and whether an omitted mechanism matters. Where the cause is an input, it adds nothing, and it flags accurate predictions outside a closure's supported region." |
+| "PhysMAP caught 45 prediction errors." | "Nine of the 45 entrance predictions exceed the threshold. All 45 are outside the closure's supported region; the other 36 are numerically acceptable but not physically supported." |
+| "PhysMAP catches all 20 failures at the pipe entrance." | "That number is withdrawn: it came from an invalid automated read of the figure. On the corrected data, 9 of 9 wrong predictions are flagged only by PhysMAP." |
+| "The difference is statistically significant." | "The counts are the evidence. I ran a Fisher test after seeing them, so it is exploratory and decides nothing." |
+| "Across the benchmark PhysMAP catches N of M." (a pooled rate) | "Per dataset: 4 of 8 in the hypersonic case, 2 of 11 for Dirker — with the accurate predictions it flags and the home baseline beside them." |
 | "The CFD is validated against Lewis." | "From x/D 9.92 on it is grid-converged and within 9.6 % of the measurement. That is development evidence, not validation — 35A was inspected while the model was built." |
 | "The OOD detector caught the downstream stations too." (citing percentile 75) | "At 75 it fires on its own training data there, and identically with gravity off. At the reference 99 it is quiet." |
 | "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |

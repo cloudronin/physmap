@@ -58,11 +58,11 @@ cell_bands:
 
 data_source:
   loader: naca_wpd
-  # WPD-precision banked CSV (Fig 10 bellmouth, 76 data rows). The
-  # cross-validated visual-precision CSVs for Figs 10/15/19 live in
-  # results/naca_digitization/cross_validated_fig{10,15,19}.csv; pass
-  # the path via VehicleConfig override to run them through the engine.
-  path: data/naca/wpd_fig10.csv
+  # Two-reader cross-validated read of Fig 10 (bellmouth), 85 rows -- the benchmark's NACA
+  # source from v0.4.1 on. Benchmark v0.4 used data/naca/wpd_fig10.csv, an automated read
+  # later found invalid (wrong axis calibration; points on gridline crossings and legend
+  # text). That file is kept unchanged for audit; see data/naca/CORRECTION_v0_4_1.md.
+  path: data/naca/cross_validated_fig10.csv
 
 fluid:
   name: air

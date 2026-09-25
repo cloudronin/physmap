@@ -18,14 +18,15 @@ Two kinds of home error, never mixed:
     validated range, as the corpus records it, is reported beside it.
 
 A prediction is wrong exactly as in the benchmark: its relative error exceeds the vehicle's
-existing lift threshold. No threshold is new. Some home error is expected; the question is
-whether deployment is distinguishably worse.
+existing lift threshold. No threshold is new. Some home error is expected; what matters is
+whether the vehicle has a credible home baseline from which deployment produces a failure
+the home rows do not show.
 
-Reading rule, fixed on 2026-09-25 -- after these home counts were first seen, which is why
-the counts are always shown beside it: a vehicle supports a deployment-induced blind-spot
-reading iff its deployment error rate exceeds its held-out home error rate with a
-one-sided Fisher exact p < 0.05. A vehicle that does not still keeps its detector counts;
-they cannot, on their own, show that deployment created the failure.
+No gate decides that. The counts and rates are the evidence, and each vehicle carries a
+written interpretation of them (INTERPRETATION below), reviewed against the exact counts it
+was written for: if a recomputation moves a count, a test fails until the prose is reread.
+A one-sided Fisher exact test is kept only as exploratory analysis -- it was chosen after
+the counts were seen, and it decides nothing.
 """
 
 from __future__ import annotations
@@ -43,11 +44,58 @@ from physmap.benchmarks.benchmark_v0_4 import (
     discover_benchmark_vehicles,
 )
 
-__all__ = ["SURROGATES", "ALPHA", "compute", "load_banked_home", "compare_with_bank",
-           "report_lines"]
+__all__ = ["SURROGATES", "INTERPRETATION", "compute", "load_banked_home",
+           "compare_with_bank", "report_lines"]
 
-ALPHA = 0.05
-_BANK = ("data", "benchmarks", "v0_4", "home_baseline.json")
+_BANK_NAME = "home_baseline.json"
+
+EXPLORATORY_NOTE = ("Exploratory only: a one-sided Fisher exact test of deployment error "
+                    "against held-out home error, chosen after the counts were seen. It "
+                    "decides nothing.")
+
+#: Evidence-based reading per vehicle -- prose, not a thresholded gate. `{...}` fields are
+#: filled from the computed counts; `written_for` records the (wrong, of) counts the prose
+#: was reviewed against, and tests/test_home_baseline.py fails if a recomputation moves them.
+INTERPRETATION = {
+    "casper_hypersonic_transition": {
+        "written_for": {"home": (6, 159), "deployment": (8, 8)},
+        "text": "Held out, the surrogate is wrong on {home} home rows ({home_rate}); deployed "
+                "on the quiet tunnel, on {deployment} ({deployment_rate}). The failure appears "
+                "on deployment, and its cause, freestream noise, is not a surrogate input."},
+    "dirker_water": {
+        "written_for": {"home": (0, 31), "deployment": (11, 60)},
+        "text": "Held out, the straight-line surrogate is wrong on {home} low-Richardson home "
+                "rows; deployed, on {deployment} ({deployment_rate}). The failures appear as "
+                "buoyancy grows, a cause the surrogate's inputs see only partly."},
+    "naca_tn1451": {
+        "written_for": {"home": (0, 40), "deployment": (9, 45)},
+        "text": "Gnielinski is wrong on {home} fully developed home rows and on {deployment} "
+                "entrance rows ({deployment_rate}), all near the inlet. The failures appear in "
+                "the entrance region, which the correlation does not cover."},
+    "jin_sco2_buoyancy": {
+        "written_for": {"home": (17, 17), "deployment": (26, 27)},
+        "text": "The constant-property correlation is wrong on {home} home rows ({home_rate}) "
+                "and {deployment} deployed rows ({deployment_rate}); {inside} home rows lie "
+                "inside its validated range. It is wrong almost everywhere in this "
+                "near-critical CO2 data, so the counts cannot show that deployment created "
+                "the failure."},
+    "velazquez_sco2": {
+        "written_for": {"home": (386, 393), "deployment": (67, 67)},
+        "text": "The constant-property correlation is wrong on {home} home rows ({home_rate}) "
+                "and {deployment} deployed rows ({deployment_rate}); only {inside} home rows "
+                "lie inside its validated range. It is wrong almost everywhere, so the counts "
+                "cannot show that deployment created the failure."},
+    "marineau_hypersonic_transition": {
+        "written_for": {"home": (5, 9), "deployment": (6, 6)},
+        "text": "In-sample the surrogate looks perfect ({in_sample}); held out, it is wrong on "
+                "{home} home rows ({home_rate}); deployed, on {deployment}. Nine home rows "
+                "cannot separate the two. Its role is the control where the cause is a "
+                "surrogate input: the input-based detectors see it, and PhysMAP adds nothing."},
+    "forrest": {
+        "written_for": {"home": (0, 1), "deployment": (4, 4)},
+        "text": "One home row, so there is no home baseline; its values are visual triage "
+                "estimates, not benchmark-grade."},
+}
 
 #: What each vehicle's surrogate is, read from its loader in physmap.substrate.loaders.
 #: `refit` names the loader's own fit function, for the leave-one-out home error.
@@ -154,19 +202,21 @@ def _pct(k: int, n: int) -> str:
     return f"{round(100 * k / n)}%" if n else "-"
 
 
-def _reading(cell: dict) -> tuple[bool, str]:
-    h, d = cell["home_held_out"], cell["deployment"]
-    if h["n"] < 2:
-        return False, (f"no: {h['n']} home row cannot establish a home baseline, so it cannot "
-                       f"show that deployment created the failure")
-    p = cell["fisher_p"]
-    if p < ALPHA:
-        return True, (f"yes: deployment is wrong on {_pct(d['n_wrong'], d['n'])} of rows against "
-                      f"{_pct(h['n_wrong'], h['n'])} held out at home "
-                      f"(one-sided Fisher exact p = {p:.1g})")
-    return False, (f"no: deployment is wrong on {_pct(d['n_wrong'], d['n'])} of rows and home on "
-                   f"{_pct(h['n_wrong'], h['n'])} (p = {p:.2g}); deployment is not "
-                   f"distinguishably worse, so the counts cannot show that it created the failure")
+def _counts(block: dict) -> dict:
+    """A count block with its rate: wrong rows, rows evaluated, and the fraction wrong."""
+    return {**block, "rate": round(block["n_wrong"] / block["n"], 6) if block["n"] else None}
+
+
+def interpretation(cell: dict) -> str:
+    """The vehicle's written reading, filled from its computed counts."""
+    h, d, s = cell["home_held_out"], cell["deployment"], cell["home_in_sample"]
+    inside = cell["home_inside_validated_range"]
+    return INTERPRETATION[cell["vehicle_id"]]["text"].format(
+        home=f"{h['n_wrong']} of {h['n']}", home_rate=_pct(h["n_wrong"], h["n"]),
+        deployment=f"{d['n_wrong']} of {d['n']}",
+        deployment_rate=_pct(d["n_wrong"], d["n"]),
+        in_sample="" if s is None else f"{s['n_wrong']} of {s['n']} wrong",
+        inside="" if inside is None else f"{inside} of {h['n']}")
 
 
 def compute(only: set[str] | None = None) -> dict:
@@ -194,17 +244,19 @@ def compute(only: set[str] | None = None) -> dict:
         thr = float(bench.calib.lift_threshold_pct)
         truth_h = [r.cfd_truth for r in home]
 
-        native_home = {"n": len(home),
-                       "n_wrong": _n_wrong([r.surrogate_prediction for r in home], truth_h, thr)}
+        native_home = _counts({"n": len(home), "n_wrong": _n_wrong(
+            [r.surrogate_prediction for r in home], truth_h, thr)})
         if info["refit"]:
             held = _n_wrong(_loo_predictions(info["refit"], home), truth_h, thr)
-            held_out = {"n": len(home), "n_wrong": held, "method": "leave-one-out refit"}
+            held_out = _counts({"n": len(home), "n_wrong": held,
+                                "method": "leave-one-out refit"})
             in_sample = native_home
         else:
-            held_out = {**native_home, "method": "published correlation, not fitted to these rows"}
+            held_out = {**native_home,
+                        "method": "published correlation, not fitted to these rows"}
             in_sample = None
-        deployment = {"n": len(dep), "n_wrong": _n_wrong(
-            [r.surrogate_prediction for r in dep], [r.cfd_truth for r in dep], thr)}
+        deployment = _counts({"n": len(dep), "n_wrong": _n_wrong(
+            [r.surrogate_prediction for r in dep], [r.cfd_truth for r in dep], thr)})
 
         banked = (bank[vid].get("per_pct") or {}).get(ref)
         if banked is not None and (banked["n_test"], banked["n_wrong"]) != (
@@ -226,20 +278,21 @@ def compute(only: set[str] | None = None) -> dict:
             "home_inside_validated_range": _inside_validated_range(bench, home),
             "deployment": deployment,
             "deployment_counts_match_bank": banked is not None,
-            "fisher_p": _fisher_p(deployment["n_wrong"], deployment["n"],
-                                  held_out["n_wrong"], held_out["n"]),
+            "exploratory": {
+                "fisher_exact_one_sided_p": _fisher_p(deployment["n_wrong"], deployment["n"],
+                                                      held_out["n_wrong"], held_out["n"]),
+                "note": EXPLORATORY_NOTE},
         }
-        cell["supports_blind_spot"], cell["reason"] = _reading(cell)
+        cell["interpretation"] = interpretation(cell)
         cells.append(cell)
+    from physmap.benchmarks.benchmark_v0_4 import BANK_VERSION
     return {
-        "benchmark": "PhysMAP Benchmark v0.4 -- home baseline",
+        "benchmark": f"PhysMAP Benchmark v{BANK_VERSION} -- home baseline",
+        "bank_version": BANK_VERSION,
         "derived": ("Derived from the committed vehicle data. Adds fields beside the banked "
                     "matrix and changes none of it; no row is removed."),
-        "added": "2026-09-25",
-        "rule": ("A vehicle supports a deployment-induced blind-spot reading iff its "
-                 "deployment error rate exceeds its held-out home error rate with a "
-                 f"one-sided Fisher exact p < {ALPHA}. Fixed on 2026-09-25, after these home "
-                 "counts were first seen."),
+        "reading": ("No gate. The counts and rates are the evidence; each vehicle's "
+                    "interpretation is written prose, reviewed against the counts it quotes."),
         "reference_pct": int(REFERENCE_PCT),
         "cells": cells,
     }
@@ -247,12 +300,15 @@ def compute(only: set[str] | None = None) -> dict:
 
 def load_banked_home() -> dict:
     from physmap._paths import checkout_path
-    return json.loads(checkout_path(*_BANK, what="the banked home baseline").read_text("utf-8"))
+    from physmap.benchmarks.benchmark_v0_4 import BANK_DIR
+    return json.loads(checkout_path(*BANK_DIR, _BANK_NAME,
+                                    what="the banked home baseline").read_text("utf-8"))
 
 
 def write_bank(record: dict) -> Path:
     from physmap._paths import checkout_path
-    p = checkout_path(*_BANK[:-1], what="the benchmark bank directory") / _BANK[-1]
+    from physmap.benchmarks.benchmark_v0_4 import BANK_DIR
+    p = checkout_path(*BANK_DIR, what="the benchmark bank directory") / _BANK_NAME
     p.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     return p
 
@@ -266,11 +322,11 @@ def report_lines(record: dict) -> list[str]:
     """The section `physmap benchmark report` prints."""
     out = [
         "Home baseline -- is each surrogate accurate where it is meant to work?",
-        "  A wrong deployment prediction that only PhysMAP flags shows a blind spot that",
+        "  A wrong deployment prediction that only PhysMAP flags shows a failure that",
         "  deployment created only if the surrogate was accurate at home. Wrong means the",
-        "  benchmark's own threshold. Every row and every count above stands; this reads",
-        "  them per vehicle.",
-        f"  Rule: {record['rule']}",
+        "  benchmark's own threshold. Every row and every count above stands. No gate",
+        "  decides the reading: the counts and rates are the evidence, and each vehicle's",
+        "  interpretation is written prose.",
         "",
     ]
     for c in record["cells"]:
@@ -292,7 +348,12 @@ def report_lines(record: dict) -> list[str]:
                        f"{where}")
         out.append(f"    deployment: {d['n_wrong']} of {d['n']} wrong ({_pct(d['n_wrong'], d['n'])}), "
                    f"threshold {c['threshold_pct']:.1f}%")
-        out.append(f"    deployment-induced blind spot: {c['reason']}")
+        out.append(f"    interpretation: {c['interpretation']}")
+    out.append("")
+    out.append(f"  {EXPLORATORY_NOTE}")
+    out.append("    " + "; ".join(
+        f"{c['vehicle_id']} p = {c['exploratory']['fisher_exact_one_sided_p']:.2g}"
+        for c in record["cells"]))
     return out
 
 

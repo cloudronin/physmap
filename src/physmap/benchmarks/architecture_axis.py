@@ -25,7 +25,7 @@ where at least two model types pass.
 Needs a checkout (the vehicle data) and PyTorch (`pip install "physmap[architectures]"`).
 A full run takes about twenty minutes, most of it leave-one-out Gaussian-process fits on
 the largest vehicle. `physmap benchmark architectures` runs it and compares the result
-with the committed bank, data/benchmarks/v0_4/architecture_axis.json.
+with the committed bank, data/benchmarks/v0_4_1/architecture_axis.json.
 
 The numerics -- models, settings, seeds and gate -- are ported unchanged from the
 research version this benchmark was developed with.
@@ -43,6 +43,7 @@ import numpy as np
 
 from physmap._paths import TorchRequired
 from physmap.benchmarks.benchmark_v0_4 import (
+    BANK_DIR as _BANK_DIR,
     _DETECTORS,
     OPERATING_PERCENTILES,
     REFERENCE_PCT,
@@ -66,7 +67,6 @@ __all__ = [
 _BASELINE_KINDS = (DetectorKind.DISTANCE_TO_TRAINING, DetectorKind.GP_VARIANCE)
 _CORPUS_KIND = DetectorKind.CLOSURE_VALIDITY
 
-_BANK_DIR = ("data", "benchmarks", "v0_4")
 _BANK_NAME = "architecture_axis.json"
 
 SEED = 20260605
@@ -286,14 +286,22 @@ def _environment() -> dict:
             "corpus_tier": active_tier()}
 
 
+def home_rows(Xtr, ytr) -> dict:
+    """How many home rows there are, and how many are distinct. Where rows repeat, leave-one-out
+    keeps copies of each held-out row in the fit, and the gate says little."""
+    distinct = {tuple(np.round(np.append(x, y), 12)) for x, y in zip(Xtr, ytr)}
+    return {"n": int(len(ytr)), "distinct": len(distinct)}
+
+
 def run_axis(*, write: bool = False) -> dict:
     """Train every model type on every flagged vehicle and gate it. `write=True` replaces
     the committed bank; the CLI never does that -- it compares against the bank instead."""
     _require_torch()
     specs = [s for s in discover_benchmark_vehicles() if s.architecture_axis]
-    cells = []
+    cells, rows = [], {}
     for bench in specs:
         train, test, Xtr, ytr, Xte, yte = _vehicle_data(bench)
+        rows[bench.vehicle_id] = home_rows(Xtr, ytr)
         shared = (Xtr, ytr, Xte, yte, _vehicle_fires(bench, train, test))
         for arch_name, fp in ARCHITECTURES.items():
             cells.append(run_arch_cell(bench, arch_name, fp, shared))
@@ -307,6 +315,7 @@ def run_axis(*, write: bool = False) -> dict:
         "reference_pct": int(REFERENCE_PCT),
         "settings": SETTINGS,
         "vehicles": vids,
+        "home_rows": rows,
         "cells": cells,
         "agreement": agreement(cells, vids),
         "environment": _environment(),
@@ -348,8 +357,8 @@ def axis_tolerance(path: str) -> tuple[float, float]:
 def _comparable(record: dict) -> dict:
     """Everything that is a result. The environment block records where it ran, and is
     expected to differ."""
-    return {k: record[k] for k in ("reference_pct", "settings", "vehicles", "cells",
-                                   "agreement")}
+    return {k: record[k] for k in ("reference_pct", "settings", "vehicles", "home_rows",
+                                   "cells", "agreement")}
 
 
 def compare_with_bank(fresh: dict):
@@ -392,8 +401,13 @@ def summary_lines(record: dict) -> list[str]:
     testable = [v for v, a in record["agreement"].items()
                 if len(a["trainable_architectures"]) >= 2]
     out.append("")
-    out.append(f"  Testable on {len(testable)} of {len(record['vehicles'])} vehicles: "
-               "only there do two or more model types pass the gate.")
+    out.append(f"  Two or more model types pass the gate on {len(testable)} of "
+               f"{len(record['vehicles'])} vehicles: {', '.join(testable) or 'none'}.")
+    for vid, hr in record.get("home_rows", {}).items():
+        if hr["distinct"] < hr["n"]:
+            out.append(f"  On {vid} the gate says little: its {hr['n']} home rows hold "
+                       f"{hr['distinct']} distinct values, so leave-one-out keeps copies of "
+                       "each held-out row.")
     out.append("  `physmap benchmark architectures` recomputes this; it needs PyTorch.")
     return out
 
@@ -413,7 +427,7 @@ def render_axis(record: dict, *, recomputed: bool) -> str:
     out.append("are guarded.")
     out.append("")
     hdr = (f"{'vehicle':32}{'model':10}{'gate':7}{'median err':>11}{'limit':>7}"
-           f"{'p95 err':>9}{'limit':>7}   wrong   only PhysMAP flags (pct {ref})")
+           f"{'p95 err':>9}{'limit':>7}   {'wrong':11}only PhysMAP flags (pct {ref})")
     out.append(hdr)
     out.append("-" * len(hdr))
     for c in record["cells"]:
@@ -428,10 +442,15 @@ def render_axis(record: dict, *, recomputed: bool) -> str:
             wrong, caught = "-", "-"
         out.append(f"{c['vehicle_id']:32}{c['architecture']:10}{passed:7}{med:>11}"
                    f"{g.get('gate1_median_max', '-'):>7}{p95:>9}{g.get('gate1_p95_max', '-'):>7}"
-                   f"   {wrong:8}{caught}")
+                   f"   {wrong:11}{caught}")
     out.append("")
     for vid, a in record["agreement"].items():
         n = len(a["trainable_architectures"])
+        hr = record.get("home_rows", {}).get(vid)
+        if hr and hr["distinct"] < hr["n"]:
+            out.append(f"  {vid}: its {hr['n']} home rows hold {hr['distinct']} distinct values, "
+                       "so leave-one-out keeps copies of each held-out row in the fit -- the "
+                       "gate says little here.")
         if n >= 2:
             verdict = ("every one of them leaves wrong predictions that only PhysMAP flags"
                        if a["all_show_corpus_lift"] else

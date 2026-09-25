@@ -3,7 +3,7 @@
 Two different things are tracked here and they must not collapse into one:
 
   **The result** — all seven vehicles ran, and every outcome is reported. The banked
-  matrix in `data/benchmarks/v0_4/` holds counts, verdicts and thresholds computed from
+  matrix in `data/benchmarks/v0_4_1/` holds counts, verdicts and thresholds computed from
   our own runs. It contains no third-party measurement values.
 
   **The rerun** — only vehicles whose source data is cleared for redistribution ship

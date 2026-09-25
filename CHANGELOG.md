@@ -1,31 +1,61 @@
 # Changelog
 
-## Unreleased — the home baseline behind every count
+## 0.2.5 — two functions, and a corrected NACA bank
 
-- **Every benchmark count now carries its home baseline.** A wrong deployment prediction that
-  only PhysMAP flags shows a blind spot that deployment created only if the surrogate was
-  accurate at home. `physmap benchmark report`, the README and the talk now show, per dataset:
-  how the home error was obtained (in-sample fit error with a leave-one-out refit beside it, or
-  a published correlation never fitted to the rows), home and deployment counts at the
-  benchmark's own threshold, and whether deployment is distinguishably worse. It is for Casper
-  and Dirker. It is not for NACA, Jin, Velazquez, Marineau or Forrest, whose counts stand as
-  counts. The reading rule — one-sided Fisher exact p < 0.05 — was fixed after these counts
-  were first seen, and says so. Nothing is removed: the banked matrix is unchanged, byte for
-  byte, and the new fields sit beside it in `data/benchmarks/v0_4/home_baseline.json`, which
-  `physmap benchmark run` recomputes and checks.
-- **The README no longer overstates the lead.** It said PhysMAP catches "all 20" failures at
-  the pipe entrance. The NACA benchmark row's surrogate is wrong on 13 of 29 points at home,
-  so that count cannot show a blind spot deployment created. The x/D example now scores the
-  correlation against the measurements instead of asserting a failure: right on all 40 fully
-  developed points, wrong on 9 of 45 entrance points, all near the inlet — and the closure
-  check flags all 45.
-- **The architecture axis, ported and rerun.** `physmap benchmark architectures` trains a
-  Gaussian process, a DeepONet and gradient-boosted trees on each flagged vehicle, gates each
-  on its held-out error, and compares with the bank (PyTorch via `physmap[architectures]`,
-  about 20 minutes; `--banked` reads the bank). Rerun here bit-identical to the research bank
-  on a second machine. On Casper all three pass and each leaves 4 of 8 wrong predictions only
-  PhysMAP flags; on NACA, Jin and Velazquez no model type passes the gate.
-- **234 tests ported** from the private tree: they covered public code and had stayed behind.
+### Changed: how PhysMAP is presented
+
+- **Two functions, each on its own evidence.** The README and the NAFEMS talk package are
+  reorganised around them. *Applicability assurance* — is the physics a prediction relies on
+  still applicable? — shown on NACA TN-1451's pipe entrance region. *Causal materiality* — does
+  a mechanism the model left out materially change the quantity of interest? — shown in the
+  Lewis 35A controlled model-reuse stress test, the main controlled demonstration. The
+  seven-vehicle benchmark is supporting evidence, led by Casper.
+- **The x/D example is applicability assurance, not a count of caught errors.** It now scores
+  the Gnielinski correlation against the measurement and says so: within the numerical-error
+  threshold on 40 of 40 fully developed points; over it on 9 of 45 entrance points, all near
+  the inlet; all 45 entrance predictions outside the closure's supported region — the other 36
+  numerically acceptable but not physically supported.
+
+### Corrected: the benchmark's NACA source data (bank v0.4.1)
+
+- The original bank's NACA row came from an automated read of NACA TN-1451 Fig 10 that does
+  not represent the figure: its axis calibration was wrong, and its points sat on gridline
+  crossings and legend text. Verified against the figure and two independent human reads. The
+  NACA vehicle now reads the two-reader record of the same figure. Only that cell changed:
+  wrong predictions flagged only by PhysMAP 20 of 20 → 9 of 9 (the "20 of 20" is withdrawn);
+  accurate predictions flagged anyway 24 → 19. Record: `data/naca/CORRECTION_v0_4_1.md`.
+- The current bank is `data/benchmarks/v0_4_1/`; `physmap benchmark report` names it and says
+  why. The original `data/benchmarks/v0_4/` and `data/naca/wpd_fig10.csv` are kept unchanged
+  for audit — history, not evidence — and their fingerprints are pinned by a test.
+
+### New: the home baseline beside every count
+
+- A wrong deployment prediction that only PhysMAP flags shows a failure deployment created only
+  if the surrogate was accurate at home. `physmap benchmark report`, the README and the talk
+  now show, per dataset: how the home error was obtained (in-sample fit error with a
+  leave-one-out refit beside it, or a published correlation never fitted to the rows), home and
+  deployment counts and rates at the benchmark's own threshold, and a written interpretation.
+- **No gate decides a dataset's reading.** A one-sided Fisher exact test is reported only as
+  exploratory analysis: it was chosen after the counts were seen, and it decides nothing. Each
+  interpretation is prose reviewed against the exact counts it quotes; a test fails if a
+  recomputation moves them.
+- Casper and Dirker have a home baseline from which deployment fails, and NACA is the
+  applicability case; Jin and Velazquez are wrong almost everywhere, at home too; Marineau's
+  nine home rows are too few; Forrest has one. Every count stays; no row is removed.
+
+### New: the architecture axis
+
+- `physmap benchmark architectures` trains a Gaussian process, a DeepONet and gradient-boosted
+  trees on each flagged vehicle, gates each on its held-out home error, and compares with the
+  bank (PyTorch via `physmap[architectures]`, about 20 minutes; `--banked` reads the bank). On
+  Casper all three pass and each leaves 4 of 8 deployment errors only PhysMAP flags. On NACA
+  all three pass too, but its home reads repeat — 40 rows, 5 distinct values — so the check
+  says little there, and the output says so. On Jin and Velazquez none passes.
+
+### Also
+
+- 234 tests ported from the research tree: they covered public code and had stayed behind.
+- The stress-test report names itself as the causal-materiality check.
 
 ## 0.2.4 — the DOI on the PyPI page
 

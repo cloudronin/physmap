@@ -8,13 +8,14 @@ columns, and in those two columns the entrance points look perfectly ordinary.
 
 PhysMAP reads the bound variable from the test coordinates instead, checks it
 against the closure's validated range, and knows at fit time that x/D is
-structurally invisible to this surrogate. The result is a refusal with a reason.
+structurally invisible to this surrogate. Every entrance prediction is outside the
+closure's supported applicability region, and PhysMAP says so, with a reason.
 
-The last block scores the correlation against the measurements, so the failure is
-shown rather than asserted: at the benchmark's own NACA error threshold it is right
-on every fully developed point and wrong on some entrance points, mostly near the
-inlet. The closure check flags every entrance point, so it also flags the ones the
-correlation gets right.
+The last block scores the correlation against the measurements. It is within the
+numerical-error threshold on every fully developed point and exceeds it on some
+entrance points, near the inlet. The other entrance predictions are numerically
+acceptable, but not physically supported by that closure: numerical agreement does
+not by itself establish that a prediction is credibly supported.
 
 Data: NACA TN-1451 (1947), Fig 10, bellmouth entrance. US Government work,
 public domain; two-reader cross-validated digitisation.
@@ -105,11 +106,9 @@ def main() -> None:
 
 
 def score_the_correlation(train, test, results) -> None:
-    """Where the correlation behind the prediction actually fails, against the measurement.
-    Wrong means the benchmark's own NACA threshold -- the naca_tn1451 vehicle's lift
-    threshold -- so nothing here is chosen for this example."""
-    from scipy.stats import fisher_exact
-
+    """The correlation behind the prediction, against the measurement. The threshold is the
+    benchmark's own NACA one -- the naca_tn1451 vehicle's lift threshold -- so nothing here
+    is chosen for this example."""
     from physmap.benchmarks.benchmark_v0_4 import bench_spec_from_config
     from physmap.closures.registry import get_closure
     from physmap.substrate.vehicle_config import load_named_vehicle
@@ -123,23 +122,25 @@ def score_the_correlation(train, test, results) -> None:
 
     home = [err(r) for r in train]
     entrance = [err(r) for r in test]
-    home_wrong = sum(e > threshold for e in home)
-    wrong = [(r, e) for r, e in zip(test, entrance) if e > threshold]
-    flagged_right = sum(1 for a, e in zip(results, entrance)
-                        if a.signals[DetectorKind.CLOSURE_VALIDITY].fired and e <= threshold)
-    _, p = fisher_exact([[len(wrong), len(test) - len(wrong)],
-                         [home_wrong, len(train) - home_wrong]], alternative="greater")
+    home_within = sum(e <= threshold for e in home)
+    exceed = [(r, e) for r, e in zip(test, entrance) if e > threshold]
+    outside = sum(a.signals[DetectorKind.CLOSURE_VALIDITY].fired for a in results)
+    acceptable_unsupported = sum(1 for a, e in zip(results, entrance)
+                                 if a.signals[DetectorKind.CLOSURE_VALIDITY].fired
+                                 and e <= threshold)
     worst_r, worst = max(zip(test, entrance), key=lambda t: t[1])
-    print(f"where gnielinski-1976 actually fails (wrong = off the measurement by more than "
+    print(f"applicability, against the measurement (numerical-error threshold "
           f"{threshold:.1f}%, the benchmark's NACA threshold):")
-    print(f"  fully developed (home): {home_wrong} of {len(train)} wrong")
-    print(f"  entrance:               {len(wrong)} of {len(test)} wrong, all at x/D <= "
-          f"{max(r['x_over_D'] for r, _ in wrong):g}; worst {worst:.0f}% at x/D "
-          f"{worst_r['x_over_D']:g}")
-    print(f"  entrance worse than home: one-sided Fisher exact p = {p:.1g}")
-    print(f"  the closure check flagged all {len(test)} entrance points; the correlation is "
-          f"within the threshold on {flagged_right} of them")
-    assert home_wrong == 0, "the correlation is wrong at home -- the demo's baseline no longer holds"
+    print(f"  fully developed (home): gnielinski-1976 within the threshold on {home_within} of "
+          f"{len(train)}")
+    print(f"  entrance:               it exceeds the threshold on {len(exceed)} of {len(test)}, "
+          f"all at x/D <= {max(r['x_over_D'] for r, _ in exceed):g}; largest "
+          f"{worst:.0f}% at x/D {worst_r['x_over_D']:g}")
+    print(f"  PhysMAP: {outside} of {len(test)} entrance predictions are outside the closure's "
+          f"supported region")
+    print(f"  the other {acceptable_unsupported} are numerically acceptable but not physically "
+          f"supported by that closure")
+    assert home_within == len(train), "the correlation misses at home -- the premise no longer holds"
 
 
 if __name__ == "__main__":

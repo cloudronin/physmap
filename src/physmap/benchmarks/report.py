@@ -30,7 +30,7 @@ from physmap.benchmarks.registry import (
 
 __all__ = ["load_banked_matrix", "render_report", "coverage_note"]
 
-_MATRIX_PARTS = ("data", "benchmarks", "v0_4", "matrix_full_seven.json")
+_MATRIX_NAME = "matrix_full_seven.json"
 
 _STATUS_LABEL = {
     Redistribution.CLEAR: "ships, licensed",
@@ -44,8 +44,24 @@ def load_banked_matrix() -> dict[str, Any]:
     """The committed seven-vehicle result. Counts, verdicts and our own thresholds only;
     it carries no third-party measurement values, which is why it can be published when
     five of the seven source datasets cannot."""
-    p = checkout_path(*_MATRIX_PARTS, what="the banked v0.4 benchmark matrix")
+    from physmap.benchmarks.benchmark_v0_4 import BANK_DIR, BANK_VERSION
+    p = checkout_path(*BANK_DIR, _MATRIX_NAME,
+                      what=f"the banked v{BANK_VERSION} benchmark matrix")
     return json.loads(p.read_text("utf-8"))
+
+
+def version_note() -> list[str]:
+    """Which bank is current, and what happened to the one before it. Printed at the top of
+    the report, so a reader comparing numbers with an older copy knows why they differ."""
+    from physmap.benchmarks.benchmark_v0_4 import BANK_DIR, BANK_VERSION, HISTORICAL_BANKS
+    older = ", ".join(f"v{v} at {'/'.join(d)}/" for v, d in HISTORICAL_BANKS.items())
+    return [
+        f"Bank v{BANK_VERSION} ({'/'.join(BANK_DIR)}/), current. It corrects the NACA source "
+        "data: the original",
+        f"bank's NACA row came from an automated read of the figure later found invalid. "
+        f"Kept unchanged",
+        f"for audit, not as evidence: {older}. See data/naca/CORRECTION_v0_4_1.md.",
+    ]
 
 
 def coverage_note() -> str:
@@ -165,6 +181,8 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
     recomputed = len([v for v in rerun_results if v in {x.vehicle_id for x in VEHICLES}])
 
     out: list[str] = [matrix["benchmark"], ""]
+    out.extend(version_note())
+    out.append("")
 
     # Computed, never hardcoded. Two different facts live here and a reader needs both:
     # how many datasets SHIP, and how many were actually RECOMPUTED in this invocation.

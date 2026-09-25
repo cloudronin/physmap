@@ -1,5 +1,5 @@
 vehicle,domain,failure_variable,observability,outcome,redistribution,data_quality,n_train_rows,n_test_rows
-naca_tn1451,thermal-fluids,x_over_D,unobservable,PHYSMAP_WINS,clear,benchmark_grade,29,47
+naca_tn1451,thermal-fluids,x_over_D,unobservable,PHYSMAP_WINS,clear,benchmark_grade,40,45
 casper_hypersonic_transition,aerospace,freestream_noise_pct,unobservable,PHYSMAP_WINS,against_publisher_terms,benchmark_grade,159,8
 jin_sco2_buoyancy,thermal-fluids,Bu,unobservable,PHYSMAP_WINS,against_publisher_terms,benchmark_grade,17,27
 velazquez_sco2,thermal-fluids,ratio_mu_w_b,partial,PARTIAL,clear,benchmark_grade,393,67

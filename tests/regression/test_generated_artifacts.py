@@ -57,7 +57,8 @@ def test_evidence_seed_matches_a_fresh_split_when_premium_is_available():
 
 
 def test_the_banked_matrix_is_valid_json_with_seven_cells():
-    p = checkout_path("data", "benchmarks", "v0_4", "matrix_full_seven.json",
+    from physmap.benchmarks.benchmark_v0_4 import BANK_DIR
+    p = checkout_path(*BANK_DIR, "matrix_full_seven.json",
                       what="the banked matrix")
     m = json.loads(p.read_text("utf-8"))
     assert len(m["cells"]) == 7

@@ -43,17 +43,21 @@ The test suite runs it (`tests/test_talk_package.py`).
 
 ## The rules every document here follows
 
-- **The benchmark is the point.** What PhysMAP adds to input-based OOD detection — the failures
-  it catches that the detectors cannot see, per dataset, with its false alarms beside them — is
-  the headline and what sets PhysMAP apart. Its figure is `bench_3_what_physmap_adds`.
-- **Every count carries its home baseline.** A count reads as a blind spot deployment created
-  only where the surrogate was right at home — Casper and Dirker. NACA, Jin and Velazquez keep
-  their counts, as counts. Figure: `bench_4_home_baseline`.
-- **Two results, kept apart.** The seven-vehicle benchmark and the x/D example are about
-  closure validity and observability. Lewis is about causal materiality — a separate question.
-  Neither is evidence for the other.
-- **Counts per dataset, never pooled.** No rate across datasets, and never the catches without
-  the false alarms.
+- **Two functions, each on its own evidence.** Applicability assurance — NACA x/D: PhysMAP
+  identifies predictions made outside a closure's supported region, including ones that happen
+  to be numerically accurate. Causal materiality — Lewis 35A, the main controlled
+  demonstration. Neither is evidence for the other.
+- **The benchmark is supporting evidence, led by Casper.** Three model types pass its
+  home-accuracy check, and each leaves 4 of 8 deployment errors only PhysMAP flags. The full
+  seven-vehicle matrix is always shown, with each dataset's home provenance, error rates and
+  limitation. Figures: `bench_4_home_baseline`, `bench_3_what_physmap_adds`.
+- **No gate decides a dataset's reading.** The counts and rates are the evidence; the reading is
+  prose. The Fisher test is exploratory and decides nothing. Never imply that every dataset
+  supports a failure created by deployment.
+- **Current bank: v0.4.1.** It corrects the NACA source data; the original v0.4 bank is kept for
+  audit and is not evidence. Its "20 of 20" is withdrawn.
+- **Counts per dataset, never pooled.** No rate across datasets, and never the flags on wrong
+  predictions without the flags on accurate ones.
 - **Lewis is one run.** Its stations are positions in that run, not cases. No precision, recall
   or F1 anywhere.
 - **θ is unlocked.** Materiality is shown as continuous values. θ = 0.10 appears only as an

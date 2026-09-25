@@ -176,8 +176,8 @@ L 229.133333 174.96
 " clip-path="url(#pa2d2311130)" style="fill: none; stroke: #c3c2b7; stroke-width: 1.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_20">
-    <path d="M 287.42069 207.36 
-L 282.417021 207.36 
+    <path d="M 188.8 207.36 
+L 232.8 207.36 
 " clip-path="url(#pa2d2311130)" style="fill: none; stroke: #c3c2b7; stroke-width: 1.6; stroke-linecap: square"/>
    </g>
    <g id="line2d_21">
@@ -225,7 +225,7 @@ z
    </g>
    <g id="line2d_27">
     <g clip-path="url(#pa2d2311130)">
-     <use xlink:href="#m73df41823f" x="282.417021" y="207.36" style="fill: #0b0b0b; stroke: #0b0b0b; stroke-width: 1.8"/>
+     <use xlink:href="#m73df41823f" x="232.8" y="207.36" style="fill: #0b0b0b; stroke: #0b0b0b; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="line2d_28">
@@ -283,7 +283,7 @@ z
    </g>
    <g id="line2d_34">
     <g clip-path="url(#pa2d2311130)">
-     <use xlink:href="#m1b5db2cd18" x="287.42069" y="207.36" style="fill: #fcfcfb; stroke: #0b0b0b; stroke-width: 1.8"/>
+     <use xlink:href="#m1b5db2cd18" x="188.8" y="207.36" style="fill: #fcfcfb; stroke: #0b0b0b; stroke-width: 1.8"/>
     </g>
    </g>
    <g id="line2d_35">
@@ -348,8 +348,8 @@ z
     <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(507.816 115.833931)">wrong</text>
    </g>
    <g id="text_18">
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(578.016 106.58271)">deployment-induced</text>
-    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(578.016 115.834097)">blind spot?</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(578.016 106.582876)">home error</text>
+    <text style="font-weight: 700; font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(578.016 115.834097)">from</text>
    </g>
    <g id="text_19">
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="144.889102" transform="rotate(-0 432 144.889102)">6 of 159</text>
@@ -358,7 +358,7 @@ z
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="144.889102" transform="rotate(-0 507.816 144.889102)">8 of 8</text>
    </g>
    <g id="text_21">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="144.889014" transform="rotate(-0 578.016 144.889014)">yes, p = 2e-10</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="144.889102" transform="rotate(-0 578.016 144.889102)">refit without each row</text>
    </g>
    <g id="text_22">
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="177.289102" transform="rotate(-0 432 177.289102)">0 of 31</text>
@@ -367,16 +367,16 @@ z
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="177.289102" transform="rotate(-0 507.816 177.289102)">11 of 60</text>
    </g>
    <g id="text_24">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="177.289014" transform="rotate(-0 578.016 177.289014)">yes, p = 0.007</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="177.289102" transform="rotate(-0 578.016 177.289102)">refit without each row</text>
    </g>
    <g id="text_25">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="209.689102" transform="rotate(-0 432 209.689102)">13 of 29</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="209.689102" transform="rotate(-0 432 209.689102)">0 of 40</text>
    </g>
    <g id="text_26">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="209.689102" transform="rotate(-0 507.816 209.689102)">20 of 47</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="209.689102" transform="rotate(-0 507.816 209.689102)">9 of 45</text>
    </g>
    <g id="text_27">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="209.689102" transform="rotate(-0 578.016 209.689102)">no, p = 0.67</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="209.689102" transform="rotate(-0 578.016 209.689102)">a correlation, never fitted</text>
    </g>
    <g id="text_28">
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="242.089102" transform="rotate(-0 432 242.089102)">17 of 17</text>
@@ -385,7 +385,7 @@ z
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="242.089102" transform="rotate(-0 507.816 242.089102)">26 of 27</text>
    </g>
    <g id="text_30">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="242.089102" transform="rotate(-0 578.016 242.089102)">no, p = 1</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="242.089102" transform="rotate(-0 578.016 242.089102)">a correlation, never fitted</text>
    </g>
    <g id="text_31">
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="274.489102" transform="rotate(-0 432 274.489102)">386 of 393</text>
@@ -394,7 +394,7 @@ z
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="274.489102" transform="rotate(-0 507.816 274.489102)">67 of 67</text>
    </g>
    <g id="text_33">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="274.489102" transform="rotate(-0 578.016 274.489102)">no, p = 0.33</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="274.489102" transform="rotate(-0 578.016 274.489102)">a correlation, never fitted</text>
    </g>
    <g id="text_34">
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="306.889102" transform="rotate(-0 432 306.889102)">5 of 9</text>
@@ -403,7 +403,7 @@ z
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="306.889102" transform="rotate(-0 507.816 306.889102)">6 of 6</text>
    </g>
    <g id="text_36">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="306.889102" transform="rotate(-0 578.016 306.889102)">no, p = 0.092</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="306.889102" transform="rotate(-0 578.016 306.889102)">refit without each row</text>
    </g>
    <g id="text_37">
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="432" y="339.289102" transform="rotate(-0 432 339.289102)">0 of 1</text>
@@ -412,7 +412,7 @@ z
     <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="507.816" y="339.289102" transform="rotate(-0 507.816 339.289102)">4 of 4</text>
    </g>
    <g id="text_39">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="339.289102" transform="rotate(-0 578.016 339.289102)">no: one home row</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="578.016" y="339.289014" transform="rotate(-0 578.016 339.289014)">one row only</text>
    </g>
   </g>
   <g id="text_40">
@@ -420,10 +420,10 @@ z
   </g>
   <g id="text_41">
    <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 47.173994)">Share of predictions off by more than the benchmark's own threshold: at home, held out, and when deployed. A count shows a</text>
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 59.655732)">blind spot that deployment created only where deployment is distinguishably worse (one-sided Fisher exact p &lt; 0.05). No row is removed.</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 59.655732)">failure that deployment created only where the surrogate was accurate at home. No row is removed, and no gate decides it.</text>
   </g>
   <g id="text_42">
-   <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: data/benchmarks/v0_4/home_baseline.json, beside the unchanged banked matrix; plotted values: docs/talk/figures/data/bench_4_home_baseline.csv</text>
+   <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: data/benchmarks/v0_4_1/home_baseline.json, beside the unchanged banked matrix; plotted values: docs/talk/figures/data/bench_4_home_baseline.csv</text>
   </g>
  </g>
  <defs>

@@ -219,7 +219,7 @@ L 711.36 279.45
    </g>
   </g>
   <g id="text_60">
-   <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: data/benchmarks/v0_4/matrix_full_seven.json; physmap.benchmarks.registry; table: docs/talk/figures/data/bench_2_seven_vehicles.csv</text>
+   <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: data/benchmarks/v0_4_1/matrix_full_seven.json; physmap.benchmarks.registry; table: docs/talk/figures/data/bench_2_seven_vehicles.csv</text>
   </g>
  </g>
  <defs>

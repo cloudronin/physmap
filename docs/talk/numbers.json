@@ -3,551 +3,523 @@
  "numbers": {
   "arch.casper_hypersonic_transition.deeponet": {
    "display": "4 of 8",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.casper_hypersonic_transition.gbt": {
    "display": "4 of 8",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.casper_hypersonic_transition.gp": {
    "display": "4 of 8",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.casper_n_pass": {
    "display": "3",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.jin_sco2_buoyancy.deeponet": {
    "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.jin_sco2_buoyancy.gbt": {
    "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.jin_sco2_buoyancy.gp": {
    "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.n_testable": {
-   "display": "1",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "display": "2",
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.n_vehicles": {
    "display": "4",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.naca_tn1451.deeponet": {
-   "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "display": "11 of 11",
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.naca_tn1451.gbt": {
-   "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "display": "11 of 11",
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.naca_tn1451.gp": {
-   "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "display": "11 of 11",
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.velazquez_sco2.deeponet": {
    "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.velazquez_sco2.gbt": {
    "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
   "arch.velazquez_sco2.gp": {
    "display": "fails gate",
-   "source": "data/benchmarks/v0_4/architecture_axis.json"
+   "source": "data/benchmarks/v0_4_1/architecture_axis.json"
   },
-  "bench.casper_hypersonic_transition.blind_spot": {
-   "display": "yes",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+  "bench.bank_version": {
+   "display": "0.4.1",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.casper_hypersonic_transition.deploy_pct": {
    "display": "100",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.deploy_wrong": {
    "display": "8 of 8",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.casper_hypersonic_transition.fisher_p": {
+  "bench.casper_hypersonic_transition.exploratory_p": {
    "display": "2e-10",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.home_heldout": {
    "display": "6 of 159",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.home_heldout_pct": {
    "display": "4",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.home_insample": {
    "display": "2 of 159",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.home_insample_pct": {
    "display": "1",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.home_kind": {
    "display": "in-sample fit error, with a held-out refit",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.casper_hypersonic_transition.n_test": {
    "display": "8",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.casper_hypersonic_transition.n_train": {
    "display": "159",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.casper_hypersonic_transition.observability": {
    "display": "unobservable",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.casper_hypersonic_transition.outcome": {
    "display": "PHYSMAP_WINS",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.casper_hypersonic_transition.ref_caught_of_wrong": {
    "display": "4 of 8",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.casper_hypersonic_transition.ref_caught_only": {
    "display": "4",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.casper_hypersonic_transition.ref_flagged_right": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.casper_hypersonic_transition.ref_wrong": {
    "display": "8",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.count_BASELINE_VISIBLE": {
    "display": "1",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.count_DO_NO_HARM": {
    "display": "1",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.count_PARTIAL": {
    "display": "2",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.count_PHYSMAP_WINS": {
    "display": "3",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
-  },
-  "bench.dirker_water.blind_spot": {
-   "display": "yes",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.dirker_water.deploy_pct": {
    "display": "18",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.deploy_wrong": {
    "display": "11 of 60",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.dirker_water.fisher_p": {
+  "bench.dirker_water.exploratory_p": {
    "display": "0.007",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.home_heldout": {
    "display": "0 of 31",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.home_heldout_pct": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.home_insample": {
    "display": "0 of 31",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.home_insample_pct": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.home_kind": {
    "display": "in-sample fit error, with a held-out refit",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.dirker_water.n_test": {
    "display": "60",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.dirker_water.n_train": {
    "display": "31",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.dirker_water.observability": {
    "display": "partial",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.dirker_water.outcome": {
    "display": "PARTIAL",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.dirker_water.ref_caught_of_wrong": {
    "display": "2 of 11",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.dirker_water.ref_caught_only": {
    "display": "2",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.dirker_water.ref_flagged_right": {
    "display": "16",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.dirker_water.ref_wrong": {
    "display": "11",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
-  },
-  "bench.forrest.blind_spot": {
-   "display": "no",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.forrest.deploy_pct": {
    "display": "100",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.forrest.deploy_wrong": {
    "display": "4 of 4",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.forrest.fisher_p": {
+  "bench.forrest.exploratory_p": {
    "display": "0.2",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.forrest.home_heldout": {
    "display": "0 of 1",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.forrest.home_heldout_pct": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.forrest.home_kind": {
    "display": "held-out home error",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.forrest.n_test": {
    "display": "4",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.forrest.n_train": {
    "display": "1",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.forrest.observability": {
    "display": "observable",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.forrest.outcome": {
    "display": "DO_NO_HARM",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
-  "bench.home_alpha": {
-   "display": "0.05",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
-  },
-  "bench.home_supported": {
-   "display": "2",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
-  },
-  "bench.jin_sco2_buoyancy.blind_spot": {
-   "display": "no",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+  "bench.historical_bank_version": {
+   "display": "0.4",
+   "source": "src/physmap/benchmarks/benchmark_v0_4.py (HISTORICAL_BANKS)"
   },
   "bench.jin_sco2_buoyancy.deploy_pct": {
    "display": "96",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.jin_sco2_buoyancy.deploy_wrong": {
    "display": "26 of 27",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.jin_sco2_buoyancy.fisher_p": {
+  "bench.jin_sco2_buoyancy.exploratory_p": {
    "display": "1",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.jin_sco2_buoyancy.home_heldout": {
    "display": "17 of 17",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.jin_sco2_buoyancy.home_heldout_pct": {
    "display": "100",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.jin_sco2_buoyancy.home_inside_range": {
    "display": "11 of 17",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.jin_sco2_buoyancy.home_kind": {
    "display": "held-out home error",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.jin_sco2_buoyancy.n_test": {
    "display": "27",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.jin_sco2_buoyancy.n_train": {
    "display": "17",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.jin_sco2_buoyancy.observability": {
    "display": "unobservable",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.jin_sco2_buoyancy.outcome": {
    "display": "PHYSMAP_WINS",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.jin_sco2_buoyancy.ref_caught_of_wrong": {
    "display": "15 of 26",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.jin_sco2_buoyancy.ref_caught_only": {
    "display": "15",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.jin_sco2_buoyancy.ref_flagged_right": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.jin_sco2_buoyancy.ref_wrong": {
    "display": "26",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
-  },
-  "bench.marineau_hypersonic_transition.blind_spot": {
-   "display": "no",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.marineau_hypersonic_transition.deploy_pct": {
    "display": "100",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.deploy_wrong": {
    "display": "6 of 6",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.marineau_hypersonic_transition.fisher_p": {
+  "bench.marineau_hypersonic_transition.exploratory_p": {
    "display": "0.092",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.home_heldout": {
    "display": "5 of 9",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.home_heldout_pct": {
    "display": "56",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.home_insample": {
    "display": "0 of 9",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.home_insample_pct": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.home_kind": {
    "display": "in-sample fit error, with a held-out refit",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.marineau_hypersonic_transition.n_test": {
    "display": "6",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.marineau_hypersonic_transition.n_train": {
    "display": "9",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.marineau_hypersonic_transition.observability": {
    "display": "observable",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.marineau_hypersonic_transition.outcome": {
    "display": "BASELINE_VISIBLE",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.marineau_hypersonic_transition.ref_caught_of_wrong": {
    "display": "0 of 6",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.marineau_hypersonic_transition.ref_caught_only": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.marineau_hypersonic_transition.ref_flagged_right": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.marineau_hypersonic_transition.ref_wrong": {
    "display": "6",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.n_vehicles": {
    "display": "7",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
-  },
-  "bench.naca_tn1451.blind_spot": {
-   "display": "no",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.deploy_pct": {
-   "display": "43",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "display": "20",
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.naca_tn1451.deploy_wrong": {
-   "display": "20 of 47",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "display": "9 of 45",
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.naca_tn1451.fisher_p": {
-   "display": "0.67",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+  "bench.naca_tn1451.exploratory_p": {
+   "display": "0.002",
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.naca_tn1451.home_heldout": {
-   "display": "13 of 29",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "display": "0 of 40",
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.naca_tn1451.home_heldout_pct": {
-   "display": "45",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "display": "0",
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.naca_tn1451.home_inside_range": {
-   "display": "29 of 29",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "display": "40 of 40",
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.naca_tn1451.home_kind": {
    "display": "held-out home error",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.naca_tn1451.n_test": {
-   "display": "47",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "display": "45",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.n_train": {
-   "display": "29",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "display": "40",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.observability": {
    "display": "unobservable",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.outcome": {
    "display": "PHYSMAP_WINS",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.ref_caught_of_wrong": {
-   "display": "20 of 20",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "display": "9 of 9",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.naca_tn1451.ref_caught_only": {
-   "display": "20",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "display": "9",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.naca_tn1451.ref_flagged_right": {
-   "display": "24",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "display": "19",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.naca_tn1451.ref_n_baseline_fired": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.ref_n_corpus_fired": {
-   "display": "47",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "display": "45",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.ref_n_distance_fired": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.ref_n_gp_var_fired": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.naca_tn1451.ref_wrong": {
-   "display": "20",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "display": "9",
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.ref_pct": {
    "display": "99",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
-  },
-  "bench.velazquez_sco2.blind_spot": {
-   "display": "no",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.velazquez_sco2.deploy_pct": {
    "display": "100",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.velazquez_sco2.deploy_wrong": {
    "display": "67 of 67",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
-  "bench.velazquez_sco2.fisher_p": {
+  "bench.velazquez_sco2.exploratory_p": {
    "display": "0.33",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.velazquez_sco2.home_heldout": {
    "display": "386 of 393",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.velazquez_sco2.home_heldout_pct": {
    "display": "98",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.velazquez_sco2.home_inside_range": {
    "display": "197 of 393",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.velazquez_sco2.home_kind": {
    "display": "held-out home error",
-   "source": "data/benchmarks/v0_4/home_baseline.json"
+   "source": "data/benchmarks/v0_4_1/home_baseline.json"
   },
   "bench.velazquez_sco2.n_test": {
    "display": "67",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.velazquez_sco2.n_train": {
    "display": "393",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.velazquez_sco2.observability": {
    "display": "partial",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.velazquez_sco2.outcome": {
    "display": "PARTIAL",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json"
   },
   "bench.velazquez_sco2.ref_caught_of_wrong": {
    "display": "18 of 67",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.velazquez_sco2.ref_caught_only": {
    "display": "18",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.velazquez_sco2.ref_flagged_right": {
    "display": "0",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.velazquez_sco2.ref_wrong": {
    "display": "67",
-   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+   "source": "data/benchmarks/v0_4_1/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "lewis.A3.control_error_max_abs_pct": {
    "display": "0.07",
@@ -1625,24 +1597,24 @@
    "display": "9",
    "source": "data/naca/cross_validated_fig10.csv"
   },
+  "naca.gn_acceptable_unsupported": {
+   "display": "36",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
+  "naca.gn_entrance_exceed": {
+   "display": "9 of 45",
+   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
+  },
   "naca.gn_entrance_max_xd": {
    "display": "5",
    "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
   },
-  "naca.gn_entrance_wrong": {
-   "display": "9 of 45",
+  "naca.gn_home_within": {
+   "display": "40 of 40",
    "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
   },
-  "naca.gn_fisher_p": {
-   "display": "0.002",
-   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
-  },
-  "naca.gn_flagged_right": {
-   "display": "36",
-   "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
-  },
-  "naca.gn_home_wrong": {
-   "display": "0 of 40",
+  "naca.gn_outside": {
+   "display": "45 of 45",
    "source": "examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv"
   },
   "naca.gn_worst_pct": {
@@ -1754,10 +1726,10 @@
   ],
   "bench_3_what_physmap_adds": [
    "bench.ref_pct",
-   "bench.naca_tn1451.ref_caught_of_wrong",
-   "bench.naca_tn1451.ref_flagged_right",
    "bench.casper_hypersonic_transition.ref_caught_of_wrong",
    "bench.casper_hypersonic_transition.ref_flagged_right",
+   "bench.naca_tn1451.ref_caught_of_wrong",
+   "bench.naca_tn1451.ref_flagged_right",
    "bench.jin_sco2_buoyancy.ref_caught_of_wrong",
    "bench.jin_sco2_buoyancy.ref_flagged_right",
    "bench.velazquez_sco2.ref_caught_of_wrong",
@@ -1768,25 +1740,18 @@
    "bench.marineau_hypersonic_transition.ref_flagged_right"
   ],
   "bench_4_home_baseline": [
-   "bench.home_alpha",
    "bench.casper_hypersonic_transition.home_heldout",
    "bench.casper_hypersonic_transition.deploy_wrong",
-   "bench.casper_hypersonic_transition.fisher_p",
    "bench.dirker_water.home_heldout",
    "bench.dirker_water.deploy_wrong",
-   "bench.dirker_water.fisher_p",
    "bench.naca_tn1451.home_heldout",
    "bench.naca_tn1451.deploy_wrong",
-   "bench.naca_tn1451.fisher_p",
    "bench.jin_sco2_buoyancy.home_heldout",
    "bench.jin_sco2_buoyancy.deploy_wrong",
-   "bench.jin_sco2_buoyancy.fisher_p",
    "bench.velazquez_sco2.home_heldout",
    "bench.velazquez_sco2.deploy_wrong",
-   "bench.velazquez_sco2.fisher_p",
    "bench.marineau_hypersonic_transition.home_heldout",
    "bench.marineau_hypersonic_transition.deploy_wrong",
-   "bench.marineau_hypersonic_transition.fisher_p",
    "bench.forrest.home_heldout",
    "bench.forrest.deploy_wrong"
   ]

@@ -69,6 +69,14 @@ _CORPUS_KIND = DetectorKind.CLOSURE_VALIDITY
 
 RESULTS_DIR = Path(__file__).resolve().parent.parent / "results" / "benchmark_v0_4"
 
+#: The current bank. 0.4.1 corrects the NACA source data: the 0.4 bank's NACA row came from
+#: an automated read of NACA TN-1451 Fig 10 later found invalid (see
+#: data/naca/CORRECTION_v0_4_1.md). Every other cell is identical. The 0.4 bank is kept,
+#: unchanged, for audit -- it is history, not current evidence.
+BANK_VERSION = "0.4.1"
+BANK_DIR = ("data", "benchmarks", "v0_4_1")
+HISTORICAL_BANKS = {"0.4": ("data", "benchmarks", "v0_4")}
+
 
 @dataclass(frozen=True)
 class BenchSpec:
@@ -349,7 +357,8 @@ def run_matrix(write: bool = True) -> dict:
     its declared intent."""
     cells = [run_cell(s) for s in discover_benchmark_vehicles()]
     matrix = {
-        "benchmark": "PhysMAP Benchmark v0.4 (cross-domain, real-API, registry-driven)",
+        "benchmark": f"PhysMAP Benchmark v{BANK_VERSION} (cross-domain, real-API, registry-driven)",
+        "bank_version": BANK_VERSION,
         "api": "physmap.guardrail.CredibilityGuardrail (fit/assess, observability-weighted)",
         "detectors": "baseline=(distance, gp_variance); corpus=closure_validity (raw signals read)",
         "operating_percentiles": list(OPERATING_PERCENTILES),

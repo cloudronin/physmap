@@ -181,7 +181,7 @@ and we ran neither. What we tested is an input-based OOD detector — the benchm
 **Say:** "The label is the classifier's name for a class: the failure variable was invisible to
 the input-based detectors, and the closure check caught wrong predictions they missed. The
 counts behind it are per dataset — 4 of 8 in the hypersonic case, for example — and we show the
-false alarms and the home baseline beside them. We never pool them into one rate, and none of it is about materiality."
+accurate predictions it flags and the home baseline beside them. We never pool them into one rate, and none of it is about materiality."
 
 - **Fact:** `src/physmap/benchmarks/benchmark_v0_4.py`, `_classify`; the counts print in
   `physmap benchmark report`.
@@ -224,14 +224,18 @@ anything it prints, and says so."
 
 ### 22. "What about false alarms?"
 
-**Say:** "They're real, and they're on the slide. The closure check flags any prediction outside
-a relation's tested range, even when the surrogate happens to be right: 24 at the pipe entrance,
-16 for Dirker, none in the other tested datasets. Cutting those is what the materiality work is
-for. That isn't shown yet."
+**Say:** "They're on the slide. PhysMAP flags every prediction outside a closure's supported
+region, accurate or not: 19 at the pipe entrance, 16 for Dirker, none in the other tested
+datasets. As detection, those are false alarms. As applicability assurance, they are
+predictions the closure does not support, that happened to land close. At the pipe entrance
+that's 36 of 45 numerically acceptable predictions — close by luck, not by physics. Whether
+materiality weighting can separate the two is what the causal work is for; it isn't shown yet."
 
-- **Fact:** `physmap benchmark report`, the "right: flagged anyway" column, at percentile 99.
-- **Interpretation:** a flag outside the tested range is a warning that the prediction rests on
-  an extrapolated relation, not proof it is wrong.
+- **Fact:** `physmap benchmark report`, the "right: flagged anyway" column, at percentile 99;
+  `examples/naca_entrance_region.py` for the 36.
+- **Interpretation:** a flag outside the tested range says the prediction rests on an
+  extrapolated relation, not that it is wrong. The 19 and the 36 differ because the benchmark
+  counts "accurate" at a tighter threshold, with a dead band between.
 
 ### 23. "Isn't this just an out-of-range check?"
 
@@ -266,25 +270,45 @@ per dataset, with its false alarms beside it."
 
 ### 26. "Is your surrogate even accurate where it was trained?"
 
-**Say:** "That's the right question, and the answer differs by dataset. In the hypersonic case,
-yes: 6 of 159 wrong at home, held out, against 8 of 8 deployed. Water in a horizontal tube: 0 of
-31 against 11 of 60. For the benchmark's pipe-entrance data, no: 13 of 29 at home, 20 of 47
-deployed — and Jin and Velazquez are wrong almost everywhere. Their counts stand, but they
-cannot show that deployment created the failure."
+**Say:** "That's the right question, and it differs by dataset. In the hypersonic case, yes: 6 of
+159 wrong at home, held out, against 8 of 8 deployed. Water in a horizontal tube: 0 of 31 against
+11 of 60. The pipe entrance: 0 of 40 against 9 of 45. Jin and Velazquez are wrong almost
+everywhere, at home too — their counts stand, but they cannot show that deployment created the
+failure."
 
-- **Fact:** `physmap benchmark report`, "Home baseline";
-  `data/benchmarks/v0_4/home_baseline.json`, derived beside the unchanged matrix.
-- **Interpretation:** a count reads as a blind spot deployment created only for Casper and
-  Dirker (one-sided Fisher exact p < 0.05; rule fixed after the counts were first seen).
+- **Fact:** `physmap benchmark report`, "Home baseline"; `data/benchmarks/v0_4_1/home_baseline.json`.
+- **Interpretation:** written per dataset, in prose. No gate decides it; a Fisher test run after
+  the counts were seen is labelled exploratory and decides nothing.
 
 ### 27. "Does it work with any model?"
 
-**Say:** "On one dataset I can test that. In the hypersonic case a Gaussian process, a DeepONet
-and boosted trees all pass the same accuracy gate, and each leaves 4 of 8 wrong predictions only
-PhysMAP flags. On the other three I tried, no model type passes the gate, so there's nothing to
-compare. The detectors never see the prediction, so their flags don't change with the model."
+**Say:** "Where I can test it, the result doesn't depend on the model. In the hypersonic case a
+Gaussian process, a DeepONet and boosted trees all pass the same home-accuracy check, and each
+leaves 4 of 8 errors only PhysMAP flags. At the pipe entrance all three pass too, but its home
+reads repeat — 40 rows, 5 distinct values — so that check says little there. On Jin and
+Velazquez none passes. The detectors never see the prediction, so their flags don't change with
+the model."
 
 - **Fact:** `physmap benchmark architectures --banked`;
-  `data/benchmarks/v0_4/architecture_axis.json`.
+  `data/benchmarks/v0_4_1/architecture_axis.json`.
 - **Do not say:** "any model" — D20.
 
+### 28. "Your benchmark said 20 of 20 at the pipe entrance. Now it's 9 of 9?"
+
+**Say:** "Yes, and I withdrew the 20. The original bank's NACA row came from an automated read of
+the figure that turned out to be invalid — its axis calibration was wrong, and its points sat on
+gridline crossings. I checked it against the figure and against two independent human reads,
+replaced it with the two-reader read, and kept the original bank, unchanged, for audit. Only
+that one row changed."
+
+- **Fact:** `data/naca/CORRECTION_v0_4_1.md`; banks `data/benchmarks/v0_4/` (original) and
+  `data/benchmarks/v0_4_1/` (current); `tests/test_home_baseline.py` pins both.
+
+### 29. "Is the difference between home and deployment significant?"
+
+**Say:** "I don't use a significance test to decide anything here. I ran a one-sided Fisher test
+after seeing the counts, so it's reported as exploratory only. The counts and rates are the
+evidence, and they're all on the slide."
+
+- **Fact:** the "Exploratory only" block of `physmap benchmark report`.
+- **Do not say:** "statistically significant" as a verdict on any dataset — D23.

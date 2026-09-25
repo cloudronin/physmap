@@ -1,4 +1,8 @@
-PhysMAP Benchmark v0.4 (cross-domain, real-API, registry-driven)
+PhysMAP Benchmark v0.4.1 (cross-domain, real-API, registry-driven)
+
+Bank v0.4.1 (data/benchmarks/v0_4_1/), current. It corrects the NACA source data: the original
+bank's NACA row came from an automated read of the figure later found invalid. Kept unchanged
+for audit, not as evidence: v0.4 at data/benchmarks/v0_4/. See data/naca/CORRECTION_v0_4_1.md.
 
 All 7 vehicles are reported. 7 of 7 ship their source data -- all of them.
 
@@ -21,7 +25,7 @@ What the closure-validity check adds to the input-based detectors
   independent cases, and the datasets are not pooled.
 
   vehicle                            failure variable  wrong: caught only by PhysMAP   right: flagged anyway
-  naca_tn1451                        unobservable      20 of 20                        24
+  naca_tn1451                        unobservable      9 of 9                          19
   velazquez_sco2                     partial           18 of 67                        0
   forrest                            observable        not tested -- 1 training row(s), no detector fit
   casper_hypersonic_transition       unobservable      4 of 8                          0
@@ -33,50 +37,53 @@ What the closure-validity check adds to the input-based detectors
   on its home baseline, reported next.
 
 Home baseline -- is each surrogate accurate where it is meant to work?
-  A wrong deployment prediction that only PhysMAP flags shows a blind spot that
+  A wrong deployment prediction that only PhysMAP flags shows a failure that
   deployment created only if the surrogate was accurate at home. Wrong means the
-  benchmark's own threshold. Every row and every count above stands; this reads
-  them per vehicle.
-  Rule: A vehicle supports a deployment-induced blind-spot reading iff its deployment error rate exceeds its held-out home error rate with a one-sided Fisher exact p < 0.05. Fixed on 2026-09-25, after these home counts were first seen.
+  benchmark's own threshold. Every row and every count above stands. No gate
+  decides the reading: the counts and rates are the evidence, and each vehicle's
+  interpretation is written prose.
 
   casper_hypersonic_transition
     surrogate: a Gaussian process on (Mach, unit Reynolds, axial x); home: the noisy-tunnel rows, which the Gaussian process is fitted to
     in-sample fit error: 2 of 159 home rows wrong (1%)
     held-out home error (leave-one-out refit): 6 of 159 wrong (4%)
     deployment: 8 of 8 wrong (100%), threshold 30.6%
-    deployment-induced blind spot: yes: deployment is wrong on 100% of rows against 4% held out at home (one-sided Fisher exact p = 2e-10)
+    interpretation: Held out, the surrogate is wrong on 6 of 159 home rows (4%); deployed on the quiet tunnel, on 8 of 8 (100%). The failure appears on deployment, and its cause, freestream noise, is not a surrogate input.
   dirker_water
     surrogate: a straight-line fit of Nu against log10(Re); home: the low-Richardson rows, which the line is fitted to
     in-sample fit error: 0 of 31 home rows wrong (0%)
     held-out home error (leave-one-out refit): 0 of 31 wrong (0%)
     deployment: 11 of 60 wrong (18%), threshold 12.9%
-    deployment-induced blind spot: yes: deployment is wrong on 18% of rows against 0% held out at home (one-sided Fisher exact p = 0.007)
+    interpretation: Held out, the straight-line surrogate is wrong on 0 of 31 low-Richardson home rows; deployed, on 11 of 60 (18%). The failures appear as buoyancy grows, a cause the surrogate's inputs see only partly.
   forrest
     surrogate: the modified Sparrow-Cur correlation (2014); home: the rows the vehicle's split assigns to training
     held-out home error (published correlation, not fitted to these rows): 0 of 1 wrong (0%)
     deployment: 4 of 4 wrong (100%), threshold 12.7%
-    deployment-induced blind spot: no: 1 home row cannot establish a home baseline, so it cannot show that deployment created the failure
+    interpretation: One home row, so there is no home baseline; its values are visual triage estimates, not benchmark-grade.
   jin_sco2_buoyancy
     surrogate: the constant-property Dittus-Boelter correlation; home: the rows the vehicle's split assigns to training
     held-out home error (published correlation, not fitted to these rows): 17 of 17 wrong (100%); 11 of 17 inside the correlation's validated range
     deployment: 26 of 27 wrong (96%), threshold 12.7%
-    deployment-induced blind spot: no: deployment is wrong on 96% of rows and home on 100% (p = 1); deployment is not distinguishably worse, so the counts cannot show that it created the failure
+    interpretation: The constant-property correlation is wrong on 17 of 17 home rows (100%) and 26 of 27 deployed rows (96%); 11 of 17 home rows lie inside its validated range. It is wrong almost everywhere in this near-critical CO2 data, so the counts cannot show that deployment created the failure.
   marineau_hypersonic_transition
     surrogate: a Gaussian process on (unit Reynolds, nose radius); home: the benign-regime rows, which the Gaussian process is fitted to
     in-sample fit error: 0 of 9 home rows wrong (0%)
     held-out home error (leave-one-out refit): 5 of 9 wrong (56%)
     deployment: 6 of 6 wrong (100%), threshold 12.7%
-    deployment-induced blind spot: no: deployment is wrong on 100% of rows and home on 56% (p = 0.092); deployment is not distinguishably worse, so the counts cannot show that it created the failure
+    interpretation: In-sample the surrogate looks perfect (0 of 9 wrong); held out, it is wrong on 5 of 9 home rows (56%); deployed, on 6 of 6. Nine home rows cannot separate the two. Its role is the control where the cause is a surrogate input: the input-based detectors see it, and PhysMAP adds nothing.
   naca_tn1451
     surrogate: the Gnielinski correlation (1976); home: the fully developed rows (x/D at or above the entrance cut)
-    held-out home error (published correlation, not fitted to these rows): 13 of 29 wrong (45%); 29 of 29 inside the correlation's validated range
-    deployment: 20 of 47 wrong (43%), threshold 17.5%
-    deployment-induced blind spot: no: deployment is wrong on 43% of rows and home on 45% (p = 0.67); deployment is not distinguishably worse, so the counts cannot show that it created the failure
+    held-out home error (published correlation, not fitted to these rows): 0 of 40 wrong (0%); 40 of 40 inside the correlation's validated range
+    deployment: 9 of 45 wrong (20%), threshold 17.5%
+    interpretation: Gnielinski is wrong on 0 of 40 fully developed home rows and on 9 of 45 entrance rows (20%), all near the inlet. The failures appear in the entrance region, which the correlation does not cover.
   velazquez_sco2
     surrogate: the constant-property Gnielinski correlation; home: the rows the vehicle's split assigns to training
     held-out home error (published correlation, not fitted to these rows): 386 of 393 wrong (98%); 197 of 393 inside the correlation's validated range
     deployment: 67 of 67 wrong (100%), threshold 12.7%
-    deployment-induced blind spot: no: deployment is wrong on 100% of rows and home on 98% (p = 0.33); deployment is not distinguishably worse, so the counts cannot show that it created the failure
+    interpretation: The constant-property correlation is wrong on 386 of 393 home rows (98%) and 67 of 67 deployed rows (100%); only 197 of 393 home rows lie inside its validated range. It is wrong almost everywhere, so the counts cannot show that deployment created the failure.
+
+  Exploratory only: a one-sided Fisher exact test of deployment error against held-out home error, chosen after the counts were seen. It decides nothing.
+    casper_hypersonic_transition p = 2.4e-10; dirker_water p = 0.0072; forrest p = 0.2; jin_sco2_buoyancy p = 1; marineau_hypersonic_transition p = 0.092; naca_tn1451 p = 0.0022; velazquez_sco2 p = 0.33
 
 Does the kind of model matter? The architecture axis
   The detectors never look inside the model, so they flag the same rows for any
@@ -87,10 +94,11 @@ Does the kind of model matter? The architecture axis
   vehicle                         gp            deeponet      gbt           
   casper_hypersonic_transition    4 of 8        4 of 8        4 of 8        
   jin_sco2_buoyancy               fails gate    fails gate    fails gate    
-  naca_tn1451                     fails gate    fails gate    fails gate    
+  naca_tn1451                     11 of 11      11 of 11      11 of 11      
   velazquez_sco2                  fails gate    fails gate    fails gate    
 
-  Testable on 1 of 4 vehicles: only there do two or more model types pass the gate.
+  Two or more model types pass the gate on 2 of 4 vehicles: casper_hypersonic_transition, naca_tn1451.
+  On naca_tn1451 the gate says little: its 40 home rows hold 5 distinct values, so leave-one-out keeps copies of each held-out row.
   `physmap benchmark architectures` recomputes this; it needs PyTorch.
 
 Redistribution basis -- read this before reusing any of this data

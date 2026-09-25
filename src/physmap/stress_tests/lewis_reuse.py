@@ -431,6 +431,9 @@ def render(record: dict) -> str:
     ref = str(int(REFERENCE_PCT))
     L = []
     L.append("CONTROLLED MODEL-REUSE STRESS TEST -- Lewis (1992) Test 35A")
+    L.append("Causal materiality: does a mechanism the surrogate left out materially change the")
+    L.append("quantity of interest? (Applicability -- whether a closure still applies -- is a")
+    L.append("separate check, shown on NACA x/D; neither is evidence for the other.)")
     L.append("")
     L.append(_wrap(record["framing"]))
     L.append("")

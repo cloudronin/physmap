@@ -6,106 +6,120 @@ captions: [`figures/README.md`](figures/README.md).
 
 ---
 
-## The x/D entrance region — `bench_1_naca_entrance`
+## Applicability assurance: the x/D entrance region — `bench_1_naca_entrance`
 
-**On screen:** measured Nu against x/D. Grey rings are training points, fully developed flow.
-Black dots are the entrance region. A line at x/D = 10. Three counts on the right.
-
-**Say:**
-
-- "A classic case. A heated pipe. We train a surrogate on the fully developed flow, using Re and
-  Pr, and then use it at the entrance."
-- "At the entrance, Re and Pr are ordinary — they are the same curves. What is new is x/D, and
-  the surrogate never had it."
-- "The correlation behind it is only validated from x/D = 10. Left of the line, it is outside
-  its range."
-- "PhysMAP's closure check fires on all 45 entrance points. The two input-based detectors fire on
-  none. They are not wrong about the inputs. They just cannot see x/D."
-- "This is the core of PhysMAP: a check on a variable the detectors cannot see. The next slide
-  shows it across seven datasets. The causal question comes later, and is separate."
-
-**Point at:** the 45 and the two zeros.
-
-**If asked:**
-
-- *"45 here, 47 in the benchmark?"* — "The example uses its own split; the benchmark's NACA cell
-  uses another, 47 test rows. Same pattern in both."
-- *"Would a lower threshold make them fire?"* — "Not for the right reason. The entrance points
-  have the same Re and Pr as the training curves."
-
-**Do not say:** that this shows the causal method works.
-
----
-
-## What PhysMAP adds, across seven datasets — `bench_3_what_physmap_adds`
-
-**This is the point of the talk.** Give it time.
-
-**On screen:** seven datasets in three groups — cause hidden from the inputs, partly visible,
-visible. Left: the surrogate's wrong predictions (grey) and the part PhysMAP caught that the OOD
-detectors missed (green), with "4 of 8"-style counts. Right: right predictions PhysMAP flagged
-anyway.
+**On screen:** measured Nu against x/D. Grey rings are the fully developed points. Black dots are
+the entrance region. A line at x/D = 10. Counts on the right.
 
 **Say:**
 
-- "The same idea, on seven published datasets in two domains. For each one: which wrong
-  predictions did PhysMAP catch that the input-based detectors missed — and what did it cost?"
-- "Top group: the cause of failure is hidden from the surrogate's inputs. Here PhysMAP flags
-  wrong predictions the OOD detectors can't see: 20 of 20 at the pipe entrance, 4 of 8 in the
-  hypersonic case, 15 of 26 for supercritical CO2. The next slide says which of those counts
-  show a blind spot that deployment created."
-- "Middle group: the cause is partly visible. 18 of 67, and 2 of 11."
-- "Bottom group: the cause is an input. The OOD detectors already see it, and PhysMAP adds
-  nothing — 0 of 6. That is the control, and it is the right answer."
-- "And the cost, on the right. The closure check flags anything outside its tested range, even
-  when the surrogate happens to be right: 24 false alarms at the pipe entrance, 16 for Dirker."
-- Land it: **"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP flags what
-  the OOD detectors can't see. Where it is, it adds nothing. And it costs false alarms."**
+- "A classic case. A heated pipe. The prediction comes from the Gnielinski correlation, which
+  uses Re and Pr and is validated for fully developed flow — from x/D = 10 on."
+- "At the entrance, Re and Pr are ordinary — the same curves. What is new is x/D, and nothing
+  that uses only Re and Pr can see it."
+- "Against the measurement: within the numerical-error threshold on all 40 fully developed
+  points. Over it on 9 of the 45 entrance points, all near the inlet."
+- "PhysMAP places all 45 entrance predictions outside the closure's supported region. The two
+  input-based detectors fire on none — they cannot see x/D."
+- "And the other 36? Numerically acceptable. Not physically supported by that closure. Close by
+  luck, not by physics."
+- Land it: **"Numerical agreement does not by itself establish that a prediction is credibly
+  supported. That is applicability assurance."**
 
-**Point at:** the Casper bar, then the Marineau bar, then the right panel.
+**Point at:** the line at x/D = 10, then the 45, then the two zeros.
 
 **If asked:**
 
-- *"What's the overall catch rate?"* — "I don't pool them. Each dataset is a different physics
-  and a different size, and rows within a dataset aren't independent cases. The counts are per
-  dataset, on purpose."
-- *"Why do the partly visible ones catch less?"* — "Because the OOD detectors see part of the
-  cause there, so more of the wrong predictions are already theirs."
-- *"How does it know when to override the OOD detectors?"* — "At setup it classes each bounded
-  variable as visible to the surrogate's inputs or not. It overrides only on the hidden ones."
-- *"What about Forrest?"* — "One training row, so no detector could be fitted. Not tested."
+- *"So 36 false alarms?"* — "As detection, yes. As applicability, no: they are predictions the
+  correlation does not support, that happened to land close. I show both numbers."
+- *"Would a lower threshold make the detectors fire?"* — "Not for the right reason. The entrance
+  points have the same Re and Pr as the training curves."
+- *"Is this the benchmark's NACA row?"* — "The same data. Bank v0.4.1 uses this two-reader read;
+  the original bank used an automated read that turned out to be invalid, and I withdrew it."
 
-**Do not say:** a rate pooled across datasets; "PhysMAP beats OOD detection" without the
-condition; anything that hides the false alarms.
+**Do not say:** "PhysMAP caught 45 errors"; that this shows the causal method works.
 
 ---
 
-## The home baseline — `bench_4_home_baseline`
+## Supporting evidence: Casper, across three model types — text slide
+
+**On screen:** a small table. Three model types — Gaussian process, DeepONet, gradient-boosted
+trees. For each: passes the home-accuracy check; leaves 4 of 8 deployment errors that only
+PhysMAP flags.
+
+**Say:**
+
+- "Now the supporting evidence. Hypersonic transition, from Casper's measurements. The cause of
+  failure, tunnel freestream noise, is not a surrogate input."
+- "The surrogate is accurate at home: 6 of 159 wrong, held out. Deployed on the quiet tunnel:
+  8 of 8 wrong."
+- "Swap the surrogate for a DeepONet, or for boosted trees. Each passes the same home-accuracy
+  check, and each leaves 4 of 8 errors that only PhysMAP flags."
+- "That's because the detectors never look inside the model. What changes with the model is
+  only which predictions are wrong."
+
+**If asked:**
+
+- *"Only one dataset?"* — "Only one where two or more model types pass the home check. I don't
+  count a model that fails it."
+- *"Is it the same four rows each time?"* — "Every model gets all eight wrong, and the flags do
+  not depend on the model, so yes."
+
+**Do not say:** "PhysMAP works with any model."
+
+---
+
+## Seven datasets, with their limitations — `bench_4_home_baseline`
 
 **On screen:** one row per dataset. Hollow dot: the surrogate's error rate at home, held out.
-Filled dot: when deployed. On the right, the counts and whether deployment is distinguishably
-worse.
+Filled dot: when deployed. On the right, the counts and where the home error comes from.
 
 **Say:**
 
-- "A count only means 'deployment created this blind spot' if the surrogate was right at home.
-  So for each dataset: how often is it wrong at home, and how often when deployed?"
-- "The hypersonic case: 6 of 159 at home, held out, and 8 of 8 deployed. Water in a horizontal
-  tube: 0 of 31 and 11 of 60. Those two hold."
-- "The benchmark's pipe-entrance data: 13 of 29 at home, 20 of 47 deployed. Jin and Velazquez:
-  wrong almost everywhere. Their counts stand, but they cannot show that deployment did it."
+- "The whole benchmark, every dataset. For each: how often is the surrogate wrong at home, and
+  how often when deployed?"
+- "Casper: 6 of 159 at home, 8 of 8 deployed. Dirker, water in a horizontal tube: 0 of 31, and
+  11 of 60. NACA is the case you just saw: 0 of 40, and 9 of 45."
+- "Jin and Velazquez: the correlation is wrong almost everywhere, at home too. PhysMAP still
+  flags errors the detectors miss there, but those counts cannot show that deployment did it."
+- "Marineau: the cause is an input; the detectors see it; PhysMAP adds nothing. Forrest has one
+  training row."
 - "Two kinds of home error, never mixed. Where the surrogate was fitted to the home rows, I refit
   it without each row. Where it's a published correlation, it was never fitted to them."
-- Land it: **"Every count stays on the slide. Only two of them are blind spots deployment
-  created."**
+- Land it: **"Every dataset stays on the slide, with its limitation. None of this is a rate."**
 
 **If asked:**
 
-- *"Why a Fisher test at 0.05?"* — "It's the plain test for 'is this rate higher than that one'.
-  I fixed it after seeing these counts, so I show the counts beside it — use your own rule."
-- *"Why is NACA's home so bad?"* — "The benchmark digitised that figure with one reader. The
-  x/D example uses a two-reader digitisation of the same figure, and there the correlation is
-  right at home and fails near the inlet."
+- *"How did you decide which ones count?"* — "No gate decides it. The counts are on the slide,
+  and each dataset's reading is written out in the report. I did run a Fisher test after seeing
+  these counts; it's labelled exploratory, and it decides nothing."
+- *"What's the overall catch rate?"* — "I don't pool them. Different physics, different sizes,
+  and rows within a dataset aren't independent cases."
+
+**Do not say:** that every count shows a failure deployment created; a rate pooled across
+datasets.
+
+---
+
+## The detector counts, per dataset — `bench_3_what_physmap_adds` (backup)
+
+**On screen:** seven datasets in three groups — cause hidden from the inputs, partly visible,
+visible. Left: wrong predictions, and the part only PhysMAP flagged. Right: accurate predictions
+flagged anyway, because they sit outside the closure's supported region.
+
+**Say, if it comes up:**
+
+- "Per dataset, at the default setting: which wrong predictions did PhysMAP flag that the
+  input-based detectors missed? Casper 4 of 8. NACA 9 of 9. Jin 15 of 26, Velazquez 18 of 67 —
+  but read those with the home baseline."
+- "Where the cause is an input, nothing: 0 of 6 for Marineau."
+- "On the right, accurate predictions it flags anyway: 19 for NACA, 16 for Dirker. As detection,
+  false alarms. As applicability, predictions the closure does not support."
+
+**Do not say:** "PhysMAP beats OOD detection" without the condition; anything that hides the
+flags on accurate predictions.
+
+---
 
 ## Seven-vehicle benchmark, in full — `bench_2_seven_vehicles` (backup)
 

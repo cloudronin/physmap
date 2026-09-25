@@ -98,7 +98,8 @@ def test_running_does_not_overwrite_the_banked_matrix(fresh_matrix):
     import hashlib
     from physmap._paths import checkout_path
 
-    p = checkout_path("data", "benchmarks", "v0_4", "matrix_full_seven.json",
+    from physmap.benchmarks.benchmark_v0_4 import BANK_DIR
+    p = checkout_path(*BANK_DIR, "matrix_full_seven.json",
                       what="the banked matrix")
     before = hashlib.sha256(p.read_bytes()).hexdigest()
 
