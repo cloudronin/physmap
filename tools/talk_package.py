@@ -625,6 +625,18 @@ FIGURES = {
     "bench_4_home_baseline": "The home baseline behind each count",
 }
 
+#: Slide 11's short annotations -- presentation text written for the talk, not computed. The
+#: counts beside them are, and each dataset's full reading is in `physmap benchmark report`.
+HOME_ANNOTATION = {
+    "casper_hypersonic_transition": "strongest support across three model types",
+    "dirker_water": "additional support",
+    "naca_tn1451": "applicability case, not separate evidence",
+    "jin_sco2_buoyancy": "no credible home baseline",
+    "velazquez_sco2": "no credible home baseline",
+    "marineau_hypersonic_transition": "control where PhysMAP adds nothing",
+    "forrest": "triage-only",
+}
+
 # Supported readings first, then the rest, each in benchmark order.
 HOME_ORDER = ["casper_hypersonic_transition", "dirker_water", "naca_tn1451",
               "jin_sco2_buoyancy", "velazquez_sco2", "marineau_hypersonic_transition", "forrest"]
@@ -1193,8 +1205,8 @@ def fig_home_baseline(reg: _Reg, Bn: dict):
     d = reg.d
     byv = {r["vehicle"]: r for r in Bn["rows"]}
     fig = plt.figure(figsize=(W, H))
-    ax = fig.add_axes([0.25, 0.12, 0.33, 0.6])
-    tab = fig.add_axes([0.6, 0.12, 0.39, 0.6], sharey=ax)
+    ax = fig.add_axes([0.25, 0.12, 0.3, 0.6])
+    tab = fig.add_axes([0.57, 0.12, 0.42, 0.6], sharey=ax)
     tab.set_axis_off()
     fig.text(0.012, 0.975, "Is the surrogate right at home? The baseline behind each count",
              fontsize=13, weight="bold", va="top")
@@ -1207,8 +1219,8 @@ def fig_home_baseline(reg: _Reg, Bn: dict):
     ax.set_ylim(len(ys) - 0.4, -0.9)
     ax.set_xlim(-4, 104)
     cols = blended_transform_factory(tab.transAxes, tab.transData)
-    for x, label in ((0.0, "home wrong,\nheld out"), (0.27, "deployed\nwrong"),
-                     (0.52, "home error\nfrom")):
+    for x, label in ((0.0, "home wrong,\nheld out"), (0.22, "deployed\nwrong"),
+                     (0.44, "reading")):
         tab.text(x, -0.75, label, transform=cols, va="bottom", fontsize=8.5,
                  color=INK["secondary"], weight="bold")
     for vid, y in ys.items():
@@ -1219,12 +1231,12 @@ def fig_home_baseline(reg: _Reg, Bn: dict):
         ax.plot(dx, y, "o", ms=8, mfc=INK["primary"], mec=INK["primary"], mew=1.8, zorder=2)
         ax.plot(hx, y, "o", ms=8, mfc=INK["surface"], mec=INK["primary"], mew=1.8, zorder=3)
         tab.text(0.0, y, d(f"bench.{vid}.home_heldout"), transform=cols, va="center", fontsize=9)
-        tab.text(0.27, y, d(f"bench.{vid}.deploy_wrong"), transform=cols, va="center",
+        tab.text(0.22, y, d(f"bench.{vid}.deploy_wrong"), transform=cols, va="center",
                  fontsize=9)
-        kind = ("one row only" if h["n"] < 2 else
-                "refit without each row" if c["home_in_sample"] else
-                "a correlation, never fitted")
-        tab.text(0.52, y, kind, transform=cols, va="center", fontsize=9)
+        import textwrap
+        tab.text(0.44, y, "\n".join(textwrap.wrap(HOME_ANNOTATION[vid], 26)), transform=cols,
+                 va="center", fontsize=8.5, linespacing=1.15,
+                 weight="bold" if vid == "casper_hypersonic_transition" else "normal")
     ax.set_yticks(list(ys.values()))
     ax.set_yticklabels([BENCH_NAMES[v] for v in ys], fontsize=9)
     ax.tick_params(axis="y", length=0)
@@ -1270,16 +1282,19 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             f"surrogate's prediction, the gravity-off CFD control and Lewis's measurement. Top "
             f"right: the surrogate is within {d('lewis.control_error_max_abs_pct')} % of the "
             f"control and {d('lewis.downstream_error_range_pct')} % off the measurement at x/D "
-            f"{d('lewis.downstream_stations')}. Bottom left: the OOD distance score, identical "
-            f"in both states and under its threshold {d('lewis.ood.threshold_distance')} "
-            f"everywhere; GP variance is quiet too (max {d('lewis.ood.max_gp_all')} against "
-            f"{d('lewis.ood.threshold_gp')}). Bottom right: materiality, 0 with gravity off, up "
+            f"{d('lewis.downstream_stations')}. Bottom left: the OOD distance score — identical "
+            f"in both states because the visible inputs are identical — and under its threshold "
+            f"{d('lewis.ood.threshold_distance')} at the reference percentile {REF_PCT}, as is GP "
+            f"variance (max {d('lewis.ood.max_gp_all')} against {d('lewis.ood.threshold_gp')}); "
+            f"at lower percentiles the detector fires, in both states alike. Bottom right: "
+            f"materiality, 0 with gravity off, up "
             f"to {d('lewis.materiality_on_max')} with gravity on. Materiality comes from the "
             f"matched CFD pair, not from the measurement. Hollow markers: the three stations "
             f"Lewis disowns — the first two for axial wall conduction, the last as suspect.",
         "lewis_3_ood_identical":
             f"Each input-based OOD score with gravity off, against the same score with gravity "
-            f"on, for all {d('lewis.n_stations')} stations. Every point is on the diagonal; the "
+            f"on, for all {d('lewis.n_stations')} stations. Every point is on the diagonal — the "
+            f"scores are identical because the visible inputs are identical; the "
             f"largest difference, over every station, both scores and every operating "
             f"percentile, is {d('lewis.ood.max_abs_difference_on_vs_off')}. Shaded: where the "
             f"detector would fire at the reference percentile {REF_PCT}.",
@@ -1345,7 +1360,11 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             f"{d('bench.naca_tn1451.deploy_wrong')}). Jin and Velazquez are wrong almost "
             f"everywhere, Marineau's nine home rows are too few, and Forrest has one. Their "
             f"detector counts stand; they cannot show that deployment created the failure. No "
-            f"gate decides it, and no row is removed.",
+            f"gate decides it, and no row is removed. On the slide each row carries a short "
+            f"annotation, written for the talk: Casper, strongest support across three model "
+            f"types; Dirker, additional support; NACA, the applicability case, not separate "
+            f"evidence; Jin and Velazquez, no credible home baseline; Marineau, the control "
+            f"where PhysMAP adds nothing; Forrest, triage-only.",
         "bench_2_seven_vehicles":
             "The seven vehicles as `physmap benchmark report` prints them, with each dataset's "
             "redistribution basis and data quality. An outcome is an observability class. "
@@ -1752,6 +1771,65 @@ def _cli_expectations(reg: _Reg, L: dict) -> list[tuple[str, str]]:
     ]
 
 
+#: Phrasings corrected in review. A line that quotes one on purpose -- a "do not say" entry --
+#: is exempt.
+_CLAIM_RULES = (
+    (re.compile(r"\bby (?:luck|chance)\b", re.I),
+     "outside a validated range means unsupported, not accidental"),
+    (re.compile(r"happen(?:s|ed)? to (?:land|be|remain) (?:close|numerically)", re.I),
+     "numerical agreement outside the validated range is unsupported, not accidental"),
+    (re.compile(r"uniform wall flux, laminar|(?<!nominally )laminar,? (?:with buoyancy|aiding)",
+                re.I),
+     "35A is nominally laminar; laminar flow throughout is not independently established"),
+)
+_HEADLINE = "identical with gravity on and off because the visible inputs are identical"
+
+
+def _exempt(line: str) -> bool:
+    low = line.lower()
+    return ("do not say" in low or line.startswith("| D") or line.startswith('| "')
+            or "never say" in low or "never \"" in low or "\"quiet\" without" in low)
+
+
+def _claim_check() -> list[str]:
+    fails = []
+    docs = [p for p in sorted(TALK.glob("*.md"))] + [FIG / "README.md", REPO / "README.md",
+                                                       REPO / "docs" / "talk-runbook.md"]
+    for doc in docs:
+        if not doc.exists():
+            continue
+        lines = doc.read_text().splitlines()
+        for ln, line in enumerate(lines, 1):
+            if _exempt(line):
+                continue
+            nxt = lines[ln] if ln < len(lines) else ""       # prose wraps; read on one line
+            for rx, why in _CLAIM_RULES:
+                if rx.search(line):
+                    fails.append(f"{_rel(doc)}:{ln}: corrected claim is back ({why}): "
+                                 f"{line.strip()[:90]!r}")
+            low = line.lower()
+            both = (line + " " + nxt).lower()
+            # the Lewis OOD detector is quiet only at a stated percentile
+            if ("quiet" in low and ("ood" in low or "detector" in low)
+                    and ("gravity" in low or "lewis" in low or "control" in low)
+                    and not ("99" in both or "reference percentile" in both)):
+                fails.append(f"{_rel(doc)}:{ln}: the OOD detector is 'quiet' without its "
+                             f"percentile: {line.strip()[:90]!r}")
+    for name in ("narrative.md", "slide-sequence.md", "speaker-notes.md", "claims-ledger.md"):
+        text = re.sub(r"(?m)^\s*>\s?", "", (TALK / name).read_text())   # blockquote markers
+        if _HEADLINE not in " ".join(text.split()).lower():
+            fails.append(f"{name} lacks the threshold-independent headline: {_HEADLINE!r}")
+    slides = (TALK / "slide-sequence.md").read_text()
+    main = slides.split("## Backup inventory")[0]
+    rows = [ln for ln in main.splitlines() if re.match(r"^\| \d+ \|", ln)]
+    if len(rows) != 13:
+        fails.append(f"the main slide sequence has {len(rows)} slides, not 13")
+    for tok in ("1.00", "0.65", "0.79"):
+        if tok in main:
+            fails.append(f"a historical metric ({tok}) appears in the main slide sequence")
+    return fails
+
+
 def check() -> int:
     fails: list[str] = []
     reg, L, Bn, N = _compute_all()
@@ -1883,6 +1961,9 @@ def check() -> int:
                  f"train: {reg.items['naca.n_training']['display']} fully-developed points"):
         if want not in ex:
             fails.append(f"the NACA example output lacks {want!r}")
+
+    # 7. claims this talk has corrected must not come back, and its structure holds
+    fails.extend(_claim_check())
 
     # 6. every decimal (and whole-number percentage) in the hand-written prose is sourced
     tokens = re.compile(r"\d+(?:\.\d+)*")

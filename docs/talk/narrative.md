@@ -25,6 +25,12 @@ the model left out materially change the answer?**
 > **Say:** "OOD asks whether the inputs look familiar. PhysMAP asks whether the model's physics
 > still applies, and whether an omitted mechanism changes the answer."
 
+**Say once, early — the accepted abstract:** "The accepted abstract reported an earlier
+correlation-referenced study. Rebuilding it changed what I am willing to claim, so today I will
+show the reconstructed open evidence." Nothing more on it in the main talk; the full
+reconciliation, with the original numbers, is backup (B22) and
+[`historical-reconciliation.md`](historical-reconciliation.md).
+
 ---
 
 ## 2. Applicability assurance — the NACA x/D entrance region
@@ -50,11 +56,12 @@ and neither the surrogate nor an input-based OOD detector sees it. On NACA TN-14
 
 **Numerical agreement does not by itself establish that a prediction is credibly supported.**
 That is what applicability assurance adds: it says when a prediction rests on physics outside
-its supported region, whether or not the number happens to land close.
+its supported region, whether or not the number lands close. Outside a validated range means
+unsupported; it does not prove that an agreement is accidental.
 
 > **Say:** "Nine of these entrance predictions are wrong. All forty-five are outside what the
-> correlation supports — and the thirty-six that happen to be close are close by luck, not by
-> physics."
+> correlation supports. The thirty-six are numerically close, but that agreement is not
+> supported by validation evidence for this region."
 
 ---
 
@@ -80,7 +87,8 @@ else, with different evidence:
 | NACA x/D (part 2) | Is the physics the prediction relies on applicable here? | `python examples/naca_entrance_region.py` |
 | Lewis 35A stress test (this part) | When a mechanism the surrogate never saw becomes active, does it matter to the answer? | `physmap stress-test lewis-reuse` |
 
-Neither is evidence for the other.
+Neither is evidence for the other. **Lewis replaces the abstract's earlier metrics as the main
+causal demonstration.**
 
 **The framing, word for word:**
 
@@ -96,7 +104,9 @@ Neither is evidence for the other.
 > from its input contract.
 
 **The experiment.** Lewis (1992), Test 35A: water flowing up a heated vertical tube of
-0.0119 m bore, heated over 1.900 m at uniform wall flux, laminar, with buoyancy aiding the flow.
+0.0119 m bore, heated over 1.900 m at uniform wall flux, nominally laminar, with buoyancy aiding
+the flow. Laminar flow throughout the test has not been independently established; the CFD
+models it as laminar.
 It is the one run in the thesis whose local Nu is printed as numbers. **It is one run.** Its 12
 thermocouple stations are positions along one tube, not 12 cases, and Lewis disowns three of
 them.
@@ -114,12 +124,15 @@ is no input gap for the detector to notice — by design.
 
 | | surrogate error | input-based OOD detector | PhysMAP materiality |
 |---|---|---|---|
-| **Gravity off** — CFD, the control | within 0.06 % | quiet | 0 |
+| **Gravity off** — CFD, the control | within 0.06 % | quiet at the reference percentile, 99 | 0 |
 | **Gravity on** — Lewis's measurement | 17–18 % at x/D 67.55, 101.69, 135.84 | the same scores, every station, every percentile | up to 0.195, growing down the tube |
 
-The OOD scores do not move at all
+**The threshold-independent headline: the OOD scores are identical with gravity on and off
+because the visible inputs are identical**
 ([figure](figures/README.md#the-input-based-ood-scores-are-identical-in-both-gravity-states)):
-the largest difference between the two states, over every score and percentile, is 0.
+the largest difference between the two states, over every score and percentile, is 0. Whether
+the detector fires depends on its operating percentile: at the reference 99 it is quiet in both
+states; at lower percentiles it fires — in both states alike.
 
 > **The line to land:** "Same inputs, same OOD scores. Different physics, different
 > materiality — and where materiality is largest, the surrogate is 17–18 % off."
@@ -140,7 +153,9 @@ output existed. All three were met; the second at the illustrative θ.
 
 **Reproducible.** `physmap stress-test lewis-reuse` recomputes it from a clean clone in a few
 minutes and checks itself against the committed bank. It reproduces the analysis from committed
-CFD-derived profiles. **It does not rerun OpenFOAM.**
+CFD-derived profiles. **It does not rerun OpenFOAM.** The talk shows the command and its
+captured, verified output ([`reproduction/`](reproduction/README.md)); nothing depends on a live
+run.
 
 ---
 
@@ -167,6 +182,11 @@ those 11 that the detectors miss.
 error is labelled by how it was obtained: in-sample, then held out by refitting without each
 row, where the surrogate was fitted to the home rows; held out by construction where it is a
 published correlation.
+
+On the slide, the chart carries short annotations and the dense table stays in backup:
+Casper — strongest support across three model types; Dirker — additional support; NACA — the
+applicability case, not separate evidence; Jin and Velazquez — no credible home baseline;
+Marineau — the control, where PhysMAP adds nothing; Forrest — triage-only.
 
 | Dataset | Detectors see the cause? | Home error: how obtained | Home wrong | Deployed wrong | Wrong, flagged only by PhysMAP | Accurate, flagged anyway | Limitation |
 |---|---|---|---|---|---|---|---|
@@ -244,9 +264,9 @@ figure later found invalid; that bank is kept unchanged for audit, not as eviden
    the base CFD differs from the experiment there. PhysMAP checks the mechanisms it is given.
 7. **That materiality cuts the flags on accurate predictions in part 4.** That is what it is
    for; it is not shown yet.
-8. **Generality of part 3.** One run, one geometry, one mechanism, laminar aiding flow.
-9. **The abstract's precision, recall and F1** — see
-   [`historical-reconciliation.md`](historical-reconciliation.md).
+8. **Generality of part 3.** One run, one geometry, one mechanism, nominally laminar aiding flow.
+9. **The accepted abstract's precision, recall and F1 as experimental validation.** They are
+   not presented as such — see [`historical-reconciliation.md`](historical-reconciliation.md).
 10. **Anything about NVIDIA PhysicsNeMo** or any other product. Neither of its checks was run.
 
 > **Close:** "OOD asks whether inputs look familiar. PhysMAP asks whether the model's physics

@@ -227,9 +227,10 @@ anything it prints, and says so."
 **Say:** "They're on the slide. PhysMAP flags every prediction outside a closure's supported
 region, accurate or not: 19 at the pipe entrance, 16 for Dirker, none in the other tested
 datasets. As detection, those are false alarms. As applicability assurance, they are
-predictions the closure does not support, that happened to land close. At the pipe entrance
-that's 36 of 45 numerically acceptable predictions — close by luck, not by physics. Whether
-materiality weighting can separate the two is what the causal work is for; it isn't shown yet."
+predictions the closure is not validated for. At the pipe entrance that's 36 of 45: numerically
+close, but that agreement is not supported by validation evidence for this region — which is
+not the same as saying it is accidental. Whether materiality weighting can separate the two is
+what the causal work is for; it isn't shown yet."
 
 - **Fact:** `physmap benchmark report`, the "right: flagged anyway" column, at percentile 99;
   `examples/naca_entrance_region.py` for the 36.

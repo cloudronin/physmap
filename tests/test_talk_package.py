@@ -93,3 +93,33 @@ def test_every_figure_registers_the_numbers_it_shows():
     saved = json.loads((tp.TALK / "numbers.json").read_text())
     for name in tp.FIGURES:
         assert saved["figures"].get(name), f"{name} registers no numbers"
+
+
+# ── the claim checks: corrected phrasings must not come back ──────────────────
+
+def test_an_agreement_called_luck_fails(copy, capsys):
+    _edit(copy / "narrative.md", "The thirty-six are numerically close, but that agreement is not",
+          "The thirty-six are close by luck, and that agreement is not")
+    _fails_with(capsys, "corrected claim is back")
+
+
+def test_35a_called_laminar_outright_fails(copy, capsys):
+    _edit(copy / "narrative.md", "uniform wall flux, nominally laminar", "uniform wall flux, laminar")
+    _fails_with(capsys, "corrected claim is back")
+
+
+def test_a_quiet_detector_without_its_percentile_fails(copy, capsys):
+    _edit(copy / "narrative.md", "| within 0.06 % | quiet at the reference percentile, 99 |",
+          "| within 0.06 % | quiet, OOD detector |")
+    _fails_with(capsys, "without its percentile")
+
+
+def test_a_fourteenth_main_slide_fails(copy, capsys):
+    _edit(copy / "slide-sequence.md", "\n| 13 | ", "\n| 14 | Extra | — | — | 0:30 |\n| 13 | ")
+    _fails_with(capsys, "has 14 slides, not 13")
+
+
+def test_a_historical_metric_on_a_main_slide_fails(copy, capsys):
+    _edit(copy / "slide-sequence.md", "| 12 | What the evidence shows",
+          "| 12 | What the evidence shows (precision 1.00)")
+    _fails_with(capsys, "historical metric (1.00)")

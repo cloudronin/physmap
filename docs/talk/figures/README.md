@@ -16,7 +16,7 @@ The input contract. The surrogate and the input-based OOD detector both receive 
 
 ![Gravity-off control against gravity-on measurement, by position](lewis_2_control_vs_gravity_on.png)
 
-Four views of the same 12 stations of one run. Top left: the surrogate's prediction, the gravity-off CFD control and Lewis's measurement. Top right: the surrogate is within 0.06 % of the control and 17–18 % off the measurement at x/D 67.55, 101.69, 135.84. Bottom left: the OOD distance score, identical in both states and under its threshold 0.408 everywhere; GP variance is quiet too (max 0.0101 against 0.050). Bottom right: materiality, 0 with gravity off, up to 0.195 with gravity on. Materiality comes from the matched CFD pair, not from the measurement. Hollow markers: the three stations Lewis disowns — the first two for axial wall conduction, the last as suspect.
+Four views of the same 12 stations of one run. Top left: the surrogate's prediction, the gravity-off CFD control and Lewis's measurement. Top right: the surrogate is within 0.06 % of the control and 17–18 % off the measurement at x/D 67.55, 101.69, 135.84. Bottom left: the OOD distance score — identical in both states because the visible inputs are identical — and under its threshold 0.408 at the reference percentile 99, as is GP variance (max 0.0101 against 0.050); at lower percentiles the detector fires, in both states alike. Bottom right: materiality, 0 with gravity off, up to 0.195 with gravity on. Materiality comes from the matched CFD pair, not from the measurement. Hollow markers: the three stations Lewis disowns — the first two for axial wall conduction, the last as suspect.
 
 - Files: [`lewis_2_control_vs_gravity_on.svg`](lewis_2_control_vs_gravity_on.svg) (vector, editable) · [`lewis_2_control_vs_gravity_on.png`](lewis_2_control_vs_gravity_on.png) (1920 px)
 - Plotted values: [`data/lewis_2_control_vs_gravity_on.csv`](data/lewis_2_control_vs_gravity_on.csv)
@@ -26,7 +26,7 @@ Four views of the same 12 stations of one run. Top left: the surrogate's predict
 
 ![The input-based OOD scores are identical in both gravity states](lewis_3_ood_identical.png)
 
-Each input-based OOD score with gravity off, against the same score with gravity on, for all 12 stations. Every point is on the diagonal; the largest difference, over every station, both scores and every operating percentile, is 0. Shaded: where the detector would fire at the reference percentile 99.
+Each input-based OOD score with gravity off, against the same score with gravity on, for all 12 stations. Every point is on the diagonal — the scores are identical because the visible inputs are identical; the largest difference, over every station, both scores and every operating percentile, is 0. Shaded: where the detector would fire at the reference percentile 99.
 
 - Files: [`lewis_3_ood_identical.svg`](lewis_3_ood_identical.svg) (vector, editable) · [`lewis_3_ood_identical.png`](lewis_3_ood_identical.png) (1920 px)
 - Plotted values: [`data/lewis_3_ood_identical.csv`](data/lewis_3_ood_identical.csv)
@@ -86,7 +86,7 @@ Supporting evidence, bank v0.4.1. For each of the seven datasets, at the default
 
 ![The home baseline behind each count](bench_4_home_baseline.png)
 
-For each dataset: the share of the surrogate's predictions off by more than the benchmark's own threshold, at home (held out) and when deployed. Home error is labelled by how it was obtained: where the surrogate was fitted to the home rows (Casper, Dirker, Marineau) it is refitted without each row in turn; where it is a published correlation (NACA, Jin, Velazquez, Forrest) the rows were never fitted. Casper is accurate at home and fails on deployment (6 of 159 at home, 8 of 8 deployed); so is Dirker (0 of 31, 11 of 60) and NACA (0 of 40, 9 of 45). Jin and Velazquez are wrong almost everywhere, Marineau's nine home rows are too few, and Forrest has one. Their detector counts stand; they cannot show that deployment created the failure. No gate decides it, and no row is removed.
+For each dataset: the share of the surrogate's predictions off by more than the benchmark's own threshold, at home (held out) and when deployed. Home error is labelled by how it was obtained: where the surrogate was fitted to the home rows (Casper, Dirker, Marineau) it is refitted without each row in turn; where it is a published correlation (NACA, Jin, Velazquez, Forrest) the rows were never fitted. Casper is accurate at home and fails on deployment (6 of 159 at home, 8 of 8 deployed); so is Dirker (0 of 31, 11 of 60) and NACA (0 of 40, 9 of 45). Jin and Velazquez are wrong almost everywhere, Marineau's nine home rows are too few, and Forrest has one. Their detector counts stand; they cannot show that deployment created the failure. No gate decides it, and no row is removed. On the slide each row carries a short annotation, written for the talk: Casper, strongest support across three model types; Dirker, additional support; NACA, the applicability case, not separate evidence; Jin and Velazquez, no credible home baseline; Marineau, the control where PhysMAP adds nothing; Forrest, triage-only.
 
 - Files: [`bench_4_home_baseline.svg`](bench_4_home_baseline.svg) (vector, editable) · [`bench_4_home_baseline.png`](bench_4_home_baseline.png) (1920 px)
 - Plotted values: [`data/bench_4_home_baseline.csv`](data/bench_4_home_baseline.csv)

@@ -1,20 +1,27 @@
 # NAFEMS Multiphysics 2026 — talk runbook
 
-**Two parts, and the separation between them is the whole point.**
+**The talk does not depend on a live computation.** The thirteen-slide deck
+([`talk/slide-sequence.md`](talk/slide-sequence.md)) shows the public commands and their
+captured, verified output ([`talk/reproduction/`](talk/reproduction/README.md)). Everything
+below about running things live is **contingency material** — for a room that wants to see a
+command run, or for rehearsal.
 
 | Part | What it is | Where it lives |
 |---|---|---|
-| **1. Live** | Closure validity and surrogate observability, reproducing from a clean clone | The machine, in front of the room |
-| **2. Slides** | Causal materiality — the method, and the original study's numbers | Slides only. Never demonstrated live |
+| **1. Contingency: a live run** | Applicability (NACA x/D) and the benchmark, reproducing from a clean clone | Optional. The deck already shows the captured output |
+| **2. The slides** | Applicability assurance, causal materiality (Lewis), and the supporting benchmark | The deck. The accepted abstract's metrics appear only in backup B22 |
 
-The risk this runbook exists to manage is simple: the live demo is convincing, and the
-slides carry numbers. If those two run together in a listener's head, they will leave
-believing the demo produced the numbers. It did not, it cannot, and saying so is not a
-weakness in the talk — it is the talk.
+The risk this runbook exists to manage is simple: a live run is convincing, and the slides
+carry numbers. If those two run together in a listener's head, they will leave believing a
+command produced numbers it did not. Say which command produced which number, and keep the
+abstract's historical metrics off the main slides.
 
 ---
 
-## Part 1 — the live demo
+## Part 1 — the live demo (contingency only)
+
+Use this only if a live run is wanted. The deck's slide 13 already shows these commands and
+their captured, verified output.
 
 ### What it shows
 
@@ -155,13 +162,17 @@ only Zenodo can withdraw it. If asked, say exactly that — do not defend it as 
 
 ## Part 2 — the slides
 
-### The causal-materiality numbers
+### The accepted abstract's numbers — backup B22 only
 
 Precision **1.00**, recall **0.65**, F1 **0.79**. Materiality range 0.04–0.26.
 
-**These are results of the original study. The public release does not reproduce them.**
-
-Say it in those words, on the slide, in the voice-over. The original inputs are gone: the
+**These are results of the original study. The public release does not reproduce them, and
+they are not presented as experimental validation.** They appear on no main slide. In the main
+talk, say once, early and without numbers: *"The accepted abstract reported an earlier
+correlation-referenced study. Rebuilding it changed what I am willing to claim, so today I
+will show the reconstructed open evidence."* At Lewis, say it replaces the earlier metrics as
+the main causal demonstration; on slide 12, that the abstract's precision, recall and F1 are
+not presented as experimental validation. If asked, open backup B22 and say it in these words. The original inputs are gone: the
 CFD working tree, the per-point ablation pairs, the evaluated grid, the surrogate
 predictions and the experimental-truth table. What survives is the abstract's figures and
 its prose.
@@ -222,7 +233,7 @@ that is demonstrable and none of it needs a performance number.
 means per-run `Re`, `Gr`, geometry, entrance length, measured `Nu` and uncertainty —
 enough to identify each case. No such set is in hand.
 
-### The label that goes on the slide
+### The label that goes on backup B22
 
 **Right now, and for the talk as scheduled:**
 
@@ -289,7 +300,12 @@ controlled test rather than a stacked one.
 | | surrogate error | OOD scores | PhysMAP materiality |
 |---|---|---|---|
 | **gravity off** — the accurate control | within 0.06 % | *identical to the row below* | **0** |
-| **gravity on** — Lewis's measurement | **17–18 %** at x/D 67.55, 101.69, 135.84 | quiet at the benchmark's reference percentile | rises to **0.195** downstream |
+| **gravity on** — Lewis's measurement | **17–18 %** at x/D 67.55, 101.69, 135.84 | quiet at the benchmark's reference percentile, 99 | rises to **0.195** downstream |
+
+**The threshold-independent headline:** the OOD scores are identical with gravity on and off
+because the visible inputs are identical. Whether the detector *fires* depends on the
+percentile — quiet in both states at 99, firing in both states at lower ones — so never say
+"quiet" without "at the reference percentile, 99".
 
 **The line to land:** *"Same inputs, same OOD scores. Different physics, different materiality —
 and where materiality is largest, the surrogate is 17–18 % off."*
@@ -336,8 +352,8 @@ between machines, and every flag, count and label is still compared exactly.
 
 **Volunteer these before anyone asks.** They are true, and a sharp questioner will find them:
 
-1. **The detector's answer tracked where the inputs sat — never gravity.** Quiet with 35A on a
-   training operating point (design M), warning with it between them (A and A3), and identical
+1. **The detector's answer tracked where the inputs sat — never gravity.** Quiet at the
+   reference percentile 99 with 35A on a training operating point (design M), warning with it between them (A and A3), and identical
    with gravity on and off in every design. The same explains NACA, where it was silent: those
    entrance points shared the training operating point.
 2. **At low operating percentiles the detector does fire downstream** — at 75, on the stations
@@ -500,12 +516,16 @@ file carries its own redistribution determination.
 - [ ] `physmap reproduce nafems-2026` → *invalid choice*. If this ever prints a
       data-missing error instead, the release state and the shipped data disagree
 - [ ] `physmap stress-test lewis-reuse` from a FRESH clone → exit 0 and "The record matches the
-      banked record exactly." (last recorded: `docs/talk/reproduction/`)
+      banked record" — exactly, or within its stated tolerance (last recorded:
+      `docs/talk/reproduction/`, the 0.2.5 release commit)
 - [ ] `python tools/talk_package.py check` → passes
 - [ ] Every Lewis slide says "one run", and shows θ = 0.10 only with the word "illustrative"
 - [ ] Read `docs/talk/hostile-questions.md` aloud once
 - [ ] Terminal capture of every demo saved as a fallback slide
-- [ ] Every slide bearing 1.00 / 0.65 / 0.79 carries the historical label
+- [ ] No main slide bears 1.00 / 0.65 / 0.79; backup B22 carries them, with the historical label
+- [ ] Slide 13 shows the captured output — the talk works with no live run
+- [ ] Say "nominally laminar" for 35A, "quiet at the reference percentile, 99" for the OOD
+      detector, and "numerically close, but not supported by validation evidence" for the 36
 - [ ] Read the "sentences not to say" table once more, out loud
 - [ ] You can say "correlation-referenced" without hesitating, and explain in one sentence
       why recovering 1.00 would be a bad sign rather than a good one

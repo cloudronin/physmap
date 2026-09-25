@@ -82,8 +82,8 @@ experiment:
 
 | | surrogate error | input-based OOD scores | PhysMAP materiality |
 |---|---|---|---|
-| gravity off — the accurate control | within 0.06 % | quiet at the default setting; identical in both rows | 0 |
-| gravity on — Lewis's measurement | 17–18 % downstream | quiet at the default setting; identical in both rows | up to 0.195 |
+| gravity off — the accurate control | within 0.06 % | quiet at the reference percentile, 99; identical in both rows, because the inputs are | 0 |
+| gravity on — Lewis's measurement | 17–18 % downstream | quiet at the reference percentile, 99; identical in both rows, because the inputs are | up to 0.195 |
 
 Identical OOD scores and zero-versus-0.195 materiality need no threshold. The flag threshold θ
 is not yet locked, so materiality is reported as numbers, and θ = 0.10 appears only as an
