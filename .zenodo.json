@@ -1,0 +1,22 @@
+{
+  "title": "PhysMAP: physics-aware credibility checks for AI surrogates",
+  "upload_type": "software",
+  "description": "<p>PhysMAP screens machine-learned surrogates used in multiphysics simulation for failures an input-based out-of-distribution detector cannot see. It reads the variables a surrogate never had as inputs, tests the closure relation behind the surrogate against its validated range, and knows at setup which of those variables the detectors can see (closure validity and surrogate observability). As a separate preview it asks whether a mechanism outside the surrogate's calibration is large enough to matter for the quantity of interest (causal materiality).</p>",
+  "creators": [
+    {
+      "name": "Vettrivel, Vishnu"
+    }
+  ],
+  "license": "mit",
+  "access_right": "open",
+  "keywords": [
+    "surrogate models",
+    "multiphysics",
+    "computational fluid dynamics",
+    "closure relations",
+    "model validity",
+    "uncertainty quantification",
+    "scientific machine learning"
+  ],
+  "notes": "The code is MIT. The corpus data in src/physmap/corpus/data is CC BY 4.0 (LICENSE-CORPUS). Digitised third-party measurements under data/ are covered by neither; each dataset's basis is recorded in data/REDISTRIBUTION.md and NOTICE."
+}

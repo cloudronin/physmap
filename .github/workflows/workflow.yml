@@ -1,4 +1,5 @@
-# Release: build the sdist and the wheel, check them, and publish them to PyPI.
+# Release: build the sdist and the wheel, check them, publish them to PyPI, then create the
+# GitHub release -- which Zenodo archives, minting a DOI for the version.
 #
 # Publishing uses PyPI trusted publishing. PyPI accepts an upload for `physmap` only from
 # THIS file -- `.github/workflows/workflow.yml` in cloudronin/physmap -- so no API token is
@@ -101,3 +102,33 @@ jobs:
           name: dist
           path: dist/
       - uses: pypa/gh-action-pypi-publish@release/v1
+
+  github-release:
+    name: GitHub release -- Zenodo archives it and mints a DOI
+    needs: publish
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # to create the release; Zenodo's webhook archives it
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/download-artifact@v7
+        with:
+          name: dist
+          path: dist/
+      - name: Create the release, with the version's changelog entry as its notes
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          version="${GITHUB_REF_NAME#v}"
+          python3 - "$version" > notes.md <<'PY'
+          import re, sys
+          version = sys.argv[1]
+          text = open("CHANGELOG.md", encoding="utf-8").read()
+          m = re.search(rf"^## {re.escape(version)} .*?(?=^## |\Z)", text, re.S | re.M)
+          if not m:
+              sys.exit(f"CHANGELOG.md has no entry for {version}")
+          print(m.group(0).strip())
+          PY
+          gh release create "$GITHUB_REF_NAME" dist/* --title "physmap $version" \
+            --notes-file notes.md --verify-tag
