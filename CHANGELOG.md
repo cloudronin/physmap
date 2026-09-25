@@ -1,5 +1,32 @@
 # Changelog
 
+## Unreleased — the home baseline behind every count
+
+- **Every benchmark count now carries its home baseline.** A wrong deployment prediction that
+  only PhysMAP flags shows a blind spot that deployment created only if the surrogate was
+  accurate at home. `physmap benchmark report`, the README and the talk now show, per dataset:
+  how the home error was obtained (in-sample fit error with a leave-one-out refit beside it, or
+  a published correlation never fitted to the rows), home and deployment counts at the
+  benchmark's own threshold, and whether deployment is distinguishably worse. It is for Casper
+  and Dirker. It is not for NACA, Jin, Velazquez, Marineau or Forrest, whose counts stand as
+  counts. The reading rule — one-sided Fisher exact p < 0.05 — was fixed after these counts
+  were first seen, and says so. Nothing is removed: the banked matrix is unchanged, byte for
+  byte, and the new fields sit beside it in `data/benchmarks/v0_4/home_baseline.json`, which
+  `physmap benchmark run` recomputes and checks.
+- **The README no longer overstates the lead.** It said PhysMAP catches "all 20" failures at
+  the pipe entrance. The NACA benchmark row's surrogate is wrong on 13 of 29 points at home,
+  so that count cannot show a blind spot deployment created. The x/D example now scores the
+  correlation against the measurements instead of asserting a failure: right on all 40 fully
+  developed points, wrong on 9 of 45 entrance points, all near the inlet — and the closure
+  check flags all 45.
+- **The architecture axis, ported and rerun.** `physmap benchmark architectures` trains a
+  Gaussian process, a DeepONet and gradient-boosted trees on each flagged vehicle, gates each
+  on its held-out error, and compares with the bank (PyTorch via `physmap[architectures]`,
+  about 20 minutes; `--banked` reads the bank). Rerun here bit-identical to the research bank
+  on a second machine. On Casper all three pass and each leaves 4 of 8 wrong predictions only
+  PhysMAP flags; on NACA, Jin and Velazquez no model type passes the gate.
+- **234 tests ported** from the private tree: they covered public code and had stayed behind.
+
 ## 0.2.4 — the DOI on the PyPI page
 
 - **The README carries the Zenodo DOI**: a badge at the top, and a line in the Citing section.

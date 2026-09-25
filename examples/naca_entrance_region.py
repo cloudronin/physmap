@@ -1,16 +1,20 @@
 """The pipe-entrance case, end to end.
 
-A surrogate is trained on (Re, Pr) over the fully-developed region of a heated
-pipe, then asked about the entrance region. It has never seen x/D -- the
-variable that actually governs the entrance -- so it cannot represent what
-changed. Neither can an input-based OOD detector: it sees the same two
-columns the surrogate does, and in those two columns the new points look
-perfectly ordinary.
+A heated pipe's Nusselt number is predicted from (Re, Pr) alone, by the Gnielinski
+correlation for fully developed flow, then asked about the entrance region. It has
+never seen x/D -- the variable that governs the entrance -- so it cannot represent
+what changes there. Neither can an input-based OOD detector: it sees the same two
+columns, and in those two columns the entrance points look perfectly ordinary.
 
 PhysMAP reads the bound variable from the test coordinates instead, checks it
 against the closure's validated range, and knows at fit time that x/D is
-structurally invisible to this surrogate. The result is a refusal with a reason,
-not a confident wrong number.
+structurally invisible to this surrogate. The result is a refusal with a reason.
+
+The last block scores the correlation against the measurements, so the failure is
+shown rather than asserted: at the benchmark's own NACA error threshold it is right
+on every fully developed point and wrong on some entrance points, mostly near the
+inlet. The closure check flags every entrance point, so it also flags the ones the
+correlation gets right.
 
 Data: NACA TN-1451 (1947), Fig 10, bellmouth entrance. US Government work,
 public domain; two-reader cross-validated digitisation.
@@ -96,6 +100,46 @@ def main() -> None:
     assert ood == 0, "an input-based OOD detector fired -- the demo's claim no longer holds"
     assert all(x.verdict is Verdict.REJECT for x in results)
     assert all(x.observability is Observability.UNOBSERVABLE for x in results)
+    print()
+    score_the_correlation(train, test, results)
+
+
+def score_the_correlation(train, test, results) -> None:
+    """Where the correlation behind the prediction actually fails, against the measurement.
+    Wrong means the benchmark's own NACA threshold -- the naca_tn1451 vehicle's lift
+    threshold -- so nothing here is chosen for this example."""
+    from scipy.stats import fisher_exact
+
+    from physmap.benchmarks.benchmark_v0_4 import bench_spec_from_config
+    from physmap.closures.registry import get_closure
+    from physmap.substrate.vehicle_config import load_named_vehicle
+
+    threshold = bench_spec_from_config(load_named_vehicle("naca_tn1451")).calib.lift_threshold_pct
+    gn = get_closure("gnielinski-1976")
+
+    def err(r):
+        pred = float(gn.fn(Re=np.array([r["Re"]]), Pr=np.array([r["Pr"]]))[0])
+        return abs(pred - r["Nu_meas"]) / r["Nu_meas"] * 100.0
+
+    home = [err(r) for r in train]
+    entrance = [err(r) for r in test]
+    home_wrong = sum(e > threshold for e in home)
+    wrong = [(r, e) for r, e in zip(test, entrance) if e > threshold]
+    flagged_right = sum(1 for a, e in zip(results, entrance)
+                        if a.signals[DetectorKind.CLOSURE_VALIDITY].fired and e <= threshold)
+    _, p = fisher_exact([[len(wrong), len(test) - len(wrong)],
+                         [home_wrong, len(train) - home_wrong]], alternative="greater")
+    worst_r, worst = max(zip(test, entrance), key=lambda t: t[1])
+    print(f"where gnielinski-1976 actually fails (wrong = off the measurement by more than "
+          f"{threshold:.1f}%, the benchmark's NACA threshold):")
+    print(f"  fully developed (home): {home_wrong} of {len(train)} wrong")
+    print(f"  entrance:               {len(wrong)} of {len(test)} wrong, all at x/D <= "
+          f"{max(r['x_over_D'] for r, _ in wrong):g}; worst {worst:.0f}% at x/D "
+          f"{worst_r['x_over_D']:g}")
+    print(f"  entrance worse than home: one-sided Fisher exact p = {p:.1g}")
+    print(f"  the closure check flagged all {len(test)} entrance points; the correlation is "
+          f"within the threshold on {flagged_right} of them")
+    assert home_wrong == 0, "the correlation is wrong at home -- the demo's baseline no longer holds"
 
 
 if __name__ == "__main__":

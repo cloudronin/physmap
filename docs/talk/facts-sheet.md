@@ -180,14 +180,36 @@ Not evidence for causal materiality. Outcomes are observability classes, not rat
 | marineau_hypersonic_transition | observable | 0 of 6 | 0 |
 | forrest | observable | not tested: no detector fit | — |
 
+**The home baseline behind each count** — derived beside the bank, which is unchanged. A count shows a blind spot that deployment created only where deployment is distinguishably worse than home (one-sided Fisher exact p < 0.05; rule fixed after these counts were first seen). No row is removed.
+
+| vehicle | home error: how obtained | home wrong (held out) | in-sample | deployed wrong | deployment-induced blind spot |
+|---|---|---|---|---|---|
+| casper_hypersonic_transition | in-sample fit error, with a held-out refit | 6 of 159 (4%) | 2 of 159 (1%) | 8 of 8 (100%) | yes, p = 2e-10 |
+| dirker_water | in-sample fit error, with a held-out refit | 0 of 31 (0%) | 0 of 31 (0%) | 11 of 60 (18%) | yes, p = 0.007 |
+| naca_tn1451 | held-out home error | 13 of 29 (45%) | — | 20 of 47 (43%) | no, p = 0.67 |
+| jin_sco2_buoyancy | held-out home error | 17 of 17 (100%) | — | 26 of 27 (96%) | no, p = 1 |
+| velazquez_sco2 | held-out home error | 386 of 393 (98%) | — | 67 of 67 (100%) | no, p = 0.33 |
+| marineau_hypersonic_transition | in-sample fit error, with a held-out refit | 5 of 9 (56%) | 0 of 9 (0%) | 6 of 6 (100%) | no, p = 0.092 |
+| forrest | held-out home error | 0 of 1 (0%) | — | 4 of 4 (100%) | no, p = 0.2 |
+
+**Architecture axis** — three model types per flagged vehicle, each trained on the surrogate inputs and first gated on its held-out error; at percentile 99, the wrong predictions only PhysMAP flags. Testable on 1 of 4 vehicles.
+
+| vehicle | gp | deeponet | gbt |
+|---|---|---|---|
+| casper_hypersonic_transition | 4 of 8 | 4 of 8 | 4 of 8 |
+| jin_sco2_buoyancy | fails gate | fails gate | fails gate |
+| naca_tn1451 | fails gate | fails gate | fails gate |
+| velazquez_sco2 | fails gate | fails gate | fails gate |
+
 Observability guards all passed: yes. Forrest: triage-only values; one training row, no detector fit; DO_NO_HARM short-circuited, not earned.
 
-Sources: `data/benchmarks/v0_4/matrix_full_seven.json`, `src/physmap/benchmarks/registry.py`.
+Sources: `data/benchmarks/v0_4/matrix_full_seven.json`, `data/benchmarks/v0_4/home_baseline.json`, `data/benchmarks/v0_4/architecture_axis.json`, `src/physmap/benchmarks/registry.py`.
 
 ## 10. NACA x/D entrance-region example
 
 - Training: 40 fully developed points (x/D ≥ 10). Deployment: 45 entrance points. Pr 0.71 (air).
 - Closure validity fired on 45 of 45; novelty density on 0; GP variance on 0.
+- Gnielinski against the measurement, at the benchmark's NACA threshold (17.5 %): wrong on 0 of 40 fully developed points and 9 of 45 entrance points, all at x/D ≤ 5; worst 38 % at x/D 1; one-sided Fisher exact p = 0.002. The closure check flags all 45; the correlation is right on 36 of them.
 - The benchmark's NACA cell uses its own split — 29 training rows, 47 test rows — with the same pattern.
 
 Source: `examples/naca_entrance_region.py` on `data/naca/cross_validated_fig10.csv`.

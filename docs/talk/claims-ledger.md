@@ -19,9 +19,10 @@ of the main claims belong to the separate, causal question (Lewis).
 
 ### M0 — what PhysMAP adds
 
-> "Where the cause of failure is hidden from the surrogate's inputs, PhysMAP catches wrong
-> predictions the input-based OOD detectors miss: all 20 at the pipe entrance, 4 of 8 in the
-> hypersonic case, 15 of 26 for supercritical CO2 in a vertical tube."
+> "PhysMAP flags wrong predictions the input-based OOD detectors miss. Where the surrogate was
+> right at home and deployment made it distinguishably worse, that is a blind spot deployment
+> created: 4 of 8 in the hypersonic case, where the cause is hidden from the inputs, and 2 of 11
+> for water in a horizontal tube, where it is partly visible."
 
 - **Command and artifact:** `physmap benchmark report` prints, per dataset at percentile 99,
   "wrong: caught only by PhysMAP" (captured in `reproduction/benchmark_report.txt`);
@@ -30,8 +31,10 @@ of the main claims belong to the separate, causal question (Lewis).
 - **Evidence:** a wrong prediction counts only if the closure check fired, both input-based
   detectors (distance-to-training and GP variance) stayed quiet, and the surrogate was wrong.
 - **Scope and limits:** per dataset, never pooled. Rows within a dataset are not independent
-  cases. Values are digitised from publications. Partly hidden causes help less: 18 of 67
-  (Velazquez), 2 of 11 (Dirker).
+  cases. Values are digitised from publications. NACA (20 of 20), Jin (15 of 26) and
+  Velazquez (18 of 67) also count wrong predictions only PhysMAP flags, but their surrogates are
+  wrong about as often at home — 13 of 29, 17 of 17, 386 of 393 — so those counts cannot show
+  that deployment created the failure (M0d). Say those counts as counts, never as blind spots.
 - **Use:** main — the headline.
 
 ### M0b — where it adds nothing
@@ -53,6 +56,23 @@ of the main claims belong to the separate, causal question (Lewis).
 - **Scope and limits:** at percentile 99. Whether materiality weighting cuts these is the
   purpose of the causal work, and is not shown yet.
 - **Use:** main. Say it unprompted.
+
+### M0d — the home baseline
+
+> "Before you read a count, ask whether the surrogate was right at home. In the hypersonic case
+> it was: wrong on 6 of 159 held-out home points, and on 8 of 8 deployed. For the benchmark's
+> pipe-entrance data it was not: 13 of 29 at home, 20 of 47 deployed."
+
+- **Command and artifact:** `physmap benchmark report`, the "Home baseline" section; bank:
+  `data/benchmarks/v0_4/home_baseline.json`, beside the unchanged matrix. Figure:
+  `bench_4_home_baseline`.
+- **Evidence:** home error is labelled by how it was obtained — in-sample fit error where the
+  surrogate was fitted to the home rows, with a leave-one-out refit beside it; held-out home
+  error where it is a published correlation. "Wrong" is each dataset's own threshold.
+- **Scope and limits:** the reading rule — deployment worse than held-out home, one-sided
+  Fisher exact p < 0.05 — was fixed after the home counts were first seen; the counts are
+  always shown so it can be checked. No row is removed; every detector count stands.
+- **Use:** main. Say it unprompted, right after M0.
 
 ### M1 — what an input-based detector can see
 
@@ -168,7 +188,9 @@ of the main claims belong to the separate, causal question (Lewis).
   detectors fired on 0 of 45 entrance points" and asserts it. Captured in
   `reproduction/naca_example.txt`. Figure: `bench_1_naca_entrance`.
 - **Evidence:** NACA TN-1451, Fig 10: 9 positions on each of 5 Reynolds-number curves; the
-  closure's validated range starts at x/D = 10.
+  closure's validated range starts at x/D = 10. The example also scores the correlation: wrong
+  on 0 of 40 fully developed points and 9 of 45 entrance points, all at x/D ≤ 5 — so the check
+  flags 36 entrance points where the correlation is right.
 - **Scope and limits:** observability, not materiality. The detectors are silent because x/D
   is not their input, not because they were tuned.
 - **Use:** main.
@@ -177,7 +199,8 @@ of the main claims belong to the separate, causal question (Lewis).
 
 > "Across seven published datasets, the benchmark asks whether the variable that breaks each
 > surrogate is visible to an input-based detector. In three it is invisible, and the closure
-> check caught wrong rows the baseline missed. Two are partial. One is a negative control, where
+> check flagged wrong rows the baseline missed — though only one of the three has the home
+> baseline to call them a blind spot deployment created. Two are partial. One is a negative control, where
 > the baseline sees it. Forrest is triage-grade, and its result is not earned."
 
 - **Command and artifact:** `physmap benchmark run` recomputes all seven and diffs against
@@ -317,6 +340,24 @@ of the main claims belong to the separate, causal question (Lewis).
 
 ---
 
+### B9 — the kind of model
+
+> "On the hypersonic case, three model types — a Gaussian process, a DeepONet and
+> gradient-boosted trees — each pass the same accuracy gate, and each leaves 4 of 8 wrong
+> predictions that only PhysMAP flags. On the other three vehicles tested, no model type passes
+> the gate, so there is nothing to compare."
+
+- **Command and artifact:** `physmap benchmark architectures` (PyTorch, about 20 minutes;
+  `--banked` reads the bank); bank: `data/benchmarks/v0_4/architecture_axis.json`.
+- **Evidence:** the detectors never see a prediction, so their flags are the same for every
+  model; the axis shows which flagged rows each model gets wrong. Rerun here bit-identical to
+  the research bank on a second machine.
+- **Scope and limits:** testable on one vehicle. These are trained models, not the benchmark's
+  own surrogates, and the result does not change any home-baseline reading.
+- **Use:** backup.
+
+---
+
 ## Do not say
 
 | # | Do not say | Why | Say instead |
@@ -339,3 +380,6 @@ of the main claims belong to the separate, causal question (Lewis).
 | D15 | "This reproduces the abstract." / "This reruns the CFD." | It reproduces the Lewis analysis from committed profiles | M13 |
 | D16 | "PhysMAP catches every surrogate error." | Not the base-model errors | B7 |
 | D17 | "We chose θ = 0.10." | It is the original study's value, shown for illustration | M8 |
+| D19 | "PhysMAP catches all 20 failures at the pipe entrance." / any count read as a blind spot deployment created, for NACA, Jin or Velazquez | Those surrogates are wrong about as often at home | M0, M0d |
+| D20 | "PhysMAP works with any model." | Tested on one vehicle, with three model types | B9 |
+| D21 | "The surrogate fails confidently across the entrance region." | On the two-reader data it is wrong on 9 of 45 entrance points, near the inlet, and the check flags all 45 | M9 |

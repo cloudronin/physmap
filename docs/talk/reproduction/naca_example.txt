@@ -18,3 +18,9 @@ one assessment:
   gp_variance      fired=False  <- input-based OOD detector
   rationale        Prediction relies on gnielinski-1976 beyond its validated x_over_D bound (x_over_D ≥ 10); x_over_D is not a surrogate input (unobservable to input-based OOD detectors), and the literature (Tam, L.M. & Ghajar, A.J. (1998). 'The unusual behavior of local heat transfer coefficient in a circular tube with a bell-mouth inlet.' Experimental Thermal and Fluid Science 16(3): 187-194.) reports divergence up to -63% past this bound. Input-based OOD detectors are silent because they cannot observe x_over_D.
   input-based OOD detectors fired on 0 of 45 entrance points
+
+where gnielinski-1976 actually fails (wrong = off the measurement by more than 17.5%, the benchmark's NACA threshold):
+  fully developed (home): 0 of 40 wrong
+  entrance:               9 of 45 wrong, all at x/D <= 5; worst 38% at x/D 1
+  entrance worse than home: one-sided Fisher exact p = 0.002
+  the closure check flagged all 45 entrance points; the correlation is within the threshold on 36 of them

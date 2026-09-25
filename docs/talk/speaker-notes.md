@@ -43,25 +43,26 @@ Black dots are the entrance region. A line at x/D = 10. Three counts on the righ
 
 **On screen:** seven datasets in three groups — cause hidden from the inputs, partly visible,
 visible. Left: the surrogate's wrong predictions (grey) and the part PhysMAP caught that the OOD
-detectors missed (green), with "20 of 20"-style counts. Right: right predictions PhysMAP flagged
+detectors missed (green), with "4 of 8"-style counts. Right: right predictions PhysMAP flagged
 anyway.
 
 **Say:**
 
 - "The same idea, on seven published datasets in two domains. For each one: which wrong
   predictions did PhysMAP catch that the input-based detectors missed — and what did it cost?"
-- "Top group: the cause of failure is hidden from the surrogate's inputs. Here PhysMAP catches
-  what the OOD detectors can't. All 20 at the pipe entrance. 4 of 8 in the hypersonic case. 15 of
-  26 for supercritical CO2."
-- "Middle group: the cause is partly visible. It still helps: 18 of 67, and 2 of 11."
+- "Top group: the cause of failure is hidden from the surrogate's inputs. Here PhysMAP flags
+  wrong predictions the OOD detectors can't see: 20 of 20 at the pipe entrance, 4 of 8 in the
+  hypersonic case, 15 of 26 for supercritical CO2. The next slide says which of those counts
+  show a blind spot that deployment created."
+- "Middle group: the cause is partly visible. 18 of 67, and 2 of 11."
 - "Bottom group: the cause is an input. The OOD detectors already see it, and PhysMAP adds
   nothing — 0 of 6. That is the control, and it is the right answer."
 - "And the cost, on the right. The closure check flags anything outside its tested range, even
   when the surrogate happens to be right: 24 false alarms at the pipe entrance, 16 for Dirker."
-- Land it: **"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP catches
-  what the OOD detectors can't. Where it is, it adds nothing. And it costs false alarms."**
+- Land it: **"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP flags what
+  the OOD detectors can't see. Where it is, it adds nothing. And it costs false alarms."**
 
-**Point at:** the NACA bar, then the Marineau bar, then the right panel.
+**Point at:** the Casper bar, then the Marineau bar, then the right panel.
 
 **If asked:**
 
@@ -78,6 +79,33 @@ anyway.
 condition; anything that hides the false alarms.
 
 ---
+
+## The home baseline — `bench_4_home_baseline`
+
+**On screen:** one row per dataset. Hollow dot: the surrogate's error rate at home, held out.
+Filled dot: when deployed. On the right, the counts and whether deployment is distinguishably
+worse.
+
+**Say:**
+
+- "A count only means 'deployment created this blind spot' if the surrogate was right at home.
+  So for each dataset: how often is it wrong at home, and how often when deployed?"
+- "The hypersonic case: 6 of 159 at home, held out, and 8 of 8 deployed. Water in a horizontal
+  tube: 0 of 31 and 11 of 60. Those two hold."
+- "The benchmark's pipe-entrance data: 13 of 29 at home, 20 of 47 deployed. Jin and Velazquez:
+  wrong almost everywhere. Their counts stand, but they cannot show that deployment did it."
+- "Two kinds of home error, never mixed. Where the surrogate was fitted to the home rows, I refit
+  it without each row. Where it's a published correlation, it was never fitted to them."
+- Land it: **"Every count stays on the slide. Only two of them are blind spots deployment
+  created."**
+
+**If asked:**
+
+- *"Why a Fisher test at 0.05?"* — "It's the plain test for 'is this rate higher than that one'.
+  I fixed it after seeing these counts, so I show the counts beside it — use your own rule."
+- *"Why is NACA's home so bad?"* — "The benchmark digitised that figure with one reader. The
+  x/D example uses a two-reader digitisation of the same figure, and there the correlation is
+  right at home and fails near the inlet."
 
 ## Seven-vehicle benchmark, in full — `bench_2_seven_vehicles` (backup)
 

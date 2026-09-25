@@ -1,6 +1,6 @@
 # Slide sequence
 
-Sixteen main slides, about nineteen minutes, then the backup inventory. Slides 3–5 are the
+Sixteen main slides plus 5b, about twenty minutes, then the backup inventory. Slides 3–5b are the
 point of PhysMAP and what sets it apart; slides 7–13 are the separate, causal question.
 Figures are in [`figures/`](figures/README.md); notes for each technical figure are in
 [`speaker-notes.md`](speaker-notes.md). The live demo — when to start `physmap benchmark run`,
@@ -13,8 +13,9 @@ what to do if it breaks — is in [`../talk-runbook.md`](../talk-runbook.md).
 | 1 | PhysMAP: a causal, materiality-weighted in-calibration check for AI surrogates | Title, author, NAFEMS Multiphysics 2026 | — | 0:30 |
 | 2 | What an input-based guardrail asks | Text: "Do this prediction's inputs look like the training inputs?" Distance to training; GP variance | A good question, about inputs only | 1:30 |
 | 3 | What PhysMAP adds | Text: "It reads the variables the surrogate never saw, tests the physics relation behind it against its validated range, and knows which of those variables the OOD detectors can see." It keeps the OOD detectors, and overrides them only where they are blind | The check an input-based detector cannot make | 1:15 |
-| 4 | The x/D entrance region | `bench_1_naca_entrance` | Closure check 45 of 45; input-based detectors 0 | 1:15 |
-| 5 | What PhysMAP adds, across seven datasets | `bench_3_what_physmap_adds` | Where the cause is hidden from the inputs, it catches what the OOD detectors miss; where the cause is an input, it adds nothing; the cost is false alarms | 2:00 |
+| 4 | The x/D entrance region | `bench_1_naca_entrance` | Closure check 45 of 45; input-based detectors 0. The correlation is right at home (0 of 40) and fails near the inlet (9 of 45), so 36 flags land on right predictions | 1:15 |
+| 5 | What PhysMAP adds, across seven datasets | `bench_3_what_physmap_adds` | Where the cause is hidden from the inputs, it flags wrong predictions the OOD detectors miss; where the cause is an input, it adds nothing; the cost is false alarms | 2:00 |
+| 5b | Is the surrogate right at home? | `bench_4_home_baseline` | A count shows a blind spot deployment created only where the surrogate was right at home: yes for Casper and Dirker; not for NACA, Jin or Velazquez, whose counts stand as counts | 1:15 |
 | 6 | What changed since the abstract | Text only — see below | The abstract's numbers are named and explained, not replaced | 1:15 |
 | 7 | A separate question: does an unseen mechanism matter? | Text: "Is an applicable mechanism outside calibration — and does it materially change the answer?" Materiality = 1 − QoI(mechanism off) / QoI(mechanism on), by matched ablation. Two boxes: the benchmark (`physmap benchmark run`) · causal materiality (`physmap stress-test lewis-reuse`) | Different question, different evidence; neither is evidence for the other | 1:15 |
 | 8 | Lewis 35A: a controlled model-reuse stress test | The framing and the claim, word for word; "One run. Its stations are not cases." | What the test is, and what it is not | 0:45 |
@@ -74,4 +75,5 @@ Separate from the main deck. Each is ready to pull up for a question.
 | B14 | The reproduction record | Commit, environment, exit status, bank comparison. [`reproduction/README.md`](reproduction/README.md) | Hostile question 21 |
 | B15 | The two screened-out cases | Conjugate heat transfer, blood pump: `physmap screen …` returns NOT APPLICABLE, marked declarative — stated preconditions, not measured results | "What about the negatives in the abstract?" |
 | B16 | The stations Lewis disowns | x/D 0.31 and 0.85 (axial wall conduction), 159.33 (suspect); shown hollow, left out of every summary | "What is the +63.0 %?" |
+| B18 | The kind of model | `physmap benchmark architectures --banked`: Casper, three model types pass the gate, each 4 of 8; NACA, Jin, Velazquez, none passes | "Does it work with any model?" — [claims ledger B9](claims-ledger.md) |
 | B17 | How the guardrail combines its checks | At setup, each bounded variable is classed visible, partly visible or hidden from the surrogate's inputs. Closure check fires on a hidden one → reject; partly visible → calibrated blend or uncertain; otherwise the OOD detectors decide. The README's "Using the guardrail" | Hostile questions 23 and 24 |

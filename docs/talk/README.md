@@ -16,7 +16,7 @@ in [`../talk-runbook.md`](../talk-runbook.md).
 | [`historical-reconciliation.md`](historical-reconciliation.md) | Why the abstract's precision, recall and F1 are not presented as validation | Written; numbers checked |
 | [`facts-sheet.md`](facts-sheet.md) | Every number the talk uses, with its source | **Generated** |
 | [`numbers.json`](numbers.json) | The registry: each displayed number, its exact display string, its source file | **Generated** |
-| [`figures/`](figures/README.md) | Eight figures as SVG (editable) and 1920-pixel PNG, each with a data table and a caption naming its source | **Generated** |
+| [`figures/`](figures/README.md) | Nine figures as SVG (editable) and 1920-pixel PNG, each with a data table and a caption naming its source | **Generated** |
 | [`reproduction/`](reproduction/README.md) | `physmap stress-test lewis-reuse` from a clean public clone: command, commit, environment, output, exit status | Captured |
 
 ## Rebuild and check
@@ -46,6 +46,9 @@ The test suite runs it (`tests/test_talk_package.py`).
 - **The benchmark is the point.** What PhysMAP adds to input-based OOD detection — the failures
   it catches that the detectors cannot see, per dataset, with its false alarms beside them — is
   the headline and what sets PhysMAP apart. Its figure is `bench_3_what_physmap_adds`.
+- **Every count carries its home baseline.** A count reads as a blind spot deployment created
+  only where the surrogate was right at home — Casper and Dirker. NACA, Jin and Velazquez keep
+  their counts, as counts. Figure: `bench_4_home_baseline`.
 - **Two results, kept apart.** The seven-vehicle benchmark and the x/D example are about
   closure validity and observability. Lewis is about causal materiality — a separate question.
   Neither is evidence for the other.

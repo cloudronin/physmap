@@ -180,8 +180,8 @@ and we ran neither. What we tested is an input-based OOD detector — the benchm
 
 **Say:** "The label is the classifier's name for a class: the failure variable was invisible to
 the input-based detectors, and the closure check caught wrong predictions they missed. The
-counts behind it are per dataset — 20 of 20 at the pipe entrance, for example — and we show the
-false alarms beside them. We never pool them into one rate, and none of it is about materiality."
+counts behind it are per dataset — 4 of 8 in the hypersonic case, for example — and we show the
+false alarms and the home baseline beside them. We never pool them into one rate, and none of it is about materiality."
 
 - **Fact:** `src/physmap/benchmarks/benchmark_v0_4.py`, `_classify`; the counts print in
   `physmap benchmark report`.
@@ -263,4 +263,28 @@ dataset aren't independent cases, and one dataset has a single training row. So 
 per dataset, with its false alarms beside it."
 
 - **Fact:** the benchmark reports per-dataset counts only; no rate is computed across datasets.
+
+### 26. "Is your surrogate even accurate where it was trained?"
+
+**Say:** "That's the right question, and the answer differs by dataset. In the hypersonic case,
+yes: 6 of 159 wrong at home, held out, against 8 of 8 deployed. Water in a horizontal tube: 0 of
+31 against 11 of 60. For the benchmark's pipe-entrance data, no: 13 of 29 at home, 20 of 47
+deployed — and Jin and Velazquez are wrong almost everywhere. Their counts stand, but they
+cannot show that deployment created the failure."
+
+- **Fact:** `physmap benchmark report`, "Home baseline";
+  `data/benchmarks/v0_4/home_baseline.json`, derived beside the unchanged matrix.
+- **Interpretation:** a count reads as a blind spot deployment created only for Casper and
+  Dirker (one-sided Fisher exact p < 0.05; rule fixed after the counts were first seen).
+
+### 27. "Does it work with any model?"
+
+**Say:** "On one dataset I can test that. In the hypersonic case a Gaussian process, a DeepONet
+and boosted trees all pass the same accuracy gate, and each leaves 4 of 8 wrong predictions only
+PhysMAP flags. On the other three I tried, no model type passes the gate, so there's nothing to
+compare. The detectors never see the prediction, so their flags don't change with the model."
+
+- **Fact:** `physmap benchmark architectures --banked`;
+  `data/benchmarks/v0_4/architecture_axis.json`.
+- **Do not say:** "any model" — D20.
 

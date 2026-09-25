@@ -55,6 +55,8 @@ SRC = {
     "predeclaration": "results/lewis35A_head_to_head/PREDECLARE_design_M_matched.md",
     "lowpct": "results/lewis35A_head_to_head/design_M_low_pct_mechanism.json",
     "matrix": "data/benchmarks/v0_4/matrix_full_seven.json",
+    "home": "data/benchmarks/v0_4/home_baseline.json",
+    "axis": "data/benchmarks/v0_4/architecture_axis.json",
     "naca": "data/naca/cross_validated_fig10.csv",
     "naca_example": "examples/naca_entrance_region.py",
     "known": "protocols/known-results-declaration.md",
@@ -388,8 +390,53 @@ def compute_benchmark(reg: _Reg) -> dict:
     for oc in ("PHYSMAP_WINS", "PARTIAL", "BASELINE_VISIBLE", "DO_NO_HARM"):
         reg.num(f"bench.count_{oc}", sum(1 for r in rows.values() if r["outcome"] == oc), "{}",
                 SRC["matrix"])
+    # the home baseline beside each count: derived, never in place of the bank
+    hsrc = SRC["home"]
+    home = _load("home")
+    for c in home["cells"]:
+        vid = c["vehicle_id"]
+        rows[vid]["home"] = c
+        h, dp = c["home_held_out"], c["deployment"]
+        reg.num(f"bench.{vid}.home_kind", "in-sample fit error, with a held-out refit"
+                if c["home_in_sample"] else "held-out home error", "{}", hsrc)
+        reg.num(f"bench.{vid}.home_heldout", f"{h['n_wrong']} of {h['n']}", "{}", hsrc)
+        reg.num(f"bench.{vid}.home_heldout_pct", round(100 * h["n_wrong"] / h["n"]), "{}", hsrc)
+        if c["home_in_sample"]:
+            s = c["home_in_sample"]
+            reg.num(f"bench.{vid}.home_insample", f"{s['n_wrong']} of {s['n']}", "{}", hsrc)
+            reg.num(f"bench.{vid}.home_insample_pct", round(100 * s["n_wrong"] / s["n"]), "{}",
+                    hsrc)
+        elif c["home_inside_validated_range"] is not None:
+            reg.num(f"bench.{vid}.home_inside_range",
+                    f"{c['home_inside_validated_range']} of {h['n']}", "{}", hsrc)
+        reg.num(f"bench.{vid}.deploy_wrong", f"{dp['n_wrong']} of {dp['n']}", "{}", hsrc)
+        reg.num(f"bench.{vid}.deploy_pct", round(100 * dp["n_wrong"] / dp["n"]), "{}", hsrc)
+        reg.num(f"bench.{vid}.blind_spot", "yes" if c["supports_blind_spot"] else "no", "{}", hsrc)
+        reg.num(f"bench.{vid}.fisher_p", _p(c["fisher_p"]), "{}", hsrc)
+    reg.num("bench.home_alpha", 0.05, "{:g}", hsrc)
+    reg.num("bench.home_supported", sum(c["supports_blind_spot"] for c in home["cells"]), "{}",
+            hsrc)
+    # the architecture axis: three model types per flagged vehicle, each gated first
+    asrc = SRC["axis"]
+    axis = _load("axis")
+    ref = str(axis["reference_pct"])
+    for c in axis["cells"]:
+        key = f"arch.{c['vehicle_id']}.{c['architecture']}"
+        reg.num(key, f"{c['clean_lift_by_pct'][ref]} of {c['gate2_n_wrong_in_deploy']}"
+                if c["outcome"] == "TRAINABLE" else "fails gate", "{}", asrc)
+    reg.num("arch.n_vehicles", len(axis["vehicles"]), "{}", asrc)
+    reg.num("arch.n_testable", sum(len(a["trainable_architectures"]) >= 2
+                                   for a in axis["agreement"].values()), "{}", asrc)
+    reg.num("arch.casper_n_pass",
+            len(axis["agreement"]["casper_hypersonic_transition"]["trainable_architectures"]),
+            "{}", asrc)
     return {"rows": [rows[v] for v in BENCH_ORDER if v in rows],
-            "all_guards_passed": m["all_guards_passed"]}
+            "all_guards_passed": m["all_guards_passed"], "axis": axis}
+
+
+def _p(p: float) -> str:
+    """A p-value as the home-baseline report prints it."""
+    return f"{p:.1g}" if p < 0.01 else f"{p:.2g}"
 
 
 # ── NACA: the example's own computation, on its committed fixture ────────────
@@ -427,6 +474,30 @@ def compute_naca(reg: _Reg) -> dict:
     reg.num("naca.entrance_positions_per_curve", len({r["x_over_D"] for r in test}), "{}",
             SRC["naca"])
     reg.num("naca.Pr", sorted({r["Pr"] for r in rows})[0], "{:.2f}", SRC["naca"])
+    # where gnielinski-1976 actually fails, at the benchmark's own NACA threshold
+    from scipy.stats import fisher_exact
+    from physmap.benchmarks.benchmark_v0_4 import bench_spec_from_config
+    from physmap.closures.registry import get_closure
+    from physmap.substrate.vehicle_config import load_named_vehicle
+    thr = bench_spec_from_config(load_named_vehicle("naca_tn1451")).calib.lift_threshold_pct
+    gn = get_closure("gnielinski-1976")
+    for r in rows:
+        pred = float(gn.fn(Re=np.array([r["Re"]]), Pr=np.array([r["Pr"]]))[0])
+        r["gn_err"] = abs(pred - r["Nu_meas"]) / r["Nu_meas"] * 100.0
+    hw = sum(r["gn_err"] > thr for r in train)
+    wrong = [r for r in test if r["gn_err"] > thr]
+    worst = max(test, key=lambda r: r["gn_err"])
+    _, pv = fisher_exact([[len(wrong), len(test) - len(wrong)], [hw, len(train) - hw]],
+                         alternative="greater")
+    reg.num("naca.threshold_pct", thr, "{:.1f}", "data/vehicles/naca_tn1451.yaml")
+    reg.num("naca.gn_home_wrong", f"{hw} of {len(train)}", "{}", src)
+    reg.num("naca.gn_entrance_wrong", f"{len(wrong)} of {len(test)}", "{}", src)
+    reg.num("naca.gn_entrance_max_xd", max(r["x_over_D"] for r in wrong), "{:g}", src)
+    reg.num("naca.gn_worst_pct", worst["gn_err"], "{:.0f}", src)
+    reg.num("naca.gn_worst_xd", worst["x_over_D"], "{:g}", src)
+    reg.num("naca.gn_fisher_p", pv, "{:.1g}", src)
+    reg.num("naca.gn_flagged_right",
+            sum(1 for r in test if r["closure"] and r["gn_err"] <= thr), "{}", src)
     return {"train": train, "test": test, "cut": cut}
 
 
@@ -519,6 +590,20 @@ def table_rows(name: str, reg: _Reg, L: dict, Bn: dict, N: dict):
                  f"wrong_predictions_p{d('bench.ref_pct')}",
                  f"caught_only_by_physmap_p{d('bench.ref_pct')}",
                  f"right_predictions_flagged_p{d('bench.ref_pct')}", "note"], out)
+    if name == "bench_4_home_baseline":
+        out = []
+        for vid in HOME_ORDER:
+            c = next(r for r in Bn["rows"] if r["vehicle"] == vid)["home"]
+            h, dp, s = c["home_held_out"], c["deployment"], c["home_in_sample"]
+            out.append([vid, c["home_evaluation_provenance"], h["n"], h["n_wrong"],
+                        d(f"bench.{vid}.home_heldout_pct"),
+                        "" if s is None else s["n_wrong"], dp["n"], dp["n_wrong"],
+                        d(f"bench.{vid}.deploy_pct"), d(f"bench.{vid}.fisher_p"),
+                        d(f"bench.{vid}.blind_spot"), c["reason"]])
+        return (["vehicle", "home_evaluation_provenance", "home_points", "home_wrong_held_out",
+                 "home_error_rate_pct", "home_wrong_in_sample", "deployment_points",
+                 "deployment_wrong", "deployment_error_rate_pct", "fisher_p_one_sided",
+                 "supports_deployment_induced_blind_spot", "reason"], out)
     if name == "bench_2_seven_vehicles":
         return (["vehicle", "domain", "failure_variable", "observability", "outcome",
                  "redistribution", "data_quality", "n_train_rows", "n_test_rows"],
@@ -539,7 +624,12 @@ FIGURES = {
         "The x/D entrance region: closure validity fires, both input-based detectors silent",
     "bench_2_seven_vehicles": "Seven-vehicle benchmark: closure validity and observability",
     "bench_3_what_physmap_adds": "What PhysMAP adds to input-based OOD detection",
+    "bench_4_home_baseline": "The home baseline behind each count",
 }
+
+# Supported readings first, then the rest, each in benchmark order.
+HOME_ORDER = ["casper_hypersonic_transition", "dirker_water", "naca_tn1451",
+              "jin_sco2_buoyancy", "velazquez_sco2", "marineau_hypersonic_transition", "forrest"]
 
 # The seven vehicles, grouped by whether the variable that breaks the surrogate is visible to
 # the input-based detectors -- the axis the result turns on.
@@ -1046,8 +1136,8 @@ def fig_what_physmap_adds(reg: _Reg, Bn: dict):
     fig.text(0.012, 0.905,
              f"Seven published datasets, at the default setting (percentile "
              f"{d('bench.ref_pct')}). Counts are rows of each dataset: rows are not independent "
-             "cases,\nand the datasets are not pooled. It helps when the cause of failure is "
-             "hidden from the surrogate's inputs, fully or partly — not otherwise.",
+             "cases,\nand the datasets are not pooled. Whether a count shows a blind spot that "
+             "deployment created depends on the home baseline.",
              fontsize=9.5, color=INK["secondary"], va="top", linespacing=1.4)
     h = 0.56
     wmax = max((r["ref"]["n_wrong"] for r in Bn["rows"] if r.get("ref")), default=1)
@@ -1092,6 +1182,69 @@ def fig_what_physmap_adds(reg: _Reg, Bn: dict):
           f"{SRC['matrix']} (per vehicle, at the reference percentile); the same counts print "
           "in `physmap benchmark report`; data: docs/talk/figures/data/"
           "bench_3_what_physmap_adds.csv")
+
+
+def fig_home_baseline(reg: _Reg, Bn: dict):
+    """One row per vehicle: the share of predictions off by more than the benchmark's own
+    threshold at home (held out; hollow) and when deployed (filled), joined by a line.
+    Neutral ink only -- identity is carried by the marker's fill and by the legend, never
+    by colour -- and every count is printed beside its row, in a panel sharing the rows."""
+    plt = _mpl()
+    from matplotlib.lines import Line2D
+    from matplotlib.transforms import blended_transform_factory
+    d = reg.d
+    byv = {r["vehicle"]: r for r in Bn["rows"]}
+    fig = plt.figure(figsize=(W, H))
+    ax = fig.add_axes([0.25, 0.12, 0.33, 0.6])
+    tab = fig.add_axes([0.6, 0.12, 0.39, 0.6], sharey=ax)
+    tab.set_axis_off()
+    fig.text(0.012, 0.975, "Is the surrogate right at home? The baseline behind each count",
+             fontsize=13, weight="bold", va="top")
+    fig.text(0.012, 0.905,
+             "Share of predictions off by more than the benchmark's own threshold: at home, held "
+             "out, and when deployed. A count shows a\nblind spot that deployment created only "
+             "where deployment is distinguishably worse (one-sided Fisher exact p < "
+             f"{d('bench.home_alpha')}). No row is removed.",
+             fontsize=9.5, color=INK["secondary"], va="top", linespacing=1.4)
+    ys = {vid: i for i, vid in enumerate(HOME_ORDER)}
+    ax.set_ylim(len(ys) - 0.4, -0.9)
+    ax.set_xlim(-4, 104)
+    cols = blended_transform_factory(tab.transAxes, tab.transData)
+    for x, label in ((0.0, "home wrong,\nheld out"), (0.27, "deployed\nwrong"),
+                     (0.52, "deployment-induced\nblind spot?")):
+        tab.text(x, -0.75, label, transform=cols, va="bottom", fontsize=8.5,
+                 color=INK["secondary"], weight="bold")
+    for vid, y in ys.items():
+        c = byv[vid]["home"]
+        h, dp = c["home_held_out"], c["deployment"]
+        hx, dx = 100 * h["n_wrong"] / h["n"], 100 * dp["n_wrong"] / dp["n"]
+        ax.plot([hx, dx], [y, y], color=INK["axis"], lw=1.6, zorder=1)
+        ax.plot(dx, y, "o", ms=8, mfc=INK["primary"], mec=INK["primary"], mew=1.8, zorder=2)
+        ax.plot(hx, y, "o", ms=8, mfc=INK["surface"], mec=INK["primary"], mew=1.8, zorder=3)
+        tab.text(0.0, y, d(f"bench.{vid}.home_heldout"), transform=cols, va="center", fontsize=9)
+        tab.text(0.27, y, d(f"bench.{vid}.deploy_wrong"), transform=cols, va="center",
+                 fontsize=9)
+        reading = (f"yes, p = {d(f'bench.{vid}.fisher_p')}" if c["supports_blind_spot"] else
+                   "no: one home row" if h["n"] < 2 else
+                   f"no, p = {d(f'bench.{vid}.fisher_p')}")
+        tab.text(0.52, y, reading, transform=cols, va="center", fontsize=9,
+                 weight="bold" if c["supports_blind_spot"] else "normal")
+    ax.set_yticks(list(ys.values()))
+    ax.set_yticklabels([BENCH_NAMES[v] for v in ys], fontsize=9)
+    ax.tick_params(axis="y", length=0)
+    ax.set_xticks([0, 25, 50, 75, 100])
+    ax.set_xticklabels(["0%", "25%", "50%", "75%", "100%"])
+    ax.grid(axis="y", visible=False)
+    ax.set_xlabel("predictions off by more than the threshold")
+    ax.legend(handles=[
+        Line2D([], [], ls="", marker="o", ms=8, mfc=INK["surface"], mec=INK["primary"], mew=1.8,
+               label="at home, held out"),
+        Line2D([], [], ls="", marker="o", ms=8, mfc=INK["primary"], mec=INK["primary"],
+               label="deployed")], loc="lower left", bbox_to_anchor=(0, 1.0), ncol=2,
+        fontsize=8.5, handletextpad=0.3, columnspacing=1.2, borderaxespad=0.3)
+    _save(fig, "bench_4_home_baseline",
+          f"{SRC['home']}, beside the unchanged banked matrix; plotted values: "
+          "docs/talk/figures/data/bench_4_home_baseline.csv")
 
 
 # ── captions (generated, so their numbers cannot drift) ──────────────────────
@@ -1147,9 +1300,9 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             "The control table, for a slide. Two rows, one difference: gravity, which is not an "
             "input to the surrogate or to the OOD detector.",
         "bench_1_naca_entrance":
-            f"NACA TN-1451, Fig 10. The surrogate is trained on the fully developed region "
-            f"(x/D ≥ {d('naca.bound')}, {d('naca.n_training')} points) using Re and Pr, and "
-            f"deployed on the entrance region ({d('naca.n_entrance')} points: "
+            f"NACA TN-1451, Fig 10, two-reader digitisation. The detectors are fitted on the "
+            f"fully developed region (x/D ≥ {d('naca.bound')}, {d('naca.n_training')} points) "
+            f"using Re and Pr, and assess the entrance region ({d('naca.n_entrance')} points: "
             f"{d('naca.entrance_positions_per_curve')} positions on each of "
             f"{d('naca.n_Re_curves')} Reynolds-number curves). Closure validity fires on "
             f"{d('naca.closure_fired')} of {d('naca.n_entrance')}; novelty density on "
@@ -1159,20 +1312,44 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             f"{d('bench.naca_tn1451.ref_n_baseline_fired')}, distance "
             f"{d('bench.naca_tn1451.ref_n_distance_fired')}, GP variance "
             f"{d('bench.naca_tn1451.ref_n_gp_var_fired')}, closure "
-            f"{d('bench.naca_tn1451.ref_n_corpus_fired')}. This is observability, not causal "
-            f"materiality.",
+            f"{d('bench.naca_tn1451.ref_n_corpus_fired')}. Scored against the measurement at "
+            f"the benchmark's NACA threshold ({d('naca.threshold_pct')} %), the Gnielinski "
+            f"correlation is wrong on {d('naca.gn_home_wrong')} fully developed points and "
+            f"{d('naca.gn_entrance_wrong')} entrance points, all at x/D ≤ "
+            f"{d('naca.gn_entrance_max_xd')} (one-sided Fisher exact p = "
+            f"{d('naca.gn_fisher_p')}); the closure check flags every entrance point, "
+            f"{d('naca.gn_flagged_right')} of them where the correlation is right. This is "
+            f"observability, not causal materiality.",
         "bench_3_what_physmap_adds":
             f"For each of the seven datasets, at the default setting (percentile "
             f"{d('bench.ref_pct')}): left, the surrogate's wrong predictions that the input-based "
             f"OOD detectors missed and PhysMAP's closure check caught; right, the right predictions "
             f"the closure check flagged anyway. Where the cause of failure is hidden from the "
-            f"inputs, PhysMAP catches what the OOD detectors cannot — "
-            f"{d('bench.naca_tn1451.ref_caught_of_wrong')} for NACA. Where the cause is visible "
+            f"inputs, PhysMAP flags wrong predictions the OOD detectors miss — "
+            f"{d('bench.naca_tn1451.ref_caught_of_wrong')} for NACA. Whether a count shows a "
+            f"blind spot that deployment created depends on the home baseline in the next "
+            f"figure: it holds for Casper and Dirker, not for NACA, Jin or Velazquez, whose "
+            f"surrogates are wrong about as often at home. Where the cause is visible "
             f"(Marineau), it adds nothing: {d('bench.marineau_hypersonic_transition.ref_caught_of_wrong')}. "
             f"The cost is false alarms: {d('bench.naca_tn1451.ref_flagged_right')} for NACA and "
             f"{d('bench.dirker_water.ref_flagged_right')} for Dirker. Counts are rows of each "
             f"dataset, not independent cases, and are never pooled into a rate across datasets. "
             f"Forrest has one training row, so nothing was tested.",
+        "bench_4_home_baseline":
+            f"For each dataset: the share of the surrogate's predictions off by more than the "
+            f"benchmark's own threshold, at home (held out) and when deployed. Home error is "
+            f"labelled by how it was obtained: where the surrogate was fitted to the home rows "
+            f"(Casper, Dirker, Marineau) it is refitted without each row in turn; where it is a "
+            f"published correlation (NACA, Jin, Velazquez, Forrest) the rows were never fitted. "
+            f"Deployment is distinguishably worse — one-sided Fisher exact p < "
+            f"{d('bench.home_alpha')}, a rule fixed after these counts were first seen — for "
+            f"Casper ({d('bench.casper_hypersonic_transition.home_heldout')} at home, "
+            f"{d('bench.casper_hypersonic_transition.deploy_wrong')} deployed) and Dirker "
+            f"({d('bench.dirker_water.home_heldout')}, {d('bench.dirker_water.deploy_wrong')}). "
+            f"It is not for NACA ({d('bench.naca_tn1451.home_heldout')} at home, "
+            f"{d('bench.naca_tn1451.deploy_wrong')} deployed), Jin, Velazquez or Marineau; "
+            f"Forrest has one home row. Their detector counts stand, but cannot show that "
+            f"deployment created the failure. No row is removed.",
         "bench_2_seven_vehicles":
             "The seven vehicles as `physmap benchmark report` prints them, with each dataset's "
             "redistribution basis and data quality. An outcome is an observability class. "
@@ -1188,6 +1365,7 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
         "bench_1_naca_entrance": [SRC["naca_example"], SRC["naca"], SRC["matrix"]],
         "bench_2_seven_vehicles": [SRC["matrix"], "src/physmap/benchmarks/registry.py"],
         "bench_3_what_physmap_adds": [SRC["matrix"]],
+        "bench_4_home_baseline": [SRC["home"], SRC["matrix"]],
     }
     for name, title in FIGURES.items():
         o += [f"## {title}", "",
@@ -1431,16 +1609,48 @@ def facts_sheet(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
                          f"{d(f'bench.{vid}.ref_flagged_right')} |")
             else:
                 o.append(f"| {vid} | {r['observability']} | not tested: no detector fit | — |")
+    o += ["", "**The home baseline behind each count** — derived beside the bank, which is "
+          "unchanged. A count shows a blind spot that deployment created only where deployment "
+          "is distinguishably worse than home (one-sided Fisher exact p < "
+          f"{d('bench.home_alpha')}; rule fixed after these counts were first seen). No row is "
+          "removed.", "",
+          "| vehicle | home error: how obtained | home wrong (held out) | in-sample | "
+          "deployed wrong | deployment-induced blind spot |", "|---|---|---|---|---|---|"]
+    for vid in HOME_ORDER:
+        c = next(x for x in Bn["rows"] if x["vehicle"] == vid)["home"]
+        ins = (f"{d(f'bench.{vid}.home_insample')} ({d(f'bench.{vid}.home_insample_pct')}%)"
+               if c["home_in_sample"] else "—")
+        o.append(f"| {vid} | {d(f'bench.{vid}.home_kind')} | "
+                 f"{d(f'bench.{vid}.home_heldout')} ({d(f'bench.{vid}.home_heldout_pct')}%) | "
+                 f"{ins} | {d(f'bench.{vid}.deploy_wrong')} ({d(f'bench.{vid}.deploy_pct')}%) | "
+                 f"{d(f'bench.{vid}.blind_spot')}, p = {d(f'bench.{vid}.fisher_p')} |")
+    ax_ = Bn["axis"]
+    o += ["", "**Architecture axis** — three model types per flagged vehicle, each trained on "
+          "the surrogate inputs and first gated on its held-out error; at percentile "
+          f"{d('bench.ref_pct')}, the wrong predictions only PhysMAP flags. Testable on "
+          f"{d('arch.n_testable')} of {d('arch.n_vehicles')} vehicles.", "",
+          "| vehicle | gp | deeponet | gbt |", "|---|---|---|---|"]
+    for vid in ax_["vehicles"]:
+        o.append(f"| {vid} | " + " | ".join(d(f"arch.{vid}.{a}") for a in ("gp", "deeponet", "gbt"))
+                 + " |")
     o += ["", f"Observability guards all passed: {'yes' if Bn['all_guards_passed'] else 'NO'}. "
           "Forrest: triage-only values; one training row, no detector fit; DO_NO_HARM "
           "short-circuited, not earned.", "",
-          f"Sources: `{SRC['matrix']}`, `src/physmap/benchmarks/registry.py`.", ""]
+          f"Sources: `{SRC['matrix']}`, `{SRC['home']}`, `{SRC['axis']}`, "
+          "`src/physmap/benchmarks/registry.py`.", ""]
 
     o += ["## 10. NACA x/D entrance-region example", "",
           f"- Training: {d('naca.n_training')} fully developed points (x/D ≥ {d('naca.bound')}). "
           f"Deployment: {d('naca.n_entrance')} entrance points. Pr {d('naca.Pr')} (air).",
           f"- Closure validity fired on {d('naca.closure_fired')} of {d('naca.n_entrance')}; "
           f"novelty density on {d('naca.novelty_fired')}; GP variance on {d('naca.gp_fired')}.",
+          f"- Gnielinski against the measurement, at the benchmark's NACA threshold "
+          f"({d('naca.threshold_pct')} %): wrong on {d('naca.gn_home_wrong')} fully developed "
+          f"points and {d('naca.gn_entrance_wrong')} entrance points, all at x/D ≤ "
+          f"{d('naca.gn_entrance_max_xd')}; worst {d('naca.gn_worst_pct')} % at x/D "
+          f"{d('naca.gn_worst_xd')}; one-sided Fisher exact p = {d('naca.gn_fisher_p')}. The "
+          f"closure check flags all {d('naca.n_entrance')}; the correlation is right on "
+          f"{d('naca.gn_flagged_right')} of them.",
           f"- The benchmark's NACA cell uses its own split — {d('bench.naca_tn1451.n_train')} "
           f"training rows, {d('bench.naca_tn1451.n_test')} test rows — with the same pattern.",
           "", f"Source: `{SRC['naca_example']}` on `{SRC['naca']}`.", ""]
@@ -1475,6 +1685,7 @@ def build() -> int:
         "bench_1_naca_entrance": lambda: fig_naca(reg, N),
         "bench_2_seven_vehicles": lambda: fig_seven(reg, Bn),
         "bench_3_what_physmap_adds": lambda: fig_what_physmap_adds(reg, Bn),
+        "bench_4_home_baseline": lambda: fig_home_baseline(reg, Bn),
     }
     FIGDATA.mkdir(parents=True, exist_ok=True)
     for name, draw in figs.items():
@@ -1634,7 +1845,23 @@ def check() -> int:
         line = next((ln for ln in readme if ln.startswith("|") and f"`{vid}`" in ln), None)
         if line is None or f"| {want[0]} | {want[1]} |" not in line:
             fails.append(f"README table row for {vid} does not show {want[0]} and {want[1]}")
+    for r in Bn["rows"]:
+        vid = r["vehicle"]
+        lines = [ln for ln in readme if ln.startswith("|") and f"`{vid}`" in ln]
+        want = (reg.items[f"bench.{vid}.home_heldout"]["display"],
+                reg.items[f"bench.{vid}.deploy_wrong"]["display"])
+        if len(lines) < 2 or not all(w in lines[1] for w in want):
+            fails.append(f"README home-baseline row for {vid} does not show {want[0]} at home "
+                         f"and {want[1]} deployed")
+        if f"deployment: {want[1]} wrong" not in rep:
+            fails.append(f"benchmark report lacks the home-baseline line for {vid}")
     ex = (REPRO / "naca_example.txt").read_text()
+    for want in (f"fully developed (home): {reg.items['naca.gn_home_wrong']['display']} wrong",
+                 f"entrance:               {reg.items['naca.gn_entrance_wrong']['display']} wrong",
+                 f"one-sided Fisher exact p = {reg.items['naca.gn_fisher_p']['display']}",
+                 f"within the threshold on {reg.items['naca.gn_flagged_right']['display']} of them"):
+        if want not in ex:
+            fails.append(f"the NACA example output lacks {want!r}")
     for want in (f"input-based OOD detectors fired on "
                  f"{reg.items['naca.either_input_based_fired']['display']} of "
                  f"{reg.items['naca.n_entrance']['display']} entrance points",

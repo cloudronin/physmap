@@ -93,13 +93,16 @@ before the talk. Let it sit for a beat.
 **Then point at the block under the table: "What the closure-validity check adds to the
 input-based detectors".** That is the point of PhysMAP, per dataset, at percentile 99:
 
-- where the cause of failure is hidden from the inputs, the closure check catches what the OOD
-  detectors miss — `20 of 20` at the pipe entrance;
+- where the cause of failure is hidden from the inputs, the closure check flags wrong
+  predictions the OOD detectors miss — `4 of 8` in the hypersonic case;
+- then scroll to "Home baseline": only Casper and Dirker have a home baseline from which
+  deployment is distinguishably worse; NACA's `20 of 20` stands as a count, not a blind spot;
 - where the cause is an input, it adds nothing — `0 of 6` for Marineau;
 - the right-hand column is the cost: false alarms, `24` and `16`.
 
-Land it: *"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP catches what
-the OOD detectors can't. Where it is, it adds nothing. And it costs false alarms."* The same
+Land it: *"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP flags what
+the OOD detectors can't see. Where the surrogate was right at home, that is a blind spot
+deployment created. Where the cause is an input, it adds nothing. And it costs false alarms."* The same
 numbers are on the chart, `docs/talk/figures/bench_3_what_physmap_adds.png`.
 
 Takes two to three minutes. Start it, talk over it, come back to it — do not stand in
@@ -374,7 +377,7 @@ replacement is not a hedge — it is the accurate sentence, and it is usually sh
 | "Materiality predicts the surrogate's error." | "Here the two share the gravity-off CFD, so the agreement is partly built in. The test shows which output moves when the physics moves." |
 | "Lewis gives us twelve test cases." | "One run. Its stations are positions along one tube, not cases." |
 | "PhysMAP outperforms OOD detection." | "Where the cause of failure isn't one of the surrogate's inputs, it catches what the OOD detectors can't. Where it is, it adds nothing. And it costs false alarms." |
-| "Across the benchmark PhysMAP catches N of M." (a pooled rate) | "Per dataset: 20 of 20 at the pipe entrance, 4 of 8 in the hypersonic case, 15 of 26 for supercritical CO2 — with the false alarms beside them." |
+| "Across the benchmark PhysMAP catches N of M." (a pooled rate) | "Per dataset: 4 of 8 in the hypersonic case, 2 of 11 for Dirker — with the false alarms and the home baseline beside them." |
 | "The CFD is validated against Lewis." | "From x/D 9.92 on it is grid-converged and within 9.6 % of the measurement. That is development evidence, not validation — 35A was inspected while the model was built." |
 | "The OOD detector caught the downstream stations too." (citing percentile 75) | "At 75 it fires on its own training data there, and identically with gravity off. At the reference 99 it is quiet." |
 | "PhysMAP catches the surrogate's errors." | "It catches the errors the mechanism it checks causes. On Lewis it missed two stations whose error came from the base model — by design." |

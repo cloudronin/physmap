@@ -621,7 +621,7 @@ L 702 364.5
   </g>
   <g id="text_48">
    <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 47.173994)">Seven published datasets, at the default setting (percentile 99). Counts are rows of each dataset: rows are not independent cases,</text>
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 59.655732)">and the datasets are not pooled. It helps when the cause of failure is hidden from the surrogate's inputs, fully or partly — not otherwise.</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 59.597842)">and the datasets are not pooled. Whether a count shows a blind spot that deployment created depends on the home baseline.</text>
   </g>
   <g id="text_49">
    <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: data/benchmarks/v0_4/matrix_full_seven.json (per vehicle, at the reference percentile); the same counts print in `physmap benchmark report`; data: docs/talk/figures/data/bench_3_what_physmap_adds.csv</text>

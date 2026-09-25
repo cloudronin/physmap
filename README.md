@@ -4,11 +4,12 @@
 
 Physics-aware credibility checks for AI surrogates in multiphysics simulation.
 
-A surrogate trained on `(Re, Pr)` over the fully-developed region of a heated pipe is
-blind to `x/D`, the variable that actually governs the entrance region. So it fails
-there, confidently. And so does an input-based OOD detector, because it sees the
-same two columns the surrogate does — and in those two columns the entrance points look
-perfectly ordinary.
+A heat-transfer surrogate that takes only `(Re, Pr)` is blind to `x/D`, the variable that
+governs a heated pipe's entrance region. On NACA TN-1451's two-reader data, the Gnielinski
+correlation is within the benchmark's error threshold on all 40 fully developed points, and
+outside it on 9 of the 45 entrance points — all at x/D ≤ 5, the worst at the inlet. An
+input-based OOD detector cannot see why: it sees the same two columns the surrogate does,
+and in those two columns the entrance points look perfectly ordinary.
 
 PhysMAP reads the bound variable from the test coordinates instead of from the
 surrogate's inputs, checks it against the closure relation's validated range, and knows
@@ -25,6 +26,10 @@ rationale: Prediction relies on gnielinski-1976 beyond its validated x_over_D bo
            divergence up to -63% past this bound. Input-based OOD detectors are silent
            because they cannot observe x_over_D.
 ```
+
+The same example shows the cost: the closure check flags all 45 entrance points, and the
+correlation is right on 36 of them. The −63% in the rationale is the literature's figure;
+on this data the worst miss is 38%.
 
 No LLM is in any path. Every explanation is a deterministic rendered template.
 
@@ -54,14 +59,48 @@ The seven-vehicle benchmark measures exactly that, per dataset, at the default s
 | `marineau_hypersonic_transition` — hypersonic transition | yes | 0 of 6 | 0 |
 | `forrest` — rectangular channel | yes | not tested: one training row | — |
 
-- **Where it helps:** when the cause of failure is hidden from the surrogate's inputs. There
-  PhysMAP catches wrong predictions the OOD detectors miss entirely — all 20 for the pipe
-  entrance.
+![The home baseline behind each count](https://raw.githubusercontent.com/cloudronin/physmap/main/docs/talk/figures/bench_4_home_baseline.png)
+
+**Is the surrogate right at home?** A count above shows a blind spot that deployment
+created only if the surrogate was accurate where it was fitted, or is claimed valid — so
+that deployment made it distinguishably worse. Every row and count above stands; this
+reads them per dataset, at the same threshold:
+
+| Dataset | Home error: how it was obtained | Home: wrong, held out | Deployed: wrong | Deployment-induced blind spot? |
+|---|---|---|---|---|
+| `casper_hypersonic_transition` | surrogate fitted to the home rows; refitted without each (in-sample: 2 of 159) | 6 of 159 (4%) | 8 of 8 (100%) | yes (p = 2e-10) |
+| `dirker_water` | surrogate fitted to the home rows; refitted without each (in-sample: 0 of 31) | 0 of 31 (0%) | 11 of 60 (18%) | yes (p = 0.007) |
+| `naca_tn1451` | published correlation, never fitted to these rows; all 29 inside its validated range | 13 of 29 (45%) | 20 of 47 (43%) | no (p = 0.67) |
+| `jin_sco2_buoyancy` | published correlation; 11 of 17 inside its validated range | 17 of 17 (100%) | 26 of 27 (96%) | no (p = 1) |
+| `velazquez_sco2` | published correlation; 197 of 393 inside its validated range | 386 of 393 (98%) | 67 of 67 (100%) | no (p = 0.33) |
+| `marineau_hypersonic_transition` | surrogate fitted to the home rows; refitted without each (in-sample: 0 of 9) | 5 of 9 (56%) | 6 of 6 (100%) | no (p = 0.092) |
+| `forrest` | published correlation | 0 of 1 | 4 of 4 (100%) | no: one home row is no baseline |
+
+"Wrong" is each dataset's own benchmark threshold. "Distinguishably worse" is a one-sided
+Fisher exact test at p < 0.05 — a rule fixed after these home counts were first seen, which
+is why the counts are shown beside it. `physmap benchmark report` prints every field, and
+[`home_baseline.json`](https://github.com/cloudronin/physmap/blob/main/data/benchmarks/v0_4/home_baseline.json)
+holds them, beside the unchanged banked matrix.
+
+- **Where it helps:** when the cause of failure is hidden from the surrogate's inputs, fully
+  or partly, PhysMAP flags wrong predictions the OOD detectors miss. Where the surrogate is also right
+  at home, that is a blind spot deployment created: `casper_hypersonic_transition`, 4 of 8,
+  and `dirker_water`, 2 of 11.
+- **Where the reading stops:** on `naca_tn1451`, `jin_sco2_buoyancy` and `velazquez_sco2`,
+  PhysMAP still flags wrong predictions the detectors miss — 20, 15 and 18 — but those
+  surrogates are wrong about as often at home, so the counts cannot show that deployment
+  created the failure. For NACA, the benchmark's single-reader digitisation of Fig. 10 and
+  the two-reader one used by the x/D example above disagree at home; on the two-reader data
+  the correlation is right at home and fails near the inlet.
 - **Where it doesn't:** when the cause is an input, the OOD detectors already see it and
   PhysMAP adds nothing. `marineau_hypersonic_transition` is the control that shows it.
 - **The cost:** the closure check flags anything outside a relation's validated range, even
   when the surrogate happens to be right — 24 false alarms for the pipe entrance, 16 for
-  `dirker_water`.
+  `dirker_water`, and 36 of the 45 entrance points in the x/D example.
+- **The kind of model:** on `casper_hypersonic_transition`, a Gaussian process, a DeepONet
+  and gradient-boosted trees all pass the same accuracy gate, and each leaves 4 of 8 wrong
+  predictions that only PhysMAP flags. On NACA, Jin and Velázquez no model type passes the
+  gate, so the question cannot be tested there. `physmap benchmark architectures` reruns it.
 
 Counts are rows of each dataset, not independent cases, and are never pooled into a rate
 across datasets; the source values are digitised from publications. The benchmark's
@@ -236,7 +275,8 @@ redistribution terms and partly because it is not runtime data. From a plain
 `pip install physmap`, those commands say so in one sentence and stop.
 
 Optional extras: `[jsonld]` adds evidence export via `uofa`, `[experiment]` adds
-`matplotlib` for benchmark figures, `[dev]` adds the test tooling.
+`matplotlib` for benchmark figures, `[architectures]` adds PyTorch for the DeepONet in
+`physmap benchmark architectures`, `[dev]` adds the test tooling.
 
 ## Using the guardrail
 

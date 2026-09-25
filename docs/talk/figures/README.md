@@ -56,7 +56,7 @@ The control table, for a slide. Two rows, one difference: gravity, which is not 
 
 ![The x/D entrance region: closure validity fires, both input-based detectors silent](bench_1_naca_entrance.png)
 
-NACA TN-1451, Fig 10. The surrogate is trained on the fully developed region (x/D ≥ 10, 40 points) using Re and Pr, and deployed on the entrance region (45 points: 9 positions on each of 5 Reynolds-number curves). Closure validity fires on 45 of 45; novelty density on 0; GP variance on 0. The benchmark's own NACA cell uses its own split (29 training rows, 47 test rows) and shows the same pattern: baseline 0, distance 0, GP variance 0, closure 47. This is observability, not causal materiality.
+NACA TN-1451, Fig 10, two-reader digitisation. The detectors are fitted on the fully developed region (x/D ≥ 10, 40 points) using Re and Pr, and assess the entrance region (45 points: 9 positions on each of 5 Reynolds-number curves). Closure validity fires on 45 of 45; novelty density on 0; GP variance on 0. The benchmark's own NACA cell uses its own split (29 training rows, 47 test rows) and shows the same pattern: baseline 0, distance 0, GP variance 0, closure 47. Scored against the measurement at the benchmark's NACA threshold (17.5 %), the Gnielinski correlation is wrong on 0 of 40 fully developed points and 9 of 45 entrance points, all at x/D ≤ 5 (one-sided Fisher exact p = 0.002); the closure check flags every entrance point, 36 of them where the correlation is right. This is observability, not causal materiality.
 
 - Files: [`bench_1_naca_entrance.svg`](bench_1_naca_entrance.svg) (vector, editable) · [`bench_1_naca_entrance.png`](bench_1_naca_entrance.png) (1920 px)
 - Plotted values: [`data/bench_1_naca_entrance.csv`](data/bench_1_naca_entrance.csv)
@@ -76,9 +76,19 @@ The seven vehicles as `physmap benchmark report` prints them, with each dataset'
 
 ![What PhysMAP adds to input-based OOD detection](bench_3_what_physmap_adds.png)
 
-For each of the seven datasets, at the default setting (percentile 99): left, the surrogate's wrong predictions that the input-based OOD detectors missed and PhysMAP's closure check caught; right, the right predictions the closure check flagged anyway. Where the cause of failure is hidden from the inputs, PhysMAP catches what the OOD detectors cannot — 20 of 20 for NACA. Where the cause is visible (Marineau), it adds nothing: 0 of 6. The cost is false alarms: 24 for NACA and 16 for Dirker. Counts are rows of each dataset, not independent cases, and are never pooled into a rate across datasets. Forrest has one training row, so nothing was tested.
+For each of the seven datasets, at the default setting (percentile 99): left, the surrogate's wrong predictions that the input-based OOD detectors missed and PhysMAP's closure check caught; right, the right predictions the closure check flagged anyway. Where the cause of failure is hidden from the inputs, PhysMAP flags wrong predictions the OOD detectors miss — 20 of 20 for NACA. Whether a count shows a blind spot that deployment created depends on the home baseline in the next figure: it holds for Casper and Dirker, not for NACA, Jin or Velazquez, whose surrogates are wrong about as often at home. Where the cause is visible (Marineau), it adds nothing: 0 of 6. The cost is false alarms: 24 for NACA and 16 for Dirker. Counts are rows of each dataset, not independent cases, and are never pooled into a rate across datasets. Forrest has one training row, so nothing was tested.
 
 - Files: [`bench_3_what_physmap_adds.svg`](bench_3_what_physmap_adds.svg) (vector, editable) · [`bench_3_what_physmap_adds.png`](bench_3_what_physmap_adds.png) (1920 px)
 - Plotted values: [`data/bench_3_what_physmap_adds.csv`](data/bench_3_what_physmap_adds.csv)
 - Source data: [`data/benchmarks/v0_4/matrix_full_seven.json`](../../../data/benchmarks/v0_4/matrix_full_seven.json)
+
+## The home baseline behind each count
+
+![The home baseline behind each count](bench_4_home_baseline.png)
+
+For each dataset: the share of the surrogate's predictions off by more than the benchmark's own threshold, at home (held out) and when deployed. Home error is labelled by how it was obtained: where the surrogate was fitted to the home rows (Casper, Dirker, Marineau) it is refitted without each row in turn; where it is a published correlation (NACA, Jin, Velazquez, Forrest) the rows were never fitted. Deployment is distinguishably worse — one-sided Fisher exact p < 0.05, a rule fixed after these counts were first seen — for Casper (6 of 159 at home, 8 of 8 deployed) and Dirker (0 of 31, 11 of 60). It is not for NACA (13 of 29 at home, 20 of 47 deployed), Jin, Velazquez or Marineau; Forrest has one home row. Their detector counts stand, but cannot show that deployment created the failure. No row is removed.
+
+- Files: [`bench_4_home_baseline.svg`](bench_4_home_baseline.svg) (vector, editable) · [`bench_4_home_baseline.png`](bench_4_home_baseline.png) (1920 px)
+- Plotted values: [`data/bench_4_home_baseline.csv`](data/bench_4_home_baseline.csv)
+- Source data: [`data/benchmarks/v0_4/home_baseline.json`](../../../data/benchmarks/v0_4/home_baseline.json), [`data/benchmarks/v0_4/matrix_full_seven.json`](../../../data/benchmarks/v0_4/matrix_full_seven.json)
 
