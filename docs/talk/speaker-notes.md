@@ -230,7 +230,7 @@ PhysMAP flags.
 Filled dot: when deployed. On the right, the counts and a short annotation per dataset: Casper —
 strongest support across three model types; Dirker — additional support; NACA — the
 applicability case, not separate evidence; Jin, Velazquez — no credible home baseline;
-Marineau — the control, where PhysMAP adds nothing; Forrest — triage-only.
+Marineau — cause visible to the surrogate; PhysMAP adds nothing; Forrest — triage-only.
 
 **Say:**
 
@@ -261,14 +261,20 @@ datasets.
 
 ## Slide 12 — What the evidence shows, and what it does not — text slide
 
-**Say:**
+**On screen:** three rows, Shown and Boundary, and one line under them about the abstract.
 
-- "Shown: applicability on NACA; materiality on Lewis — identical OOD scores because the inputs
-  are identical, and materiality from zero to 0.195; Casper's result across three model types."
-- "Not shown: a detection rate for the causal check — it's one run; a locked θ; that
-  materiality predicts error in general; general superiority over OOD detection."
-- "And the accepted abstract's precision, recall and F1 are not presented as experimental
-  validation." Say it once; do not read the numbers out.
+**Say, a row at a time:**
+
+- "NACA shows applicability outside the supported region. Its boundary: numerical agreement
+  alone does not establish credibility."
+- "Lewis shows identical OOD scores with different materiality and different error. Its
+  boundary: it's one run — no detection rate, and no fixed θ."
+- "Casper and Dirker are supporting benchmark evidence. Their boundary: no general superiority,
+  and no pooled performance claim."
+- Then, once: "The accepted abstract's precision, recall and F1 are not presented as experimental
+  validation." Do not read the numbers out.
+
+**If asked for more:** the complete limitations table is backup B25.
 
 ---
 

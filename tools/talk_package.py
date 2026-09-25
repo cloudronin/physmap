@@ -633,7 +633,7 @@ HOME_ANNOTATION = {
     "naca_tn1451": "applicability case, not separate evidence",
     "jin_sco2_buoyancy": "no credible home baseline",
     "velazquez_sco2": "no credible home baseline",
-    "marineau_hypersonic_transition": "control where PhysMAP adds nothing",
+    "marineau_hypersonic_transition": "cause visible to the surrogate; PhysMAP adds nothing",
     "forrest": "triage-only",
 }
 
@@ -1363,8 +1363,8 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             f"gate decides it, and no row is removed. On the slide each row carries a short "
             f"annotation, written for the talk: Casper, strongest support across three model "
             f"types; Dirker, additional support; NACA, the applicability case, not separate "
-            f"evidence; Jin and Velazquez, no credible home baseline; Marineau, the control "
-            f"where PhysMAP adds nothing; Forrest, triage-only.",
+            f"evidence; Jin and Velazquez, no credible home baseline; Marineau, cause visible to the "
+            f"surrogate, where PhysMAP adds nothing; Forrest, triage-only.",
         "bench_2_seven_vehicles":
             "The seven vehicles as `physmap benchmark report` prints them, with each dataset's "
             "redistribution basis and data quality. An outcome is an observability class. "

@@ -186,7 +186,7 @@ published correlation.
 On the slide, the chart carries short annotations and the dense table stays in backup:
 Casper — strongest support across three model types; Dirker — additional support; NACA — the
 applicability case, not separate evidence; Jin and Velazquez — no credible home baseline;
-Marineau — the control, where PhysMAP adds nothing; Forrest — triage-only.
+Marineau — cause visible to the surrogate; PhysMAP adds nothing; Forrest — triage-only.
 
 | Dataset | Detectors see the cause? | Home error: how obtained | Home wrong | Deployed wrong | Wrong, flagged only by PhysMAP | Accurate, flagged anyway | Limitation |
 |---|---|---|---|---|---|---|---|

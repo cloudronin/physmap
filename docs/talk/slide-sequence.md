@@ -19,23 +19,23 @@ shows the public commands and their captured, verified output. The live-demo run
 | 5 | Causal materiality and matched ablation | Text: "Is an applicable mechanism outside calibration — and does it materially change the quantity of interest?" Materiality = 1 − QoI(mechanism off) / QoI(mechanism on), by matched ablation: same mesh, same conditions, the one mechanism removed | A different question from applicability, with different evidence | 1:15 |
 | 6 | Lewis 35A: a controlled model-reuse stress test | The framing and the claim, word for word; "One run, nominally laminar, buoyancy aiding. Its stations are not cases." "It replaces the earlier metrics as the main causal demonstration." | What the test is, and what it is not | 1:00 |
 | 7 | The input contract | `lewis_1_input_contract` | Same three inputs; gravity is not one; every deployment input is a training input | 1:15 |
-| 8 | Same inputs, two physical states | `lewis_2_control_vs_gravity_on` | Control within 0.06 %; the measurement 17–18 % off downstream. The OOD scores are identical with gravity on and off because the visible inputs are identical — quiet in both at the reference percentile, 99. Materiality 0 with gravity off, up to 0.195 with gravity on | 2:15 |
+| 8 | Same inputs, two physical states | `lewis_2_control_vs_gravity_on` | Control within 0.06 %; the surrogate is 17–18 % below the measurement downstream. The OOD scores are identical with gravity on and off because the visible inputs are identical — quiet in both at the reference percentile, 99. Materiality 0 with gravity off, up to 0.195 with gravity on | 2:15 |
 | 9 | Materiality is continuous | `lewis_4_materiality` | The headline needs no θ. θ = 0.10 is labelled illustrative, and unnecessary for the headline | 1:15 |
 | 10 | Supporting evidence: Casper, across three model architectures | Text: a small table — Gaussian process, DeepONet, gradient-boosted trees; each passes the same home-accuracy check; each leaves 4 of 8 deployment errors only PhysMAP flags. Home: 6 of 159 wrong, held out; deployed: 8 of 8 | The result does not depend on the kind of surrogate, where that can be tested | 1:15 |
-| 11 | Seven datasets: the supporting-evidence portfolio | `bench_4_home_baseline`, with its short annotations: Casper — strongest support across three model types; Dirker — additional support; NACA — the applicability case, not separate evidence; Jin, Velazquez — no credible home baseline; Marineau — the control, where PhysMAP adds nothing; Forrest — triage-only | Every dataset on one chart, with which ones have credible home baselines. The dense seven-row table is backup B21 | 1:45 |
-| 12 | What the evidence shows — and what it does not | Two columns — see below | Applicability and materiality shown; the benchmark supports; one causal run, no rates; the abstract's metrics are not presented as validation | 1:30 |
+| 11 | Seven datasets: the supporting-evidence portfolio | `bench_4_home_baseline`, with its short annotations: Casper — strongest support across three model types; Dirker — additional support; NACA — the applicability case, not separate evidence; Jin, Velazquez — no credible home baseline; Marineau — cause visible to the surrogate; PhysMAP adds nothing; Forrest — triage-only | Every dataset on one chart, with which ones have credible home baselines. The dense seven-row table is backup B21 | 1:45 |
+| 12 | What the evidence shows — and what it does not | Three rows, Shown and Boundary — see below | Restraint: what each result shows, and where it stops. The complete limitations table is backup B25 | 1:30 |
 | 13 | Reproduce it — and the close | The public commands, the repository link, the captured output's key lines from [`reproduction/`](reproduction/README.md) (commit, exit status, bank comparison); then the final line | Anyone can check it; the conclusion | 1:15 |
 
 **Slide 12, the text on it:**
 
-| Shown | Not shown |
+| Shown | Boundary |
 |---|---|
-| Applicability: all 45 NACA entrance predictions are outside the closure's supported region; 9 exceed the threshold; the 36 numerically close ones lack validation evidence for this region | That numerical agreement alone makes a prediction credible |
-| Materiality: the OOD scores are identical in both states because the inputs are identical; materiality 0 with gravity off, up to 0.195 with gravity on | Any detection rate for the causal check — one run, no rates |
-| Lewis: control within 0.06 %; 17–18 % off the measurement downstream | A θ — it is unlocked |
-| The measurement sides with the gravity-on CFD downstream | That materiality predicts error in general — here it is partly built in |
-| Casper: three model types, each 4 of 8 that only PhysMAP flags; Dirker adds support | That every benchmark dataset shows a failure deployment created |
-| All of it reproduces from a public clean clone | The accepted abstract's precision, recall and F1 — they are not presented as experimental validation. Nor general superiority over OOD detection, a pooled rate, or anything about NVIDIA PhysicsNeMo |
+| NACA: applicability outside the supported region | Numerical agreement alone does not establish credibility |
+| Lewis: identical OOD scores, different materiality and error | One run; no detection rate or fixed θ |
+| Casper and Dirker: supporting benchmark evidence | No general superiority or pooled performance claim |
+
+One line under the table: "The accepted abstract's precision, recall and F1 are not presented
+as experimental validation." No numbers on the slide.
 
 **Slide 13, the final line, word for word:**
 
@@ -77,3 +77,4 @@ Separate from the main deck. Each is ready to pull up for a question.
 | B22 | What changed since the abstract | The accepted abstract reports precision 1.00, recall 0.65, F1 0.79 (θ ≈ tol = 0.10). Rebuilding the study showed: the truth was a fitted correlation, not measurements · the construction ties the flag to the label · the original inputs no longer exist. So: not presented as experimental validation. [`historical-reconciliation.md`](historical-reconciliation.md) | Hostile questions 11 and 20; "What happened to the abstract's numbers?" |
 | B23 | The OOD scores are identical | `lewis_3_ood_identical`: each score, gravity off against gravity on, every station, on the diagonal; largest difference 0 | "Show me the OOD scores" |
 | B24 | In one table | `lewis_5_control_table`: "Same inputs, same OOD scores. Different physics, different materiality." | A one-table recap, if time allows |
+| B25 | The complete limitations table | Applicability: all 45 NACA entrance predictions are outside the closure's supported region; 9 exceed the threshold; the 36 numerically close ones lack validation evidence for this region — not shown: That numerical agreement alone makes a prediction credible · Materiality: the OOD scores are identical in both states because the inputs are identical; materiality 0 with gravity off, up to 0.195 with gravity on — not shown: Any detection rate for the causal check — one run, no rates · Lewis: control within 0.06 %; the surrogate 17–18 % below the measurement downstream — not shown: A θ — it is unlocked · The measurement sides with the gravity-on CFD downstream — not shown: That materiality predicts error in general — here it is partly built in · Casper: three model types, each 4 of 8 that only PhysMAP flags; Dirker adds support — not shown: That every benchmark dataset shows a failure deployment created · All of it reproduces from a public clean clone — not shown: The accepted abstract's precision, recall and F1 — they are not presented as experimental validation. Nor general superiority over OOD detection, a pooled rate, or anything about NVIDIA PhysicsNeMo | "What exactly are you not claiming?" |
