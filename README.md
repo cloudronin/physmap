@@ -1,5 +1,7 @@
 # PhysMAP
 
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.22950742.svg)](https://doi.org/10.5281/zenodo.22950742)
+
 Physics-aware credibility checks for AI surrogates in multiphysics simulation.
 
 A surrogate trained on `(Re, Pr)` over the fully-developed region of a heated pipe is
@@ -325,8 +327,10 @@ No source PDF is redistributed. Papers are cited, not copied.
 
 ## Citing
 
-[`CITATION.cff`](https://github.com/cloudronin/physmap/blob/main/CITATION.cff). Attribution is required by CC BY when you redistribute or
-build on the data.
+Cite the software by its DOI, [10.5281/zenodo.22950742](https://doi.org/10.5281/zenodo.22950742). That DOI always points to
+the latest version; each version also has its own DOI, listed on the Zenodo record.
+[`CITATION.cff`](https://github.com/cloudronin/physmap/blob/main/CITATION.cff) holds the full metadata. Attribution is required by
+CC BY when you redistribute or build on the data.
 
 ## Tests
 
