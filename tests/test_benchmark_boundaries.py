@@ -130,7 +130,10 @@ def test_cli_run_recomputes_and_checks_itself_against_the_bank():
     r = _cli("benchmark", "run")
     assert r.returncode == 0, r.stderr
     assert "Recomputed 7 vehicles." in r.stdout
-    assert "Every cell matches the banked matrix exactly." in r.stdout
+    # Exactly on a machine like the one that banked it; on another numpy/BLAS build a float
+    # can differ in its last bit, and the command then says it matched within 1e-9. Both pass.
+    assert ("Every cell matches the banked matrix exactly." in r.stdout
+            or "Every cell matches the banked matrix: matches within" in r.stdout), r.stdout
     assert "DRIFT" not in r.stdout
 
 
