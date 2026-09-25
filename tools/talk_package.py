@@ -1746,7 +1746,9 @@ def _cli_expectations(reg: _Reg, L: dict) -> list[tuple[str, str]]:
         (f"would flag x/D {d('lewis.flagged_at_illustrative')} with gravity on, and nothing with "
          "gravity off", "illustrative flags"),
         ("Assertions hold", "assertions"),
-        ("The record matches the banked record exactly.", "bank comparison"),
+        # exact on the machine that banked it; "matches within ..." elsewhere. Both pass, and the
+        # record itself is compared with the bank below, with the command's own comparison.
+        ("The record matches the banked record", "bank comparison"),
     ]
 
 
@@ -1809,8 +1811,17 @@ def check() -> int:
 
     # 4. the clean clone itself
     log = (REPRO / "log.txt").read_text()
-    if "exit status: 0" not in log:
-        fails.append("the clean-clone run did not exit 0")
+    # Each command's own exit status, section by section. The one expected non-zero is the
+    # architecture axis without PyTorch, which must refuse.
+    sections = dict(re.findall(r"=== (.+?) ===\n(?:(?!===).*\n)*?exit status: (\d+)", log))
+    for name, want in (("benchmark report", "0"), ("benchmark run", "0"),
+                       ("benchmark architectures --banked", "0"),
+                       ("benchmark architectures, without PyTorch (must refuse in one sentence)",
+                        "1"),
+                       ("stress-test lewis-reuse", "0"),
+                       ("examples/naca_entrance_region.py", "0")):
+        if sections.get(name) != want:
+            fails.append(f"the clean-clone run of {name!r} did not exit {want}")
     commit = re.search(r"commit: ([0-9a-f]{40})", log)
     readme = (REPRO / "README.md").read_text() if (REPRO / "README.md").exists() else ""
     if not commit or commit.group(1) not in readme:
@@ -1907,7 +1918,7 @@ def check() -> int:
           f"captions and the facts sheet match the committed records. Every figure shows the "
           f"numbers it is registered for. Every Lewis number matches the clean-clone CLI output "
           f"({len(rows)} station rows, {len(_cli_expectations(reg, L))} summary lines). The "
-          f"clean-clone record is {cmp.summary()} against the bank. The benchmark and NACA "
+          f"clean-clone record against the bank: {cmp.summary()}. The benchmark and NACA "
           f"figures match their CLI outputs. Every number in the talk prose is sourced.")
     return 0
 

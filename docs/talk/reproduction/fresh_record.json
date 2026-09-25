@@ -150,11 +150,11 @@
     "x_over_D": 0.31,
     "comparable": false,
     "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
-    "surrogate_prediction": 54.95559424934452,
+    "surrogate_prediction": 54.95559522015996,
     "control_gravity_off_truth": 54.97400055660621,
-    "control_error_pct": -0.03348184064343451,
+    "control_error_pct": -0.03348007468966241,
     "experiment_Nu": 33.72,
-    "experimental_error_pct": 62.976258153453514,
+    "experimental_error_pct": 62.97626103250285,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -163,7 +163,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -176,7 +176,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -189,7 +189,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -202,7 +202,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -215,7 +215,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -228,7 +228,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -243,7 +243,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -256,7 +256,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -269,7 +269,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -282,7 +282,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -295,7 +295,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -308,7 +308,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0008859597764462341,
+       "score": 0.0008859599008195568,
        "threshold": 0.05,
        "fired": false
       },
@@ -324,11 +324,11 @@
     "x_over_D": 0.85,
     "comparable": false,
     "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
-    "surrogate_prediction": 36.52207069065153,
+    "surrogate_prediction": 36.52207101890044,
     "control_gravity_off_truth": 36.55291800583049,
-    "control_error_pct": -0.0843908417216932,
+    "control_error_pct": -0.08438994371154918,
     "experiment_Nu": 32.69,
-    "experimental_error_pct": 11.722455462378512,
+    "experimental_error_pct": 11.722456466504871,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -337,7 +337,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -350,7 +350,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -363,7 +363,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -376,7 +376,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -389,7 +389,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -402,7 +402,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -417,7 +417,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -430,7 +430,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -443,7 +443,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -456,7 +456,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -469,7 +469,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -482,7 +482,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.001567222643510485,
+       "score": 0.0015672235404370998,
        "threshold": 0.05,
        "fired": false
       },
@@ -498,11 +498,11 @@
     "x_over_D": 2.45,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 24.353220082566608,
+    "surrogate_prediction": 24.35322015804216,
     "control_gravity_off_truth": 24.35912026436245,
-    "control_error_pct": -0.024221653868483628,
+    "control_error_pct": -0.02422134402333409,
     "experiment_Nu": 22.15,
-    "experimental_error_pct": 9.946817528517427,
+    "experimental_error_pct": 9.946817869264834,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -511,7 +511,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -524,7 +524,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -537,7 +537,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -550,7 +550,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -563,7 +563,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -576,7 +576,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -591,7 +591,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -604,7 +604,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -617,7 +617,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -630,7 +630,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -643,7 +643,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -656,7 +656,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0025360792287198028,
+       "score": 0.0025360799011325923,
        "threshold": 0.05,
        "fired": false
       },
@@ -672,11 +672,11 @@
     "x_over_D": 5.65,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 17.8472277967762,
+    "surrogate_prediction": 17.84722788251006,
     "control_gravity_off_truth": 17.8572627949338,
-    "control_error_pct": -0.05619561224381453,
+    "control_error_pct": -0.05619513213740435,
     "experiment_Nu": 19.07,
-    "experimental_error_pct": -6.412019943491353,
+    "experimental_error_pct": -6.412019493916821,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -685,7 +685,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -698,7 +698,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -711,7 +711,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -724,7 +724,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -737,7 +737,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -750,7 +750,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -765,7 +765,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -778,7 +778,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -791,7 +791,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -804,7 +804,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -817,7 +817,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -830,7 +830,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.0035842936598008746,
+       "score": 0.003584293661411073,
        "threshold": 0.05,
        "fired": false
       },
@@ -846,11 +846,11 @@
     "x_over_D": 9.92,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 14.527636779383984,
+    "surrogate_prediction": 14.527636869432152,
     "control_gravity_off_truth": 14.534069199954224,
-    "control_error_pct": -0.0442575336730866,
+    "control_error_pct": -0.044256914106977074,
     "experiment_Nu": 14.92,
-    "experimental_error_pct": -2.629780299034956,
+    "experimental_error_pct": -2.6297796954949604,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -859,7 +859,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -872,7 +872,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -885,7 +885,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -898,7 +898,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -911,7 +911,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -924,7 +924,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -939,7 +939,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -952,7 +952,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -965,7 +965,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -978,7 +978,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -991,7 +991,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -1004,7 +1004,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.004404038964741504,
+       "score": 0.004404038965052485,
        "threshold": 0.05,
        "fired": false
       },
@@ -1020,11 +1020,11 @@
     "x_over_D": 16.32,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 12.170372974139907,
+    "surrogate_prediction": 12.170373000542813,
     "control_gravity_off_truth": 12.17563370580396,
-    "control_error_pct": -0.04320704606566306,
+    "control_error_pct": -0.043206829215303166,
     "experiment_Nu": 13.95,
-    "experimental_error_pct": -12.757182981075932,
+    "experimental_error_pct": -12.757182791807786,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -1033,7 +1033,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1046,7 +1046,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1059,7 +1059,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1072,7 +1072,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1085,7 +1085,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1098,7 +1098,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1113,7 +1113,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1126,7 +1126,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1139,7 +1139,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1152,7 +1152,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1165,7 +1165,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1178,7 +1178,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.005257119639022994,
+       "score": 0.005257119639399125,
        "threshold": 0.05,
        "fired": false
       },
@@ -1194,11 +1194,11 @@
     "x_over_D": 33.39,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 9.578645757464876,
+    "surrogate_prediction": 9.578645888083978,
     "control_gravity_off_truth": 9.580604216163485,
-    "control_error_pct": -0.020441912163582376,
+    "control_error_pct": -0.020440548793387858,
     "experiment_Nu": 10.76,
-    "experimental_error_pct": -10.979128648095937,
+    "experimental_error_pct": -10.979127434163772,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -1207,7 +1207,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1220,7 +1220,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1233,7 +1233,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1246,7 +1246,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1259,7 +1259,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1272,7 +1272,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1287,7 +1287,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1300,7 +1300,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1313,7 +1313,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1326,7 +1326,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1339,7 +1339,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1352,7 +1352,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.006681090684056242,
+       "score": 0.006681090684468442,
        "threshold": 0.05,
        "fired": false
       },
@@ -1368,11 +1368,11 @@
     "x_over_D": 50.47,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 8.443279201916095,
+    "surrogate_prediction": 8.443279290885352,
     "control_gravity_off_truth": 8.444175886445544,
-    "control_error_pct": -0.010618970299858255,
+    "control_error_pct": -0.010617916683042239,
     "experiment_Nu": 9.38,
-    "experimental_error_pct": -9.986362452920105,
+    "experimental_error_pct": -9.986361504420561,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -1381,7 +1381,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1394,7 +1394,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1407,7 +1407,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1420,7 +1420,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1433,7 +1433,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1446,7 +1446,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1461,7 +1461,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1474,7 +1474,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1487,7 +1487,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1500,7 +1500,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1513,7 +1513,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1526,7 +1526,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.007580237032839026,
+       "score": 0.007580237033001464,
        "threshold": 0.05,
        "fired": false
       },
@@ -1555,7 +1555,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1568,7 +1568,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1581,7 +1581,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1594,7 +1594,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1607,7 +1607,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1620,7 +1620,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1635,7 +1635,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1648,7 +1648,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1661,7 +1661,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1674,7 +1674,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1687,7 +1687,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1700,7 +1700,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.008230574155741497,
+       "score": 0.008230574156337109,
        "threshold": 0.05,
        "fired": false
       },
@@ -1716,11 +1716,11 @@
     "x_over_D": 101.69,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 7.000516750589364,
+    "surrogate_prediction": 7.000516809168608,
     "control_gravity_off_truth": 7.000797142675188,
-    "control_error_pct": -0.0040051451300371355,
+    "control_error_pct": -0.004004308378979804,
     "experiment_Nu": 8.41,
-    "experimental_error_pct": -16.75961057563182,
+    "experimental_error_pct": -16.759609879089087,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -1729,7 +1729,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1742,7 +1742,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1755,7 +1755,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1768,7 +1768,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1781,7 +1781,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1794,7 +1794,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1809,7 +1809,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1822,7 +1822,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1835,7 +1835,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1848,7 +1848,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1861,7 +1861,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1874,7 +1874,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009143062017134983,
+       "score": 0.009143062017664813,
        "threshold": 0.05,
        "fired": false
       },
@@ -1890,11 +1890,11 @@
     "x_over_D": 135.84,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 6.550747678494179,
+    "surrogate_prediction": 6.550747715037944,
     "control_gravity_off_truth": 6.548810328666752,
-    "control_error_pct": 0.029583233140018095,
+    "control_error_pct": 0.02958379116144716,
     "experiment_Nu": 7.99,
-    "experimental_error_pct": -18.013170481925165,
+    "experimental_error_pct": -18.013170024556402,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -1903,7 +1903,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1916,7 +1916,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1929,7 +1929,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1942,7 +1942,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1955,7 +1955,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1968,7 +1968,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1983,7 +1983,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -1996,7 +1996,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -2009,7 +2009,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -2022,7 +2022,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -2035,7 +2035,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -2048,7 +2048,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.009771673815203842,
+       "score": 0.00977167383999765,
        "threshold": 0.05,
        "fired": false
       },
@@ -2064,11 +2064,11 @@
     "x_over_D": 159.33,
     "comparable": false,
     "why_not": "'suspect' -- flange heat loss (Lewis Sec 7.1.1)",
-    "surrogate_prediction": 6.339329989294386,
+    "surrogate_prediction": 6.339330050199666,
     "control_gravity_off_truth": 6.3266644059582156,
-    "control_error_pct": 0.2001936964483697,
+    "control_error_pct": 0.20019465912437528,
     "experiment_Nu": 8.82,
-    "experimental_error_pct": -28.12551032546048,
+    "experimental_error_pct": -28.125509634924427,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -2077,7 +2077,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2090,7 +2090,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2103,7 +2103,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2116,7 +2116,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2129,7 +2129,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2142,7 +2142,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2157,7 +2157,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2170,7 +2170,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2183,7 +2183,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2196,7 +2196,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2209,7 +2209,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2222,7 +2222,7 @@
        "fired": false
       },
       "gp_variance": {
-       "score": 0.010117103985989933,
+       "score": 0.010117103988644674,
        "threshold": 0.05,
        "fired": false
       },
@@ -2273,11 +2273,11 @@
     "x_over_D": 0.31,
     "comparable": false,
     "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
-    "surrogate_prediction": 54.94680950315721,
+    "surrogate_prediction": 54.94681123743588,
     "control_gravity_off_truth": 54.97400055660621,
-    "control_error_pct": -0.049461660373428806,
+    "control_error_pct": -0.04945850564819221,
     "experiment_Nu": 33.72,
-    "experimental_error_pct": 62.950206118497064,
+    "experimental_error_pct": 62.95021126167224,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -2286,7 +2286,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2299,7 +2299,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2312,7 +2312,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2325,7 +2325,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2338,7 +2338,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2351,7 +2351,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2366,7 +2366,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2379,7 +2379,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2392,7 +2392,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2405,7 +2405,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2418,7 +2418,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2431,7 +2431,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0009180451040943462,
+       "score": 0.0009180451040573937,
        "threshold": 0.05,
        "fired": false
       },
@@ -2447,11 +2447,11 @@
     "x_over_D": 0.85,
     "comparable": false,
     "why_not": "axial wall conduction (Lewis Sec 7.1.1)",
-    "surrogate_prediction": 36.516846909774465,
+    "surrogate_prediction": 36.516847949353085,
     "control_gravity_off_truth": 36.55291800583049,
-    "control_error_pct": -0.09868185092711812,
+    "control_error_pct": -0.09867900688982356,
     "experiment_Nu": 32.69,
-    "experimental_error_pct": 11.706475710536758,
+    "experimental_error_pct": 11.706478890648775,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -2460,7 +2460,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2473,7 +2473,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2486,7 +2486,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2499,7 +2499,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2512,7 +2512,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2525,7 +2525,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2540,7 +2540,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2553,7 +2553,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2566,7 +2566,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2579,7 +2579,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2592,7 +2592,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2605,7 +2605,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.0020331809072263833,
+       "score": 0.002033180907222756,
        "threshold": 0.05,
        "fired": false
       },
@@ -2621,11 +2621,11 @@
     "x_over_D": 2.45,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 24.349982533285182,
+    "surrogate_prediction": 24.349983166212994,
     "control_gravity_off_truth": 24.35912026436245,
-    "control_error_pct": -0.037512566045483364,
+    "control_error_pct": -0.03750996772581283,
     "experiment_Nu": 22.15,
-    "experimental_error_pct": 9.932201053206246,
+    "experimental_error_pct": 9.932203910668157,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -2634,7 +2634,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2647,7 +2647,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2660,7 +2660,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2673,7 +2673,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2686,7 +2686,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2699,7 +2699,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2714,7 +2714,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2727,7 +2727,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2740,7 +2740,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2753,7 +2753,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2766,7 +2766,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2779,7 +2779,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.005269303736173004,
+       "score": 0.005269303736221388,
        "threshold": 0.05,
        "fired": false
       },
@@ -2795,11 +2795,11 @@
     "x_over_D": 5.65,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 17.84395929664667,
+    "surrogate_prediction": 17.843959694204177,
     "control_gravity_off_truth": 17.8572627949338,
-    "control_error_pct": -0.07449909003357513,
+    "control_error_pct": -0.074496863726492,
     "experiment_Nu": 19.07,
-    "experimental_error_pct": -6.429159430274412,
+    "experimental_error_pct": -6.429157345547054,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -2808,7 +2808,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2821,7 +2821,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2834,7 +2834,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2847,7 +2847,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2860,7 +2860,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2873,7 +2873,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2888,7 +2888,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2901,7 +2901,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2914,7 +2914,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2927,7 +2927,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2940,7 +2940,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2953,7 +2953,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.18658281681067077,
+       "score": 0.18658281683096056,
        "threshold": 0.05,
        "fired": true
       },
@@ -2969,11 +2969,11 @@
     "x_over_D": 9.92,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 14.525149308282929,
+    "surrogate_prediction": 14.525149820674168,
     "control_gravity_off_truth": 14.534069199954224,
-    "control_error_pct": -0.06137229394314048,
+    "control_error_pct": -0.06136876849385242,
     "experiment_Nu": 14.92,
-    "experimental_error_pct": -2.646452357353024,
+    "experimental_error_pct": -2.6464489230953903,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -2982,7 +2982,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -2995,7 +2995,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3008,7 +3008,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3021,7 +3021,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3034,7 +3034,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3047,7 +3047,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3062,7 +3062,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3075,7 +3075,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3088,7 +3088,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3101,7 +3101,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3114,7 +3114,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3127,7 +3127,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.6334283253344085,
+       "score": 0.633428325461619,
        "threshold": 0.05,
        "fired": true
       },
@@ -3143,11 +3143,11 @@
     "x_over_D": 16.32,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 12.16856095591091,
+    "surrogate_prediction": 12.168561287269423,
     "control_gravity_off_truth": 12.17563370580396,
-    "control_error_pct": -0.05808937804755443,
+    "control_error_pct": -0.05808665655872014,
     "experiment_Nu": 13.95,
-    "experimental_error_pct": -12.770172359061572,
+    "experimental_error_pct": -12.770169983731726,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -3156,7 +3156,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3169,7 +3169,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3182,7 +3182,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3195,7 +3195,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3208,7 +3208,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3221,7 +3221,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3236,7 +3236,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3249,7 +3249,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3262,7 +3262,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3275,7 +3275,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3288,7 +3288,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3301,7 +3301,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.9458185706762008,
+       "score": 0.9458185709465559,
        "threshold": 0.05,
        "fired": true
       },
@@ -3317,11 +3317,11 @@
     "x_over_D": 33.39,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 9.578039798907465,
+    "surrogate_prediction": 9.578039976737095,
     "control_gravity_off_truth": 9.580604216163485,
-    "control_error_pct": -0.026766759153806774,
+    "control_error_pct": -0.026764903011677887,
     "experiment_Nu": 10.76,
-    "experimental_error_pct": -10.984760233201996,
+    "experimental_error_pct": -10.984758580510267,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -3330,7 +3330,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3343,7 +3343,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3356,7 +3356,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3369,7 +3369,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3382,7 +3382,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3395,7 +3395,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3410,7 +3410,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3423,7 +3423,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3436,7 +3436,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3449,7 +3449,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3462,7 +3462,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3475,7 +3475,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.6339450342318294,
+       "score": 1.6339450349798752,
        "threshold": 0.05,
        "fired": true
       },
@@ -3491,11 +3491,11 @@
     "x_over_D": 50.47,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 8.443210645982983,
+    "surrogate_prediction": 8.443210734813622,
     "control_gravity_off_truth": 8.444175886445544,
-    "control_error_pct": -0.011430842696091847,
+    "control_error_pct": -0.011429790720862698,
     "experiment_Nu": 9.38,
-    "experimental_error_pct": -9.987093326407436,
+    "experimental_error_pct": -9.987092379385698,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -3504,7 +3504,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3517,7 +3517,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3530,7 +3530,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3543,7 +3543,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3556,7 +3556,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3569,7 +3569,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3584,7 +3584,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3597,7 +3597,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3610,7 +3610,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3623,7 +3623,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3636,7 +3636,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3649,7 +3649,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.7323847546651505,
+       "score": 1.732384755447372,
        "threshold": 0.05,
        "fired": true
       },
@@ -3665,11 +3665,11 @@
     "x_over_D": 67.55,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 7.776652968608181,
+    "surrogate_prediction": 7.776652958982557,
     "control_gravity_off_truth": 7.776950364076799,
-    "control_error_pct": -0.0038240628356334128,
+    "control_error_pct": -0.003824186606826707,
     "experiment_Nu": 9.37,
-    "experimental_error_pct": -17.004770879315036,
+    "experimental_error_pct": -17.004770982043137,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -3678,7 +3678,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3691,7 +3691,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3704,7 +3704,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3717,7 +3717,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3730,7 +3730,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3743,7 +3743,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3758,7 +3758,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3771,7 +3771,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3784,7 +3784,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3797,7 +3797,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3810,7 +3810,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3823,7 +3823,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.4785204582164735,
+       "score": 1.4785204589354726,
        "threshold": 0.05,
        "fired": true
       },
@@ -3839,11 +3839,11 @@
     "x_over_D": 101.69,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 7.001085247587728,
+    "surrogate_prediction": 7.001085303914511,
     "control_gravity_off_truth": 7.000797142675188,
-    "control_error_pct": 0.00411531582287239,
+    "control_error_pct": 0.004116120399588752,
     "experiment_Nu": 8.41,
-    "experimental_error_pct": -16.752850801572794,
+    "experimental_error_pct": -16.75285013181319,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -3852,7 +3852,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3865,7 +3865,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3878,7 +3878,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3891,7 +3891,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3904,7 +3904,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3917,7 +3917,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3932,7 +3932,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3945,7 +3945,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3958,7 +3958,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3971,7 +3971,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3984,7 +3984,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -3997,7 +3997,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 1.5023056693718162,
+       "score": 1.5023056701150017,
        "threshold": 0.05,
        "fired": true
       },
@@ -4013,11 +4013,11 @@
     "x_over_D": 135.84,
     "comparable": true,
     "why_not": null,
-    "surrogate_prediction": 6.5519973134116665,
+    "surrogate_prediction": 6.551997366125341,
     "control_gravity_off_truth": 6.548810328666752,
-    "control_error_pct": 0.0486650946502909,
+    "control_error_pct": 0.04866589958543166,
     "experiment_Nu": 7.99,
-    "experimental_error_pct": -17.997530495473512,
+    "experimental_error_pct": -17.9975298357279,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -4026,7 +4026,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4039,7 +4039,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4052,7 +4052,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4065,7 +4065,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4078,7 +4078,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4091,7 +4091,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4106,7 +4106,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4119,7 +4119,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4132,7 +4132,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4145,7 +4145,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4158,7 +4158,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4171,7 +4171,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.238052643745413,
+       "score": 0.23805264381583452,
        "threshold": 0.05,
        "fired": true
       },
@@ -4187,11 +4187,11 @@
     "x_over_D": 159.33,
     "comparable": false,
     "why_not": "'suspect' -- flange heat loss (Lewis Sec 7.1.1)",
-    "surrogate_prediction": 6.3425926631740195,
+    "surrogate_prediction": 6.3425927848583745,
     "control_gravity_off_truth": 6.3266644059582156,
-    "control_error_pct": 0.2517639026467622,
+    "control_error_pct": 0.2517658260039468,
     "experiment_Nu": 8.82,
-    "experimental_error_pct": -28.08851855811769,
+    "experimental_error_pct": -28.08851717847648,
     "ood_gravity_off": {
      "50": {
       "distance": {
@@ -4200,7 +4200,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4213,7 +4213,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4226,7 +4226,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4239,7 +4239,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4252,7 +4252,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4265,7 +4265,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4280,7 +4280,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4293,7 +4293,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4306,7 +4306,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4319,7 +4319,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4332,7 +4332,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },
@@ -4345,7 +4345,7 @@
        "fired": true
       },
       "gp_variance": {
-       "score": 0.8194929919949155,
+       "score": 0.8194929922469932,
        "threshold": 0.05,
        "fired": true
       },

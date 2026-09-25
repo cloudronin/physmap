@@ -267,6 +267,8 @@ def _cmd_benchmark_architectures(args) -> int:
     from physmap._paths import CheckoutRequired, have_checkout
     if not have_checkout():
         raise CheckoutRequired("the benchmark's vehicle data")
+    from physmap.benchmarks.architecture_axis import _require_torch
+    _require_torch()                       # refuse before announcing twenty minutes of work
     print("Retraining three model types on every vehicle flagged for this axis "
           "(about 20 minutes) ...")
     fresh = run_axis(write=False)          # never overwrites the bank it is compared with

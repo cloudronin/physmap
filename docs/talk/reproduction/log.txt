@@ -1,15 +1,33 @@
 === when ===
-2026-09-23T23:38:00Z
+2026-09-25T07:31:15Z
 === clone (public https, no credentials) ===
-commit: 47ae207487a3be6862cab3ce410911da420277f7
-subject: stress-test: Lewis 35A as a controlled model-reuse stress test, one command
+commit: 5a364fcb48e7e0fa9cc79715b9b9659c0a15fcf9
+subject: release: 0.2.5 -- two functions, a corrected NACA bank, no post-hoc gate
 status clean: yes
 === fresh venv ===
+WARNING: There was an error checking the latest version of pip.
 === environment ===
-python 3.10.15
-platform macOS-26.5.2-x86_64-i386-64bit
-numpy 2.2.6 scipy 1.15.3 scikit-learn 1.7.2
-=== run ===
+python 3.11.2
+platform macOS-27.0-arm64-arm-64bit
+numpy 2.4.6 scipy 1.17.1 scikit-learn 1.9.1
+torch: not installed
+=== physmap --version ===
+physmap 0.2.5 (release state: causal_preview)
+=== benchmark report ===
 exit status: 0
-wall clock: 212 s
+=== benchmark run ===
+exit status: 0
+wall clock: 68 s
+=== benchmark architectures --banked ===
+exit status: 0
+=== benchmark architectures, without PyTorch (must refuse in one sentence) ===
+exit status: 1
+physmap benchmark: the DeepONet column needs PyTorch, which is not installed. Install it with `pip install "physmap[architectures]"` and run this again.
+Retraining three model types on every vehicle flagged for this axis (about 20 minutes) ...
+=== stress-test lewis-reuse ===
+exit status: 0
+wall clock: 54 s
+The record matches the banked record: matches within 1e-4 relative, and 0.001 percentage points for errors (357 float field(s) differ, all by less than that).
+=== examples/naca_entrance_region.py ===
+exit status: 0
 CLEANDONE

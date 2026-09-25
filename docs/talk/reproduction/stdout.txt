@@ -1,6 +1,9 @@
-Recomputing from this checkout (about two minutes) ...
+Recomputing from this checkout (a few minutes) ...
 
 CONTROLLED MODEL-REUSE STRESS TEST -- Lewis (1992) Test 35A
+Causal materiality: does a mechanism the surrogate left out materially change the
+quantity of interest? (Applicability -- whether a closure still applies -- is a
+separate check, shown on NACA x/D; neither is evidence for the other.)
 
 The surrogate was trained for forced convection, where gravity did not vary and was not an
 input. It was then reused in vertical heated flow, where buoyancy became material. A mixed-
@@ -77,5 +80,5 @@ NOT CLAIMED
     were not run.
 
 Assertions hold: every visible deployment input is a training input (design M); OOD scores are unchanged between gravity off and gravity on; materiality is zero with gravity off; the surrogate matches the accurate control.
-Wrote the fresh record to <WORK>/fresh_record.json.
-The record matches the banked record exactly.
+Wrote the fresh record to ../fresh_record.json.
+The record matches the banked record: matches within 1e-4 relative, and 0.001 percentage points for errors (357 float field(s) differ, all by less than that).
