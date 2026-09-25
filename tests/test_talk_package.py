@@ -76,6 +76,18 @@ def test_a_clean_clone_record_that_drifts_from_the_bank_fails(copy, capsys):
     _fails_with(capsys, "drifts from the bank")
 
 
+def test_a_readme_benchmark_count_that_drifts_fails(copy, tmp_path, monkeypatch, capsys):
+    readme = tmp_path / "README.md"
+    readme.write_text(tp.README.read_text().replace("| 20 of 20 | 24 |", "| 19 of 20 | 24 |", 1))
+    monkeypatch.setattr(tp, "README", readme)
+    _fails_with(capsys, "README table row for naca_tn1451")
+
+
+def test_a_benchmark_report_count_that_drifts_fails(copy, capsys):
+    _edit(copy / "reproduction" / "benchmark_report.txt", "20 of 20", "19 of 20")
+    _fails_with(capsys, "benchmark report prints")
+
+
 def test_every_figure_registers_the_numbers_it_shows():
     import json
     saved = json.loads((tp.TALK / "numbers.json").read_text())

@@ -16,7 +16,7 @@ in [`../talk-runbook.md`](../talk-runbook.md).
 | [`historical-reconciliation.md`](historical-reconciliation.md) | Why the abstract's precision, recall and F1 are not presented as validation | Written; numbers checked |
 | [`facts-sheet.md`](facts-sheet.md) | Every number the talk uses, with its source | **Generated** |
 | [`numbers.json`](numbers.json) | The registry: each displayed number, its exact display string, its source file | **Generated** |
-| [`figures/`](figures/README.md) | Seven figures as SVG (editable) and 1920-pixel PNG, each with a data table and a caption naming its source | **Generated** |
+| [`figures/`](figures/README.md) | Eight figures as SVG (editable) and 1920-pixel PNG, each with a data table and a caption naming its source | **Generated** |
 | [`reproduction/`](reproduction/README.md) | `physmap stress-test lewis-reuse` from a clean public clone: command, commit, environment, output, exit status | Captured |
 
 ## Rebuild and check
@@ -43,9 +43,14 @@ The test suite runs it (`tests/test_talk_package.py`).
 
 ## The rules every document here follows
 
+- **The benchmark is the point.** What PhysMAP adds to input-based OOD detection — the failures
+  it catches that the detectors cannot see, per dataset, with its false alarms beside them — is
+  the headline and what sets PhysMAP apart. Its figure is `bench_3_what_physmap_adds`.
 - **Two results, kept apart.** The seven-vehicle benchmark and the x/D example are about
-  closure validity and observability. Lewis is about causal materiality. Neither is evidence for
-  the other.
+  closure validity and observability. Lewis is about causal materiality — a separate question.
+  Neither is evidence for the other.
+- **Counts per dataset, never pooled.** No rate across datasets, and never the catches without
+  the false alarms.
 - **Lewis is one run.** Its stations are positions in that run, not cases. No precision, recall
   or F1 anywhere.
 - **θ is unlocked.** Materiality is shown as continuous values. θ = 0.10 appears only as an

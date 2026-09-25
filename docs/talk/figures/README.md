@@ -72,3 +72,13 @@ The seven vehicles as `physmap benchmark report` prints them, with each dataset'
 - Plotted values: [`data/bench_2_seven_vehicles.csv`](data/bench_2_seven_vehicles.csv)
 - Source data: [`data/benchmarks/v0_4/matrix_full_seven.json`](../../../data/benchmarks/v0_4/matrix_full_seven.json), [`src/physmap/benchmarks/registry.py`](../../../src/physmap/benchmarks/registry.py)
 
+## What PhysMAP adds to input-based OOD detection
+
+![What PhysMAP adds to input-based OOD detection](bench_3_what_physmap_adds.png)
+
+For each of the seven datasets, at the default setting (percentile 99): left, the surrogate's wrong predictions that the input-based OOD detectors missed and PhysMAP's closure check caught; right, the right predictions the closure check flagged anyway. Where the cause of failure is hidden from the inputs, PhysMAP catches what the OOD detectors cannot — 20 of 20 for NACA. Where the cause is visible (Marineau), it adds nothing: 0 of 6. The cost is false alarms: 24 for NACA and 16 for Dirker. Counts are rows of each dataset, not independent cases, and are never pooled into a rate across datasets. Forrest has one training row, so nothing was tested.
+
+- Files: [`bench_3_what_physmap_adds.svg`](bench_3_what_physmap_adds.svg) (vector, editable) · [`bench_3_what_physmap_adds.png`](bench_3_what_physmap_adds.png) (1920 px)
+- Plotted values: [`data/bench_3_what_physmap_adds.csv`](data/bench_3_what_physmap_adds.csv)
+- Source data: [`data/benchmarks/v0_4/matrix_full_seven.json`](../../../data/benchmarks/v0_4/matrix_full_seven.json)
+

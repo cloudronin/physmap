@@ -1,0 +1,8 @@
+vehicle,group,failure_variable_observability,wrong_predictions_p99,caught_only_by_physmap_p99,right_predictions_flagged_p99,note
+naca_tn1451,cause hidden from the inputs,unobservable,20,20,24,
+casper_hypersonic_transition,cause hidden from the inputs,unobservable,8,4,0,
+jin_sco2_buoyancy,cause hidden from the inputs,unobservable,26,15,0,
+velazquez_sco2,cause partly visible,partial,67,18,0,
+dirker_water,cause partly visible,partial,11,2,16,
+marineau_hypersonic_transition,cause visible to the inputs,observable,6,0,0,
+forrest,cause visible to the inputs,observable,,,,not tested: no detector fit

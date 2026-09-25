@@ -45,7 +45,7 @@ echo "exit status: $?"
 | [`stderr.txt`](stderr.txt) | Empty |
 | [`pip_freeze.txt`](pip_freeze.txt) | Every installed package and version |
 | [`fresh_record.json`](fresh_record.json) | The record the clean clone wrote. `tools/talk_package.py check` compares it with the bank using the command's own comparison |
-| [`benchmark_report.txt`](benchmark_report.txt) | `physmap benchmark report` from this checkout. It reads the committed matrix and recomputes nothing. The seven-vehicle figure is checked against it |
+| [`benchmark_report.txt`](benchmark_report.txt) | `physmap benchmark report` from this checkout. It reads the committed matrix and recomputes nothing. Both benchmark figures, and the README's benchmark table, are checked against it |
 | [`naca_example.txt`](naca_example.txt) | `python examples/naca_entrance_region.py` from this checkout. The x/D figure is checked against it |
 
 ## What changed after this commit

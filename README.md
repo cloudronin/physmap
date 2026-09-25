@@ -12,6 +12,9 @@ PhysMAP reads the bound variable from the test coordinates instead of from the
 surrogate's inputs, checks it against the closure relation's validated range, and knows
 at fit time whether that variable is structurally observable to the surrogate at all.
 
+**That is the point of PhysMAP: it catches the failures an input-based OOD detector cannot
+see, because what broke the surrogate is not one of its inputs.**
+
 ```
 verdicts: {'REJECT': 45}
 rationale: Prediction relies on gnielinski-1976 beyond its validated x_over_D bound
@@ -25,17 +28,108 @@ No LLM is in any path. Every explanation is a deterministic rendered template.
 
 Run it yourself: [`examples/naca_entrance_region.py`](https://github.com/cloudronin/physmap/blob/main/examples/naca_entrance_region.py).
 
+## What PhysMAP adds to OOD detection
+
+![What PhysMAP adds to input-based OOD detection, per dataset](https://raw.githubusercontent.com/cloudronin/physmap/main/docs/talk/figures/bench_3_what_physmap_adds.png)
+
+An input-based OOD detector judges a prediction by where its inputs sit relative to the
+training data. It asks that well — but it cannot see a change in something that is not an
+input. PhysMAP adds the check it cannot make: it reads the variables the surrogate never saw,
+tests the physics relation behind the surrogate against its validated range, and knows at
+setup which of those variables the detectors can see. It keeps the OOD detectors, and
+overrides them only where they are structurally blind.
+
+The seven-vehicle benchmark measures exactly that, per dataset, at the default setting (the
+99th percentile):
+
+| Dataset | Can the OOD detectors see the cause? | Wrong predictions caught only by PhysMAP | Right predictions flagged anyway |
+|---|---|---|---|
+| `naca_tn1451` — heated pipe, entrance region | no | 20 of 20 | 24 |
+| `casper_hypersonic_transition` — hypersonic transition | no | 4 of 8 | 0 |
+| `jin_sco2_buoyancy` — supercritical CO2, vertical tube | no | 15 of 26 | 0 |
+| `velazquez_sco2` — supercritical CO2, property variation | partly | 18 of 67 | 0 |
+| `dirker_water` — water, horizontal tube | partly | 2 of 11 | 16 |
+| `marineau_hypersonic_transition` — hypersonic transition | yes | 0 of 6 | 0 |
+| `forrest` — rectangular channel | yes | not tested: one training row | — |
+
+- **Where it helps:** when the cause of failure is hidden from the surrogate's inputs. There
+  PhysMAP catches wrong predictions the OOD detectors miss entirely — all 20 for the pipe
+  entrance.
+- **Where it doesn't:** when the cause is an input, the OOD detectors already see it and
+  PhysMAP adds nothing. `marineau_hypersonic_transition` is the control that shows it.
+- **The cost:** the closure check flags anything outside a relation's validated range, even
+  when the surrogate happens to be right — 24 false alarms for the pipe entrance, 16 for
+  `dirker_water`.
+
+Counts are rows of each dataset, not independent cases, and are never pooled into a rate
+across datasets; the source values are digitised from publications. The benchmark's
+input-based detectors are distance-to-training and GP variance. `physmap benchmark report`
+prints these counts, and `physmap benchmark run` recomputes them from a clone.
+
+This is a different question from PhysMAP's causal-materiality check — whether a mechanism
+the surrogate never saw is large enough to matter — which is demonstrated separately below.
+Neither is evidence for the other.
+
+## The benchmark: seven vehicles, all rerunnable
+
+```bash
+physmap benchmark report     # all seven outcomes and the counts above, each marked recomputed or banked
+physmap benchmark run        # recomputes all seven from this checkout, diffs against the bank
+physmap benchmark coverage   # what that subset does and does not cover
+```
+
+All seven vehicles ran, all seven outcomes are reported, and **all seven now ship their
+source data**.
+
+**`physmap benchmark run` recomputes all seven from this checkout and diffs the result
+against the committed matrix.** Every field of every cell, not just the headline outcome.
+It exits non-zero if anything drifted, and never writes the bank it is checking itself
+against.
+
+Floats are compared within `1e-9` relative, everything else exactly — and the distinction
+is load-bearing rather than a convenience. Every field that decides an outcome is an int
+or a string (counts, verdicts, outcome labels, observability classes), so the tolerance
+cannot absorb a real change. It exists because a clean-clone check on numpy 2.5 found
+`dirker_water.observability_score` differing from the banked value by **one unit in the
+last place**. A match that needed the tolerance is reported as such, not as "identical".
+
+`physmap benchmark report` reads the bank without running anything, and says so — the
+report distinguishes a recomputed row from a banked one, and the counts are computed
+rather than written down, so they cannot quietly go stale.
+
+**Shipping is also not licensing.** Two of the seven carry affirmative permission:
+`naca_tn1451` (public domain) and `velazquez_sco2` (CC BY 4.0). **Five do not**, and the
+registry and report label them rather than calling everything clear:
+
+- `marineau_hypersonic_transition` — no licence and **no prohibition**. Values transcribed
+  from a published table in a publicly funded, public-release, government-hosted document.
+- `forrest`, `casper_hypersonic_transition`, `dirker_water`, `jin_sco2_buoyancy` —
+  published **against** express publisher terms. AIAA prohibits using its content to
+  develop machine-learning models; ASME and Elsevier require permission to reproduce, and
+  Elsevier's licence forbids systematic redistribution. Risks accepted knowingly, not
+  findings that the terms do not apply.
+
+All five redistribute **numbers only** — no paper, figure or PDF, enforced by two audits —
+and all five are removed on objection. The full basis, including the arguments against, is
+in [data/REDISTRIBUTION.md](https://github.com/cloudronin/physmap/blob/main/data/REDISTRIBUTION.md) and [NOTICE](https://github.com/cloudronin/physmap/blob/main/NOTICE).
+
+**One dataset is published but not benchmark-grade.** `forrest`'s own header calls its
+values visual estimates for triage only, and its cell is degenerate — one training row, no
+detector fit — so its `DO_NO_HARM` outcome is short-circuited rather than earned. Being
+legal to publish and being fit to benchmark on are different questions; the registry tracks
+them on separate axes. `physmap benchmark coverage` prints it.
+
 ## Three checks, deliberately kept apart
 
 These are different claims resting on different evidence. Conflating them is the
 specific error this project is built to avoid, so nothing here attributes the results of
 one to another.
 
-| Check | Question | Status |
-|---|---|---|
-| **Closure validity** | Is this closure relation being applied outside the range it was calibrated on? | Shipping |
-| **Surrogate observability** | Can the surrogate's inputs even represent the variable that governs the failure? | Shipping |
-| **Causal materiality** | Is the out-of-range mechanism large enough to matter for the quantity of interest? | Preview — method, plus one controlled stress test |
+| Check | Question | Status | Evidence |
+|---|---|---|---|
+| **Closure validity** | Is this closure relation being applied outside the range it was calibrated on? | Shipping | the seven-vehicle benchmark, above |
+| **Surrogate observability** | Can the surrogate's inputs even represent the variable that governs the failure? | Shipping | the seven-vehicle benchmark, above |
+| **Causal materiality** | Is the out-of-range mechanism large enough to matter for the quantity of interest? | Preview — method, plus one controlled stress test | Lewis 35A, below |
 
 ## What this release claims
 
@@ -50,8 +144,9 @@ screen, the independence guard, and deterministic explanations. Its fixtures are
 description. Beyond them, **one controlled stress test runs the causal path on a real
 experiment** (below) — a development demonstration on a single run, not an evaluation.
 
-**It makes no performance claim.** No precision, recall or F1 is computed, reported or
-shipped anywhere in this package. A test parses the package and fails if one appears. The causal-materiality results presented in the NAFEMS
+**No precision, recall or F1.** None is computed, reported or shipped anywhere in this
+package, and a test parses the package and fails if one appears. The benchmark reports counts
+per dataset, never a rate across datasets. The causal-materiality results presented in the NAFEMS
 Multiphysics 2026 abstract are **not** reproduced here: the original study's inputs are
 gone, and the basis for its experimental truth is unresolved. A reconstruction is under
 way under a locked protocol that fixes its rules before any rebuilt number is examined.
@@ -62,7 +157,11 @@ not reproduction of the published numbers. The protocol defines `REPRODUCED` and
 unreachable, so the word cannot drift onto a weaker result. See
 [`protocols/`](https://github.com/cloudronin/physmap/tree/main/protocols).
 
-## A controlled model-reuse stress test: Lewis 35A
+## A separate question: causal materiality, in a controlled stress test (Lewis 35A)
+
+The benchmark asks whether PhysMAP catches failures the OOD detectors cannot see. This asks
+something else: when a mechanism the surrogate never saw becomes active, does it matter for the
+answer — and where?
 
 ```bash
 physmap stress-test lewis-reuse
@@ -112,55 +211,6 @@ OpenFOAM. Full record:
 [docs/findings/lewis-ood-head-to-head.md](https://github.com/cloudronin/physmap/blob/main/docs/findings/lewis-ood-head-to-head.md). The NAFEMS
 talk package — figures, facts sheet, claims ledger, and a clean-clone reproduction record — is
 in [docs/talk/](https://github.com/cloudronin/physmap/blob/main/docs/talk/README.md).
-
-## The benchmark: seven vehicles, all rerunnable
-
-```bash
-physmap benchmark report     # all seven outcomes, each marked recomputed or banked
-physmap benchmark run        # recomputes all seven from this checkout, diffs against the bank
-physmap benchmark coverage   # what that subset does and does not cover
-```
-
-All seven vehicles ran, all seven outcomes are reported, and **all seven now ship their
-source data**.
-
-**`physmap benchmark run` recomputes all seven from this checkout and diffs the result
-against the committed matrix.** Every field of every cell, not just the headline outcome.
-It exits non-zero if anything drifted, and never writes the bank it is checking itself
-against.
-
-Floats are compared within `1e-9` relative, everything else exactly — and the distinction
-is load-bearing rather than a convenience. Every field that decides an outcome is an int
-or a string (counts, verdicts, outcome labels, observability classes), so the tolerance
-cannot absorb a real change. It exists because a clean-clone check on numpy 2.5 found
-`dirker_water.observability_score` differing from the banked value by **one unit in the
-last place**. A match that needed the tolerance is reported as such, not as "identical".
-
-`physmap benchmark report` reads the bank without running anything, and says so — the
-report distinguishes a recomputed row from a banked one, and the counts are computed
-rather than written down, so they cannot quietly go stale.
-
-**Shipping is also not licensing.** Two of the seven carry affirmative permission:
-`naca_tn1451` (public domain) and `velazquez_sco2` (CC BY 4.0). **Five do not**, and the
-registry and report label them rather than calling everything clear:
-
-- `marineau_hypersonic_transition` — no licence and **no prohibition**. Values transcribed
-  from a published table in a publicly funded, public-release, government-hosted document.
-- `forrest`, `casper_hypersonic_transition`, `dirker_water`, `jin_sco2_buoyancy` —
-  published **against** express publisher terms. AIAA prohibits using its content to
-  develop machine-learning models; ASME and Elsevier require permission to reproduce, and
-  Elsevier's licence forbids systematic redistribution. Risks accepted knowingly, not
-  findings that the terms do not apply.
-
-All five redistribute **numbers only** — no paper, figure or PDF, enforced by two audits —
-and all five are removed on objection. The full basis, including the arguments against, is
-in [data/REDISTRIBUTION.md](https://github.com/cloudronin/physmap/blob/main/data/REDISTRIBUTION.md) and [NOTICE](https://github.com/cloudronin/physmap/blob/main/NOTICE).
-
-**One dataset is published but not benchmark-grade.** `forrest`'s own header calls its
-values visual estimates for triage only, and its cell is degenerate — one training row, no
-detector fit — so its `DO_NO_HARM` outcome is short-circuited rather than earned. Being
-legal to publish and being fit to benchmark on are different questions; the registry tracks
-them on separate axes. `physmap benchmark coverage` prints it.
 
 ## Install
 

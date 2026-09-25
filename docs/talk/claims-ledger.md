@@ -14,6 +14,46 @@ Commands run from a clone of the public repository. "The bank" is
 
 ## Main talk
 
+The first three claims are the point of PhysMAP and what sets it apart (the benchmark). The rest
+of the main claims belong to the separate, causal question (Lewis).
+
+### M0 — what PhysMAP adds
+
+> "Where the cause of failure is hidden from the surrogate's inputs, PhysMAP catches wrong
+> predictions the input-based OOD detectors miss: all 20 at the pipe entrance, 4 of 8 in the
+> hypersonic case, 15 of 26 for supercritical CO2 in a vertical tube."
+
+- **Command and artifact:** `physmap benchmark report` prints, per dataset at percentile 99,
+  "wrong: caught only by PhysMAP" (captured in `reproduction/benchmark_report.txt`);
+  `physmap benchmark run` recomputes them. Bank: `data/benchmarks/v0_4/matrix_full_seven.json`,
+  `per_pct` at the reference percentile. Figure: `bench_3_what_physmap_adds`.
+- **Evidence:** a wrong prediction counts only if the closure check fired, both input-based
+  detectors (distance-to-training and GP variance) stayed quiet, and the surrogate was wrong.
+- **Scope and limits:** per dataset, never pooled. Rows within a dataset are not independent
+  cases. Values are digitised from publications. Partly hidden causes help less: 18 of 67
+  (Velazquez), 2 of 11 (Dirker).
+- **Use:** main — the headline.
+
+### M0b — where it adds nothing
+
+> "Where the cause is one of the surrogate's inputs, the OOD detectors already see it, and
+> PhysMAP adds nothing — 0 of 6 in the control."
+
+- **Command and artifact:** as M0; the `marineau_hypersonic_transition` row.
+- **Scope and limits:** one control dataset; `forrest`, the other visible-cause dataset, has one
+  training row and was not tested.
+- **Use:** main. Say it unprompted — it is what makes M0 believable.
+
+### M0c — what it costs
+
+> "The cost is false alarms. The closure check flags anything outside its tested range, even
+> when the surrogate happens to be right: 24 at the pipe entrance, 16 for Dirker."
+
+- **Command and artifact:** as M0; the "right: flagged anyway" column.
+- **Scope and limits:** at percentile 99. Whether materiality weighting cuts these is the
+  purpose of the causal work, and is not shown yet.
+- **Use:** main. Say it unprompted.
+
 ### M1 — what an input-based detector can see
 
 > "An input-based OOD detector tells you whether the inputs are familiar. It cannot report a
@@ -133,7 +173,7 @@ Commands run from a clone of the public repository. "The bank" is
   is not their input, not because they were tuned.
 - **Use:** main.
 
-### M10 — the seven vehicles
+### M10 — the seven vehicles, in full
 
 > "Across seven published datasets, the benchmark asks whether the variable that breaks each
 > surrogate is visible to an input-based detector. In three it is invisible, and the closure
@@ -143,9 +183,10 @@ Commands run from a clone of the public repository. "The bank" is
 - **Command and artifact:** `physmap benchmark run` recomputes all seven and diffs against
   `data/benchmarks/v0_4/matrix_full_seven.json`; `physmap benchmark report` prints the table
   (captured in `reproduction/benchmark_report.txt`). Figure: `bench_2_seven_vehicles`.
-- **Scope and limits:** observability classes, not rates. Not evidence for causal materiality.
-  Row counts are data rows, not cases. Five of the seven datasets ship without a licence.
-- **Use:** main.
+- **Scope and limits:** the outcome labels are observability classes; the counts are in M0–M0c.
+  Not evidence for causal materiality. Row counts are data rows, not cases. Five of the seven
+  datasets ship without a licence.
+- **Use:** backup — the chart in M0 carries the main slide.
 
 ### M11 — building it right
 
@@ -286,14 +327,15 @@ Commands run from a clone of the public repository. "The bank" is
 | D4 | "PhysMAP achieves precision 1.00, recall 0.65, F1 0.79." | Correlation-referenced and coupled; not validation | M14 |
 | D5 | "PhysMAP flagged three stations." (as a verdict) | θ is unlocked | M8 |
 | D6 | "Lewis gives us twelve (or nine) test cases." | One run | M12 |
-| D7 | "PhysMAP outperforms OOD detection." / any general superiority | They answer different questions; one run cannot rank them | "They answer different questions." |
+| D7 | "PhysMAP outperforms OOD detection." / any general superiority | It adds nothing when the cause is an input, and costs false alarms | M0, M0b, M0c — say all three together |
 | D8 | "Materiality predicts surrogate error." | Partly built in here; not shown in general | B8 |
 | D9 | "The materiality is where the error is." | At x/D 2.45 and 16.32 there is error without materiality | M7 |
 | D10 | "The CFD is validated." | Development evidence; convergence is not validation | B5 |
-| D11 | Any rate across vehicles, such as "wins three of seven" | Outcomes are classes; Forrest is not evidence | M10 |
+| D11 | Any rate across vehicles, such as "wins three of seven" or a pooled catch rate | The datasets differ in physics and size; rows are not independent; Forrest is not evidence | M0, per dataset |
+| D18 | The catches without the cost | The false alarms are part of the result | M0c |
 | D12 | "The OOD detector was starved of inputs." | It got every input the surrogate gets | M3 |
 | D13 | "The OOD detector caught the downstream stations." (citing percentile 75) | It fires there on its own training data, identically with gravity off | B4 |
-| D14 | "The seven-vehicle benchmark shows the causal method works." | It is an observability benchmark | M10 |
+| D14 | "The seven-vehicle benchmark shows the causal method works." | It measures closure validity and observability — a separate question | M0, and part 3 of the narrative |
 | D15 | "This reproduces the abstract." / "This reruns the CFD." | It reproduces the Lewis analysis from committed profiles | M13 |
 | D16 | "PhysMAP catches every surrogate error." | Not the base-model errors | B7 |
 | D17 | "We chose θ = 0.10." | It is the original study's value, shown for illustration | M8 |

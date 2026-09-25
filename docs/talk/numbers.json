@@ -17,6 +17,22 @@
    "display": "PHYSMAP_WINS",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
   },
+  "bench.casper_hypersonic_transition.ref_caught_of_wrong": {
+   "display": "4 of 8",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.casper_hypersonic_transition.ref_caught_only": {
+   "display": "4",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.casper_hypersonic_transition.ref_flagged_right": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.casper_hypersonic_transition.ref_wrong": {
+   "display": "8",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
   "bench.count_BASELINE_VISIBLE": {
    "display": "1",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
@@ -48,6 +64,22 @@
   "bench.dirker_water.outcome": {
    "display": "PARTIAL",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.dirker_water.ref_caught_of_wrong": {
+   "display": "2 of 11",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.dirker_water.ref_caught_only": {
+   "display": "2",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.dirker_water.ref_flagged_right": {
+   "display": "16",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.dirker_water.ref_wrong": {
+   "display": "11",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.forrest.n_test": {
    "display": "4",
@@ -81,6 +113,22 @@
    "display": "PHYSMAP_WINS",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
   },
+  "bench.jin_sco2_buoyancy.ref_caught_of_wrong": {
+   "display": "15 of 26",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.jin_sco2_buoyancy.ref_caught_only": {
+   "display": "15",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.jin_sco2_buoyancy.ref_flagged_right": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.jin_sco2_buoyancy.ref_wrong": {
+   "display": "26",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
   "bench.marineau_hypersonic_transition.n_test": {
    "display": "6",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
@@ -96,6 +144,22 @@
   "bench.marineau_hypersonic_transition.outcome": {
    "display": "BASELINE_VISIBLE",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.marineau_hypersonic_transition.ref_caught_of_wrong": {
+   "display": "0 of 6",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.marineau_hypersonic_transition.ref_caught_only": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.marineau_hypersonic_transition.ref_flagged_right": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.marineau_hypersonic_transition.ref_wrong": {
+   "display": "6",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "bench.n_vehicles": {
    "display": "7",
@@ -117,6 +181,18 @@
    "display": "PHYSMAP_WINS",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
   },
+  "bench.naca_tn1451.ref_caught_of_wrong": {
+   "display": "20 of 20",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.naca_tn1451.ref_caught_only": {
+   "display": "20",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.naca_tn1451.ref_flagged_right": {
+   "display": "24",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
   "bench.naca_tn1451.ref_n_baseline_fired": {
    "display": "0",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
@@ -131,6 +207,14 @@
   },
   "bench.naca_tn1451.ref_n_gp_var_fired": {
    "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.naca_tn1451.ref_wrong": {
+   "display": "20",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.ref_pct": {
+   "display": "99",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
   },
   "bench.velazquez_sco2.n_test": {
@@ -148,6 +232,22 @@
   "bench.velazquez_sco2.outcome": {
    "display": "PARTIAL",
    "source": "data/benchmarks/v0_4/matrix_full_seven.json"
+  },
+  "bench.velazquez_sco2.ref_caught_of_wrong": {
+   "display": "18 of 67",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.velazquez_sco2.ref_caught_only": {
+   "display": "18",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.velazquez_sco2.ref_flagged_right": {
+   "display": "0",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
+  },
+  "bench.velazquez_sco2.ref_wrong": {
+   "display": "67",
+   "source": "data/benchmarks/v0_4/matrix_full_seven.json (per_pct at the reference percentile)"
   },
   "lewis.A3.control_error_max_abs_pct": {
    "display": "0.07",
@@ -1319,6 +1419,21 @@
    "bench.forrest.observability",
    "bench.forrest.outcome",
    "bench.forrest.n_train"
+  ],
+  "bench_3_what_physmap_adds": [
+   "bench.ref_pct",
+   "bench.naca_tn1451.ref_caught_of_wrong",
+   "bench.naca_tn1451.ref_flagged_right",
+   "bench.casper_hypersonic_transition.ref_caught_of_wrong",
+   "bench.casper_hypersonic_transition.ref_flagged_right",
+   "bench.jin_sco2_buoyancy.ref_caught_of_wrong",
+   "bench.jin_sco2_buoyancy.ref_flagged_right",
+   "bench.velazquez_sco2.ref_caught_of_wrong",
+   "bench.velazquez_sco2.ref_flagged_right",
+   "bench.dirker_water.ref_caught_of_wrong",
+   "bench.dirker_water.ref_flagged_right",
+   "bench.marineau_hypersonic_transition.ref_caught_of_wrong",
+   "bench.marineau_hypersonic_transition.ref_flagged_right"
   ]
  }
 }

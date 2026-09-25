@@ -43,6 +43,7 @@ TALK = REPO / "docs" / "talk"
 FIG = TALK / "figures"
 FIGDATA = FIG / "data"
 REPRO = TALK / "reproduction"
+README = REPO / "README.md"
 
 SRC = {
     "bank": "results/lewis35A_head_to_head/stress_test_lewis_reuse.json",
@@ -366,6 +367,19 @@ def compute_benchmark(reg: _Reg) -> dict:
             reg.num(f"bench.{vid}.{f}", rows[vid][f], "{}", SRC["matrix"])
         reg.num(f"bench.{vid}.n_train", c["n_train"], "{}", SRC["matrix"])
         reg.num(f"bench.{vid}.n_test", c["n_test"], "{}", SRC["matrix"])
+        # what the closure check adds, at the shipped reference percentile -- per vehicle,
+        # as counts of rows; never pooled
+        ref = (c.get("per_pct") or {}).get(str(int(c.get("ref_pct") or 0)))
+        rows[vid]["ref"] = ref
+        src = f"{SRC['matrix']} (per_pct at the reference percentile)"
+        if ref:
+            reg.num(f"bench.{vid}.ref_caught_only", ref["clean_lift"], "{}", src)
+            reg.num(f"bench.{vid}.ref_wrong", ref["n_wrong"], "{}", src)
+            reg.num(f"bench.{vid}.ref_caught_of_wrong",
+                    f"{ref['clean_lift']} of {ref['n_wrong']}", "{}", src)
+            reg.num(f"bench.{vid}.ref_flagged_right", ref["misaligned"], "{}", src)
+    reg.num("bench.ref_pct", int(next(c["ref_pct"] for c in m["cells"] if c.get("ref_pct"))),
+            "{}", SRC["matrix"])
     naca = next(c for c in m["cells"] if c["vehicle_id"] == "naca_tn1451")
     for f in ("ref_n_baseline_fired", "ref_n_distance_fired", "ref_n_gp_var_fired",
               "ref_n_corpus_fired"):
@@ -490,6 +504,21 @@ def table_rows(name: str, reg: _Reg, L: dict, Bn: dict, N: dict):
                  for r in N["train"]] +
                 [[r["x_over_D"], r["Re"], r["Nu_meas"], "entrance", r["closure"], r["novelty"],
                   r["gp"]] for r in N["test"]])
+    if name == "bench_3_what_physmap_adds":
+        byv = {r["vehicle"]: r for r in Bn["rows"]}
+        out = []
+        for group, vids in BENCH_GROUPS:
+            for vid in vids:
+                r = byv[vid]
+                ref = r.get("ref")
+                out.append([vid, group, r["observability"],
+                            ref["n_wrong"] if ref else "", ref["clean_lift"] if ref else "",
+                            ref["misaligned"] if ref else "",
+                            "" if ref else "not tested: no detector fit"])
+        return (["vehicle", "group", "failure_variable_observability",
+                 f"wrong_predictions_p{d('bench.ref_pct')}",
+                 f"caught_only_by_physmap_p{d('bench.ref_pct')}",
+                 f"right_predictions_flagged_p{d('bench.ref_pct')}", "note"], out)
     if name == "bench_2_seven_vehicles":
         return (["vehicle", "domain", "failure_variable", "observability", "outcome",
                  "redistribution", "data_quality", "n_train_rows", "n_test_rows"],
@@ -509,6 +538,25 @@ FIGURES = {
     "bench_1_naca_entrance":
         "The x/D entrance region: closure validity fires, both input-based detectors silent",
     "bench_2_seven_vehicles": "Seven-vehicle benchmark: closure validity and observability",
+    "bench_3_what_physmap_adds": "What PhysMAP adds to input-based OOD detection",
+}
+
+# The seven vehicles, grouped by whether the variable that breaks the surrogate is visible to
+# the input-based detectors -- the axis the result turns on.
+BENCH_GROUPS = (
+    ("cause hidden from the inputs", ("naca_tn1451", "casper_hypersonic_transition",
+                                      "jin_sco2_buoyancy")),
+    ("cause partly visible", ("velazquez_sco2", "dirker_water")),
+    ("cause visible to the inputs", ("marineau_hypersonic_transition", "forrest")),
+)
+BENCH_NAMES = {
+    "naca_tn1451": "NACA TN-1451 · pipe entrance",
+    "casper_hypersonic_transition": "Casper · hypersonic transition",
+    "jin_sco2_buoyancy": "Jin · sCO2, vertical tube",
+    "velazquez_sco2": "Velazquez · sCO2 property variation",
+    "dirker_water": "Dirker · water, horizontal tube",
+    "marineau_hypersonic_transition": "Marineau · hypersonic transition",
+    "forrest": "Forrest · rectangular channel",
 }
 
 
@@ -972,6 +1020,80 @@ def fig_seven(reg: _Reg, Bn: dict):
           "table: docs/talk/figures/data/bench_2_seven_vehicles.csv")
 
 
+def fig_what_physmap_adds(reg: _Reg, Bn: dict):
+    """Two panels, one measure each, rows grouped by whether the cause is visible to the
+    inputs. Aqua marks what PhysMAP catches that the input-based detectors missed; neutral
+    ink marks the cost. Counts are printed on every bar: aqua is low-contrast on the surface
+    (validator WARN, 2.74:1), and a number beside each mark is the required relief."""
+    plt = _mpl()
+    d = reg.d
+    AQUA = "#1baf7a"
+    byv = {r["vehicle"]: r for r in Bn["rows"]}
+    ys, labels, heads, y = {}, {}, [], 0.0
+    for group, vids in BENCH_GROUPS:
+        heads.append((group, y))
+        y += 1.0
+        for vid in vids:
+            ys[vid] = y
+            labels[vid] = BENCH_NAMES[vid]
+            y += 1.0
+        y += 0.35
+    fig, (a1, a2) = plt.subplots(1, 2, figsize=(W, H), sharey=True,
+                                 gridspec_kw={"width_ratios": [1.55, 1]})
+    fig.subplots_adjust(left=0.265, right=0.975, top=0.74, bottom=0.1, wspace=0.08)
+    fig.text(0.012, 0.975, "What PhysMAP adds to input-based OOD detection",
+             fontsize=13, weight="bold", va="top")
+    fig.text(0.012, 0.905,
+             f"Seven published datasets, at the default setting (percentile "
+             f"{d('bench.ref_pct')}). Counts are rows of each dataset: rows are not independent "
+             "cases,\nand the datasets are not pooled. It helps when the cause of failure is "
+             "hidden from the surrogate's inputs, fully or partly — not otherwise.",
+             fontsize=9.5, color=INK["secondary"], va="top", linespacing=1.4)
+    h = 0.56
+    wmax = max((r["ref"]["n_wrong"] for r in Bn["rows"] if r.get("ref")), default=1)
+    fmax = max((r["ref"]["misaligned"] for r in Bn["rows"] if r.get("ref")), default=1)
+    for vid, yy in ys.items():
+        ref = byv[vid].get("ref")
+        if not ref:
+            for ax in (a1, a2):
+                ax.text(0.5 if ax is a2 else 1.0, yy, "not tested: one training row, no "
+                        "detector fit" if ax is a1 else "—", va="center", fontsize=8.5,
+                        color=INK["muted"], style="italic")
+            continue
+        a1.barh(yy, ref["n_wrong"], height=h, color=INK["grid"], lw=0, zorder=1)
+        a1.barh(yy, ref["clean_lift"], height=h, color=AQUA, lw=0, zorder=2)
+        a1.text(ref["n_wrong"] + wmax * 0.015, yy,
+                d(f"bench.{vid}.ref_caught_of_wrong"), va="center", fontsize=9.5)
+        a2.barh(yy, ref["misaligned"], height=h, color=INK["secondary"], lw=0, zorder=2)
+        a2.text(ref["misaligned"] + fmax * 0.03, yy, d(f"bench.{vid}.ref_flagged_right"),
+                va="center", fontsize=9.5)
+    a1.set_yticks(list(ys.values()))
+    a1.set_yticklabels([labels[v] for v in ys], fontsize=9)
+    a1.tick_params(axis="y", length=0)
+    a2.tick_params(axis="y", length=0)
+    for group, yy in heads:
+        a1.text(-0.012, yy, group, transform=a1.get_yaxis_transform(), ha="right",
+                va="center", fontsize=9, weight="bold", color=INK["secondary"])
+    a1.set_ylim(y - 0.2, -0.8)
+    a1.set_xlim(0, wmax * 1.22)
+    a2.set_xlim(0, fmax * 1.3)
+    a1.set_title("Wrong predictions the OOD detectors missed,\ncaught by PhysMAP",
+                 loc="left", fontsize=10, weight="bold")
+    a2.set_title("Right predictions PhysMAP\nflagged anyway (false alarms)", loc="left",
+                 fontsize=10, weight="bold")
+    for ax in (a1, a2):
+        ax.grid(axis="y", visible=False)
+        ax.set_xlabel("rows")
+    from matplotlib.patches import Patch
+    a1.legend(handles=[Patch(color=INK["grid"], label="all wrong predictions"),
+                       Patch(color=AQUA, label="caught only by PhysMAP")],
+              loc="upper right", fontsize=8.5)
+    _save(fig, "bench_3_what_physmap_adds",
+          f"{SRC['matrix']} (per vehicle, at the reference percentile); the same counts print "
+          "in `physmap benchmark report`; data: docs/talk/figures/data/"
+          "bench_3_what_physmap_adds.csv")
+
+
 # ── captions (generated, so their numbers cannot drift) ──────────────────────
 
 def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
@@ -1039,6 +1161,18 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
             f"{d('bench.naca_tn1451.ref_n_gp_var_fired')}, closure "
             f"{d('bench.naca_tn1451.ref_n_corpus_fired')}. This is observability, not causal "
             f"materiality.",
+        "bench_3_what_physmap_adds":
+            f"For each of the seven datasets, at the default setting (percentile "
+            f"{d('bench.ref_pct')}): left, the surrogate's wrong predictions that the input-based "
+            f"OOD detectors missed and PhysMAP's closure check caught; right, the right predictions "
+            f"the closure check flagged anyway. Where the cause of failure is hidden from the "
+            f"inputs, PhysMAP catches what the OOD detectors cannot — "
+            f"{d('bench.naca_tn1451.ref_caught_of_wrong')} for NACA. Where the cause is visible "
+            f"(Marineau), it adds nothing: {d('bench.marineau_hypersonic_transition.ref_caught_of_wrong')}. "
+            f"The cost is false alarms: {d('bench.naca_tn1451.ref_flagged_right')} for NACA and "
+            f"{d('bench.dirker_water.ref_flagged_right')} for Dirker. Counts are rows of each "
+            f"dataset, not independent cases, and are never pooled into a rate across datasets. "
+            f"Forrest has one training row, so nothing was tested.",
         "bench_2_seven_vehicles":
             "The seven vehicles as `physmap benchmark report` prints them, with each dataset's "
             "redistribution basis and data quality. An outcome is an observability class. "
@@ -1053,6 +1187,7 @@ def captions(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
         "lewis_5_control_table": [SRC["bank"]],
         "bench_1_naca_entrance": [SRC["naca_example"], SRC["naca"], SRC["matrix"]],
         "bench_2_seven_vehicles": [SRC["matrix"], "src/physmap/benchmarks/registry.py"],
+        "bench_3_what_physmap_adds": [SRC["matrix"]],
     }
     for name, title in FIGURES.items():
         o += [f"## {title}", "",
@@ -1283,6 +1418,19 @@ def facts_sheet(reg: _Reg, L: dict, Bn: dict, N: dict) -> str:
         o.append(f"| {r['vehicle']} | {r['domain']} | {r['failure_var']} | {r['observability']} "
                  f"| {r['outcome']} | {r['redistribution']} | {r['quality']} | {r['n_train']} | "
                  f"{r['n_test']} |")
+    o += ["", f"**What the closure check adds, at percentile {d('bench.ref_pct')}** — per "
+          "vehicle, counts of rows, never pooled:", "",
+          "| vehicle | failure variable | wrong predictions caught only by PhysMAP | right "
+          "predictions flagged anyway |", "|---|---|---|---|"]
+    for group, vids in BENCH_GROUPS:
+        for vid in vids:
+            r = next(x for x in Bn["rows"] if x["vehicle"] == vid)
+            if r.get("ref"):
+                o.append(f"| {vid} | {r['observability']} | "
+                         f"{d(f'bench.{vid}.ref_caught_of_wrong')} | "
+                         f"{d(f'bench.{vid}.ref_flagged_right')} |")
+            else:
+                o.append(f"| {vid} | {r['observability']} | not tested: no detector fit | — |")
     o += ["", f"Observability guards all passed: {'yes' if Bn['all_guards_passed'] else 'NO'}. "
           "Forrest: triage-only values; one training row, no detector fit; DO_NO_HARM "
           "short-circuited, not earned.", "",
@@ -1326,6 +1474,7 @@ def build() -> int:
         "lewis_5_control_table": lambda: fig_control_table(reg, L),
         "bench_1_naca_entrance": lambda: fig_naca(reg, N),
         "bench_2_seven_vehicles": lambda: fig_seven(reg, Bn),
+        "bench_3_what_physmap_adds": lambda: fig_what_physmap_adds(reg, Bn),
     }
     FIGDATA.mkdir(parents=True, exist_ok=True)
     for name, draw in figs.items():
@@ -1468,6 +1617,23 @@ def check() -> int:
         if line.split()[:5] != [r["vehicle"], r["domain"], r["failure_var"],
                                 r["observability"], r["outcome"]]:
             fails.append(f"benchmark report row for {r['vehicle']} differs: {line!r}")
+    adds = {}
+    for ln in rep.splitlines():
+        m = re.match(r"^\s+(\S+)\s+(unobservable|partial|observable)\s+(\d+ of \d+)\s+(\d+)\s*$", ln)
+        if m:
+            adds[m.group(1)] = (m.group(3), m.group(4))
+    readme = README.read_text().splitlines()
+    for r in Bn["rows"]:
+        vid = r["vehicle"]
+        if not r.get("ref"):
+            continue
+        want = (reg.items[f"bench.{vid}.ref_caught_of_wrong"]["display"],
+                reg.items[f"bench.{vid}.ref_flagged_right"]["display"])
+        if adds.get(vid) != want:
+            fails.append(f"benchmark report prints {adds.get(vid)} for {vid}; the matrix gives {want}")
+        line = next((ln for ln in readme if ln.startswith("|") and f"`{vid}`" in ln), None)
+        if line is None or f"| {want[0]} | {want[1]} |" not in line:
+            fails.append(f"README table row for {vid} does not show {want[0]} and {want[1]}")
     ex = (REPRO / "naca_example.txt").read_text()
     for want in (f"input-based OOD detectors fired on "
                  f"{reg.items['naca.either_input_based_fired']['display']} of "

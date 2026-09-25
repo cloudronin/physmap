@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -156,73 +156,73 @@ z
     </g>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="14.4" y="26.98125" transform="rotate(-0 14.4 26.98125)">Lewis 35A stress test — the input contract</text>
+    <text style="font-weight: 700; font-size: 15px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="14.4" y="27.12041" transform="rotate(-0 14.4 27.12041)">Lewis 35A stress test — the input contract</text>
    </g>
    <g id="text_2">
     <text style="font-size: 10.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="14.4" y="56.970234" transform="rotate(-0 14.4 56.970234)">The surrogate and the input-based OOD detector see the same three inputs. Gravity is not one of them.</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="25.92" y="103.407656" transform="rotate(-0 25.92 103.407656)">Training: forced convection</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="25.92" y="103.408301" transform="rotate(-0 25.92 103.408301)">Training: forced convection</text>
    </g>
    <g id="text_4">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 130.250109)">13 gravity-off CFD runs, 532 rows</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 141.859779)">Re 750, 950, 1350, 1550</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 153.360464)">× inlet 12, 13.25, 14.5 °C</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 164.901183)">+ one run at 35A's own operating point</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 176.510852)">gravity never varied</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 132.214053)">13 gravity-off CFD runs, 532 rows</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 145.146957)">Re 750, 950, 1350, 1550</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 157.84518)">× inlet 12, 13.25, 14.5 °C</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 170.137255)">+ one run at 35A's own operating point</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 182.778807)">gravity never varied</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="25.92" y="272.50625" transform="rotate(-0 25.92 272.50625)">Deployment: Lewis Test 35A</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="25.92" y="272.608301" transform="rotate(-0 25.92 272.608301)">Deployment: Lewis Test 35A</text>
    </g>
    <g id="text_6">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 299.336766)">Re 1143.4, Pr 8.46</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 310.837451)">x/D at Lewis's 12 stations</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 322.338136)">every visible input is a training input</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 301.6916)">Re 1143.4, Pr 8.46</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 314.991417)">x/D at Lewis's 12 stations</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(25.92 326.668094)">every visible input is a training input</text>
    </g>
    <g id="text_7">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="41.04" y="354.04875" transform="rotate(-0 41.04 354.04875)">gravity off (control)</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="41.04" y="354.049014" transform="rotate(-0 41.04 354.049014)">gravity off (control)</text>
    </g>
    <g id="text_8">
-    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="139.68" y="353.993906" transform="rotate(-0 139.68 353.993906)">gravity on</text>
+    <text style="font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="139.68" y="354.049014" transform="rotate(-0 139.68 354.049014)">gravity on</text>
    </g>
    <g id="text_9">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="285.12" y="103.273594" transform="rotate(-0 285.12 103.273594)">Visible inputs</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="285.12" y="103.408301" transform="rotate(-0 285.12 103.408301)">Visible inputs</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 130.136766)">Re</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 141.637451)">Pr</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 153.138136)">x_over_D</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 133.081569)">Re</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 145.791417)">Pr</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 157.522586)">x_over_D</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="285.12" y="272.473594" transform="rotate(-0 285.12 272.473594)">Not an input to either</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="285.12" y="272.608301" transform="rotate(-0 285.12 272.608301)">Not an input to either</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 299.336766)">gravity</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 311.110784)">Ri (Richardson number)</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 322.884802)">Gr (Grashof number)</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 334.494471)">wall heat flux</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 301.357381)">gravity</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 314.06941)">Ri (Richardson number)</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 326.724766)">Gr (Grashof number)</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(285.12 340.30431)">wall heat flux</text>
    </g>
    <g id="text_13">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="501.12" y="96.207656" transform="rotate(-0 501.12 96.207656)">Surrogate</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="501.12" y="96.208301" transform="rotate(-0 501.12 96.208301)">Surrogate</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="501.12" y="123.050109" transform="rotate(-0 501.12 123.050109)">Gaussian process, predicts local Nu</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="501.12" y="125.068545" transform="rotate(-0 501.12 125.068545)">Gaussian process, predicts local Nu</text>
    </g>
    <g id="text_15">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="501.12" y="189.807656" transform="rotate(-0 501.12 189.807656)">Input-based OOD detector</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="501.12" y="189.808301" transform="rotate(-0 501.12 189.808301)">Input-based OOD detector</text>
    </g>
    <g id="text_16">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 216.536766)">the seven-vehicle benchmark's own:</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 228.201799)">distance + GP variance, unchanged</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 219.481569)">the seven-vehicle benchmark's own:</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 231.26941)">distance + GP variance, unchanged</text>
    </g>
    <g id="text_17">
-    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="501.12" y="283.273594" transform="rotate(-0 501.12 283.273594)">PhysMAP</text>
+    <text style="font-weight: 700; font-size: 11px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="501.12" y="283.408301" transform="rotate(-0 501.12 283.408301)">PhysMAP</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 310.164375)">reads the mechanism: Ri = 0.29 with gravity</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 321.814078)">on, outside the training's Ri = 0;</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 333.588096)">materiality from a matched CFD pair,</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 345.362114)">gravity on against gravity off</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 312.171186)">reads the mechanism: Ri = 0.29 with gravity</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 324.826542)">on, outside the training's Ri = 0;</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 337.524766)">materiality from a matched CFD pair,</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(501.12 350.180123)">gravity on against gravity off</text>
    </g>
    <g id="patch_9">
     <path d="M 218.88 145.8 

@@ -103,6 +103,34 @@ def coverage_note() -> str:
     return "\n".join(lines)
 
 
+def _what_physmap_adds(cells: list[dict | None]) -> list[str]:
+    """Per vehicle, at the shipped reference operating percentile: the wrong predictions the
+    closure-validity check caught while the input-based detectors stayed quiet, and the right
+    predictions it flagged anyway. Row counts, never pooled into a rate across vehicles."""
+    pcts = {int(c["ref_pct"]) for c in cells if c is not None and c.get("ref_pct")}
+    at = f"percentile {', '.join(str(p) for p in sorted(pcts))}" if pcts else "percentile"
+    out = [
+        "What the closure-validity check adds to the input-based detectors",
+        f"  at the reference operating {at}. Counts are rows of each dataset, not",
+        "  independent cases, and the datasets are not pooled.",
+        "",
+        f"  {'vehicle':34} {'failure variable':17} {'wrong: caught only by PhysMAP':31} "
+        f"right: flagged anyway",
+    ]
+    for cell in cells:
+        if cell is None:
+            continue
+        ref = (cell.get("per_pct") or {}).get(str(int(cell.get("ref_pct") or 0)))
+        head = f"  {cell['vehicle_id']:34} {cell['failure_observability']:17} "
+        if not ref:
+            out.append(head + f"not tested -- {cell.get('n_train', 0)} training row(s), "
+                              f"no detector fit")
+            continue
+        caught = f"{ref['clean_lift']} of {ref['n_wrong']}"
+        out.append(head + f"{caught:31} {ref['misaligned']}")
+    return out
+
+
 def render_report(rerun_results: dict[str, Any] | None = None) -> str:
     """The full seven-vehicle table.
 
@@ -164,6 +192,9 @@ def render_report(rerun_results: dict[str, Any] | None = None) -> str:
 
     out.append("")
     out.append(f"observability guards: {'all passed' if matrix['all_guards_passed'] else 'FAILED'}")
+    out.append("")
+    out.extend(_what_physmap_adds(
+        [rerun_results.get(v.vehicle_id) or cells.get(v.vehicle_id) for v in VEHICLES]))
     out.append("")
     unlicensed = unlicensed_shipped_ids()
     if unlicensed:

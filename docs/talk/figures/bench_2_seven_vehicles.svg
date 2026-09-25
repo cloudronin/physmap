@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -39,183 +39,183 @@ L 711.36 279.45
 " clip-path="url(#p3645c5d473)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="23.638594" transform="rotate(-0 8.64 23.638594)">Seven-vehicle benchmark — closure validity and observability</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="23.639355" transform="rotate(-0 8.64 23.639355)">Seven-vehicle benchmark — closure validity and observability</text>
    </g>
    <g id="text_2">
-    <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 47.415703)">Is the variable that breaks each surrogate visible to an input-based detector? Not evidence for causal materiality.</text>
-    <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 59.097141)">Each outcome is an observability class, not a performance rate.</text>
+    <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 49.198994)">Is the variable that breaks each surrogate visible to an input-based detector? Not evidence for causal materiality.</text>
+    <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 61.680732)">Each outcome is an observability class, not a performance rate.</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="105.667031" transform="rotate(-0 8.64 105.667031)">vehicle</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="105.777246" transform="rotate(-0 8.64 105.777246)">vehicle</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="183.6" y="105.667031" transform="rotate(-0 183.6 105.667031)">domain</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="183.6" y="105.777246" transform="rotate(-0 183.6 105.777246)">domain</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="270" y="105.667031" transform="rotate(-0 270 105.667031)">failure variable</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="270" y="105.777246" transform="rotate(-0 270 105.777246)">failure variable</text>
    </g>
    <g id="text_6">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="370.8" y="105.667031" transform="rotate(-0 370.8 105.667031)">observability</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="370.8" y="105.777246" transform="rotate(-0 370.8 105.777246)">observability</text>
    </g>
    <g id="text_7">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="457.2" y="105.667031" transform="rotate(-0 457.2 105.667031)">outcome</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="457.2" y="105.777246" transform="rotate(-0 457.2 105.777246)">outcome</text>
    </g>
    <g id="text_8">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="565.2" y="105.667031" transform="rotate(-0 565.2 105.667031)">source data</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="565.2" y="105.777246" transform="rotate(-0 565.2 105.777246)">source data</text>
    </g>
    <g id="text_9">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="136.284375" transform="rotate(-0 8.64 136.284375)">naca_tn1451</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="136.370654" transform="rotate(-0 8.64 136.370654)">naca_tn1451</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="136.256766" transform="rotate(-0 183.6 136.256766)">thermal-fluids</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="136.370654" transform="rotate(-0 183.6 136.370654)">thermal-fluids</text>
    </g>
    <g id="text_11">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="136.256766" transform="rotate(-0 270 136.256766)">x_over_D</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="136.370654" transform="rotate(-0 270 136.370654)">x_over_D</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="136.256766" transform="rotate(-0 370.8 136.256766)">unobservable</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="136.370654" transform="rotate(-0 370.8 136.370654)">unobservable</text>
    </g>
    <g id="text_13">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="136.370109" transform="rotate(-0 457.2 136.370109)">PHYSMAP_WINS</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="136.370654" transform="rotate(-0 457.2 136.370654)">PHYSMAP_WINS</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="136.256766" transform="rotate(-0 565.2 136.256766)">licensed</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="136.370654" transform="rotate(-0 565.2 136.370654)">licensed</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="158.936766" transform="rotate(-0 8.64 158.936766)">casper_hypersonic_transition</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="159.050654" transform="rotate(-0 8.64 159.050654)">casper_hypersonic_transition</text>
    </g>
    <g id="text_16">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="158.936766" transform="rotate(-0 183.6 158.936766)">aerospace</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="159.050654" transform="rotate(-0 183.6 159.050654)">aerospace</text>
    </g>
    <g id="text_17">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="159.050109" transform="rotate(-0 270 159.050109)">freestream_noise_pct</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="159.050654" transform="rotate(-0 270 159.050654)">freestream_noise_pct</text>
    </g>
    <g id="text_18">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="158.936766" transform="rotate(-0 370.8 158.936766)">unobservable</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="159.050654" transform="rotate(-0 370.8 159.050654)">unobservable</text>
    </g>
    <g id="text_19">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="159.050109" transform="rotate(-0 457.2 159.050109)">PHYSMAP_WINS</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="159.050654" transform="rotate(-0 457.2 159.050654)">PHYSMAP_WINS</text>
    </g>
    <g id="text_20">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="158.936766" transform="rotate(-0 565.2 158.936766)">against terms</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="159.050654" transform="rotate(-0 565.2 159.050654)">against terms</text>
    </g>
    <g id="text_21">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="181.644375" transform="rotate(-0 8.64 181.644375)">jin_sco2_buoyancy</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="181.730654" transform="rotate(-0 8.64 181.730654)">jin_sco2_buoyancy</text>
    </g>
    <g id="text_22">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="181.616766" transform="rotate(-0 183.6 181.616766)">thermal-fluids</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="181.730654" transform="rotate(-0 183.6 181.730654)">thermal-fluids</text>
    </g>
    <g id="text_23">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="181.616766" transform="rotate(-0 270 181.616766)">Bu</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="181.730654" transform="rotate(-0 270 181.730654)">Bu</text>
    </g>
    <g id="text_24">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="181.616766" transform="rotate(-0 370.8 181.616766)">unobservable</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="181.730654" transform="rotate(-0 370.8 181.730654)">unobservable</text>
    </g>
    <g id="text_25">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="181.730109" transform="rotate(-0 457.2 181.730109)">PHYSMAP_WINS</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="181.730654" transform="rotate(-0 457.2 181.730654)">PHYSMAP_WINS</text>
    </g>
    <g id="text_26">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="181.616766" transform="rotate(-0 565.2 181.616766)">against terms</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="181.730654" transform="rotate(-0 565.2 181.730654)">against terms</text>
    </g>
    <g id="text_27">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="204.324375" transform="rotate(-0 8.64 204.324375)">velazquez_sco2</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="204.410654" transform="rotate(-0 8.64 204.410654)">velazquez_sco2</text>
    </g>
    <g id="text_28">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="204.296766" transform="rotate(-0 183.6 204.296766)">thermal-fluids</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="204.410654" transform="rotate(-0 183.6 204.410654)">thermal-fluids</text>
    </g>
    <g id="text_29">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="204.296766" transform="rotate(-0 270 204.296766)">ratio_mu_w_b</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="204.410654" transform="rotate(-0 270 204.410654)">ratio_mu_w_b</text>
    </g>
    <g id="text_30">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="204.296766" transform="rotate(-0 370.8 204.296766)">partial</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="204.410654" transform="rotate(-0 370.8 204.410654)">partial</text>
    </g>
    <g id="text_31">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="204.296766" transform="rotate(-0 457.2 204.296766)">PARTIAL</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="204.410654" transform="rotate(-0 457.2 204.410654)">PARTIAL</text>
    </g>
    <g id="text_32">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="204.296766" transform="rotate(-0 565.2 204.296766)">licensed</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="204.410654" transform="rotate(-0 565.2 204.410654)">licensed</text>
    </g>
    <g id="text_33">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="226.976766" transform="rotate(-0 8.64 226.976766)">dirker_water</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="227.090654" transform="rotate(-0 8.64 227.090654)">dirker_water</text>
    </g>
    <g id="text_34">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="226.976766" transform="rotate(-0 183.6 226.976766)">thermal-fluids</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="227.090654" transform="rotate(-0 183.6 227.090654)">thermal-fluids</text>
    </g>
    <g id="text_35">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="226.976766" transform="rotate(-0 270 226.976766)">Ri</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="227.090654" transform="rotate(-0 270 227.090654)">Ri</text>
    </g>
    <g id="text_36">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="226.976766" transform="rotate(-0 370.8 226.976766)">partial</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="227.090654" transform="rotate(-0 370.8 227.090654)">partial</text>
    </g>
    <g id="text_37">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="226.976766" transform="rotate(-0 457.2 226.976766)">PARTIAL</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="227.090654" transform="rotate(-0 457.2 227.090654)">PARTIAL</text>
    </g>
    <g id="text_38">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="226.976766" transform="rotate(-0 565.2 226.976766)">against terms</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="227.090654" transform="rotate(-0 565.2 227.090654)">against terms</text>
    </g>
    <g id="text_39">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="249.656766" transform="rotate(-0 8.64 249.656766)">marineau_hypersonic_transition</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="249.770654" transform="rotate(-0 8.64 249.770654)">marineau_hypersonic_transition</text>
    </g>
    <g id="text_40">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="249.656766" transform="rotate(-0 183.6 249.656766)">aerospace</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="183.6" y="249.770654" transform="rotate(-0 183.6 249.770654)">aerospace</text>
    </g>
    <g id="text_41">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="249.656766" transform="rotate(-0 270 249.656766)">st_xsw_ratio</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="270" y="249.770654" transform="rotate(-0 270 249.770654)">st_xsw_ratio</text>
    </g>
    <g id="text_42">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="249.656766" transform="rotate(-0 370.8 249.656766)">observable</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="370.8" y="249.770654" transform="rotate(-0 370.8 249.770654)">observable</text>
    </g>
    <g id="text_43">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="249.770109" transform="rotate(-0 457.2 249.770109)">BASELINE_VISIBLE</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="457.2" y="249.770654" transform="rotate(-0 457.2 249.770654)">BASELINE_VISIBLE</text>
    </g>
    <g id="text_44">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="249.656766" transform="rotate(-0 565.2 249.656766)">no licence</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="565.2" y="249.770654" transform="rotate(-0 565.2 249.770654)">no licence</text>
    </g>
    <g id="text_45">
-    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="272.336766" transform="rotate(-0 8.64 272.336766)">forrest</text>
+    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="272.450654" transform="rotate(-0 8.64 272.450654)">forrest</text>
    </g>
    <g id="text_46">
-    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="183.6" y="272.336766" transform="rotate(-0 183.6 272.336766)">thermal-fluids</text>
+    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="183.6" y="272.450654" transform="rotate(-0 183.6 272.450654)">thermal-fluids</text>
    </g>
    <g id="text_47">
-    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="270" y="272.336766" transform="rotate(-0 270 272.336766)">Re</text>
+    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="270" y="272.450654" transform="rotate(-0 270 272.450654)">Re</text>
    </g>
    <g id="text_48">
-    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="370.8" y="272.336766" transform="rotate(-0 370.8 272.336766)">observable</text>
+    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="370.8" y="272.450654" transform="rotate(-0 370.8 272.450654)">observable</text>
    </g>
    <g id="text_49">
-    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="457.2" y="272.450109" transform="rotate(-0 457.2 272.450109)">DO_NO_HARM</text>
+    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="457.2" y="272.450654" transform="rotate(-0 457.2 272.450654)">DO_NO_HARM</text>
    </g>
    <g id="text_50">
-    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="565.2" y="272.450109" transform="rotate(-0 565.2 272.450109)">against terms; TRIAGE ONLY</text>
+    <text style="font-style: italic; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="565.2" y="272.450654" transform="rotate(-0 565.2 272.450654)">against terms; TRIAGE ONLY</text>
    </g>
    <g id="text_51">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 295.954469)">forrest: its own data file calls its values visual estimates for triage only, and its cell is degenerate (1 training row, no detector fit), so DO_NO_HARM is short-circuited, not earned.</text>
-    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 306.335861)">marineau: the negative control, where the input-based baseline already sees the failure variable.   Counts are data rows, not independent cases.</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 297.683556)">forrest: its own data file calls its values visual estimates for triage only, and its cell is degenerate (1 training row, no detector fit), so DO_NO_HARM is short-circuited, not earned.</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 308.839479)">marineau: the negative control, where the input-based baseline already sees the failure variable.   Counts are data rows, not independent cases.</text>
    </g>
    <g id="text_52">
-    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="332.804344" transform="rotate(-0 8.64 332.804344)">PHYSMAP_WINS</text>
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="332.804824" transform="rotate(-0 8.64 332.804824)">PHYSMAP_WINS</text>
    </g>
    <g id="text_53">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="332.804344" transform="rotate(-0 108 332.804344)">the failure variable is invisible to the input-based baseline, and the closure check caught wrong rows the baseline missed</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="332.804824" transform="rotate(-0 108 332.804824)">the failure variable is invisible to the input-based baseline, and the closure check caught wrong rows the baseline missed</text>
    </g>
    <g id="text_54">
-    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="346.069406" transform="rotate(-0 8.64 346.069406)">PARTIAL</text>
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="346.169824" transform="rotate(-0 8.64 346.169824)">PARTIAL</text>
    </g>
    <g id="text_55">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="346.169344" transform="rotate(-0 108 346.169344)">the same, with the failure variable partly visible</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="346.169824" transform="rotate(-0 108 346.169824)">the same, with the failure variable partly visible</text>
    </g>
    <g id="text_56">
-    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="359.534344" transform="rotate(-0 8.64 359.534344)">BASELINE_VISIBLE</text>
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="359.534824" transform="rotate(-0 8.64 359.534824)">BASELINE_VISIBLE</text>
    </g>
    <g id="text_57">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="359.534344" transform="rotate(-0 108 359.534344)">the input-based baseline already sees the failure variable</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="359.534824" transform="rotate(-0 108 359.534824)">the input-based baseline already sees the failure variable</text>
    </g>
    <g id="text_58">
-    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="372.899344" transform="rotate(-0 8.64 372.899344)">DO_NO_HARM</text>
+    <text style="font-weight: 700; font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="372.899824" transform="rotate(-0 8.64 372.899824)">DO_NO_HARM</text>
    </g>
    <g id="text_59">
-    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="372.899344" transform="rotate(-0 108 372.899344)">the failure variable is a surrogate input: the baseline suffices</text>
+    <text style="font-size: 8.2px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="108" y="372.899824" transform="rotate(-0 108 372.899824)">the failure variable is a surrogate input: the baseline suffices</text>
    </g>
   </g>
   <g id="text_60">

@@ -168,6 +168,18 @@ Not evidence for causal materiality. Outcomes are observability classes, not rat
 | marineau_hypersonic_transition | aerospace | st_xsw_ratio | observable | BASELINE_VISIBLE | no_licence_facts_basis | benchmark_grade | 9 | 6 |
 | forrest | thermal-fluids | Re | observable | DO_NO_HARM | against_publisher_terms | triage_only | 1 | 4 |
 
+**What the closure check adds, at percentile 99** — per vehicle, counts of rows, never pooled:
+
+| vehicle | failure variable | wrong predictions caught only by PhysMAP | right predictions flagged anyway |
+|---|---|---|---|
+| naca_tn1451 | unobservable | 20 of 20 | 24 |
+| casper_hypersonic_transition | unobservable | 4 of 8 | 0 |
+| jin_sco2_buoyancy | unobservable | 15 of 26 | 0 |
+| velazquez_sco2 | partial | 18 of 67 | 0 |
+| dirker_water | partial | 2 of 11 | 16 |
+| marineau_hypersonic_transition | observable | 0 of 6 | 0 |
+| forrest | observable | not tested: no detector fit | — |
+
 Observability guards all passed: yes. Forrest: triage-only values; one training row, no detector fit; DO_NO_HARM short-circuited, not earned.
 
 Sources: `data/benchmarks/v0_4/matrix_full_seven.json`, `src/physmap/benchmarks/registry.py`.

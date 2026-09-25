@@ -21,8 +21,8 @@ Black dots are the entrance region. A line at x/D = 10. Three counts on the righ
   its range."
 - "PhysMAP's closure check fires on all 45 entrance points. The two input-based detectors fire on
   none. They are not wrong about the inputs. They just cannot see x/D."
-- "This is about observability: can a detector see the variable that breaks the model? It is not
-  the causal result. That comes later."
+- "This is the core of PhysMAP: a check on a variable the detectors cannot see. The next slide
+  shows it across seven datasets. The causal question comes later, and is separate."
 
 **Point at:** the 45 and the two zeros.
 
@@ -37,25 +37,61 @@ Black dots are the entrance region. A line at x/D = 10. Three counts on the righ
 
 ---
 
-## Seven-vehicle benchmark — `bench_2_seven_vehicles`
+## What PhysMAP adds, across seven datasets — `bench_3_what_physmap_adds`
+
+**This is the point of the talk.** Give it time.
+
+**On screen:** seven datasets in three groups — cause hidden from the inputs, partly visible,
+visible. Left: the surrogate's wrong predictions (grey) and the part PhysMAP caught that the OOD
+detectors missed (green), with "20 of 20"-style counts. Right: right predictions PhysMAP flagged
+anyway.
+
+**Say:**
+
+- "The same idea, on seven published datasets in two domains. For each one: which wrong
+  predictions did PhysMAP catch that the input-based detectors missed — and what did it cost?"
+- "Top group: the cause of failure is hidden from the surrogate's inputs. Here PhysMAP catches
+  what the OOD detectors can't. All 20 at the pipe entrance. 4 of 8 in the hypersonic case. 15 of
+  26 for supercritical CO2."
+- "Middle group: the cause is partly visible. It still helps: 18 of 67, and 2 of 11."
+- "Bottom group: the cause is an input. The OOD detectors already see it, and PhysMAP adds
+  nothing — 0 of 6. That is the control, and it is the right answer."
+- "And the cost, on the right. The closure check flags anything outside its tested range, even
+  when the surrogate happens to be right: 24 false alarms at the pipe entrance, 16 for Dirker."
+- Land it: **"Where the cause of failure isn't one of the surrogate's inputs, PhysMAP catches
+  what the OOD detectors can't. Where it is, it adds nothing. And it costs false alarms."**
+
+**Point at:** the NACA bar, then the Marineau bar, then the right panel.
+
+**If asked:**
+
+- *"What's the overall catch rate?"* — "I don't pool them. Each dataset is a different physics
+  and a different size, and rows within a dataset aren't independent cases. The counts are per
+  dataset, on purpose."
+- *"Why do the partly visible ones catch less?"* — "Because the OOD detectors see part of the
+  cause there, so more of the wrong predictions are already theirs."
+- *"How does it know when to override the OOD detectors?"* — "At setup it classes each bounded
+  variable as visible to the surrogate's inputs or not. It overrides only on the hidden ones."
+- *"What about Forrest?"* — "One training row, so no detector could be fitted. Not tested."
+
+**Do not say:** a rate pooled across datasets; "PhysMAP beats OOD detection" without the
+condition; anything that hides the false alarms.
+
+---
+
+## Seven-vehicle benchmark, in full — `bench_2_seven_vehicles` (backup)
 
 **On screen:** a table of seven datasets: domain, failure variable, observability, outcome, and
 the licence basis of the data.
 
-**Say:**
+**Say, if it comes up:**
 
-- "The same question — is the variable that breaks the surrogate visible to an input-based
-  detector — on seven published datasets, in two domains."
-- "In three, it is invisible, and the closure check caught wrong rows the baseline missed. Two
-  are partial."
-- "Marineau is the negative control. There the baseline can see the failure variable, and it
-  should. It does."
+- "The full table behind the chart: each dataset's failure variable, how visible it is, the
+  benchmark's outcome label, and where the data comes from."
 - "Forrest is weak, and I will say so: its own data file calls its values visual estimates for
   triage, and it has one training row. Its result is short-circuited, not earned."
-- "These are classes, not rates. And none of this is evidence about materiality."
+- "None of this is evidence about materiality — that is a separate question."
 - "It all reruns from a clone: physmap benchmark run."
-
-**Point at:** the italic Forrest row.
 
 **If asked:**
 
@@ -66,7 +102,7 @@ the licence basis of the data.
   family, different question. Jin measures whether the buoyancy parameter is visible. It computes
   no ablation and no materiality."
 
-**Do not say:** any rate, such as "three out of seven".
+**Do not say:** any rate across datasets, such as "three out of seven".
 
 ---
 

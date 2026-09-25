@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -62,7 +62,7 @@ L 0 3.5
       </g>
      </g>
      <g id="text_1">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="81.345984" y="369.484141" transform="rotate(-0 81.345984 369.484141)">1</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="81.345984" y="369.588232" transform="rotate(-0 81.345984 369.588232)">1</text>
      </g>
     </g>
     <g id="xtick_2">
@@ -77,7 +77,7 @@ L 177.472992 81
       </g>
      </g>
      <g id="text_2">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="177.472992" y="369.484141" transform="rotate(-0 177.472992 369.484141)">2</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="177.472992" y="369.588232" transform="rotate(-0 177.472992 369.588232)">2</text>
      </g>
     </g>
     <g id="xtick_3">
@@ -92,7 +92,7 @@ L 304.545984 81
       </g>
      </g>
      <g id="text_3">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="304.545984" y="369.484141" transform="rotate(-0 304.545984 369.484141)">5</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="304.545984" y="369.588232" transform="rotate(-0 304.545984 369.588232)">5</text>
      </g>
     </g>
     <g id="xtick_4">
@@ -107,7 +107,7 @@ L 400.672992 81
       </g>
      </g>
      <g id="text_4">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="400.672992" y="369.484141" transform="rotate(-0 400.672992 369.484141)">10</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="400.672992" y="369.588232" transform="rotate(-0 400.672992 369.588232)">10</text>
      </g>
     </g>
     <g id="xtick_5">
@@ -122,11 +122,11 @@ L 496.8 81
       </g>
      </g>
      <g id="text_5">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="496.8" y="369.484141" transform="rotate(-0 496.8 369.484141)">20</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="496.8" y="369.588232" transform="rotate(-0 496.8 369.588232)">20</text>
      </g>
     </g>
     <g id="text_6">
-     <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="273.6" y="381.973437" transform="rotate(-0 273.6 381.973437)">x/D</text>
+     <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: middle; fill: #52514e" x="273.6" y="382.293311" transform="rotate(-0 273.6 382.293311)">x/D</text>
     </g>
    </g>
    <g id="matplotlib.axis_2">
@@ -147,7 +147,7 @@ L -3.5 0
       </g>
      </g>
      <g id="text_7">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="319.113047" transform="rotate(-0 43.4 319.113047)">60</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="319.165092" transform="rotate(-0 43.4 319.165092)">60</text>
      </g>
     </g>
     <g id="ytick_2">
@@ -162,7 +162,7 @@ L 496.8 272.031638
       </g>
      </g>
      <g id="text_8">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="275.073709" transform="rotate(-0 43.4 275.073709)">80</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="275.125754" transform="rotate(-0 43.4 275.125754)">80</text>
      </g>
     </g>
     <g id="ytick_3">
@@ -177,7 +177,7 @@ L 496.8 227.9923
       </g>
      </g>
      <g id="text_9">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="231.034371" transform="rotate(-0 43.4 231.034371)">100</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="231.086417" transform="rotate(-0 43.4 231.086417)">100</text>
      </g>
     </g>
     <g id="ytick_4">
@@ -192,7 +192,7 @@ L 496.8 183.952962
       </g>
      </g>
      <g id="text_10">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="186.995033" transform="rotate(-0 43.4 186.995033)">120</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="187.047079" transform="rotate(-0 43.4 187.047079)">120</text>
      </g>
     </g>
     <g id="ytick_5">
@@ -207,7 +207,7 @@ L 496.8 139.913624
       </g>
      </g>
      <g id="text_11">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="142.955695" transform="rotate(-0 43.4 142.955695)">140</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="143.007741" transform="rotate(-0 43.4 143.007741)">140</text>
      </g>
     </g>
     <g id="ytick_6">
@@ -222,7 +222,7 @@ L 496.8 95.874286
       </g>
      </g>
      <g id="text_12">
-      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="98.916357" transform="rotate(-0 43.4 98.916357)">160</text>
+      <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #52514e" x="43.4" y="98.968403" transform="rotate(-0 43.4 98.968403)">160</text>
      </g>
     </g>
     <g id="text_13">
@@ -364,45 +364,45 @@ L 496.8 356.4
 " style="fill: none; stroke: #c3c2b7; stroke-width: 0.8; stroke-linejoin: miter; stroke-linecap: square"/>
    </g>
    <g id="text_14">
-    <text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(404.772265 95.08575)">validated range of the</text>
-    <text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(404.772265 103.758)">closure (gnielinski-1976)</text>
-    <text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(404.772265 112.31325)">starts at x/D = 10</text>
+    <text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(404.772265 95.685828)">validated range of the</text>
+    <text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(404.772265 104.393016)">closure (gnielinski-1976)</text>
+    <text style="font-size: 8px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(404.772265 113.100203)">starts at x/D = 10</text>
    </g>
   </g>
   <g id="text_15">
-   <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="19.588594" transform="rotate(-0 8.64 19.588594)">The x/D entrance region: a variable the surrogate never had</text>
+   <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="19.589355" transform="rotate(-0 8.64 19.589355)">The x/D entrance region: a variable the surrogate never had</text>
   </g>
   <g id="text_16">
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 45.390703)">The surrogate and both input-based detectors see Re and Pr only. Entrance points have ordinary Re and Pr; only x/D is new,</text>
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 56.910047)">and only the closure check reads it.</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 47.173994)">The surrogate and both input-based detectors see Re and Pr only. Entrance points have ordinary Re and Pr; only x/D is new,</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(8.64 59.597842)">and only the closure check reads it.</text>
   </g>
   <g id="text_17">
-   <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="518.4" y="112.943672" transform="rotate(-0 518.4 112.943672)">Fired, of the 45 entrance points</text>
+   <text style="font-weight: 700; font-size: 10.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="518.4" y="112.944287" transform="rotate(-0 518.4 112.944287)">Fired, of the 45 entrance points</text>
   </g>
   <g id="text_18">
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="148.258125" transform="rotate(-0 518.4 148.258125)">closure validity (PhysMAP)</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="148.258403" transform="rotate(-0 518.4 148.258403)">closure validity (PhysMAP)</text>
   </g>
   <g id="text_19">
-   <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="148.910625" transform="rotate(-0 702 148.910625)">45</text>
+   <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="148.905469" transform="rotate(-0 702 148.905469)">45</text>
   </g>
   <g id="text_20">
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="178.633125" transform="rotate(-0 518.4 178.633125)">novelty density (input-based)</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="178.633403" transform="rotate(-0 518.4 178.633403)">novelty density (input-based)</text>
   </g>
   <g id="text_21">
-   <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="179.285625" transform="rotate(-0 702 179.285625)">0</text>
+   <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="179.280469" transform="rotate(-0 702 179.280469)">0</text>
   </g>
   <g id="text_22">
-   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="209.008125" transform="rotate(-0 518.4 209.008125)">GP variance (input-based)</text>
+   <text style="font-size: 9.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="518.4" y="209.008403" transform="rotate(-0 518.4 209.008403)">GP variance (input-based)</text>
   </g>
   <g id="text_23">
-   <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="209.660625" transform="rotate(-0 702 209.660625)">0</text>
+   <text style="font-weight: 700; font-size: 12px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: end; fill: #0b0b0b" x="702" y="209.655469" transform="rotate(-0 702 209.655469)">0</text>
   </g>
   <g id="text_24">
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 237.037734)">Novelty density and GP variance are the</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 247.798934)">guardrail's default input-based detectors.</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 258.409922)">They see Re and Pr, which look ordinary.</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 269.171121)">Closure validity reads x/D against the</text>
-   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 279.782109)">closure's validated range.</text>
+   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 238.832737)">Novelty density and GP variance are the</text>
+   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 250.39946)">guardrail's default input-based detectors.</text>
+   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 261.914387)">They see Re and Pr, which look ordinary.</text>
+   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 273.532908)">Closure validity reads x/D against the</text>
+   <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #52514e" transform="translate(518.4 285.047834)">closure's validated range.</text>
   </g>
   <g id="text_25">
    <text style="font-size: 7px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #898781" x="8.64" y="398.666719" transform="rotate(-0 8.64 398.666719)">Source: examples/naca_entrance_region.py on data/naca/cross_validated_fig10.csv; plotted values: docs/talk/figures/data/bench_1_naca_entrance.csv</text>
@@ -410,19 +410,19 @@ L 496.8 356.4
   <g id="legend_1">
    <g id="line2d_26">
     <g>
-     <use xlink:href="#me4edb42839" x="530.95" y="334.862734" style="fill: #fcfcfb; stroke: #898781; stroke-width: 1.4"/>
+     <use xlink:href="#me4edb42839" x="530.95" y="334.863232" style="fill: #fcfcfb; stroke: #898781; stroke-width: 1.4"/>
     </g>
    </g>
    <g id="text_26">
-    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="337.837734" transform="rotate(-0 546.25 337.837734)">training: x/D ≥ 10, 40 points</text>
+    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="337.838232" transform="rotate(-0 546.25 337.838232)">training: x/D ≥ 10, 40 points</text>
    </g>
    <g id="line2d_27">
     <g>
-     <use xlink:href="#me009feb82f" x="530.95" y="347.089453" style="fill: #0b0b0b; stroke: #0b0b0b"/>
+     <use xlink:href="#me009feb82f" x="530.95" y="347.090449" style="fill: #0b0b0b; stroke: #0b0b0b"/>
     </g>
    </g>
    <g id="text_27">
-    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="350.064453" transform="rotate(-0 546.25 350.064453)">deployment: x/D &lt; 10, 45 points</text>
+    <text style="font-size: 8.5px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="546.25" y="350.065449" transform="rotate(-0 546.25 350.065449)">deployment: x/D &lt; 10, 45 points</text>
    </g>
   </g>
  </g>

@@ -178,12 +178,13 @@ and we ran neither. What we tested is an input-based OOD detector — the benchm
 
 ### 18. "Your benchmark says PHYSMAP_WINS. Isn't that a performance claim?"
 
-**Say:** "It is the classifier's label for an observability class, not a score. It means the
-failure variable was invisible to the input-based baseline and the closure check caught wrong
-rows the baseline missed. Three vehicles have it. We do not turn that into a rate, and it says
-nothing about materiality."
+**Say:** "The label is the classifier's name for a class: the failure variable was invisible to
+the input-based detectors, and the closure check caught wrong predictions they missed. The
+counts behind it are per dataset — 20 of 20 at the pipe entrance, for example — and we show the
+false alarms beside them. We never pool them into one rate, and none of it is about materiality."
 
-- **Fact:** `src/physmap/benchmarks/benchmark_v0_4.py`, `_classify`.
+- **Fact:** `src/physmap/benchmarks/benchmark_v0_4.py`, `_classify`; the counts print in
+  `physmap benchmark report`.
 
 ### 19. "Did you tune anything to get this?"
 
@@ -220,3 +221,46 @@ anything it prints, and says so."
 
 - **Fact:** [`reproduction/README.md`](reproduction/README.md) — exit status 0 from a clean
   public clone.
+
+### 22. "What about false alarms?"
+
+**Say:** "They're real, and they're on the slide. The closure check flags any prediction outside
+a relation's tested range, even when the surrogate happens to be right: 24 at the pipe entrance,
+16 for Dirker, none in the other tested datasets. Cutting those is what the materiality work is
+for. That isn't shown yet."
+
+- **Fact:** `physmap benchmark report`, the "right: flagged anyway" column, at percentile 99.
+- **Interpretation:** a flag outside the tested range is a warning that the prediction rests on
+  an extrapolated relation, not proof it is wrong.
+
+### 23. "Isn't this just an out-of-range check?"
+
+**Say:** "The check itself is. What's new is knowing when it matters that the OOD detectors
+can't see the variable. At setup, PhysMAP classes each bounded variable as visible to the
+surrogate's inputs, partly visible, or hidden. It overrides the OOD detectors on the hidden
+ones, blends on the partly visible ones, and leaves the visible ones to the detectors. That is why
+it adds nothing in the control, where the cause is an input: 0 of 6."
+
+- **Fact:** the observability-weighted aggregator (`src/physmap/guardrail/aggregator_observability.py`);
+  the README's "Using the guardrail".
+
+### 24. "Why not just add the missing variable as an input?"
+
+**Say:** "If you know which variable matters, you should — that is the right fix. The problem is
+knowing. The closure corpus names the variables each relation is validated on, so PhysMAP can tell
+you which one your surrogate is missing, and flags the predictions that rely on it outside its
+tested range."
+
+- **Fact:** each closure in the corpus carries its validated ranges; the guardrail reports which
+  bounded variables are not surrogate inputs (`observability_classification`).
+- **Interpretation:** in practice the missing variable is often one that did not vary in the
+  training data, so nobody thought to make it an input.
+
+### 25. "What's the overall catch rate across the benchmark?"
+
+**Say:** "I don't give one. The seven datasets differ in physics and in size, rows within a
+dataset aren't independent cases, and one dataset has a single training row. So every count is
+per dataset, with its false alarms beside it."
+
+- **Fact:** the benchmark reports per-dataset counts only; no rate is computed across datasets.
+

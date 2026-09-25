@@ -9,7 +9,7 @@
     <dc:format>image/svg+xml</dc:format>
     <dc:creator>
      <cc:Agent>
-      <dc:title>Matplotlib v3.10.9, https://matplotlib.org/</dc:title>
+      <dc:title>Matplotlib v3.11.2, https://matplotlib.org/</dc:title>
      </cc:Agent>
     </dc:creator>
    </cc:Work>
@@ -55,59 +55,59 @@ L 711.36 226.8
 " clip-path="url(#pbdddea4a11)" style="fill: none; stroke: #e1e0d9; stroke-width: 0.8; stroke-linecap: square"/>
    </g>
    <g id="text_1">
-    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="22.30375" transform="rotate(-0 8.64 22.30375)">Lewis 35A, design M — every visible deployment input is a training input</text>
+    <text style="font-weight: 700; font-size: 13px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="8.64" y="22.424355" transform="rotate(-0 8.64 22.424355)">Lewis 35A, design M — every visible deployment input is a training input</text>
    </g>
    <g id="text_2">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="154.8" y="65.939906" transform="rotate(-0 154.8 65.939906)">surrogate error</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="154.8" y="66.168246" transform="rotate(-0 154.8 66.168246)">surrogate error</text>
    </g>
    <g id="text_3">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="291.6" y="66.167719" transform="rotate(-0 291.6 66.167719)">input-based OOD detector</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="291.6" y="66.168246" transform="rotate(-0 291.6 66.168246)">input-based OOD detector</text>
    </g>
    <g id="text_4">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="435.6" y="66.058031" transform="rotate(-0 435.6 66.058031)">PhysMAP materiality</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="435.6" y="66.168246" transform="rotate(-0 435.6 66.168246)">PhysMAP materiality</text>
    </g>
    <g id="text_5">
-    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="576" y="66.058031" transform="rotate(-0 576 66.058031)">illustrative θ = 0.10</text>
+    <text style="font-weight: 700; font-size: 9px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="576" y="66.168246" transform="rotate(-0 576 66.168246)">illustrative θ = 0.10</text>
    </g>
    <g id="text_6">
-    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 96.194109)">gravity off — the</text>
-    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 106.952611)">control (CFD)</text>
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 97.503466)">gravity off — the</text>
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 108.849647)">control (CFD)</text>
    </g>
    <g id="text_7">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 96.194109)">within 0.06 % at every</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 106.805264)">comparable station</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 97.503466)">within 0.06 % at every</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 108.847468)">comparable station</text>
    </g>
    <g id="text_8">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 96.080766)">distance 0.003–0.167</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 106.618828)">against 0.408: quiet at</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 117.265875)">p99</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 98.380427)">distance 0.003–0.167</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 108.80678)">against 0.408: quiet at</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 120.207454)">p99</text>
    </g>
    <g id="text_9">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="435.6" y="96.108375" transform="rotate(-0 435.6 96.108375)">0 at every station</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="435.6" y="97.460599" transform="rotate(-0 435.6 97.460599)">0 at every station</text>
    </g>
    <g id="text_10">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="576" y="96.194109" transform="rotate(-0 576 96.194109)">flags nothing</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #0b0b0b" x="576" y="97.503466" transform="rotate(-0 576 97.503466)">flags nothing</text>
    </g>
    <g id="text_11">
-    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 163.472766)">gravity on — Lewis's</text>
-    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 174.08392)">measurement</text>
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 164.838794)">gravity on — Lewis's</text>
+    <text style="font-weight: 700; font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(17.28 177.043772)">measurement</text>
    </g>
    <g id="text_12">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 163.472766)">17–18 % at x/D 67.55,</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 173.974936)">101.69, 135.84</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 165.21588)">17–18 % at x/D 67.55,</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(154.8 176.519194)">101.69, 135.84</text>
    </g>
    <g id="text_13">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 163.472766)">the same scores, at</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 173.974936)">every station and every</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 184.586091)">percentile</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 165.159208)">the same scores, at</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 176.184976)">every station and every</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(291.6 187.585649)">percentile</text>
    </g>
    <g id="text_14">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(435.6 163.500375)">0.006 to 0.195, rising</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(435.6 174.11153)">down the tube</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(435.6 164.852599)">0.006 to 0.195, rising</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(435.6 177.109163)">down the tube</text>
    </g>
    <g id="text_15">
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(576 163.586109)">would flag x/D 67.55,</text>
-    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(576 174.197264)">101.69, 135.84</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(576 164.895466)">would flag x/D 67.55,</text>
+    <text style="font-size: 9.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; fill: #0b0b0b" transform="translate(576 176.519194)">101.69, 135.84</text>
    </g>
    <g id="text_16">
     <text style="font-size: 8.3px; font-family: 'Arial', 'DejaVu Sans', sans-serif; text-anchor: start; fill: #52514e" x="8.64" y="238.031328" transform="rotate(-0 8.64 238.031328)">One run: its stations are not independent cases. No precision, recall or F1. Only gravity differs between the rows, and gravity is not an input.</text>

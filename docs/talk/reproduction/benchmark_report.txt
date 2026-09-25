@@ -16,6 +16,19 @@ jin_sco2_buoyancy                  thermal-fluids Bu                     unobser
 
 observability guards: all passed
 
+What the closure-validity check adds to the input-based detectors
+  at the reference operating percentile 99. Counts are rows of each dataset, not
+  independent cases, and the datasets are not pooled.
+
+  vehicle                            failure variable  wrong: caught only by PhysMAP   right: flagged anyway
+  naca_tn1451                        unobservable      20 of 20                        24
+  velazquez_sco2                     partial           18 of 67                        0
+  forrest                            observable        not tested -- 1 training row(s), no detector fit
+  casper_hypersonic_transition       unobservable      4 of 8                          0
+  marineau_hypersonic_transition     observable        0 of 6                          0
+  dirker_water                       partial           2 of 11                         16
+  jin_sco2_buoyancy                  unobservable      15 of 26                        0
+
 Redistribution basis -- read this before reusing any of this data
 
   2 of the 7 shipped datasets carry affirmative permission: public domain or an open licence.
