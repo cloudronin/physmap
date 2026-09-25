@@ -185,6 +185,55 @@ redistribution terms and partly because it is not runtime data. From a plain
 Optional extras: `[jsonld]` adds evidence export via `uofa`, `[experiment]` adds
 `matplotlib` for benchmark figures, `[dev]` adds the test tooling.
 
+## Using the guardrail
+
+The guardrail does not guess which checks to combine. Its setup decides.
+
+```python
+from physmap import ColumnMap, CredibilityGuardrail, Regime
+
+guard = CredibilityGuardrail(
+    surrogate_inputs=["Re", "Pr"],          # exactly the inputs your surrogate takes
+    regime=Regime.ENTRANCE_REGION_PIPE,     # the physics it is used in: picks the closures
+)
+cols = ColumnMap(inputs=["Re", "Pr", "x_over_D"])   # the surrogate inputs, plus every
+                                                    # variable those closures put a bound on
+guard.fit(train_X, train_y=train_y, columns=cols)   # arrays whose columns follow `cols`
+for a in guard.assess(test_X, columns=cols):
+    print(a.verdict.name, a.rationale)
+```
+
+**What each piece does**
+
+- **`surrogate_inputs`** — the columns your surrogate actually uses. The input-based OOD
+  detectors are fitted on exactly these.
+- **`regime`** — picks the closure relations whose validated ranges the closure check uses.
+  Choose the regime that matches your physics, or name one closure with `closure_id=`. If none
+  matches, use `Regime.UNLISTED`: the guardrail then runs the OOD detectors alone.
+- **The data columns** — must include every variable those closures bound, even ones the
+  surrogate never sees (here `x_over_D`). If one is missing, `fit` stops and names it.
+- **`train_y`** — the training targets. The GP-variance detector needs them.
+- **`detectors=`** — optional. The default is novelty density and GP variance (the input-based
+  OOD detectors) plus closure validity. Distance-to-training and a conformal residual check are
+  also available.
+
+**How the verdict is combined, for each prediction**
+
+- At setup, each bounded variable is classed **observable** (it is a surrogate input),
+  **unobservable** (it is not), or **partial**. `guard.observability_classification` shows the
+  result.
+- The closure check fires on an **unobservable** variable → `REJECT`. The OOD detectors
+  cannot see that variable, so the closure check is trusted.
+- It fires on a **partial** variable → a calibrated blend where a calibration exists,
+  otherwise `UNCERTAIN`.
+- Otherwise — the closure check is quiet, or the variable is one the detectors can see — the
+  OOD detectors decide: none fired → `TRUSTWORTHY`, a reject-level fire → `REJECT`, anything
+  else → `WARN`.
+
+Every listed regime's closures ship in the published corpus. A complete, runnable version of
+the example above is
+[`examples/naca_entrance_region.py`](https://github.com/cloudronin/physmap/blob/main/examples/naca_entrance_region.py).
+
 ## The corpus
 
 The code is MIT and the corpus data is CC BY 4.0 — see the licences below.
