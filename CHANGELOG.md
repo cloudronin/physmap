@@ -1,5 +1,20 @@
 # Changelog
 
+## Unreleased — the uncertainty-quantification block
+
+- **`physmap uq`**, the minimal propagation in Roy and Oberkampf's accounting: aleatory input
+  samples through the prediction, the epistemic terms kept on separate lines — held-out
+  emulation error, the closure's validation metric inside its range or UNBOUNDED outside it
+  unless an extrapolation band is declared, and W-SURR-06's omitted-mechanism materiality — out
+  as a probability box at named quantiles and a JSON report. Never one number. numpy and
+  scipy only, imported inside the command.
+- **Two figures under `docs/uq/`**, each with its data tables: the NACA coverage figure (a 90 %
+  split-conformal interval that cannot see x/D, calibrated on the digitisation's declared noise
+  model because the 40 fully developed reads are 5 values) and the Lewis materiality-interval
+  figure (the emulation interval is identical with gravity off and on; the materiality term is
+  what opens). `python -m physmap.uq.figures check` recomputes every table and example.
+- Handoff for the next two steps: `docs/handoff/uq-q1-q3.md`.
+
 ## 0.2.5 — two functions, and a corrected NACA bank
 
 ### Changed: how PhysMAP is presented
