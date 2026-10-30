@@ -1,4 +1,4 @@
-<!-- Mirrored from cloudronin/praxis-tools docs/specs/surrogate-governance-loop.md on 2026-10-30 (commit 9e6daa0). The praxis-tools copy is the working copy; this one is the public reference for the NWC27 talk, the UQAIS paper and the three open-model cases. -->
+<!-- Mirrored from cloudronin/praxis-tools docs/specs/surrogate-governance-loop.md on 2026-10-30 (commit 9e6daa0). The praxis-tools copy is the working copy; this one is the public reference for the NWC27 talk, the UQAIS paper and the three open-model cases. The governed review workbench that dispositions firings is private until requirement C6 publishes it; this repository's public-surface audit forbids naming private repositories, so it is called "the Workbench" here. The public uofa tooling is at github.com/cloudronin/uofa. -->
 
 # Surrogate Governance Loop: requirements
 
@@ -6,7 +6,7 @@ Version 0.2, 2026-10-29. Adds section 4.5, outside physics PhysMAP can take in. 
 paper due 2027-01-31, talk 2027-04-25 to 28) and for the open stack it demonstrates.
 
 The three repos: `cloudronin/physmap` (MIT, 0.2.5), `cloudronin/uofa` (Apache-2.0, 0.20.0),
-`cloudronin/credenza` (private, 0.1.0, to be opened). Facts below were read from those repos on
+the review-workbench repository (private, 0.1.0, to be opened under C6). Facts below were read from those repos on
 2026-10-29 at their current heads. Anything marked **INVESTIGATE** was not confirmed in code and must
 be checked before it is built on.
 
@@ -19,7 +19,7 @@ and the package gets a signed successor.
 
 ## 2. The three stages
 
-| Stage | The check (physmap) | The human (credenza) | The record (uofa) |
+| Stage | The check (physmap) | The human (workbench) | The record (uofa) |
 |---|---|---|---|
 | Before reuse | Is a mechanism outside calibration, and does it matter? Lewis 35A: Ri 0.29 against a window of 0; materiality 0.006 to 0.195 downstream | Reuse, or not, with a reason | Signed package with the decision |
 | At deployment | Does the physics the prediction relies on still apply? NACA: 45 of 45 outside the closure's region, 36 numerically close | Disposition each flag: Confirmed, Overruled, Not Applicable | Flags, dispositions and the ledger sealed under the signature |
@@ -31,7 +31,7 @@ and the package gets a signed successor.
 |---|---|---|---|
 | Check | physmap | Flags exported as UofA annotations with no disposition, a source agent, and surrogate-pack pattern ids; a `monitor` command | `assess()` per prediction; `pipeline/assessment_v06.py` exports `Discrepancy`, `CredibilityFactor`, `WeakenerAnnotation`, `OffsetRationale`, `Disposition`; its adjudicator picks the action class itself |
 | Format and catalog | uofa | Two new surrogate-pack patterns; the external-annotation rule; a plain `uofa disposition` command | `packs/surrogate` v0.1 with W-SURR-01 to 04 and the SIP measured-evidence path; sign, verify, cross-version verify |
-| Engine | credenza | A second firing source with a source chip; the Evolve minimum; the status statement for CI | Ingest, Extract, Review, Dispositions, Finalize; ledger by construction; `engine.py` runs `uofa rules --format json`; `dispositions.rows()` one row per expected factor; live on HF; Evolve and continuous checks specified, not built |
+| Engine | workbench | A second firing source with a source chip; the Evolve minimum; the status statement for CI | Ingest, Extract, Review, Dispositions, Finalize; ledger by construction; `engine.py` runs `uofa rules --format json`; `dispositions.rows()` one row per expected factor; live on HF; Evolve and continuous checks specified, not built |
 | Demo and paper | praxis-tools, talk repo | The NACA and Lewis runs end to end, one figure, the runbook | Both PhysMAP runs, numbers and figures, in `physmap/docs/talk` |
 
 ## 4. Requirements
@@ -47,7 +47,7 @@ Vishnu-plus-Claude-Code pace. Hours are build hours; the done-gate is the test.
 | U2 | The surrogate pack gains pattern **W-SURR-06, an omitted mechanism is active and material**. Fires on an annotation naming the mechanism, its dimensionless group, the calibration window, the observed value and the materiality. Severity High. Materiality below the declared threshold does not fire; the threshold is recorded as illustrative when it is. | Fires on Lewis 35A gravity-on at the three downstream stations at θ = 0.10; quiet on gravity-off at every station | 3 |
 | U3 | **External annotation rule.** A `WeakenerAnnotation` may arrive with no `Disposition`. It must carry `prov:wasAttributedTo` a software agent with name and version, and a `source` of `external`. The shapes accept it; `uofa rules` lists it as a firing with `source: external`; `uofa verify` covers it. | SHACL accepts the NACA export; `rules --format json` emits the external firings with the source field; a package signed with them verifies on a second machine | 4 |
 | U4 | **Recommendation, not decision.** An external annotation may carry `recommendedAction` from the five action classes. It is never read as a `Disposition`. | Fixture with a recommendation and no disposition: `rules` reports the firing as undispositioned | 1 |
-| U5 | **`uofa disposition` command.** Lists undispositioned firings (engine and external) for a package; records Confirmed, Overruled or Not Applicable with a reason and a named reviewer; writes the ledger entry; refuses `Accepted`. The same three verdicts as Credenza's Part B, parsed from the protocol, not retyped. | Disposition one NACA firing from the CLI; the ledger entry has actor, timestamp, prior value; `sign` then `verify` pass | 6 |
+| U5 | **`uofa disposition` command.** Lists undispositioned firings (engine and external) for a package; records Confirmed, Overruled or Not Applicable with a reason and a named reviewer; writes the ledger entry; refuses `Accepted`. The same three verdicts as the Workbench's Part B, parsed from the protocol, not retyped. | Disposition one NACA firing from the CLI; the ledger entry has actor, timestamp, prior value; `sign` then `verify` pass | 6 |
 | U6 | **Successor link.** A package may declare `prov:wasDerivedFrom` the hash of a prior package. `verify` checks the hash is well formed and, when the prior package is present, that it verifies. **INVESTIGATE:** the praxis says a revision is a new package with a provenance link; confirm the property name and whether `verify` already follows it. | Two packages, the second derived from the first: `verify` reports the chain | 3 |
 
 ### 4.2 physmap (public): the export and the monitor
@@ -78,7 +78,7 @@ An applicability bound is any checkable statement about the point of use, with a
 
 Each kind reduces to a yes or no per point, so the rule engine and W-SURR-05 do not change. Outside any bound the applicability term is unbounded. A bound with no source fires W-SURR-07 (Q6). The claims rule does not change: outside a bound means unsupported by the validation evidence the model ships with, never wrong. The three cases of section 4.7 need `set` (X3), `point` (X1) and `ratio` or `range` (X2, X2b); the acceptance test for this amendment is that all three declare through the spec with no code written per case.
 
-### 4.3 credenza (to be opened): the engine
+### 4.3 workbench (to be opened): the engine
 
 | Id | Requirement | Done-gate | Hours |
 |---|---|---|---|
@@ -87,16 +87,16 @@ Each kind reduces to a yes or no per point, so the rule engine and W-SURR-05 do 
 | C3 | **Machine candidate for external firings.** An external annotation's `recommendedAction` renders as an inert candidate, never a selection, and never on a judgment-class row. Same as today's machine draft. | Candidate visible, not selected, adoption is one logged click | 1 |
 | C4 | **Evolve minimum.** Import a sealed package, run `uofa verify` first and record the finding as the opening fact, carry `wasDerivedFrom` the prior hash (U6), re-open only the factors whose evidence changed, re-seal. Prior judgments keep their original actor. | The Lewis package after `monitor` imports as a successor; the three new flags are the only open rows; the successor verifies and names its predecessor | 10 |
 | C5 | **Status statement for CI.** A machine-readable JSON per package: undispositioned flag count, applicability rate, materiality trend, last reviewer, last signature, predecessor hash. No pass or fail; the customer pipeline decides. From the continuous-assurance spec v2.1 §3.3. | File validates against a published schema; a sample GitHub Actions step reads it and prints the numbers | 3 |
-| C6 | **Public repo cut.** A new repository with `credenza/` (the package), `docs/guide`, the vendored protocol, `tests/`, a README and a license matching uofa (Apache-2.0) or AGPL-3.0 if the hosted service stays the paid tier. Not included: `docs/specs`, `dev/`, `cases/`, `deploy/`, `stranger-prompt.md`. `store/` audited for any key or account artifact that was ever real. CI runs the tests on the public wheel. | Fresh clone, `pip install -e ".[dev]"`, tests pass; `git log` starts at the cut; no secret scanner hit | 12 |
+| C6 | **Public repo cut.** A new repository with `workbench/` (the package), `docs/guide`, the vendored protocol, `tests/`, a README and a license matching uofa (Apache-2.0) or AGPL-3.0 if the hosted service stays the paid tier. Not included: `docs/specs`, `dev/`, `cases/`, `deploy/`, `stranger-prompt.md`. `store/` audited for any key or account artifact that was ever real. CI runs the tests on the public wheel. | Fresh clone, `pip install -e ".[dev]"`, tests pass; `git log` starts at the cut; no secret scanner hit | 12 |
 
-Rename note: the praxis and Figure 4.5.3 say Credibility Inspector; the public repo says Credenza.
+Rename note: the praxis and Figure 4.5.3 say Credibility Inspector; the public repo says the Workbench.
 Both stay. Nothing in the praxis changes.
 
 ### 4.4 Demo and paper
 
 | Id | Requirement | Done-gate | Hours |
 |---|---|---|---|
-| D1 | **End-to-end runbook, NACA.** `physmap assess --emit-uofa` → Credenza ingest → disposition one of the 36 numerically-close points as Overruled with a reason → sign → `uofa verify` on a second machine. Captured output committed. | Runs from a clean clone in under five minutes; the captured output matches | 4 |
+| D1 | **End-to-end runbook, NACA.** `physmap assess --emit-uofa` → the Workbench ingest → disposition one of the 36 numerically-close points as Overruled with a reason → sign → `uofa verify` on a second machine. Captured output committed. | Runs from a clean clone in under five minutes; the captured output matches | 4 |
 | D2 | **Production demo, Lewis.** `physmap monitor` on the 12 stations in order → successor package → the three new flags dispositioned → re-seal → chain verified. | Same as D1 | 3 |
 | D3 | **One figure.** PhysMAP verdict → annotation → disposition → signature → successor, with the real NACA rationale text in it. | Figure in the talk repo with its data file, like the existing `bench_` figures | 3 |
 | D4 | **Claims ledger entries.** Every headline sentence the talk says, with command, artifact, scope and limits, in the style of `physmap/docs/talk/claims-ledger.md`. No detection rate, no F1, Lewis is one run. | Ledger builds; `check` passes | 3 |
@@ -156,7 +156,7 @@ of the human decision; it is not a fourth stage.
 | Q1 | **Coverage figure, NACA.** A (Re, Pr) -> Nu surrogate trained on fully developed points only (x/D >= 10), with a split-conformal interval at a nominal 90 percent calibrated on held-out fully developed points. Report empirical coverage on fully developed test points and on the 45 entrance points, per Reynolds curve, counts never pooled. One figure: interval and measured error against x/D, with the W-SURR-05 flags marked. x/D is not a surrogate input, so the entrance points are in-distribution to the interval and to any input-based detector. | Fully developed coverage inside the binomial band for 90 percent; entrance coverage reported with its count; flags on 45 of 45; every number in a data table beside the figure, in the `docs/talk/figures` style but under a new `docs/uq/` so `tools/talk_package.py check` is untouched | 6 |
 | Q2 | **Materiality interval figure, Lewis 35A.** The same interval machinery trained with gravity off is unchanged at the gravity-on stations (the input columns are identical, per the bank). The W-SURR-06 materiality from matched ablation is the interval that opens. One figure: statistical interval, materiality interval and measured error against x/D. | Reproduces the bank's materiality at the three downstream stations at theta = 0.10 (0.111, 0.154, 0.195) and the identical-interval fact; theta stated as illustrative | 4 |
 | Q3 | **`physmap uq`, the minimal propagation.** Inputs: predictions (callable or CSV), aleatory input samples, and the epistemic terms kept separate: emulation error interval from held-out runs; closure status per point (inside: carry the declared validation metric; outside: unbounded unless an extrapolation band is declared, and then flagged as declared); mechanism materiality interval. Output: a probability box on the quantity of interest (lower and upper CDF at named quantiles) and a JSON report with each term listed on its own line, Roy and Oberkampf style. Never a single number. "Unbounded" is a legal and reported outcome. | On NACA fully developed points the box width is the emulation term plus the validation term; on entrance points the report says unbounded (or names the declared band); on Lewis the box widens by the materiality at the three stations and nowhere else. numpy and scipy only; `import physmap` stays free of sklearn | 10 |
-| Q4 | **UQ report as evidence.** The Q3 report attaches to the `--emit-uofa` export (P1) as claims with source and status, so the disposition in Credenza sees the box, the terms, and any unbounded line. | A package carrying the report validates; Credenza shows the terms on the factor row | 3 |
+| Q4 | **UQ report as evidence.** The Q3 report attaches to the `--emit-uofa` export (P1) as claims with source and status, so the disposition in the Workbench sees the box, the terms, and any unbounded line. | A package carrying the report validates; the Workbench shows the terms on the factor row | 3 |
 | Q5 | **Paper section and claims ledger.** The process table (steps 0 to 7), the two figures, and ledger entries for every headline sentence, with limits. No coverage rate pooled across datasets. | Ledger `check` passes | 3 |
 | Q6 | **UQ-bounded context of use (added 2026-10-30).** The package states, in one place attached to the context-of-use node, a credibility-bounds claim per quantity of interest: the box bounds at named quantiles, the terms they are built from (Q3), and the validation domain in which they hold (closure ranges, mechanism windows, training envelope, from P6). A new pattern **W-SURR-07, context of use not covered by declared bounds**, fires when a quantity of interest in the context of use has no bounds claim, or when the context of use reaches outside the domain the bounds were established in. Severity High. The production monitor (P3) reads the same claim: a prediction outside the bounded domain is the applicability event it counts. This is the sentence an engineer signs: credible for this use, within these bounds, with these lines unbounded. | NACA package with bounds declared for the fully developed domain: W-SURR-07 quiet on the 40, fires on the 45; a package with no bounds claim for its quantity of interest fires once at package level; `uofa verify` covers the claim; `physmap monitor` reports the share outside the bounded domain | 6 |
 
@@ -205,8 +205,8 @@ Investigation items for this section: DoMINO's input signature and DrivAerML's i
 | uofa U1 to U6 | 20 | nothing |
 | physmap P1 to P3 | 12 | U1 to U4 |
 | physmap P4 to P6 | 17 | P1 |
-| credenza C1 to C5 | 21 | U3, U5, U6, P1 |
-| credenza C6, the public cut | 12 | nothing; can run first |
+| workbench C1 to C5 | 21 | U3, U5, U6, P1 |
+| workbench C6, the public cut | 12 | nothing; can run first |
 | demo D1 to D4 | 13 | everything above |
 | **Total, required** | **95** | |
 | physmap P7 to P9, outside physics (optional) | 18 | P4, P5 |
@@ -216,7 +216,7 @@ Investigation items for this section: DoMINO's input signature and DrivAerML's i
 
 At the measured pairing pace that is about four weekends and the weeknights between. The abstract
 (2026-11-09) promises nothing that needs any of it: the PhysMAP cases, UofA signing and verification,
-and the Credenza disposition step already exist. The build only decides how much of the talk runs live.
+and the Workbench disposition step already exist. The build only decides how much of the talk runs live.
 
 Order: C6 first, because the public repo is the thing the talk points at and it blocks nothing. Then
 U1 to U4 and P1 together (the contract), then C1 (the first live moment), then U5, P3, U6, C4 (the
@@ -248,7 +248,7 @@ production stage), then P4 to P6 (bring your own physics), then the demo rows.
 ## 8. What the talk may claim, and what it may not
 
 May: the two PhysMAP results with their stated limits; signed packages verified on another machine
-and across uofa versions; 10 of 10 pre-registered stranger runs through Credenza with 30 of 30 checks;
+and across uofa versions; 10 of 10 pre-registered stranger runs through the Workbench with 30 of 30 checks;
 one open-source stack once C6 lands.
 
 May not: a detection rate for PhysMAP; any F1; that Lewis is more than one run; that the monitor
@@ -265,11 +265,11 @@ Done and merged: U1 to U4 (uofa main, PR #142, surrogate pack v0.2); Q1 to Q3 (p
 | U5, U6 | `uofa disposition` command; successor link; the three core-namespace terms moved into core vocab | nothing | 9 | Nov 6 sessions | uofa |
 | P1, P2 | `physmap assess --emit-uofa`; what `weakener_link` carries | U3 (done) | 6 | Nov 6 sessions | physmap |
 | P4, P5 | Bring-your-own closure and mechanism specs, with the bound kinds | P4 amendment | 14 | Dec 12 | physmap |
-| X3 | MACE-MP-0 through UQAIS: physics declared (`set` bound, dispersion as the mechanism), truth set chosen, flags, dispositions, signed record | P4, P5; U5 or a hand disposition in Credenza | 12 | Dec 20 | physmap, uofa |
+| X3 | MACE-MP-0 through UQAIS: physics declared (`set` bound, dispersion as the mechanism), truth set chosen, flags, dispositions, signed record | P4, P5; U5 or a hand disposition in the Workbench | 12 | Dec 20 | physmap, uofa |
 | X1 | DoMINO on DrivAerML: input-signature investigation first, then `point` bound, RANS ablation, record | P4, P5 | 30 | Dec 20 | physmap |
 | X2 or X2b | NeuralGCM (`range` bound on SST anomaly) or AIFS Single (`ratio` bound on core size over grid) | P4, P5 | 25 or 12 | Dec 20 | physmap |
-| C6 | Public Credenza cut | license (Nov 5) | 12 | Dec | credenza |
-| C1 to C5 | Second firing source; factor mapping; machine candidate; Evolve minimum; CI status statement | U3, U5, U6, P1 | 21 | Jan 15 | credenza |
+| C6 | Public the Workbench cut | license (Nov 5) | 12 | Dec | workbench |
+| C1 to C5 | Second firing source; factor mapping; machine candidate; Evolve minimum; CI status statement | U3, U5, U6, P1 | 21 | Jan 15 | workbench |
 | P3 | `physmap monitor` and the applicability rate | P1 | 6 | Jan 15 (kill line) | physmap |
 | Q4 | The UQAIS report attached to the export as evidence | P1, Q3 | 3 | Jan | physmap, uofa |
 | Q6 | Bounds claim on the context of use; W-SURR-07 | Q3, P6 | 6 | Jan | uofa |
