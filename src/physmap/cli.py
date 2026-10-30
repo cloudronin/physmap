@@ -67,6 +67,37 @@ def build_parser() -> argparse.ArgumentParser:
     stress.add_argument("--json", metavar="PATH",
                         help="also write the full fresh record to PATH (never the committed bank)")
 
+    # Q3 of the Surrogate Governance Loop's UQ block: aleatory samples through the prediction,
+    # the epistemic terms kept on separate lines, a probability box out. Needs no checkout.
+    uq = sub.add_parser(
+        "uq",
+        help="propagate aleatory input samples and the separate epistemic terms (emulation, "
+             "closure validation or UNBOUNDED, omitted-mechanism materiality) into a "
+             "probability box, Roy and Oberkampf style -- never one number")
+    uq.add_argument("--samples", required=True, metavar="CSV",
+                    help="aleatory input samples: a `point` column plus the input columns")
+    pred = uq.add_mutually_exclusive_group(required=True)
+    pred.add_argument("--predict", metavar="MODULE:FUNCTION",
+                      help="a callable, called as fn(**{column: array}) per point")
+    pred.add_argument("--predictions", metavar="CSV",
+                      help="precomputed predictions: `point` and `prediction`, one row per "
+                           "sample, or one per point")
+    uq.add_argument("--terms", required=True, metavar="CSV",
+                    help="per point: emulation, closure_status (inside|outside), validation, "
+                         "extrapolation_band (blank = UNBOUNDED), materiality (`none` = not "
+                         "assessed); all relative to the prediction")
+    uq.add_argument("--inputs", metavar="COLS",
+                    help="comma-separated input columns to pass to the callable (default: "
+                         "every column but `point`)")
+    uq.add_argument("--emulation", type=float, metavar="X",
+                    help="default emulation half-width for points whose terms row leaves it blank")
+    uq.add_argument("--theta", type=float, metavar="THETA",
+                    help="apply the materiality term only where materiality >= THETA; theta is "
+                         "not locked, so the report labels it illustrative")
+    uq.add_argument("--quantiles", default="0.05,0.25,0.5,0.75,0.95", metavar="LIST",
+                    help="quantiles at which the box is read (default 0.05,0.25,0.5,0.75,0.95)")
+    uq.add_argument("--out", metavar="JSON", help="write the full report here")
+
     # `reproduce` is added only in a release whose benchmark has cleared the readiness
     # gate. In a preview build the command does not exist -- `physmap reproduce` is an
     # unrecognised command, not a runtime "data missing" failure.
@@ -98,6 +129,8 @@ def main(argv: list[str] | None = None) -> int:
             return _cmd_explain(args)
         if args.command == "stress-test":
             return _cmd_stress_test(args)
+        if args.command == "uq":
+            return _cmd_uq(args)
     except (CheckoutRequired, TorchRequired) as e:
         # A pip-installed wheel has no checkout, and PyTorch is an optional extra. One
         # sentence saying what is missing and how to get it, not a traceback.
@@ -351,6 +384,32 @@ def _cmd_stress_test(args) -> int:
     else:
         print(f"The record matches the banked record: {cmp.summary()}.")
     return 0 if (not failures and cmp.matches) else 1
+
+
+def _cmd_uq(args) -> int:
+    # numpy is imported inside physmap.uq.pbox, not here: a bare `import physmap` and
+    # `physmap --help` stay free of the scientific stack.
+    from physmap.uq import pbox
+
+    try:
+        quantiles = tuple(float(q) for q in args.quantiles.split(","))
+        inputs = [c.strip() for c in args.inputs.split(",")] if args.inputs else None
+        samples, _, s_notes = pbox.load_samples(args.samples, inputs)
+        if args.predict:
+            predictions = pbox.predictions_from_callable(pbox.resolve_callable(args.predict), samples)
+        else:
+            predictions = pbox.predictions_from_csv(args.predictions, samples)
+        terms, t_notes = pbox.load_terms(args.terms, samples, {"emulation": args.emulation})
+        report = pbox.propagate(samples, predictions, terms, theta=args.theta,
+                                quantiles=quantiles, inputs_note=s_notes, terms_note=t_notes)
+    except (pbox.UQInputError, OSError, ValueError) as e:
+        print(f"physmap uq: {e}", file=sys.stderr)
+        return 2
+    print(pbox.render(report))
+    if args.out:
+        pbox.write_report(report, args.out)
+        print(f"Wrote the report to {args.out}.")
+    return 0
 
 
 if __name__ == "__main__":
