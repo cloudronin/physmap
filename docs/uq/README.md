@@ -1,7 +1,8 @@
+UQAIS, uncertainty quantification for AI surrogates: it accounts for the uncertainty a surrogate inherits from the physics it learned.
+
 # UQAIS, uncertainty quantification for AI surrogates
 
-UQAIS (pronounced like "ukase") accounts for the uncertainty a surrogate inherits from the
-physics it learned.
+Pronounced like "ukase".
 
 The surrogate replaces a simulation. Its uncertainty has two kinds, and Roy and Oberkampf's
 accounting keeps them apart: **aleatory** (input variability, propagated by sampling) and
