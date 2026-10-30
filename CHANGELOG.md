@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — the uncertainty-quantification block
+## Unreleased — UQAIS, the uncertainty-quantification block
 
 - **`physmap uq`**, the minimal propagation in Roy and Oberkampf's accounting: aleatory input
   samples through the prediction, the epistemic terms kept on separate lines — held-out

@@ -1,4 +1,4 @@
-"""Build and check the UQ figures, their data tables, and the `physmap uq` examples.
+"""Build and check the UQAIS figures, their data tables, and the `physmap uq` examples.
 
     python -m physmap.uq.figures build      # figures (needs matplotlib), tables, examples
     python -m physmap.uq.figures check      # recompute the tables and compare, no matplotlib
@@ -26,6 +26,7 @@ INK = {"surface": "#fcfcfb", "primary": "#0b0b0b", "secondary": "#52514e", "mute
        "on": "#eb6834", "band": "#d9d8d1"}
 W, H = 10.0, 5.625
 THETA_DASH = (0, (5, 4))
+PROCESS = "UQAIS, Uncertainty Quantification for AI Surrogates"
 NACA_SAMPLES_PER_POINT = 50
 NACA_RE_SPREAD = 0.02           # illustrative relative sd on Re; the source declares none
 NACA_SAMPLE_SEED = 3
@@ -77,7 +78,7 @@ def naca_tables(N: dict) -> dict[str, str]:
            "gp_variance_fired"]
     cnt = list(N["counts"][0].keys())
     att = ["method", "calibration_units", "order_statistic_k", "finite_interval", "half_width", "note"]
-    cal = [["nominal", N["nominal"]], ["alpha", round(N["alpha"], 12)],
+    cal = [["process", PROCESS], ["nominal", N["nominal"]], ["alpha", round(N["alpha"], 12)],
            ["emulator", N["emulator"]], ["closure", N["closure"]],
            ["fully_developed_from_x_over_D", N["fully_developed_from"]],
            ["n_calibration_replicates", N["n_calibration"]],
@@ -109,7 +110,7 @@ def lewis_tables(L: dict) -> dict[str, str]:
           "materiality_term_at_theta", "materiality_low", "materiality_high"]
     folds = ["run", "Re", "Pr", "n_rows", "worst_abs_relative_error"]
     e = L["emulation"]
-    summary = [["design", L["design"]], ["nominal", L["nominal"]],
+    summary = [["process", PROCESS], ["design", L["design"]], ["nominal", L["nominal"]],
                ["theta_illustrative", L["theta_illustrative"]],
                ["emulation_unit", e["unit"]], ["emulation_n_units", e["n_units"]],
                ["emulation_order_statistic_k", e["order_statistic_k"]],
@@ -146,12 +147,12 @@ def naca_examples(N: dict) -> dict[str, str]:
                "declares no input uncertainty; this spread illustrates the propagation and is "
                "not a source value.\n" + _csv_text(["point", "Re", "Pr"], rows))
     t = uq_terms(N)
-    th = ["point", "Re", "Pr", "x_over_D", "emulation", "closure_status", "validation",
-          "extrapolation_band", "materiality"]
+    th = ["point", "Re", "Pr", "x_over_D", "emulation", "closure_status", "bound_kind",
+          "validation", "extrapolation_band", "materiality"]
     terms = ("# terms relative to the prediction. emulation 0: the emulator is gnielinski-1976 "
              "itself. validation: the Q1 split-conformal half-width at nominal 90 %, inside the "
-             "closure's validated range (x/D >= 10). Entrance points are outside it with no "
-             "declared extrapolation band: UNBOUNDED. materiality 0: no omitted mechanism is "
+             "closure's validated range (x/D >= 10, a range bound). Entrance points are outside it with "
+             "no declared extrapolation band: UNBOUNDED. materiality 0: no omitted mechanism is "
              "modelled for this case.\n" + _csv_text(th, [[r[k] for k in th] for r in t]))
     return {"naca_samples.csv": samples, "naca_terms.csv": terms}
 
@@ -171,12 +172,13 @@ def lewis_examples(L: dict) -> dict[str, str]:
              "results/lewis35A_head_to_head/stress_test_lewis_reuse.json; identical with gravity "
              "off and on because the inputs are.\n" + _csv_text(["point", "prediction"], prows))
     t = uq_terms(L)
-    th = ["point", "x_over_D", "comparable", "emulation", "closure_status", "validation",
-          "extrapolation_band", "materiality"]
+    th = ["point", "x_over_D", "comparable", "emulation", "closure_status", "bound_kind",
+          "validation", "extrapolation_band", "materiality"]
     terms = ("# terms relative to the prediction. emulation: the Q2 held-out-run half-width at "
              "nominal 90 %. closure_status inside with validation 0: the surrogate is a GP "
              "with no closure, and the gravity-off CFD control is the declared validation "
-             "(within 0.06 %, inside the emulation term). materiality: W-SURR-06 from the "
+             "(within 0.06 %, inside the emulation term); the bound is of the point kind, every "
+             "deployment input exactly a training condition. materiality: W-SURR-06 from the "
              "matched ablation, gated by --theta 0.10, which is illustrative.\n"
              + _csv_text(th, [[r[k] for k in th] for r in t]))
     return {"lewis_samples.csv": samples, "lewis_predictions.csv": preds, "lewis_terms.csv": terms}
@@ -452,9 +454,10 @@ def captions(N: dict, L: dict) -> str:
     q2 = 100 * L["emulation"]["half_width"]
     three = L["materiality_at_three_downstream"]
     mstr = ", ".join(f"{m:.3f} at x/D {x:g}" for x, m in three.items())
-    text = f"""# UQ figures — generated, do not edit
+    text = f"""# UQAIS figures — generated, do not edit
 
-Built by `python -m physmap.uq.figures build` from committed records only. Each figure ships
+UQAIS, Uncertainty Quantification for AI Surrogates: the uncertainty a surrogate inherits from
+the physics it learned, kept on its own lines. Built by `python -m physmap.uq.figures build` from committed records only. Each figure ships
 as an editable vector SVG and a 1920-pixel PNG, with a table twin in `data/` holding every
 plotted value. Blue is gravity off and orange is gravity on; the only dashed line would be an
 illustrative threshold. Light theme only.

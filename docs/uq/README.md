@@ -1,4 +1,7 @@
-# Uncertainty quantification around the two checks
+# UQAIS, uncertainty quantification for AI surrogates
+
+UQAIS (pronounced like "ukase") accounts for the uncertainty a surrogate inherits from the
+physics it learned.
 
 The surrogate replaces a simulation. Its uncertainty has two kinds, and Roy and Oberkampf's
 accounting keeps them apart: **aleatory** (input variability, propagated by sampling) and
@@ -131,7 +134,7 @@ physmap uq --samples SAMPLES.csv (--predict module:function | --predictions PRED
 |---|---|
 | `--samples` | aleatory input samples: a `point` column and the input columns, one row per sample. One row per point means no declared input variability: the CDF is a step. |
 | `--predict` / `--predictions` | a callable `module:function`, called as `fn(**{column: array})` per point; or a CSV of `point, prediction`, one row per sample or one per point |
-| `--terms` | per point, **relative to the prediction**: `emulation` (held-out emulation error); `closure_status` inside/outside; `validation` (the declared validation metric, used inside); `extrapolation_band` (used outside; blank means **UNBOUNDED**); `materiality` (from an ablation; `none` means **not assessed**). Any term may be signed as `<term>_low`/`<term>_high`. A term that is not declared is an error, not a zero. |
+| `--terms` | per point, **relative to the prediction**: `emulation` (held-out emulation error); `closure_status` inside/outside and `bound_kind`, the kind of applicability bound behind it — range, set, point (a single training condition with a tolerance) or ratio (a derived quantity against a threshold); `validation` (the declared validation metric, used inside); `extrapolation_band` (used outside; blank means **UNBOUNDED**); `materiality` (from an ablation; `none` means **not assessed**). Any term may be signed as `<term>_low`/`<term>_high`. A term that is not declared is an error, not a zero. |
 | `--theta` | apply the materiality term where materiality ≥ θ; the report labels θ illustrative |
 
 **Output.** Per point: the aleatory quantiles; each term on its own line with its interval and

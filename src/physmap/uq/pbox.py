@@ -1,4 +1,5 @@
-"""`physmap uq` -- the minimal propagation, Roy and Oberkampf style.
+"""`physmap uq` -- UQAIS, Uncertainty Quantification for AI Surrogates: the minimal propagation,
+Roy and Oberkampf style.
 
 Inputs
     samples      CSV: a `point` column and the aleatory input columns, one row per sample.
@@ -9,6 +10,9 @@ Inputs
                  RELATIVE to the prediction (a fraction, not a percent):
                    emulation            held-out emulation error of the surrogate
                    closure_status       inside | outside the closure's validated range
+                   bound_kind           the kind of applicability bound that produced that status:
+                                        range, set, point (a single training condition with a
+                                        tolerance) or ratio (a derived quantity against a threshold)
                    validation           the declared validation metric (used when inside)
                    extrapolation_band   a declared band past the range (used when outside);
                                         blank means UNBOUNDED, and that is what is reported
@@ -38,6 +42,8 @@ from dataclasses import asdict, dataclass
 
 import numpy as np
 
+PROCESS = "UQAIS, Uncertainty Quantification for AI Surrogates"
+BOUND_KINDS = ("range", "set", "point", "ratio")
 TERM_NAMES = ("emulation", "validation", "extrapolation_band", "materiality")
 DEFAULT_QUANTILES = (0.05, 0.25, 0.50, 0.75, 0.95)
 THETA_NOTE = ("theta is not locked; the value used here is illustrative, and the materiality is "
@@ -212,11 +218,15 @@ def terms_for_point(point: str, row: dict, theta: float | None) -> list[Term]:
     status = row.get("closure_status", "").strip().lower()
     if status not in ("inside", "outside"):
         raise UQInputError(f"{where}: closure_status must be inside or outside, got {status!r}")
+    kind = row.get("bound_kind", "").strip().lower()
+    if kind not in BOUND_KINDS:
+        raise UQInputError(f"{where}: bound_kind must be one of {', '.join(BOUND_KINDS)}, "
+                           f"got {kind!r} (the kind of applicability bound behind closure_status)")
     if status == "inside":
         v = _interval(row, "validation", where)
         terms.append(Term("model_form_validated", *v, "declared",
-                          "inside the closure's validated range: the declared validation metric "
-                          "(closure against measurement)"))
+                          f"inside the closure's validated range (a {kind} bound): the declared "
+                          "validation metric (closure against measurement)"))
         terms.append(Term("model_form_unvalidated", 0.0, 0.0, "not_applied",
                           "the point is inside the validated range (W-SURR-05 quiet)"))
     else:
@@ -230,8 +240,8 @@ def terms_for_point(point: str, row: dict, theta: float | None) -> list[Term]:
                               "extrapolation band, reported as declared, not as validated"))
         else:
             terms.append(Term("model_form_unvalidated", -math.inf, math.inf, "unbounded",
-                              "outside the closure's validated range (W-SURR-05) and no "
-                              "extrapolation band is declared: UNBOUNDED"))
+                              f"outside the closure's validated range (W-SURR-05, a {kind} bound) "
+                              "and no extrapolation band is declared: UNBOUNDED"))
 
     m = _interval(row, "materiality", where)
     if m is None:
@@ -290,6 +300,8 @@ def propagate(samples: dict, predictions: dict, terms: dict, *, theta: float | N
         points.append({
             "point": point,
             "n_samples": int(len(y)),
+            "closure_status": terms[point].get("closure_status", "").strip().lower(),
+            "closure_bound_kind": terms[point].get("bound_kind", "").strip().lower(),
             "inputs": {c: {"min": float(v.min()), "median": float(np.median(v)), "max": float(v.max())}
                        for c, v in cols.items()},
             "aleatory_median": med,
@@ -302,6 +314,7 @@ def propagate(samples: dict, predictions: dict, terms: dict, *, theta: float | N
         })
     return {
         "command": "physmap uq",
+        "process": PROCESS,
         "accounting": ("Roy and Oberkampf: aleatory input uncertainty propagated by sampling; "
                        "epistemic terms carried as intervals, listed separately, summed, never "
                        "averaged; model form outside a validated range is unbounded unless a "
@@ -326,7 +339,7 @@ def _fmt(v, nd=4) -> str:
 def render(report: dict) -> str:
     qs = report["quantiles"]
     lo_q, hi_q = f"{qs[0]:g}", f"{qs[-1]:g}"
-    lines = [f"physmap uq -- probability box per point, terms relative to the prediction",
+    lines = [f"physmap uq -- {PROCESS}: a probability box per point, terms relative to the prediction",
              f"  quantiles {', '.join(f'{q:g}' for q in qs)}"]
     if report["theta"] is not None:
         lines.append(f"  theta {report['theta']:g} ({report['theta_note']})")

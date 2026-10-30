@@ -1,5 +1,6 @@
 {
  "command": "physmap uq",
+ "process": "UQAIS, Uncertainty Quantification for AI Surrogates",
  "accounting": "Roy and Oberkampf: aleatory input uncertainty propagated by sampling; epistemic terms carried as intervals, listed separately, summed, never averaged; model form outside a validated range is unbounded unless a band is declared",
  "terms_are_relative_to_the_prediction": true,
  "quantiles": [
@@ -15,13 +16,15 @@
   "illustrative aleatory input: Re with a 2 % relative standard deviation, 50 samples per point, seed 3. NACA TN-1451 declares no input uncertainty; this spread illustrates the propagation and is not a source value."
  ],
  "terms_file_notes": [
-  "terms relative to the prediction. emulation 0: the emulator is gnielinski-1976 itself. validation: the Q1 split-conformal half-width at nominal 90 %, inside the closure's validated range (x/D >= 10). Entrance points are outside it with no declared extrapolation band: UNBOUNDED. materiality 0: no omitted mechanism is modelled for this case."
+  "terms relative to the prediction. emulation 0: the emulator is gnielinski-1976 itself. validation: the Q1 split-conformal half-width at nominal 90 %, inside the closure's validated range (x/D >= 10, a range bound). Entrance points are outside it with no declared extrapolation band: UNBOUNDED. materiality 0: no omitted mechanism is modelled for this case."
  ],
  "never_a_single_number": true,
  "points": [
   {
    "point": "Re55570_xD10",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52426.78,
@@ -49,7 +52,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -115,6 +118,8 @@
   {
    "point": "Re55570_xD11",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52798.286,
@@ -142,7 +147,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -208,6 +213,8 @@
   {
    "point": "Re55570_xD12",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53037.09,
@@ -235,7 +242,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -301,6 +308,8 @@
   {
    "point": "Re55570_xD13",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53246.635,
@@ -328,7 +337,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -394,6 +403,8 @@
   {
    "point": "Re55570_xD14",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53193.448,
@@ -421,7 +432,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -487,6 +498,8 @@
   {
    "point": "Re55570_xD15",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53078.817,
@@ -514,7 +527,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -580,6 +593,8 @@
   {
    "point": "Re55570_xD16",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52170.915,
@@ -607,7 +622,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -673,6 +688,8 @@
   {
    "point": "Re55570_xD17",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52733.582,
@@ -700,7 +717,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -766,6 +783,8 @@
   {
    "point": "Re50600_xD10",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48533.245,
@@ -793,7 +812,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -859,6 +878,8 @@
   {
    "point": "Re50600_xD11",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48291.037,
@@ -886,7 +907,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -952,6 +973,8 @@
   {
    "point": "Re50600_xD12",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 49102.46,
@@ -979,7 +1002,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1045,6 +1068,8 @@
   {
    "point": "Re50600_xD13",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 47227.934,
@@ -1072,7 +1097,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1138,6 +1163,8 @@
   {
    "point": "Re50600_xD14",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48207.361,
@@ -1165,7 +1192,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1231,6 +1258,8 @@
   {
    "point": "Re50600_xD15",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48410.856,
@@ -1258,7 +1287,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1324,6 +1353,8 @@
   {
    "point": "Re50600_xD16",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 47664.963,
@@ -1351,7 +1382,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1417,6 +1448,8 @@
   {
    "point": "Re50600_xD17",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 47568.857,
@@ -1444,7 +1477,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1510,6 +1543,8 @@
   {
    "point": "Re41800_xD10",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40190.666,
@@ -1537,7 +1572,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1603,6 +1638,8 @@
   {
    "point": "Re41800_xD11",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39959.498,
@@ -1630,7 +1667,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1696,6 +1733,8 @@
   {
    "point": "Re41800_xD12",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39303.304,
@@ -1723,7 +1762,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1789,6 +1828,8 @@
   {
    "point": "Re41800_xD13",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39416.532,
@@ -1816,7 +1857,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1882,6 +1923,8 @@
   {
    "point": "Re41800_xD14",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39873.057,
@@ -1909,7 +1952,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -1975,6 +2018,8 @@
   {
    "point": "Re41800_xD15",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40009.312,
@@ -2002,7 +2047,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2068,6 +2113,8 @@
   {
    "point": "Re41800_xD16",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39995.86,
@@ -2095,7 +2142,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2161,6 +2208,8 @@
   {
    "point": "Re41800_xD17",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40528.587,
@@ -2188,7 +2237,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2254,6 +2303,8 @@
   {
    "point": "Re36500_xD10",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34969.297,
@@ -2281,7 +2332,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2347,6 +2398,8 @@
   {
    "point": "Re36500_xD11",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35086.976,
@@ -2374,7 +2427,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2440,6 +2493,8 @@
   {
    "point": "Re36500_xD12",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35570.534,
@@ -2467,7 +2522,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2533,6 +2588,8 @@
   {
    "point": "Re36500_xD13",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34741.845,
@@ -2560,7 +2617,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2626,6 +2683,8 @@
   {
    "point": "Re36500_xD14",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35099.953,
@@ -2653,7 +2712,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2719,6 +2778,8 @@
   {
    "point": "Re36500_xD15",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35114.722,
@@ -2746,7 +2807,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2812,6 +2873,8 @@
   {
    "point": "Re36500_xD16",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34588.714,
@@ -2839,7 +2902,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2905,6 +2968,8 @@
   {
    "point": "Re36500_xD17",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35329.587,
@@ -2932,7 +2997,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -2998,6 +3063,8 @@
   {
    "point": "Re26400_xD10",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25064.524,
@@ -3025,7 +3092,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3091,6 +3158,8 @@
   {
    "point": "Re26400_xD11",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 24950.328,
@@ -3118,7 +3187,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3184,6 +3253,8 @@
   {
    "point": "Re26400_xD12",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25132.189,
@@ -3211,7 +3282,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3277,6 +3348,8 @@
   {
    "point": "Re26400_xD13",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25499.686,
@@ -3304,7 +3377,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3370,6 +3443,8 @@
   {
    "point": "Re26400_xD14",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25351.089,
@@ -3397,7 +3472,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3463,6 +3538,8 @@
   {
    "point": "Re26400_xD15",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25316.103,
@@ -3490,7 +3567,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3556,6 +3633,8 @@
   {
    "point": "Re26400_xD16",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25163.91,
@@ -3583,7 +3662,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3649,6 +3728,8 @@
   {
    "point": "Re26400_xD17",
    "n_samples": 50,
+   "closure_status": "inside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 24983.956,
@@ -3676,7 +3757,7 @@
     {
      "name": "model_form_validated",
      "status": "declared",
-     "note": "inside the closure's validated range: the declared validation metric (closure against measurement)",
+     "note": "inside the closure's validated range (a range bound): the declared validation metric (closure against measurement)",
      "interval": [
       -0.19207901334223434,
       0.19207901334223434
@@ -3742,6 +3823,8 @@
   {
    "point": "Re55570_xD1",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53237.641,
@@ -3779,7 +3862,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -3829,6 +3912,8 @@
   {
    "point": "Re55570_xD2",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52785.501,
@@ -3866,7 +3951,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -3916,6 +4001,8 @@
   {
    "point": "Re55570_xD3",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53087.839,
@@ -3953,7 +4040,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4003,6 +4090,8 @@
   {
    "point": "Re55570_xD4",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52814.437,
@@ -4040,7 +4129,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4090,6 +4179,8 @@
   {
    "point": "Re55570_xD5",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52696.98,
@@ -4127,7 +4218,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4177,6 +4268,8 @@
   {
    "point": "Re55570_xD6",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52917.839,
@@ -4214,7 +4307,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4264,6 +4357,8 @@
   {
    "point": "Re55570_xD7",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52693.999,
@@ -4301,7 +4396,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4351,6 +4446,8 @@
   {
    "point": "Re55570_xD8",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 53094.052,
@@ -4388,7 +4485,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4438,6 +4535,8 @@
   {
    "point": "Re55570_xD9",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 52410.695,
@@ -4475,7 +4574,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4525,6 +4624,8 @@
   {
    "point": "Re50600_xD1",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48602.67,
@@ -4562,7 +4663,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4612,6 +4713,8 @@
   {
    "point": "Re50600_xD2",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 47801.399,
@@ -4649,7 +4752,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4699,6 +4802,8 @@
   {
    "point": "Re50600_xD3",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48428.231,
@@ -4736,7 +4841,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4786,6 +4891,8 @@
   {
    "point": "Re50600_xD4",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48611.469,
@@ -4823,7 +4930,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4873,6 +4980,8 @@
   {
    "point": "Re50600_xD5",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48627.203,
@@ -4910,7 +5019,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -4960,6 +5069,8 @@
   {
    "point": "Re50600_xD6",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48162.118,
@@ -4997,7 +5108,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5047,6 +5158,8 @@
   {
    "point": "Re50600_xD7",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48398.687,
@@ -5084,7 +5197,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5134,6 +5247,8 @@
   {
    "point": "Re50600_xD8",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 48390.742,
@@ -5171,7 +5286,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5221,6 +5336,8 @@
   {
    "point": "Re50600_xD9",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 47705.05,
@@ -5258,7 +5375,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5308,6 +5425,8 @@
   {
    "point": "Re41800_xD1",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40056.97,
@@ -5345,7 +5464,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5395,6 +5514,8 @@
   {
    "point": "Re41800_xD2",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39435.58,
@@ -5432,7 +5553,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5482,6 +5603,8 @@
   {
    "point": "Re41800_xD3",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39376.758,
@@ -5519,7 +5642,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5569,6 +5692,8 @@
   {
    "point": "Re41800_xD4",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40206.697,
@@ -5606,7 +5731,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5656,6 +5781,8 @@
   {
    "point": "Re41800_xD5",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39747.4,
@@ -5693,7 +5820,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5743,6 +5870,8 @@
   {
    "point": "Re41800_xD6",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40390.905,
@@ -5780,7 +5909,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5830,6 +5959,8 @@
   {
    "point": "Re41800_xD7",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39905.946,
@@ -5867,7 +5998,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -5917,6 +6048,8 @@
   {
    "point": "Re41800_xD8",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 39965.445,
@@ -5954,7 +6087,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6004,6 +6137,8 @@
   {
    "point": "Re41800_xD9",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 40154.61,
@@ -6041,7 +6176,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6091,6 +6226,8 @@
   {
    "point": "Re36500_xD1",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34805.745,
@@ -6128,7 +6265,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6178,6 +6315,8 @@
   {
    "point": "Re36500_xD2",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34459.525,
@@ -6215,7 +6354,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6265,6 +6404,8 @@
   {
    "point": "Re36500_xD3",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34791.274,
@@ -6302,7 +6443,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6352,6 +6493,8 @@
   {
    "point": "Re36500_xD4",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34765.148,
@@ -6389,7 +6532,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6439,6 +6582,8 @@
   {
    "point": "Re36500_xD5",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34440.906,
@@ -6476,7 +6621,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6526,6 +6671,8 @@
   {
    "point": "Re36500_xD6",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35195.65,
@@ -6563,7 +6710,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6613,6 +6760,8 @@
   {
    "point": "Re36500_xD7",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34552.153,
@@ -6650,7 +6799,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6700,6 +6849,8 @@
   {
    "point": "Re36500_xD8",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 35192.995,
@@ -6737,7 +6888,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6787,6 +6938,8 @@
   {
    "point": "Re36500_xD9",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 34538.179,
@@ -6824,7 +6977,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6874,6 +7027,8 @@
   {
    "point": "Re26400_xD1",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25498.231,
@@ -6911,7 +7066,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -6961,6 +7116,8 @@
   {
    "point": "Re26400_xD2",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 24871.667,
@@ -6998,7 +7155,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7048,6 +7205,8 @@
   {
    "point": "Re26400_xD3",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25147.869,
@@ -7085,7 +7244,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7135,6 +7294,8 @@
   {
    "point": "Re26400_xD4",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25742.041,
@@ -7172,7 +7333,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7222,6 +7383,8 @@
   {
    "point": "Re26400_xD5",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 24883.449,
@@ -7259,7 +7422,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7309,6 +7472,8 @@
   {
    "point": "Re26400_xD6",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 24626.5,
@@ -7346,7 +7511,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7396,6 +7561,8 @@
   {
    "point": "Re26400_xD7",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25492.59,
@@ -7433,7 +7600,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7483,6 +7650,8 @@
   {
    "point": "Re26400_xD8",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25469.806,
@@ -7520,7 +7689,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },
@@ -7570,6 +7739,8 @@
   {
    "point": "Re26400_xD9",
    "n_samples": 50,
+   "closure_status": "outside",
+   "closure_bound_kind": "range",
    "inputs": {
     "Re": {
      "min": 25328.149,
@@ -7607,7 +7778,7 @@
     {
      "name": "model_form_unvalidated",
      "status": "unbounded",
-     "note": "outside the closure's validated range (W-SURR-05) and no extrapolation band is declared: UNBOUNDED",
+     "note": "outside the closure's validated range (W-SURR-05, a range bound) and no extrapolation band is declared: UNBOUNDED",
      "interval": "unbounded",
      "width": "unbounded"
     },

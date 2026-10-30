@@ -1,6 +1,7 @@
-# UQ figures — generated, do not edit
+# UQAIS figures — generated, do not edit
 
-Built by `python -m physmap.uq.figures build` from committed records only. Each figure ships
+UQAIS, Uncertainty Quantification for AI Surrogates: the uncertainty a surrogate inherits from
+the physics it learned, kept on its own lines. Built by `python -m physmap.uq.figures build` from committed records only. Each figure ships
 as an editable vector SVG and a 1920-pixel PNG, with a table twin in `data/` holding every
 plotted value. Blue is gravity off and orange is gravity on; the only dashed line would be an
 illustrative threshold. Light theme only.

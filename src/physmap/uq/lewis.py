@@ -1,4 +1,4 @@
-"""Q2 -- the materiality-interval figure on Lewis (1992) Test 35A.
+"""UQAIS Q2 -- the materiality-interval figure on Lewis (1992) Test 35A.
 
 The headline design M surrogate is a Gaussian process trained on gravity-off CFD (13 runs,
 532 rows; see physmap.stress_tests.lewis_reuse). Its emulation-error interval is calibrated
@@ -136,12 +136,14 @@ def compute(heldout: dict | None = None, theta: float = ILLUSTRATIVE_THETA) -> d
 def uq_terms(record: dict) -> list[dict]:
     """The epistemic terms `physmap uq` takes for this case, one row per station.
     No closure is involved in the surrogate (a GP), so the closure status is 'inside' with a
-    zero validation term declared against the gravity-off CFD control; the mechanism term is
-    the materiality, gated at the illustrative theta by the command's --theta."""
+    zero validation term declared against the gravity-off CFD control. The bound behind that
+    status is of the point kind: every deployment input is exactly a training condition (design
+    M), tolerance zero. The mechanism term is the materiality, gated at the illustrative theta
+    by the command's --theta."""
     q = record["emulation"]["half_width"]
     return [{"point": f"xD{s['x_over_D']:g}", "x_over_D": s["x_over_D"],
              "comparable": s["comparable"],
-             "emulation": q, "closure_status": "inside", "validation": 0.0,
+             "emulation": q, "closure_status": "inside", "bound_kind": "point", "validation": 0.0,
              "extrapolation_band": "", "materiality": s["materiality_gravity_on"]}
             for s in record["stations"]]
 

@@ -67,13 +67,14 @@ def build_parser() -> argparse.ArgumentParser:
     stress.add_argument("--json", metavar="PATH",
                         help="also write the full fresh record to PATH (never the committed bank)")
 
-    # Q3 of the Surrogate Governance Loop's UQ block: aleatory samples through the prediction,
+    # Q3 of UQAIS, the Surrogate Governance Loop's UQ block: aleatory samples through the prediction,
     # the epistemic terms kept on separate lines, a probability box out. Needs no checkout.
     uq = sub.add_parser(
         "uq",
-        help="propagate aleatory input samples and the separate epistemic terms (emulation, "
-             "closure validation or UNBOUNDED, omitted-mechanism materiality) into a "
-             "probability box, Roy and Oberkampf style -- never one number")
+        help="UQAIS, Uncertainty Quantification for AI Surrogates: propagate aleatory input "
+             "samples and the separate epistemic terms (emulation, closure validation or "
+             "UNBOUNDED, omitted-mechanism materiality) into a probability box, Roy and "
+             "Oberkampf style -- never one number")
     uq.add_argument("--samples", required=True, metavar="CSV",
                     help="aleatory input samples: a `point` column plus the input columns")
     pred = uq.add_mutually_exclusive_group(required=True)
@@ -83,9 +84,10 @@ def build_parser() -> argparse.ArgumentParser:
                       help="precomputed predictions: `point` and `prediction`, one row per "
                            "sample, or one per point")
     uq.add_argument("--terms", required=True, metavar="CSV",
-                    help="per point: emulation, closure_status (inside|outside), validation, "
-                         "extrapolation_band (blank = UNBOUNDED), materiality (`none` = not "
-                         "assessed); all relative to the prediction")
+                    help="per point: emulation, closure_status (inside|outside), bound_kind "
+                         "(range|set|point|ratio), validation, extrapolation_band (blank = "
+                         "UNBOUNDED), materiality (`none` = not assessed); all relative to the "
+                         "prediction")
     uq.add_argument("--inputs", metavar="COLS",
                     help="comma-separated input columns to pass to the callable (default: "
                          "every column but `point`)")

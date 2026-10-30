@@ -1,4 +1,7 @@
-"""Uncertainty quantification around PhysMAP's two checks, in Roy and Oberkampf's accounting.
+"""UQAIS, Uncertainty Quantification for AI Surrogates (pronounced like "ukase").
+
+It accounts for the uncertainty a surrogate inherits from the physics it learned, in Roy and
+Oberkampf's accounting, around PhysMAP's two checks.
 
 Aleatory uncertainty (input variability) is propagated by sampling. Epistemic uncertainty is
 carried as intervals and never averaged away. The intervals are kept on separate lines:

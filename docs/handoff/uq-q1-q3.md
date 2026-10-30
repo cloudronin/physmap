@@ -1,4 +1,6 @@
-# Handoff: the UQ block, Q1 to Q3
+UQAIS, uncertainty quantification for AI surrogates: it accounts for the uncertainty a surrogate inherits from the physics it learned.
+
+# Handoff: UQAIS, Q1 to Q3
 
 Branch `claude/uq-roy-oberkampf`. Everything new is under `docs/uq/`, `src/physmap/uq/`,
 `tests/test_uq.py`, one new subcommand in `src/physmap/cli.py`, and this file. Nothing under
@@ -109,13 +111,15 @@ Worst held-out error per run: 0.144 % to 0.447 %. The 90 % half-width, one unit 
 | 13 | Lewis aleatory: one nominal sample per station, the CDF is a step | `figures.py`, `lewis_examples` |
 | 14 | Epistemic terms add as intervals (Minkowski sum) and shift the aleatory CDF; relative box width = sum of term widths | `pbox.py`, module docstring |
 | 15 | A term that is not declared is an error; `none` for materiality means not assessed, reported, not zero | `pbox.py` |
+| 16 | `bound_kind` behind each closure status: NACA `range` (x/D ≥ 10); Lewis `point` (every deployment input exactly a training condition, design M) | `naca.py`, `lewis.py`, `uq_terms` |
 
 ## What Q4 needs (attach the report to the UofA export)
 
 - The report: `docs/uq/examples/naca_report.json` and `lewis_report.json`, one JSON object,
   `points[*].terms[*]` one line per term with `name`, `interval` or `"unbounded"`, `status`,
-  `note`; `points[*].pbox` at the named quantiles; `relative_box_width` and
-  `sum_of_term_widths` (equal by construction, a cheap integrity check).
+  `note`; `points[*].closure_status` and `closure_bound_kind` (range, set, point or ratio);
+  `points[*].pbox` at the named quantiles; `relative_box_width` and `sum_of_term_widths`
+  (equal by construction, a cheap integrity check); the top-level `process` names UQAIS.
 - Provenance to carry: the terms file and samples file names and their first-line notes
   (echoed into the report as `samples_file_notes`, `terms_file_notes`), `theta` and
   `theta_note`, and for Lewis the bank's `inputs_sha256`.

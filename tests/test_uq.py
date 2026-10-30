@@ -46,8 +46,8 @@ def test_the_binomial_band_brackets_the_nominal_count():
 # ── the propagation, on hand-made inputs ─────────────────────────────────────
 
 def _terms(**kw):
-    row = {"emulation": "0.01", "closure_status": "inside", "validation": "0.05",
-           "extrapolation_band": "", "materiality": "0"}
+    row = {"emulation": "0.01", "closure_status": "inside", "bound_kind": "range",
+           "validation": "0.05", "extrapolation_band": "", "materiality": "0"}
     row.update({k: str(v) for k, v in kw.items()})
     return row
 
@@ -93,7 +93,8 @@ def test_the_cli_refuses_bad_input_in_one_sentence(tmp_path, capsys):
     pr = tmp_path / "p.csv"
     pr.write_text("point,prediction\na,10\n")
     t = tmp_path / "t.csv"
-    t.write_text("point,emulation,closure_status,validation,materiality\na,0.1,sideways,0.1,0\n")
+    t.write_text("point,emulation,closure_status,bound_kind,validation,materiality\n"
+                 "a,0.1,sideways,range,0.1,0\n")
     rc = cli.main(["uq", "--samples", str(s), "--predictions", str(pr), "--terms", str(t)])
     assert rc == 2
     err = capsys.readouterr().err
@@ -106,14 +107,15 @@ def test_the_cli_runs_without_a_checkout(tmp_path, monkeypatch, capsys):
     s = tmp_path / "s.csv"
     s.write_text("point,Re,Pr\na,30000,0.71\na,31000,0.71\nb,20000,0.71\n")
     t = tmp_path / "t.csv"
-    t.write_text("point,emulation,closure_status,validation,extrapolation_band,materiality\n"
-                 "a,0,inside,0.19,,0\nb,0,outside,,,0\n")
+    t.write_text("point,emulation,closure_status,bound_kind,validation,extrapolation_band,materiality\n"
+                 "a,0,inside,range,0.19,,0\nb,0,outside,ratio,,,0\n")
     out = tmp_path / "r.json"
     rc = cli.main(["uq", "--samples", str(s), "--predict", "physmap.closures.formulas:gnielinski_nu",
                    "--terms", str(t), "--out", str(out)])
     assert rc == 0
     rep = json.loads(out.read_text())
     a, b = rep["points"]
+    assert rep["process"].startswith("UQAIS") and b["closure_bound_kind"] == "ratio"
     assert a["relative_box_width"] == pytest.approx(0.38) and a["n_samples"] == 2
     assert b["total_epistemic"] == "unbounded"
     assert "UNBOUNDED" in capsys.readouterr().out

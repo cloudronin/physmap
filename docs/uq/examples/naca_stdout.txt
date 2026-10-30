@@ -1,7 +1,7 @@
-physmap uq -- probability box per point, terms relative to the prediction
+physmap uq -- UQAIS, Uncertainty Quantification for AI Surrogates: a probability box per point, terms relative to the prediction
   quantiles 0.05, 0.25, 0.5, 0.75, 0.95
   samples: illustrative aleatory input: Re with a 2 % relative standard deviation, 50 samples per point, seed 3. NACA TN-1451 declares no input uncertainty; this spread illustrates the propagation and is not a source value.
-  terms: terms relative to the prediction. emulation 0: the emulator is gnielinski-1976 itself. validation: the Q1 split-conformal half-width at nominal 90 %, inside the closure's validated range (x/D >= 10). Entrance points are outside it with no declared extrapolation band: UNBOUNDED. materiality 0: no omitted mechanism is modelled for this case.
+  terms: terms relative to the prediction. emulation 0: the emulator is gnielinski-1976 itself. validation: the Q1 split-conformal half-width at nominal 90 %, inside the closure's validated range (x/D >= 10, a range bound). Entrance points are outside it with no declared extrapolation band: UNBOUNDED. materiality 0: no omitted mechanism is modelled for this case.
 
 point                      n     median     emul    valid   unvalid mechanism        total   box at q0.05 .. q0.95
 ------------------------------------------------------------------------------------------------------------------

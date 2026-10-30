@@ -1,4 +1,5 @@
 quantity,value
+process,"UQAIS, Uncertainty Quantification for AI Surrogates"
 nominal,0.9
 alpha,0.1
 emulator,"gnielinski-1976, not fitted (the data-trained attempt is recorded and unused)"

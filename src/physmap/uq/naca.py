@@ -1,4 +1,4 @@
-"""Q1 -- the coverage figure on NACA TN-1451: a statistical interval that cannot see x/D.
+"""UQAIS Q1 -- the coverage figure on NACA TN-1451: a statistical interval that cannot see x/D.
 
 A (Re, Pr) -> Nu emulator is given a split-conformal interval at a nominal 90 %, calibrated on
 fully developed points (x/D >= 10). x/D is not an emulator input, so every entrance point is
@@ -265,6 +265,7 @@ def uq_terms(record: dict) -> list[dict]:
                      "Pr": p["Pr"], "x_over_D": p["x_over_D"],
                      "emulation": 0.0,
                      "closure_status": "inside" if inside else "outside",
+                     "bound_kind": "range",      # the closure's validated range, x/D >= 10
                      "validation": record["half_width"] if inside else "",
                      "extrapolation_band": "",
                      "materiality": 0.0})
