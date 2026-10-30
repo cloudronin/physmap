@@ -1,0 +1,14 @@
+# design M surrogate predictions at Lewis's 12 stations, from the banked record results/lewis35A_head_to_head/stress_test_lewis_reuse.json; identical with gravity off and on because the inputs are.
+point,prediction
+xD0.31,54.95559424934452
+xD0.85,36.52207069065153
+xD2.45,24.353220082566608
+xD5.65,17.8472277967762
+xD9.92,14.527636779383984
+xD16.32,12.170372974139907
+xD33.39,9.578645757464876
+xD50.47,8.443279201916095
+xD67.55,7.776468450883519
+xD101.69,7.000516750589364
+xD135.84,6.550747678494179
+xD159.33,6.339329989294386

@@ -1,0 +1,3 @@
+method,calibration_units,order_statistic_k,finite_interval,half_width,note
+"split conformal, one unit per Reynolds curve",5,6,False,unbounded,"each curve's 8 fully developed reads are one value; 5 exchangeable units, a finite 90 % interval needs 9"
+"split conformal, one unit per read (power law Nu = a Re^b on odd x/D)",20,19,True,0.01645,"the 20 calibration scores carry 5 distinct values, each the fit residual of its own curve: the held-out reads are copies of training reads and test nothing new"

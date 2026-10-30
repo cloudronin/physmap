@@ -1,0 +1,19 @@
+quantity,value
+process,"UQAIS, Uncertainty Quantification for AI Surrogates"
+design,M
+nominal,0.9
+theta_illustrative,0.1
+emulation_unit,run
+emulation_n_units,12
+emulation_order_statistic_k,12
+emulation_half_width,0.00446648
+emulation_half_width_pct,0.4466
+emulation_row_level_half_width_for_information,0.00111285
+emulation_n_rows,480
+inputs_identical_between_gravity_states,True
+interval_identical_between_gravity_states,True
+flagged_stations_at_theta,67.55 101.69 135.84 159.33
+flagged_comparable_at_theta,67.55 101.69 135.84
+materiality_term_at_xD_67.55,0.110895
+materiality_term_at_xD_101.69,0.154348
+materiality_term_at_xD_135.84,0.194766

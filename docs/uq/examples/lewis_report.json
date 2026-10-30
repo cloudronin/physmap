@@ -1,0 +1,1224 @@
+{
+ "command": "physmap uq",
+ "process": "UQAIS, Uncertainty Quantification for AI Surrogates",
+ "accounting": "Roy and Oberkampf: aleatory input uncertainty propagated by sampling; epistemic terms carried as intervals, listed separately, summed, never averaged; model form outside a validated range is unbounded unless a band is declared",
+ "terms_are_relative_to_the_prediction": true,
+ "quantiles": [
+  0.05,
+  0.25,
+  0.5,
+  0.75,
+  0.95
+ ],
+ "theta": 0.1,
+ "theta_note": "theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+ "samples_file_notes": [
+  "no aleatory input distribution is declared for Lewis Test 35A: one nominal sample per station, so the aleatory CDF is a step and the box is the epistemic interval."
+ ],
+ "terms_file_notes": [
+  "terms relative to the prediction. emulation: the Q2 held-out-run half-width at nominal 90 %. closure_status inside with validation 0: the surrogate is a GP with no closure, and the gravity-off CFD control is the declared validation (within 0.06 %, inside the emulation term); the bound is of the point kind, every deployment input exactly a training condition. materiality: W-SURR-06 from the matched ablation, gated by --theta 0.10, which is illustrative."
+ ],
+ "never_a_single_number": true,
+ "points": [
+  {
+   "point": "xD0.31",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 0.31,
+     "median": 0.31,
+     "max": 0.31
+    }
+   },
+   "aleatory_median": 54.95559424934452,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.001395 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 54.95559424934452,
+     "lower": 54.710136129052344,
+     "upper": 55.2010523696367
+    },
+    "0.25": {
+     "aleatory": 54.95559424934452,
+     "lower": 54.710136129052344,
+     "upper": 55.2010523696367
+    },
+    "0.5": {
+     "aleatory": 54.95559424934452,
+     "lower": 54.710136129052344,
+     "upper": 55.2010523696367
+    },
+    "0.75": {
+     "aleatory": 54.95559424934452,
+     "lower": 54.710136129052344,
+     "upper": 55.2010523696367
+    },
+    "0.95": {
+     "aleatory": 54.95559424934452,
+     "lower": 54.710136129052344,
+     "upper": 55.2010523696367
+    }
+   }
+  },
+  {
+   "point": "xD0.85",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 0.85,
+     "median": 0.85,
+     "max": 0.85
+    }
+   },
+   "aleatory_median": 36.52207069065153,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.002591 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 36.52207069065153,
+     "lower": 36.358945554014284,
+     "upper": 36.68519582728878
+    },
+    "0.25": {
+     "aleatory": 36.52207069065153,
+     "lower": 36.358945554014284,
+     "upper": 36.68519582728878
+    },
+    "0.5": {
+     "aleatory": 36.52207069065153,
+     "lower": 36.358945554014284,
+     "upper": 36.68519582728878
+    },
+    "0.75": {
+     "aleatory": 36.52207069065153,
+     "lower": 36.358945554014284,
+     "upper": 36.68519582728878
+    },
+    "0.95": {
+     "aleatory": 36.52207069065153,
+     "lower": 36.358945554014284,
+     "upper": 36.68519582728878
+    }
+   }
+  },
+  {
+   "point": "xD2.45",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 2.45,
+     "median": 2.45,
+     "max": 2.45
+    }
+   },
+   "aleatory_median": 24.353220082566608,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.005898 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 24.353220082566608,
+     "lower": 24.24444688656755,
+     "upper": 24.461993278565664
+    },
+    "0.25": {
+     "aleatory": 24.353220082566608,
+     "lower": 24.24444688656755,
+     "upper": 24.461993278565664
+    },
+    "0.5": {
+     "aleatory": 24.353220082566608,
+     "lower": 24.24444688656755,
+     "upper": 24.461993278565664
+    },
+    "0.75": {
+     "aleatory": 24.353220082566608,
+     "lower": 24.24444688656755,
+     "upper": 24.461993278565664
+    },
+    "0.95": {
+     "aleatory": 24.353220082566608,
+     "lower": 24.24444688656755,
+     "upper": 24.461993278565664
+    }
+   }
+  },
+  {
+   "point": "xD5.65",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 5.65,
+     "median": 5.65,
+     "max": 5.65
+    }
+   },
+   "aleatory_median": 17.8472277967762,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.01211 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 17.8472277967762,
+     "lower": 17.767513492031412,
+     "upper": 17.926942101520986
+    },
+    "0.25": {
+     "aleatory": 17.8472277967762,
+     "lower": 17.767513492031412,
+     "upper": 17.926942101520986
+    },
+    "0.5": {
+     "aleatory": 17.8472277967762,
+     "lower": 17.767513492031412,
+     "upper": 17.926942101520986
+    },
+    "0.75": {
+     "aleatory": 17.8472277967762,
+     "lower": 17.767513492031412,
+     "upper": 17.926942101520986
+    },
+    "0.95": {
+     "aleatory": 17.8472277967762,
+     "lower": 17.767513492031412,
+     "upper": 17.926942101520986
+    }
+   }
+  },
+  {
+   "point": "xD9.92",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 9.92,
+     "median": 9.92,
+     "max": 9.92
+    }
+   },
+   "aleatory_median": 14.527636779383984,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.02023 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 14.527636779383984,
+     "lower": 14.462749365011286,
+     "upper": 14.592524193756683
+    },
+    "0.25": {
+     "aleatory": 14.527636779383984,
+     "lower": 14.462749365011286,
+     "upper": 14.592524193756683
+    },
+    "0.5": {
+     "aleatory": 14.527636779383984,
+     "lower": 14.462749365011286,
+     "upper": 14.592524193756683
+    },
+    "0.75": {
+     "aleatory": 14.527636779383984,
+     "lower": 14.462749365011286,
+     "upper": 14.592524193756683
+    },
+    "0.95": {
+     "aleatory": 14.527636779383984,
+     "lower": 14.462749365011286,
+     "upper": 14.592524193756683
+    }
+   }
+  },
+  {
+   "point": "xD16.32",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 16.32,
+     "median": 16.32,
+     "max": 16.32
+    }
+   },
+   "aleatory_median": 12.170372974139907,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.03198 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 12.170372974139907,
+     "lower": 12.11601423388258,
+     "upper": 12.224731714397233
+    },
+    "0.25": {
+     "aleatory": 12.170372974139907,
+     "lower": 12.11601423388258,
+     "upper": 12.224731714397233
+    },
+    "0.5": {
+     "aleatory": 12.170372974139907,
+     "lower": 12.11601423388258,
+     "upper": 12.224731714397233
+    },
+    "0.75": {
+     "aleatory": 12.170372974139907,
+     "lower": 12.11601423388258,
+     "upper": 12.224731714397233
+    },
+    "0.95": {
+     "aleatory": 12.170372974139907,
+     "lower": 12.11601423388258,
+     "upper": 12.224731714397233
+    }
+   }
+  },
+  {
+   "point": "xD33.39",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 33.39,
+     "median": 33.39,
+     "max": 33.39
+    }
+   },
+   "aleatory_median": 9.578645757464876,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.061 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 9.578645757464876,
+     "lower": 9.535862917706938,
+     "upper": 9.621428597222815
+    },
+    "0.25": {
+     "aleatory": 9.578645757464876,
+     "lower": 9.535862917706938,
+     "upper": 9.621428597222815
+    },
+    "0.5": {
+     "aleatory": 9.578645757464876,
+     "lower": 9.535862917706938,
+     "upper": 9.621428597222815
+    },
+    "0.75": {
+     "aleatory": 9.578645757464876,
+     "lower": 9.535862917706938,
+     "upper": 9.621428597222815
+    },
+    "0.95": {
+     "aleatory": 9.578645757464876,
+     "lower": 9.535862917706938,
+     "upper": 9.621428597222815
+    }
+   }
+  },
+  {
+   "point": "xD50.47",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 50.47,
+     "median": 50.47,
+     "max": 50.47
+    }
+   },
+   "aleatory_median": 8.443279201916095,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "not_applied",
+     "note": "materiality 0.08681 is below the illustrative theta 0.1 (W-SURR-06 quiet); theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.004466481049745119,
+    "high": 0.004466481049745119
+   },
+   "relative_box_width": 0.008932962099490238,
+   "sum_of_term_widths": 0.008932962099490238,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 8.443279201916095,
+     "lower": 8.40556745536303,
+     "upper": 8.48099094846916
+    },
+    "0.25": {
+     "aleatory": 8.443279201916095,
+     "lower": 8.40556745536303,
+     "upper": 8.48099094846916
+    },
+    "0.5": {
+     "aleatory": 8.443279201916095,
+     "lower": 8.40556745536303,
+     "upper": 8.48099094846916
+    },
+    "0.75": {
+     "aleatory": 8.443279201916095,
+     "lower": 8.40556745536303,
+     "upper": 8.48099094846916
+    },
+    "0.95": {
+     "aleatory": 8.443279201916095,
+     "lower": 8.40556745536303,
+     "upper": 8.48099094846916
+    }
+   }
+  },
+  {
+   "point": "xD67.55",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 67.55,
+     "median": 67.55,
+     "max": 67.55
+    }
+   },
+   "aleatory_median": 7.776468450883519,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "declared",
+     "note": "omitted mechanism active and material (W-SURR-06): materiality 0.1109 from a matched ablation, at or above the illustrative theta 0.1; theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      -0.11089545774333265,
+      0.11089545774333265
+     ],
+     "width": 0.2217909154866653
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.11536193879307777,
+    "high": 0.11536193879307777
+   },
+   "relative_box_width": 0.23072387758615553,
+   "sum_of_term_widths": 0.23072387758615553,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 7.776468450883519,
+     "lower": 6.879359973426395,
+     "upper": 8.673576928340644
+    },
+    "0.25": {
+     "aleatory": 7.776468450883519,
+     "lower": 6.879359973426395,
+     "upper": 8.673576928340644
+    },
+    "0.5": {
+     "aleatory": 7.776468450883519,
+     "lower": 6.879359973426395,
+     "upper": 8.673576928340644
+    },
+    "0.75": {
+     "aleatory": 7.776468450883519,
+     "lower": 6.879359973426395,
+     "upper": 8.673576928340644
+    },
+    "0.95": {
+     "aleatory": 7.776468450883519,
+     "lower": 6.879359973426395,
+     "upper": 8.673576928340644
+    }
+   }
+  },
+  {
+   "point": "xD101.69",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 101.69,
+     "median": 101.69,
+     "max": 101.69
+    }
+   },
+   "aleatory_median": 7.000516750589364,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "declared",
+     "note": "omitted mechanism active and material (W-SURR-06): materiality 0.1543 from a matched ablation, at or above the illustrative theta 0.1; theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      -0.15434751126570656,
+      0.15434751126570656
+     ],
+     "width": 0.3086950225314131
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.15881399231545168,
+    "high": 0.15881399231545168
+   },
+   "relative_box_width": 0.31762798463090336,
+   "sum_of_term_widths": 0.31762798463090336,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 7.000516750589364,
+     "lower": 5.888736737157075,
+     "upper": 8.112296764021654
+    },
+    "0.25": {
+     "aleatory": 7.000516750589364,
+     "lower": 5.888736737157075,
+     "upper": 8.112296764021654
+    },
+    "0.5": {
+     "aleatory": 7.000516750589364,
+     "lower": 5.888736737157075,
+     "upper": 8.112296764021654
+    },
+    "0.75": {
+     "aleatory": 7.000516750589364,
+     "lower": 5.888736737157075,
+     "upper": 8.112296764021654
+    },
+    "0.95": {
+     "aleatory": 7.000516750589364,
+     "lower": 5.888736737157075,
+     "upper": 8.112296764021654
+    }
+   }
+  },
+  {
+   "point": "xD135.84",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 135.84,
+     "median": 135.84,
+     "max": 135.84
+    }
+   },
+   "aleatory_median": 6.550747678494179,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "declared",
+     "note": "omitted mechanism active and material (W-SURR-06): materiality 0.1948 from a matched ablation, at or above the illustrative theta 0.1; theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      -0.1947661427792411,
+      0.1947661427792411
+     ],
+     "width": 0.3895322855584822
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.1992326238289862,
+    "high": 0.1992326238289862
+   },
+   "relative_box_width": 0.3984652476579724,
+   "sum_of_term_widths": 0.3984652476579724,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 6.550747678494179,
+     "lower": 5.245625030466144,
+     "upper": 7.855870326522215
+    },
+    "0.25": {
+     "aleatory": 6.550747678494179,
+     "lower": 5.245625030466144,
+     "upper": 7.855870326522215
+    },
+    "0.5": {
+     "aleatory": 6.550747678494179,
+     "lower": 5.245625030466144,
+     "upper": 7.855870326522215
+    },
+    "0.75": {
+     "aleatory": 6.550747678494179,
+     "lower": 5.245625030466144,
+     "upper": 7.855870326522215
+    },
+    "0.95": {
+     "aleatory": 6.550747678494179,
+     "lower": 5.245625030466144,
+     "upper": 7.855870326522215
+    }
+   }
+  },
+  {
+   "point": "xD159.33",
+   "n_samples": 1,
+   "closure_status": "inside",
+   "closure_bound_kind": "point",
+   "inputs": {
+    "Re": {
+     "min": 1143.4,
+     "median": 1143.4,
+     "max": 1143.4
+    },
+    "Pr": {
+     "min": 8.46,
+     "median": 8.46,
+     "max": 8.46
+    },
+    "x_over_D": {
+     "min": 159.33,
+     "median": 159.33,
+     "max": 159.33
+    }
+   },
+   "aleatory_median": 6.339329989294386,
+   "terms": [
+    {
+     "name": "emulation",
+     "status": "declared",
+     "note": "surrogate against the simulation it learned, on held-out runs",
+     "interval": [
+      -0.004466481049745119,
+      0.004466481049745119
+     ],
+     "width": 0.008932962099490238
+    },
+    {
+     "name": "model_form_validated",
+     "status": "declared",
+     "note": "inside the closure's validated range (a point bound): the declared validation metric (closure against measurement)",
+     "interval": [
+      -0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "model_form_unvalidated",
+     "status": "not_applied",
+     "note": "the point is inside the validated range (W-SURR-05 quiet)",
+     "interval": [
+      0.0,
+      0.0
+     ],
+     "width": 0.0
+    },
+    {
+     "name": "omitted_mechanism",
+     "status": "declared",
+     "note": "omitted mechanism active and material (W-SURR-06): materiality 0.2211 from a matched ablation, at or above the illustrative theta 0.1; theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it",
+     "interval": [
+      -0.22114884622152486,
+      0.22114884622152486
+     ],
+     "width": 0.44229769244304973
+    }
+   ],
+   "total_epistemic": {
+    "low": -0.22561532727126998,
+    "high": 0.22561532727126998
+   },
+   "relative_box_width": 0.45123065454253997,
+   "sum_of_term_widths": 0.45123065454253997,
+   "not_assessed": [],
+   "pbox": {
+    "0.05": {
+     "aleatory": 6.339329989294386,
+     "lower": 4.909079979079157,
+     "upper": 7.769579999509616
+    },
+    "0.25": {
+     "aleatory": 6.339329989294386,
+     "lower": 4.909079979079157,
+     "upper": 7.769579999509616
+    },
+    "0.5": {
+     "aleatory": 6.339329989294386,
+     "lower": 4.909079979079157,
+     "upper": 7.769579999509616
+    },
+    "0.75": {
+     "aleatory": 6.339329989294386,
+     "lower": 4.909079979079157,
+     "upper": 7.769579999509616
+    },
+    "0.95": {
+     "aleatory": 6.339329989294386,
+     "lower": 4.909079979079157,
+     "upper": 7.769579999509616
+    }
+   }
+  }
+ ]
+}

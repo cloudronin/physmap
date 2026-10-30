@@ -1,0 +1,18 @@
+quantity,value
+process,"UQAIS, Uncertainty Quantification for AI Surrogates"
+nominal,0.9
+alpha,0.1
+emulator,"gnielinski-1976, not fitted (the data-trained attempt is recorded and unused)"
+closure,gnielinski-1976
+fully_developed_from_x_over_D,10.0
+n_calibration_replicates,40
+order_statistic_k,37
+half_width,0.192079
+half_width_pct,19.208
+noise_paper_pct,3.0
+noise_digitisation_pct,5.0
+noise_combined_relative_sd,0.05831
+seed_calibration,1
+seed_test,2
+W_SURR_05_flags_of_entrance,45 of 45
+input_based_detectors_fired_of_entrance,0 of 45
