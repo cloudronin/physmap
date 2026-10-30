@@ -1,0 +1,14 @@
+# terms relative to the prediction. emulation: the Q2 held-out-run half-width at nominal 90 %. closure_status inside with validation 0: the surrogate is a GP with no closure, and the gravity-off CFD control is the declared validation (within 0.06 %, inside the emulation term). materiality: W-SURR-06 from the matched ablation, gated by --theta 0.10, which is illustrative.
+point,x_over_D,comparable,emulation,closure_status,validation,extrapolation_band,materiality
+xD0.31,0.31,False,0.004466481049745119,inside,0.0,,0.0013951427554482754
+xD0.85,0.85,False,0.004466481049745119,inside,0.0,,0.0025909167598138216
+xD2.45,2.45,True,0.004466481049745119,inside,0.0,,0.0058982336887503095
+xD5.65,5.65,True,0.004466481049745119,inside,0.0,,0.012105359332462817
+xD9.92,9.92,True,0.004466481049745119,inside,0.0,,0.020225077316751494
+xD16.32,16.32,True,0.004466481049745119,inside,0.0,,0.03198154152704169
+xD33.39,33.39,True,0.004466481049745119,inside,0.0,,0.06100207327542362
+xD50.47,50.47,True,0.004466481049745119,inside,0.0,,0.08680915434298242
+xD67.55,67.55,True,0.004466481049745119,inside,0.0,,0.11089545774333265
+xD101.69,101.69,True,0.004466481049745119,inside,0.0,,0.15434751126570656
+xD135.84,135.84,True,0.004466481049745119,inside,0.0,,0.1947661427792411
+xD159.33,159.33,False,0.004466481049745119,inside,0.0,,0.22114884622152486

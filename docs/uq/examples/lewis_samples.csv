@@ -1,0 +1,14 @@
+# no aleatory input distribution is declared for Lewis Test 35A: one nominal sample per station, so the aleatory CDF is a step and the box is the epistemic interval.
+point,Re,Pr,x_over_D
+xD0.31,1143.4,8.46,0.31
+xD0.85,1143.4,8.46,0.85
+xD2.45,1143.4,8.46,2.45
+xD5.65,1143.4,8.46,5.65
+xD9.92,1143.4,8.46,9.92
+xD16.32,1143.4,8.46,16.32
+xD33.39,1143.4,8.46,33.39
+xD50.47,1143.4,8.46,50.47
+xD67.55,1143.4,8.46,67.55
+xD101.69,1143.4,8.46,101.69
+xD135.84,1143.4,8.46,135.84
+xD159.33,1143.4,8.46,159.33

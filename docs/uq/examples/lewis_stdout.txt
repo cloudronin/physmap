@@ -1,0 +1,22 @@
+physmap uq -- probability box per point, terms relative to the prediction
+  quantiles 0.05, 0.25, 0.5, 0.75, 0.95
+  theta 0.1 (theta is not locked; the value used here is illustrative, and the materiality is reported as a number beside it)
+  samples: no aleatory input distribution is declared for Lewis Test 35A: one nominal sample per station, so the aleatory CDF is a step and the box is the epistemic interval.
+  terms: terms relative to the prediction. emulation: the Q2 held-out-run half-width at nominal 90 %. closure_status inside with validation 0: the surrogate is a GP with no closure, and the gravity-off CFD control is the declared validation (within 0.06 %, inside the emulation term). materiality: W-SURR-06 from the matched ablation, gated by --theta 0.10, which is illustrative.
+
+point                      n     median     emul    valid   unvalid mechanism        total   box at q0.05 .. q0.95
+------------------------------------------------------------------------------------------------------------------
+xD0.31                     1      54.96  0.00893        0         0         0 [-0.00447,+0.00447]   [54.71, 55.2] .. [54.71, 55.2]
+xD0.85                     1      36.52  0.00893        0         0         0 [-0.00447,+0.00447]   [36.36, 36.69] .. [36.36, 36.69]
+xD2.45                     1      24.35  0.00893        0         0         0 [-0.00447,+0.00447]   [24.24, 24.46] .. [24.24, 24.46]
+xD5.65                     1      17.85  0.00893        0         0         0 [-0.00447,+0.00447]   [17.77, 17.93] .. [17.77, 17.93]
+xD9.92                     1      14.53  0.00893        0         0         0 [-0.00447,+0.00447]   [14.46, 14.59] .. [14.46, 14.59]
+xD16.32                    1      12.17  0.00893        0         0         0 [-0.00447,+0.00447]   [12.12, 12.22] .. [12.12, 12.22]
+xD33.39                    1      9.579  0.00893        0         0         0 [-0.00447,+0.00447]   [9.536, 9.621] .. [9.536, 9.621]
+xD50.47                    1      8.443  0.00893        0         0         0 [-0.00447,+0.00447]   [8.406, 8.481] .. [8.406, 8.481]
+xD67.55                    1      7.776  0.00893        0         0     0.222 [-0.115,+0.115]   [6.879, 8.674] .. [6.879, 8.674]
+xD101.69                   1      7.001  0.00893        0         0     0.309 [-0.159,+0.159]   [5.889, 8.112] .. [5.889, 8.112]
+xD135.84                   1      6.551  0.00893        0         0      0.39 [-0.199,+0.199]   [5.246, 7.856] .. [5.246, 7.856]
+xD159.33                   1      6.339  0.00893        0         0     0.442 [-0.226,+0.226]   [4.909, 7.77] .. [4.909, 7.77]
+
+12 point(s); 0 unbounded; 0 with a term not assessed. Each term is on its own line in the JSON report; nothing here is one number.
