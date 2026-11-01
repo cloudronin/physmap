@@ -1,4 +1,4 @@
-"""UQAIS, Uncertainty Quantification for AI Surrogates (pronounced like "ukase").
+"""UQAIS, Uncertainty Quantification for AI Systems (pronounced like "ukase"); surrogates are the first domain.
 
 It accounts for the uncertainty a surrogate inherits from the physics it learned, in Roy and
 Oberkampf's accounting, around PhysMAP's two checks.
