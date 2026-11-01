@@ -71,7 +71,7 @@ def build_parser() -> argparse.ArgumentParser:
     # the epistemic terms kept on separate lines, a probability box out. Needs no checkout.
     uq = sub.add_parser(
         "uq",
-        help="UQAIS, Uncertainty Quantification for AI Surrogates: propagate aleatory input "
+        help="UQAIS, Uncertainty Quantification for AI Systems: propagate aleatory input "
              "samples and the separate epistemic terms (emulation, closure validation or "
              "UNBOUNDED, omitted-mechanism materiality) into a probability box, Roy and "
              "Oberkampf style -- never one number")

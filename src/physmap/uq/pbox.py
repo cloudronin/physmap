@@ -1,4 +1,4 @@
-"""`physmap uq` -- UQAIS, Uncertainty Quantification for AI Surrogates: the minimal propagation,
+"""`physmap uq` -- UQAIS, Uncertainty Quantification for AI Systems: the minimal propagation,
 Roy and Oberkampf style.
 
 Inputs

@@ -136,11 +136,11 @@ in the surrogate pack).
 These three rows add 18 hours and are optional for the talk. P7 is the cheapest proof that the
 bring-your-own-physics spec works on physics PhysMAP did not ship.
 
-### 4.6 UQAIS: uncertainty quantification for AI surrogates (added 2026-10-30)
+### 4.6 UQAIS: uncertainty quantification for AI systems (added 2026-10-30; expansion widened 2026-11-01)
 
-**Name (Vishnu, 2026-10-30): UQAIS**, pronounced like "ukase": Uncertainty Quantification for AI Surrogates. It accounts for the uncertainty a surrogate inherits from the physics it learned. The talk's hook is "physics debt"; UQAIS is how it goes on the books before deployment. Use the name in the abstract, the paper, the talk, the CLI help and the handoffs.
+**Name (Vishnu, 2026-10-30; widened 2026-11-01): UQAIS**, pronounced like "ukase": Uncertainty Quantification for AI Systems. Surrogates are the first domain, not the name; section 4.6.1 carries the general definition. In this section it accounts for the uncertainty a surrogate inherits from the physics it learned. The talk's hook is "physics debt"; UQAIS is how it goes on the books before deployment. Use the name in the abstract, the paper, the talk, the CLI help and the handoffs.
 
-**The translation sentence (for the talk, the paper's introduction and the README).** The simulation audience knows Oberkampf's epistemic framing; the machine-learning audience does not. Where "epistemic" first appears, say: *"Your ensembles and conformal intervals measure how unsure the student is. These two terms are the teacher's mistakes, and no amount of training data from the same solver makes them smaller."* A surrogate distilled from a solver inherits the solver's closure validity the way a student inherits a teacher's misconceptions; training longer makes it more confidently wrong in the same places. That is also the precise sense in which the inherited terms are epistemic but not reducible by more of the same data, which is the distinction the ML toolbox cannot make on its own.
+**The translation sentence (for the talk, the paper's introduction and the README; replaced 2026-11-01, Vishnu's framing).** The simulation audience knows Oberkampf's epistemic framing; the machine-learning audience does not. Where "epistemic" first appears, say: *"An AI system's benchmark score is its SAT: one number from one test on one day. Colleges learned long ago that it does not tell you how the student does once they arrive. UQAIS is the rest of the admissions file, with every missing piece marked missing instead of assumed."* The score stays as one line; the lines it cannot carry are whether the test matched the use (applicability), what the system was never taught (materiality), and how much the number depends on who graded it (apparatus). Those terms are epistemic but not reducible by more of the same data, which is the distinction the ML toolbox cannot make on its own, and the SAT framing carries across the card and the register as well as the surrogate. Never say the score is wrong; say it is one line. The earlier teacher's-mistakes sentence is retired.
 
 Framing (Vishnu, 2026-10-30): Roy and Oberkampf's accounting, aleatory and epistemic kept apart,
 applied to a surrogate that replaces a simulation. The machine-learning UQ toolbox (ensembles,
@@ -167,6 +167,55 @@ Kill criteria for the block:
 - If Q3's box on the fully developed NACA points is wider than the measured error band by more than the emulation term, the propagation is wrong and nothing downstream runs until it is fixed.
 
 What this block may claim: that the statistical interval is calibrated where the physics applies and does not know when it stops applying, and that the physics-inherited term is the one that opens there. It may not claim a detection rate, a coverage rate pooled across cases, or that the box is complete.
+
+#### 4.6.1 UQAIS for AI Systems: the general definition and the shared vocabulary (added 2026-11-01)
+
+**Decision (Vishnu, 2026-11-01).** The expansion is Uncertainty Quantification for AI Systems. The surrogate work above is the first domain. The same accounting applies to a model scored on a benchmark population, a bank or fintech model under SR 26-2, and the model rows of an ISO 42001 risk register. Nothing in 4.6 changes; this section says what stays fixed across domains, what the instruments supply per domain, and what uofa must carry so the three packs (surrogate, model-credibility, iso42001) write into one object.
+
+**Definition.** UQAIS puts on the books the uncertainty an AI system inherits from what it was built on, so that a decision to rely on it is made against a stated budget rather than a single score. It treats the shipped number as one term in Roy and Oberkampf's budget, keeps aleatory and epistemic apart, names the epistemic terms the system's own uncertainty tooling cannot see because they come from the system's teacher (the physics a surrogate learned, the population a model was scored on, the apparatus that produced the score), gives each term a status the evidence forces, binds the budget to one context of use, and leaves the acceptance decision to the accountable owner, signed into a record a stranger can verify.
+
+**What UQAIS is, against the praxis contributions.** It is not the governed encoding protocol (C4): the protocol governs how evidence becomes a record and is content-neutral. UQAIS supplies what the record of an AI system contains and how each line gets its status: a catalog slice (C1) and a completeness profile (C2) for AI systems, consumed by C4 unchanged. UQAIS is to an AI system what V&V 40 is to a simulation model, with one difference that is the methodological claim: V&V 40 grades a factor by judgment on a scale; UQAIS gives a term a status the evidence forces, and writes unbounded when nothing bounds it.
+
+**Fixed across every domain.**
+
+| Element | Content |
+|---|---|
+| Unit | one context of use, one quantity of interest, one budget |
+| Terms | statistical (how unsure the system is about itself); applicability (used where validated); materiality (does what it never saw now change the answer); apparatus (dependence on harness, judge, occasion); input (what the inputs carry) |
+| Status per term | bounded, estimated, unbounded, not applicable; each with a source |
+| Bounds | checkable statements about the point of use, of the four P4 kinds (range, set, point, ratio), each with a source and a status: confirmed by validation, claimed by the maker, assumed by us |
+| Standing | optional; where a pinned reference population exists, a percentile per term against peers, printed beside the absolute status, never in place of it |
+| Threshold | set by the person accountable for the use; never the tool, the maker alone, or the population |
+| Record | a signed UofA: budget, bounds, dispositions, decision; verifiable without trusting the author |
+| Loop | the same check in operation; when the share of use outside the bounded domain moves, the owner decides again and signs a successor |
+
+**What changes per domain is the instrument.**
+
+| Domain | Applicability bound from | Materiality from | Statistical and apparatus from | Standing reference |
+|---|---|---|---|---|
+| Physics surrogate | closures and mechanisms with validated ranges (PhysMAP, P4, P5) | matched ablation (W-SURR-06) | held-out residuals, conformal intervals (Q1 to Q3) | none public; own cases |
+| LLM feature or model card | evaluation population as a `set`; harness version as a `point` | declared risk level, or none on a public card | reported intervals (P2); furnished runs (Raidex); occasion and judge variance (VetoWorld findings) | Liang corpus (documentation sufficiency); Raidex results dataset, pinned version (RAI behavior) |
+| Bank or fintech model | eval population versus deployment population; fair-lending constraints as legal bounds | purpose times exposure (SR 26-2: "model purpose, together with model exposure, determines model materiality") | validation statistics, champion-challenger bands | none public; private set grows per engagement |
+| ISO 42001 register | `testSetCoverage` versus `deploymentPopulation` on A.6 and A.7 records | impact rating on the row | none; register terms are bounded or unbounded with little between | none; private set grows per engagement |
+
+**Corpus-derived values are priors, never statuses.** A term magnitude learned from a reference population enters as `estimated` with `evidenceStatus: assumed by us` and the corpus study as its source. It never promotes to `bounded`, because nothing about this system was measured. Standing is computed on sufficiency lines (presence and status), never on documentation volume.
+
+**Shared vocabulary in uofa core (additive; no existing pattern id renamed; praxis numbers unchanged).**
+
+| Id | Requirement | Acceptance | Hours | Depends on |
+|---|---|---|---|---|
+| S0 | Confirm: `uofa check` can run two packs on one package (`resolve_active_packs` returns a list); the core COU node can carry a bounds claim; `weakener_focus.enrich_firings` accepts a budget term as `affectedNode` | three written answers with file and line | 1 | none |
+| S1 | Core shapes gain `CredibilityBudget` (one per quantity of interest on the COU node), `BudgetTerm` (`termKind`, `status`, optional interval, `source`, `evidenceStatus`), `ApplicabilityBound` (`boundKind` in range, set, point, ratio; variable; how computed; status; source) | SHACL accepts a hand-written package carrying one budget with five terms and two bounds; all existing pack tests pass | 4 | S0 |
+| S2 | Surrogate pack adopts it: Q6 and W-SURR-07 as specified above, plus the four bound kinds in shapes. `validatedMin`/`validatedMax` and `calibrationMin`/`calibrationMax` become `range` bounds | Q6 acceptance unchanged | 6 (already counted in Q6) | S1 |
+| S3 | Model-credibility pack: P2 maps to the statistical term; W-EV-GEN-02 to applicability; `decisionRiskLevel` to materiality; eval population as a `set` bound; W-BOUND-01 (point of use outside a declared bound) as a candidate rule under the pack's catalog-closure gate; every new rule still binds `hasValidationResult` | fires on a card whose `claimedCOU` names a population outside its eval `set`; silent on the three example cards | 5 | S1 |
+| S4 | iso42001 pack: `testSetCoverage` and `deploymentPopulation` become a `set` bound; W-AIMS-MODEL-EVAL-SCOPE sets the shared marker; a register row whose residual rests on unevidenced treatment is a `BudgetTerm` with `status: unbounded` | the v0.6 register fixture's Seeded Defects row sets reproduce, with the unbounded term present on the five overdue rows | 4 | S1, register spec v0.6 phases A to C |
+| S5 | Report: one "Credibility budget" section rendered identically for all three packs: term, status, source, interval if any, standing if any. Never a single number; unbounded is printed. A card with no `claimedCOU` prints "no context of use to budget against" | the three fixtures (NACA, one example card, the register) render the section; stranger test on each | 4 | S2 |
+
+Shared rule family: W-BOUND-01 (point of use outside a declared bound; W-SURR-03 and W-SURR-05 keep their ids and set the marker), W-BOUND-02 (a bound with no source), W-BUDGET-01 (a quantity of interest in the COU with no budget), W-BUDGET-02 (a term unbounded at elevated declared risk). About 24 hours, of which 6 are Q6. S0 and S1 are parallel-now after the defense; S2 and S3 and S4 are parallel after S1; S5 after S2.
+
+**Related-work check (2026-11-01, web).** ISO/IEC AWI TS 25223, "Guidance and requirements for uncertainty quantification in AI systems," SC 42, approved work item registered 2024-08-06, stage 20.00, a working group draft exists, not published. This is the one document that could name the same object; the RESS paper must read its draft scope before claiming the gap, and UQAIS should be the instrument it consumes, not a rival. ASME lists a VVUQ 70 subcommittee, "Verification and Validation of Machine Learning," with no standard, status or date on the public page as of this check. SR 26-2 (OCC Bulletin 2026-13, 2026-04-17) names materiality and applicability-as-uncertainty in its own words ("using a model beyond its intended purpose introduces additional uncertainty and risk"), and never names monotonicity, population stability, drift, or sensitivity analysis; generative and agentic AI are out of its scope. NIST AI RMF MEASURE 2.x asks for uncertainty to be measured and gives no method. Investigation item I-UQ1: obtain the TS 25223 working draft scope through the national body before the RESS paper's related-work section is written.
+
+**What this section may not claim.** A new VVUQ method. A complete budget. A verdict on any system: outside the bounds means unsupported by the validation evidence the system ships with, never wrong. A score: the output is a table with a status per line, and the day it collapses to one number it has stopped being UQAIS.
 
 ### 4.7 The three open models: the talk's cases (added 2026-10-30)
 
